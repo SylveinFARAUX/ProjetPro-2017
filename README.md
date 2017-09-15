@@ -6,7 +6,7 @@ Projet Professionnel avec M. Julien NARBOUX
 
 - BROSSARD Florian
 - MENANTEAU Adèle
-- Clovis MAILLARD
+- MAILLARD Clovis 
 - FARAUX Sylvein
 
 ## First clone
