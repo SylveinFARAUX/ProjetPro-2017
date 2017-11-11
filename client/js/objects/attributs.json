@@ -1,0 +1,8 @@
+{
+    "attributs":{
+        "cheveux":["chauve","cours","long"],
+        "yeux":["verts","bleu","marron"],
+        "barbe":["sans","complète","bouc","moustache"],
+        "accessoires":["boucle d'oreilles", "lunettes"]
+    }
+}
