@@ -46,3 +46,8 @@ Node.js (Current) : https://nodejs.org/en/
 ## Éxécution du projet
 
 Ouvrir le fichier client/index.html dans un navigateur
+
+## Bibliothèque graphique
+
+On utilisera la librairie graphique Vis.js
+Sit web : http://visjs.org/
