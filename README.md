@@ -34,9 +34,10 @@ Manipulation avec le client TortoiseGit : http://jc.etiemble.free.fr/abc/index.p
 
 Node.js (Current) : https://nodejs.org/en/
 Étapes d'installation de npm :
-    *éxécuter la commande : npm install -g grunt webpack uglify-js
-    *aller dans le dossier du projet
-    *éxécuter la commande : npm install
+
+- éxécuter la commande : npm install -g grunt webpack uglify-js
+- aller dans le dossier du projet
+- éxécuter la commande : npm install
 
 ## Compilation du projet
 
