@@ -3,11 +3,12 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-babel');
     grunt.loadNpmTasks('grunt-webpack');
     grunt.loadNpmTasks('grunt-exec');
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.initConfig({
         'babel': {
             options: {
                 sourceMap: false,
-                presets: ['es2015']
+                presets: ['env']
             },
             build: {
                 files: {
@@ -23,9 +24,12 @@ module.exports = function (grunt) {
         },
         'exec': {
             'uglify': 'uglifyjs client/build/js/wwae.babel.js -o client/build/js/wwae.babel.min.js'
+        },
+        'clean':{
+            build: ['client/build/js/*']
         }
     });
     grunt.registerTask('build', ['webpack', 'babel', 'uglify']);
     grunt.registerTask('uglify', ['exec:uglify']);
-    grunt.registerTask('default', ['build']);
+    grunt.registerTask('default', ['clean','build']);
 };
