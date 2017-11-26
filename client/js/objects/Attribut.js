@@ -12,7 +12,8 @@ export default class Attribut{
     }
     
     set nom(nom){
-        this._nom = nom;
+        if(typeof nom === "string")
+            this._nom = nom;
     }
     
     get valeur(){
@@ -20,7 +21,8 @@ export default class Attribut{
     }
     
     set valeur(valeur){
-        this._valeur = valeur;
+        if(typeof valeur === "string")
+            this._valeur = valeur;
     }
     
     get phrase(){
@@ -28,6 +30,11 @@ export default class Attribut{
     }
     
     set phrase(phrase){
-        this._phrase = phrase;
+        if(typeof phrase === "string")
+            this._phrase = phrase;
+    }
+    
+    toString(){
+        return this.phrase;
     }
 }

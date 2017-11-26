@@ -1,6 +1,13 @@
 {
     "attributs":{
-        "cheveux":["chauve","cours","long"],
+        "cheveux":{
+            "valeurs": ["chauve","court","long"],
+            "phrase": "le personnage à les cheveux"
+            },
+        "couleur_cheveux":{
+            "valeurs": ["blond","noir","roux","chauve"],
+            "phrase": "le personnage à les cheveux"
+            },
         "yeux":["verts","bleu","marron"],
         "barbe":["sans","complète","bouc","moustache"],
         "accessoires":["boucle d'oreilles", "lunettes"]

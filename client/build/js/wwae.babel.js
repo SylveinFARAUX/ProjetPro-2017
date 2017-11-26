@@ -1,8 +1,8 @@
 'use strict';
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -80,83 +80,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   /******/__webpack_require__.p = "";
   /******/
   /******/ // Load entry module and return exports
-  /******/return __webpack_require__(__webpack_require__.s = 0);
+  /******/return __webpack_require__(__webpack_require__.s = 1);
   /******/
 })(
 /************************************************************************/
 /******/[
 /* 0 */
-/***/function (module, __webpack_exports__, __webpack_require__) {
-
-  "use strict";
-
-  Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-  /* harmony import */var __WEBPACK_IMPORTED_MODULE_0__objects_Character__ = __webpack_require__(1);
-
-  console.log("WWAE running...");
-
-  /***/
-},
-/* 1 */
-/***/function (module, __webpack_exports__, __webpack_require__) {
-
-  "use strict";
-  /* harmony import */
-  var __WEBPACK_IMPORTED_MODULE_0__libs_underscore_js__ = __webpack_require__(2);
-  /* harmony import */var __WEBPACK_IMPORTED_MODULE_0__libs_underscore_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__libs_underscore_js__);
-
-  var REQUIRED_ATTRIBUTES = ['gender', 'shape', 'eyeColor', 'hairColor', 'hairShape', 'facialHair', 'skinColor', 'glasses', 'hat'];
-
-  var Character = function () {
-    function Character(name, attributeCollection) {
-      _classCallCheck(this, Character);
-
-      this.isUp = true; //le personnage n'est pas éliminé pour la partie en cours
-      this.name = name; //string
-      this.gender = null; //homme/femme
-      this.shape = null; //visage rond/oeuf/fin/carré
-      this.eyeColor = null; //bleu/vert/marron
-      this.hairColor = null; //blond/brun/noir/blanc/roux
-      this.hairShape = null; //chauve/long/court
-      this.facialHair = null; //barbe/moustache/barbe+moustache/rien
-      this.skinColor = null; //blanc/noir
-      this.glasses = null; //lunettes/rien
-      this.hat = null; //chapeau/rien
-      initAttributesWith(attributeCollection);
-    }
-
-    _createClass(Character, [{
-      key: 'initAttributesWith',
-      value: function initAttributesWith(attrs) {
-        if (!checkAttributesList(attrs)) return;
-      }
-    }, {
-      key: 'checkAttributesList',
-      value: function checkAttributesList(attrs) {}
-    }, {
-      key: 'headShape',
-      value: function headShape() {
-        return this.attributes.headShape;
-      }
-    }, {
-      key: 'skinColor',
-      value: function skinColor() {
-        return this.attributes.skinColor;
-      }
-    }, {
-      key: 'hairColor',
-      value: function hairColor() {
-        return this.attributes.hairColor;
-      }
-    }]);
-
-    return Character;
-  }();
-  /* unused harmony export default */
-
-  /***/
-},
-/* 2 */
 /***/function (module, exports, __webpack_require__) {
 
   var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__; //     Underscore.js 1.8.3
@@ -1729,5 +1658,207 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   }).call(this);
 
   /***/
+},
+/* 1 */
+/***/function (module, __webpack_exports__, __webpack_require__) {
+
+  "use strict";
+
+  Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+  /* harmony import */var __WEBPACK_IMPORTED_MODULE_0__objects_Personnage__ = __webpack_require__(2);
+  /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__objects_AttributsCollection__ = __webpack_require__(3);
+
+  console.log("WWAE running...");
+
+  var p = new __WEBPACK_IMPORTED_MODULE_0__objects_Personnage__["a" /* default */]("test", [], "../assets/test.jpg");
+  var attrCol = new __WEBPACK_IMPORTED_MODULE_1__objects_AttributsCollection__["a" /* default */]();
+
+  console.log(p);
+  console.log(attrCol);
+
+  console.log("valeurs de cheveux : " + attrCol.getValeurs("cheveux"));
+  console.log("cheveux blond existe : " + attrCol.existsValeur("couleur_cheveux", "blond"));
+  console.log("cheveux violet existe : " + attrCol.existsValeur("couleur_cheveux", "violet"));
+  console.log("attribut pied existe : " + attrCol.existsAttribut("pied"));
+  console.log("attribut cheveux court : '" + attrCol.createAttribut("cheveux", "court").toString() + "'");
+
+  /***/
+},
+/* 2 */
+/***/function (module, __webpack_exports__, __webpack_require__) {
+
+  "use strict";
+  /* harmony import */
+  var __WEBPACK_IMPORTED_MODULE_0__libs_underscore_js__ = __webpack_require__(0);
+  /* harmony import */var __WEBPACK_IMPORTED_MODULE_0__libs_underscore_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__libs_underscore_js__);
+
+  var Personnage = function () {
+    function Personnage(nom, attributs, img) {
+      _classCallCheck(this, Personnage);
+
+      this._nom = undefined;
+      this._attributs = undefined;
+      this._img = undefined;
+      this.nom = nom;
+      this.attributs = attributs;
+      this.img = img;
+    }
+
+    _createClass(Personnage, [{
+      key: 'img',
+      get: function get() {
+        return this._img;
+      },
+      set: function set(img) {
+        console.log("setting img to " + img);
+        this._img = img;
+      }
+    }, {
+      key: 'nom',
+      get: function get() {
+        return this._nom;
+      },
+      set: function set(nom) {
+        this._nom = nom;
+      }
+    }, {
+      key: 'attributs',
+      get: function get() {
+        return this._attributs;
+      },
+      set: function set(attributs) {
+        this._attributs = attributs;
+      }
+    }]);
+
+    return Personnage;
+  }();
+  /* harmony export (immutable) */
+
+  __webpack_exports__["a"] = Personnage;
+
+  /***/
+},
+/* 3 */
+/***/function (module, __webpack_exports__, __webpack_require__) {
+
+  "use strict";
+  /* harmony import */
+  var __WEBPACK_IMPORTED_MODULE_0__libs_underscore_js__ = __webpack_require__(0);
+  /* harmony import */var __WEBPACK_IMPORTED_MODULE_0__libs_underscore_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__libs_underscore_js__);
+  /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__Attribut__ = __webpack_require__(4);
+  /* harmony import */var __WEBPACK_IMPORTED_MODULE_2__attributs__ = __webpack_require__(5);
+  /* harmony import */var __WEBPACK_IMPORTED_MODULE_2__attributs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__attributs__);
+
+  var AttributCollection = function () {
+    function AttributCollection() {
+      _classCallCheck(this, AttributCollection);
+
+      this._attributs = [];
+      this.hydrate();
+    }
+
+    _createClass(AttributCollection, [{
+      key: 'hydrate',
+      value: function hydrate() {
+        console.log(__WEBPACK_IMPORTED_MODULE_2__attributs___default.a);
+        this._attributs = __WEBPACK_IMPORTED_MODULE_2__attributs___default.a.attributs;
+      }
+    }, {
+      key: 'getValeurs',
+      value: function getValeurs(attribut) {
+        if (typeof attribut === "string") return __WEBPACK_IMPORTED_MODULE_0__libs_underscore_js__["toArray"](this._attributs[attribut].valeurs);
+      }
+    }, {
+      key: 'existsAttribut',
+      value: function existsAttribut(attribut) {
+        if (typeof attribut === "string" && typeof attribut === "string") return this._attributs.hasOwnProperty(attribut);else return false;
+      }
+    }, {
+      key: 'existsValeur',
+      value: function existsValeur(attribut, valeur) {
+        if (this.existsAttribut(attribut) && typeof valeur === "string") return this.getValeurs(attribut).includes(valeur);else return false;
+      }
+    }, {
+      key: 'createAttribut',
+      value: function createAttribut(attribut, valeur) {
+        if (this.existsValeur(attribut, valeur)) {
+          var phrase = this._attributs[attribut].phrase;
+          phrase += " " + valeur + " ?";
+          return new __WEBPACK_IMPORTED_MODULE_1__Attribut__["a" /* default */](attribut, valeur, phrase);
+        }
+      }
+    }]);
+
+    return AttributCollection;
+  }();
+  /* harmony export (immutable) */
+
+  __webpack_exports__["a"] = AttributCollection;
+
+  /***/
+},
+/* 4 */
+/***/function (module, __webpack_exports__, __webpack_require__) {
+
+  "use strict";
+  /* harmony import */
+  var __WEBPACK_IMPORTED_MODULE_0__libs_underscore_js__ = __webpack_require__(0);
+  /* harmony import */var __WEBPACK_IMPORTED_MODULE_0__libs_underscore_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__libs_underscore_js__);
+
+  var Attribut = function () {
+    function Attribut(nom, valeur, phrase) {
+      _classCallCheck(this, Attribut);
+
+      this._nom = nom; //nom de l'attribut (cheveux, lunettes, yeux, ...)
+      this._valeur = valeur; //(bleu, vert, avec, sans, ...)
+      this._phrase = phrase; // phrase d'assertion (la question quoi)
+    }
+
+    _createClass(Attribut, [{
+      key: 'toString',
+      value: function toString() {
+        return this.phrase;
+      }
+    }, {
+      key: 'nom',
+      get: function get() {
+        return this._nom;
+      },
+      set: function set(nom) {
+        if (typeof nom === "string") this._nom = nom;
+      }
+    }, {
+      key: 'valeur',
+      get: function get() {
+        return this._valeur;
+      },
+      set: function set(valeur) {
+        if (typeof valeur === "string") this._valeur = valeur;
+      }
+    }, {
+      key: 'phrase',
+      get: function get() {
+        return this._phrase;
+      },
+      set: function set(phrase) {
+        if (typeof phrase === "string") this._phrase = phrase;
+      }
+    }]);
+
+    return Attribut;
+  }();
+  /* harmony export (immutable) */
+
+  __webpack_exports__["a"] = Attribut;
+
+  /***/
+},
+/* 5 */
+/***/function (module, exports) {
+
+  module.exports = { "attributs": { "cheveux": { "valeurs": ["chauve", "court", "long"], "phrase": "le personnage à les cheveux" }, "couleur_cheveux": { "valeurs": ["blond", "noir", "roux", "chauve"], "phrase": "le personnage à les cheveux" }, "yeux": { "valeurs": ["verts", "bleu", "marron"], "phrase": "le personnage à les yeux" }, "barbe": { "valeurs": ["sans", "complète", "bouc", "moustache"], "phrase": "le personnage à" }, "accessoires": { "valeurs": ["boucle d'oreilles", "lunettes"], "phrase": "le personnage à des" } }
+
+    /***/ };
 }]
 /******/);
