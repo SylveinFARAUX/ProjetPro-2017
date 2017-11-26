@@ -11,11 +11,23 @@ export default class Attribut{
         return this._nom;
     }
     
+    set nom(nom){
+        this._nom = nom;
+    }
+    
     get valeur(){
         return this._valeur;
     }
     
+    set valeur(valeur){
+        this._valeur = valeur;
+    }
+    
     get phrase(){
         return this._phrase;
+    }
+    
+    set phrase(phrase){
+        this._phrase = phrase;
     }
 }
