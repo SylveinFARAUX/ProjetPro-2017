@@ -8,8 +8,17 @@
             "valeurs": ["blond","noir","roux","chauve"],
             "phrase": "le personnage à les cheveux"
             },
-        "yeux":["verts","bleu","marron"],
-        "barbe":["sans","complète","bouc","moustache"],
-        "accessoires":["boucle d'oreilles", "lunettes"]
+        "yeux":{
+            "valeurs":["verts","bleu","marron"],
+            "phrase": "le personnage à les yeux"
+        },
+        "barbe":{
+            "valeurs":["sans","complète","bouc","moustache"],
+            "phrase": "le personnage à"
+        },
+        "accessoires":{
+            "valeurs":["boucle d'oreilles", "lunettes"],
+            "phrase": "le personnage à des"
+        }
     }
 }
