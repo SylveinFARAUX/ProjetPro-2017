@@ -7,29 +7,86 @@
         <script src="build/js/wwae.babel.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     </head>
     <body>
-        <div class="row">
-            <div class="col-md-9 strategie">
-                test
+        <div id="app" class="app">
+            <div class="row top">
+                <div class="col-md-9 strategie">
+                    <h3>Stratégie</h3>
+                    
+                </div>
+                 <div class="col-md-3 attributs">
+                    <h3>Attributs</h3>
+                    {{afficheAttributs()}}
+                    <div v-for="attribut in attributs">
+                        {{attribut}}
+                    </div>
+                </div>
             </div>
-             <div class="col-md-3 attributs">
-                coucou
-            </div>
-        </div>
-         <div class="row">
-            <div class="col-md-9 population">
-                test
-            </div>
-             <div class="col-md-3 informations">
-                coucou
-            </div>
-        </div>       
+             <div class="row bottom">
+                <div class="col-md-9 population">
+                    <h3>Population</h3>
+                </div>
+                 <div class="col-md-3 informations">
+                    <h3>Informations</h3>
+                </div>
+            </div>  
+        </div>     
     </body>
 </html>
 
+<script>
+    var app = new Vue({
+        el: '#app',
+
+        data: {
+            //@TODO load from json
+            attributs : [
+                {cheveux: 'blond'},
+                {yeux: 'vert'}
+            ]        
+        },
+
+        computed : {
+        
+        },
+
+        methods : {
+            afficheAttributs() {
+                console.log("attributs", this.attributs);
+            }
+        },
+
+        mounted() {
+        }
+    })
+</script>
+
 <style>
-    .strategie {
+    html,
+    body,
+    .app {
+        height: 100%;
+    }
+
+    .top {
+        min-height: 70%;
+    }
+
+    .bottom {
+        min-height: 30%;
+    }
+
+    .strategie,
+    .attributs,
+    .population,
+    .informations {
         border: 1px solid #000;
+        min-height: 100%;
+    }
+
+    .strategie {
+        overflow-y: scroll;
     }
 </style>
