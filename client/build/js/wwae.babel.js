@@ -1857,7 +1857,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /* 5 */
 /***/function (module, exports) {
 
-  module.exports = { "attributs": { "cheveux": { "valeurs": ["chauve", "court", "long"], "phrase": "le personnage à les cheveux" }, "couleur_cheveux": { "valeurs": ["blond", "noir", "roux", "chauve"], "phrase": "le personnage à les cheveux" }, "yeux": { "valeurs": ["verts", "bleu", "marron"], "phrase": "le personnage à les yeux" }, "barbe": { "valeurs": ["sans", "complète", "bouc", "moustache"], "phrase": "le personnage à" }, "accessoires": { "valeurs": ["boucle d'oreilles", "lunettes"], "phrase": "le personnage à des" } }
+  module.exports = { "attributs": { "cheveux": { "valeurs": ["chauve", "court", "long"], "phrase": "le personnage a les cheveux" }, "couleur_cheveux": { "valeurs": ["blond", "noir", "roux", "chauve"], "phrase": "le personnage a les cheveux" }, "yeux": { "valeurs": ["verts", "bleu", "marron"], "phrase": "le personnage a les yeux" }, "barbe": { "valeurs": ["sans", "complète", "bouc", "moustache"], "phrase": "le personnage a" }, "accessoires": { "valeurs": ["boucle d'oreilles", "lunettes"], "phrase": "le personnage a des" } }
 
     /***/ };
 }]

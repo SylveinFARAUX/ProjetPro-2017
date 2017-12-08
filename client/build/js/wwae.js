@@ -1643,6 +1643,7 @@ console.log("cheveux violet existe : "+attrCol.existsValeur("couleur_cheveux","v
 console.log("attribut pied existe : "+attrCol.existsAttribut("pied"));
 console.log("attribut cheveux court : '"+attrCol.createAttribut("cheveux","court").toString()+"'");
 
+
 /***/ }),
 /* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -1799,7 +1800,7 @@ class Attribut{
 /* 5 */
 /***/ (function(module, exports) {
 
-module.exports = {"attributs":{"cheveux":{"valeurs":["chauve","court","long"],"phrase":"le personnage à les cheveux"},"couleur_cheveux":{"valeurs":["blond","noir","roux","chauve"],"phrase":"le personnage à les cheveux"},"yeux":{"valeurs":["verts","bleu","marron"],"phrase":"le personnage à les yeux"},"barbe":{"valeurs":["sans","complète","bouc","moustache"],"phrase":"le personnage à"},"accessoires":{"valeurs":["boucle d'oreilles","lunettes"],"phrase":"le personnage à des"}}}
+module.exports = {"attributs":{"cheveux":{"valeurs":["chauve","court","long"],"phrase":"le personnage a les cheveux"},"couleur_cheveux":{"valeurs":["blond","noir","roux","chauve"],"phrase":"le personnage a les cheveux"},"yeux":{"valeurs":["verts","bleu","marron"],"phrase":"le personnage a les yeux"},"barbe":{"valeurs":["sans","complète","bouc","moustache"],"phrase":"le personnage a"},"accessoires":{"valeurs":["boucle d'oreilles","lunettes"],"phrase":"le personnage a des"}}}
 
 /***/ })
 /******/ ]);

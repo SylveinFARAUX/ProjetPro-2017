@@ -2,23 +2,23 @@
     "attributs":{
         "cheveux":{
             "valeurs": ["chauve","court","long"],
-            "phrase": "le personnage à les cheveux"
+            "phrase": "le personnage a les cheveux"
             },
         "couleur_cheveux":{
             "valeurs": ["blond","noir","roux","chauve"],
-            "phrase": "le personnage à les cheveux"
+            "phrase": "le personnage a les cheveux"
             },
         "yeux":{
             "valeurs":["verts","bleu","marron"],
-            "phrase": "le personnage à les yeux"
+            "phrase": "le personnage a les yeux"
         },
         "barbe":{
             "valeurs":["sans","complète","bouc","moustache"],
-            "phrase": "le personnage à"
+            "phrase": "le personnage a"
         },
         "accessoires":{
             "valeurs":["boucle d'oreilles", "lunettes"],
-            "phrase": "le personnage à des"
+            "phrase": "le personnage a des"
         }
     }
 }
