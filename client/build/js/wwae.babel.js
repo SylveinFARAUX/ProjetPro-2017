@@ -1667,6 +1667,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   /* harmony import */var __WEBPACK_IMPORTED_MODULE_0__objects_Personnage__ = __webpack_require__(2);
   /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__objects_AttributsCollection__ = __webpack_require__(3);
+  /* harmony import */var __WEBPACK_IMPORTED_MODULE_2__objects_AttributsPanel_js__ = __webpack_require__(6);
+  /* harmony import */var __WEBPACK_IMPORTED_MODULE_3__objects_PopulationPanel_js__ = __webpack_require__(7);
+  /* harmony import */var __WEBPACK_IMPORTED_MODULE_4__objects_StrategiePanel_js__ = __webpack_require__(8);
+  /* harmony import */var __WEBPACK_IMPORTED_MODULE_5__objects_InformationsPanel_js__ = __webpack_require__(9);
+  /* harmony import */var __WEBPACK_IMPORTED_MODULE_6__objects_Application_js__ = __webpack_require__(10);
 
   console.log("WWAE running...");
 
@@ -1676,11 +1681,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   console.log(p);
   console.log(attrCol);
 
-  console.log("valeurs de cheveux : " + attrCol.getValeurs("cheveux"));
-  console.log("cheveux blond existe : " + attrCol.existsValeur("couleur_cheveux", "blond"));
-  console.log("cheveux violet existe : " + attrCol.existsValeur("couleur_cheveux", "violet"));
-  console.log("attribut pied existe : " + attrCol.existsAttribut("pied"));
-  console.log("attribut cheveux court : '" + attrCol.createAttribut("cheveux", "court").toString() + "'");
+  // console.log("valeurs de cheveux : "+attrCol.getValeurs("cheveux"));
+  // console.log("cheveux blond existe : "+attrCol.existsValeur("couleur_cheveux","blond"));
+  // console.log("cheveux violet existe : "+attrCol.existsValeur("couleur_cheveux","violet"));
+  // console.log("attribut pied existe : "+attrCol.existsAttribut("pied"));
+  // console.log("attribut cheveux court : '"+attrCol.createAttribut("cheveux","court").toString()+"'");
+
+  var informationsDOM = document.getElementById('informations');
+  var strategieDOM = document.getElementById('strategie');
+  var attributsDOM = document.getElementById('attributs');
+  var populationDOM = document.getElementById('population');
+
+  var informationsPanel = new __WEBPACK_IMPORTED_MODULE_5__objects_InformationsPanel_js__["a" /* default */](informationsDOM);
+  var strategiePanel = new __WEBPACK_IMPORTED_MODULE_4__objects_StrategiePanel_js__["a" /* default */](strategieDOM);
+  var attributsPanel = new __WEBPACK_IMPORTED_MODULE_2__objects_AttributsPanel_js__["a" /* default */](attributsDOM);
+  var populationPanel = new __WEBPACK_IMPORTED_MODULE_3__objects_PopulationPanel_js__["a" /* default */](populationDOM);
+
+  var app = new __WEBPACK_IMPORTED_MODULE_6__objects_Application_js__["a" /* default */](informationsPanel, strategiePanel, attributsPanel, populationPanel);
 
   /***/
 },
@@ -1860,5 +1877,75 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   module.exports = { "attributs": { "cheveux": { "valeurs": ["chauve", "court", "long"], "phrase": "le personnage a les cheveux" }, "couleur_cheveux": { "valeurs": ["blond", "noir", "roux", "chauve"], "phrase": "le personnage a les cheveux" }, "yeux": { "valeurs": ["verts", "bleu", "marron"], "phrase": "le personnage a les yeux" }, "barbe": { "valeurs": ["sans", "complète", "bouc", "moustache"], "phrase": "le personnage a" }, "accessoires": { "valeurs": ["boucle d'oreilles", "lunettes"], "phrase": "le personnage a des" } }
 
     /***/ };
+},
+/* 6 */
+/***/function (module, __webpack_exports__, __webpack_require__) {
+
+  "use strict";
+
+  var AttributsPanel = function AttributsPanel() {
+    _classCallCheck(this, AttributsPanel);
+  };
+  /* harmony export (immutable) */
+
+  __webpack_exports__["a"] = AttributsPanel;
+
+  /***/
+},
+/* 7 */
+/***/function (module, __webpack_exports__, __webpack_require__) {
+
+  "use strict";
+
+  var PopulationPanel = function PopulationPanel() {
+    _classCallCheck(this, PopulationPanel);
+  };
+  /* harmony export (immutable) */
+
+  __webpack_exports__["a"] = PopulationPanel;
+
+  /***/
+},
+/* 8 */
+/***/function (module, __webpack_exports__, __webpack_require__) {
+
+  "use strict";
+
+  var StrategiePanel = function StrategiePanel() {
+    _classCallCheck(this, StrategiePanel);
+  };
+  /* harmony export (immutable) */
+
+  __webpack_exports__["a"] = StrategiePanel;
+
+  /***/
+},
+/* 9 */
+/***/function (module, __webpack_exports__, __webpack_require__) {
+
+  "use strict";
+
+  var InformationsPanel = function InformationsPanel() {
+    _classCallCheck(this, InformationsPanel);
+  };
+  /* harmony export (immutable) */
+
+  __webpack_exports__["a"] = InformationsPanel;
+
+  /***/
+},
+/* 10 */
+/***/function (module, __webpack_exports__, __webpack_require__) {
+
+  "use strict";
+
+  var Application = function Application() {
+    _classCallCheck(this, Application);
+  };
+  /* harmony export (immutable) */
+
+  __webpack_exports__["a"] = Application;
+
+  /***/
 }]
 /******/);

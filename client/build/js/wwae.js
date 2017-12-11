@@ -1610,9 +1610,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscor
   // an AMD load request. Those cases could generate an error when an
   // anonymous define() is called outside of a loader request.
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function() {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function() {
       return _;
-    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
   }
 }.call(this));
@@ -1626,6 +1626,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscor
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__objects_Personnage__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__objects_AttributsCollection__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__objects_AttributsPanel_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__objects_PopulationPanel_js__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__objects_StrategiePanel_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__objects_InformationsPanel_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__objects_Application_js__ = __webpack_require__(10);
+
+
+
+
+
+
 
 
 
@@ -1637,11 +1648,23 @@ let attrCol = new __WEBPACK_IMPORTED_MODULE_1__objects_AttributsCollection__["a"
 console.log(p);
 console.log(attrCol);
 
-console.log("valeurs de cheveux : "+attrCol.getValeurs("cheveux"));
-console.log("cheveux blond existe : "+attrCol.existsValeur("couleur_cheveux","blond"));
-console.log("cheveux violet existe : "+attrCol.existsValeur("couleur_cheveux","violet"));
-console.log("attribut pied existe : "+attrCol.existsAttribut("pied"));
-console.log("attribut cheveux court : '"+attrCol.createAttribut("cheveux","court").toString()+"'");
+// console.log("valeurs de cheveux : "+attrCol.getValeurs("cheveux"));
+// console.log("cheveux blond existe : "+attrCol.existsValeur("couleur_cheveux","blond"));
+// console.log("cheveux violet existe : "+attrCol.existsValeur("couleur_cheveux","violet"));
+// console.log("attribut pied existe : "+attrCol.existsAttribut("pied"));
+// console.log("attribut cheveux court : '"+attrCol.createAttribut("cheveux","court").toString()+"'");
+
+let informationsDOM = document.getElementById('informations');
+let strategieDOM = document.getElementById('strategie');
+let attributsDOM = document.getElementById('attributs');
+let populationDOM = document.getElementById('population');
+
+let informationsPanel = new __WEBPACK_IMPORTED_MODULE_5__objects_InformationsPanel_js__["a" /* default */](informationsDOM);
+let strategiePanel = new __WEBPACK_IMPORTED_MODULE_4__objects_StrategiePanel_js__["a" /* default */](strategieDOM);
+let attributsPanel = new __WEBPACK_IMPORTED_MODULE_2__objects_AttributsPanel_js__["a" /* default */](attributsDOM);
+let populationPanel = new __WEBPACK_IMPORTED_MODULE_3__objects_PopulationPanel_js__["a" /* default */](populationDOM);
+
+let app = new __WEBPACK_IMPORTED_MODULE_6__objects_Application_js__["a" /* default */](informationsPanel, strategiePanel, attributsPanel, populationPanel);
 
 
 /***/ }),
@@ -1801,6 +1824,68 @@ class Attribut{
 /***/ (function(module, exports) {
 
 module.exports = {"attributs":{"cheveux":{"valeurs":["chauve","court","long"],"phrase":"le personnage a les cheveux"},"couleur_cheveux":{"valeurs":["blond","noir","roux","chauve"],"phrase":"le personnage a les cheveux"},"yeux":{"valeurs":["verts","bleu","marron"],"phrase":"le personnage a les yeux"},"barbe":{"valeurs":["sans","complète","bouc","moustache"],"phrase":"le personnage a"},"accessoires":{"valeurs":["boucle d'oreilles","lunettes"],"phrase":"le personnage a des"}}}
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class AttributsPanel {
+
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = AttributsPanel;
+
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class PopulationPanel {
+
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = PopulationPanel;
+
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class StrategiePanel {
+
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = StrategiePanel;
+
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class InformationsPanel {
+  constructor(){
+    
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = InformationsPanel;
+
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Application {
+
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Application;
+
+
 
 /***/ })
 /******/ ]);

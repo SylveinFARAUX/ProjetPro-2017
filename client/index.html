@@ -4,14 +4,12 @@
         <title>Who's Who Assessment Engine</title>
         <meta charset="UTF-8"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
-        <script src="build/js/wwae.babel.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/main.css"/>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     </head>
     <body>
         <div id="app" class="app">
@@ -20,15 +18,15 @@
                     <div class="title">
                       <h3>Stratégie</h3>
                     </div>
-                    <div class="content">
-                      
+                    <div  id="strategie" class="content">
+
                     </div>
                 </div>
                  <div class="col-md-3 attributs">
                    <div class="title">
                      <h3>Attributs</h3>
                    </div>
-                   <div class="content">
+                   <div id="attributs" class="content">
 
                    </div>
                 </div>
@@ -38,7 +36,7 @@
                   <div class="title">
                     <h3>Population</h3>
                   </div>
-                  <div class="content">
+                  <div id="population" class="content">
 
                   </div>
                 </div>
@@ -46,37 +44,12 @@
                    <div class="title">
                      <h3>Informations</h3>
                    </div>
-                   <div class="content">
+                   <div id="informations" class="content">
 
                    </div>
                 </div>
             </div>
         </div>
     </body>
-    
+    <script src="build/js/wwae.babel.js"></script>
 </html>
-
-<script>
-    var app = new Vue({
-        el: '#app',
-
-        props: {
-
-        },
-
-        data: {
-
-        },
-
-        computed : {
-
-        },
-
-        methods : {
-
-        },
-
-        mounted() {
-        }
-    });
-</script>
