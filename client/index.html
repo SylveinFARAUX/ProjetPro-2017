@@ -7,9 +7,10 @@
         <script src="build/js/wwae.babel.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="css/main.css"/>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     </head>
     <body>
@@ -52,6 +53,7 @@
             </div>
         </div>
     </body>
+    
 </html>
 
 <script>
@@ -76,59 +78,5 @@
 
         mounted() {
         }
-    })
+    });
 </script>
-
-<style>
-    html,
-    body,
-    .app {
-        height: 100%;
-        font-family: 'Playfair Display', serif;
-        overflow: hidden;
-    }
-
-    .top {
-        height: 70%;
-    }
-
-    .bottom {
-        height: 30%;
-    }
-
-    .strategie,
-    .attributs,
-    .population,
-    .informations {
-        min-height: 100%;
-        overflow-y: auto;
-        padding-bottom: 10px;
-    }
-
-    .strategie {
-      border-bottom: 1px solid #000;
-    }
-
-    .attributs {
-      border-bottom: 1px solid #000;
-      border-left: 1px solid #000;
-    }
-
-    .informations {
-      border-left: 1px solid #000;
-    }
-
-    .title {
-      position: fixed;
-      width: 100%;
-      background-color: rgba(255, 255, 255, 0.75);
-    }
-
-    h3 {
-      color: #df4540;
-    }
-
-    .content {
-      padding-top: 41px;
-    }
-</style>
