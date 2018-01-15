@@ -14,7 +14,6 @@ body,
     height: 30%;
 }
 
-.strategie,
 .attributs,
 .population,
 .informations {
@@ -24,6 +23,8 @@ body,
 }
 
 .strategie {
+  padding-bottom: 10px;
+  min-height: 100%;
   border-bottom: 1px solid #000;
 }
 
@@ -48,4 +49,10 @@ h3 {
 
 .content {
   padding-top: 41px;
+}
+
+#mynetwork {
+  width: 100%;
+  height: 100% !important;
+  border: 1px solid lightgray;
 }
