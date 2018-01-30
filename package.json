@@ -12,11 +12,11 @@
     "grunt-contrib-clean": "^1.1.0",
     "grunt-exec": "^3.0.0",
     "grunt-webpack": "^3.0.2",
-    "uglify-js": "^3.1.6",
+    "uglify-js": "^3.3.9",
     "uglifyjs-webpack-plugin": "^1.0.1",
+    "vis": "^4.21.0",
     "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.3",
-    "vis": "^4.21.0"
+    "webpack-dev-server": "^2.9.3"
   },
   "dependencies": {
     "vue": "^2.5.9"

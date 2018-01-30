@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1610,9 +1610,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscor
   // an AMD load request. Those cases could generate an error when an
   // anonymous define() is called outside of a loader request.
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function() {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function() {
       return _;
-    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
   }
 }.call(this));
@@ -1623,181 +1623,171 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscor
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__objects_Personnage__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__objects_AttributsCollection__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__objects_AttributsPanel_js__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__objects_PopulationPanel_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__objects_StrategiePanel_js__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__objects_InformationsPanel_js__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__objects_Application_js__ = __webpack_require__(10);
-
-
-
-
-
-
-
-
-
-console.log("WWAE running...");
-
-let p = new __WEBPACK_IMPORTED_MODULE_0__objects_Personnage__["a" /* default */]("test", [], "../assets/test.jpg");
-let attrCol = new __WEBPACK_IMPORTED_MODULE_1__objects_AttributsCollection__["a" /* default */]();
-
-console.log(p);
-console.log(attrCol);
-
-// console.log("valeurs de cheveux : "+attrCol.getValeurs("cheveux"));
-// console.log("cheveux blond existe : "+attrCol.existsValeur("couleur_cheveux","blond"));
-// console.log("cheveux violet existe : "+attrCol.existsValeur("couleur_cheveux","violet"));
-// console.log("attribut pied existe : "+attrCol.existsAttribut("pied"));
-// console.log("attribut cheveux court : '"+attrCol.createAttribut("cheveux","court").toString()+"'");
-
-let informationsDOM = document.getElementById('informations');
-let strategieDOM = document.getElementById('strategie');
-let attributsDOM = document.getElementById('attributs');
-let populationDOM = document.getElementById('population');
-
-let informationsPanel = new __WEBPACK_IMPORTED_MODULE_5__objects_InformationsPanel_js__["a" /* default */](informationsDOM);
-let strategiePanel = new __WEBPACK_IMPORTED_MODULE_4__objects_StrategiePanel_js__["a" /* default */](strategieDOM);
-let attributsPanel = new __WEBPACK_IMPORTED_MODULE_2__objects_AttributsPanel_js__["a" /* default */](attributsDOM);
-let populationPanel = new __WEBPACK_IMPORTED_MODULE_3__objects_PopulationPanel_js__["a" /* default */](populationDOM);
-
-let app = new __WEBPACK_IMPORTED_MODULE_6__objects_Application_js__["a" /* default */](informationsPanel, strategiePanel, attributsPanel, populationPanel);
-
-// create an array with nodes
-var nodes = new vis.DataSet([
-  {id: 1, label: 'Node 1'},
-  {id: 2, label: 'Node 2'},
-  {id: 3, label: 'Node 3'},
-  {id: 4, label: 'Node 4'},
-  {id: 5, label: 'Node 5'}
-]);
-
-// create an array with edges
-var edges = new vis.DataSet([
-  {from: 1, to: 3},
-  {from: 1, to: 2},
-  {from: 2, to: 4},
-  {from: 2, to: 5},
-  {from: 3, to: 3}
-]);
-
-// create a network
-var container = document.getElementById('mynetwork');
-var data = {
-  nodes: nodes,
-  edges: edges
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ATTRIBUTES_OPTIONS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return STRATEGY_OPTIONS; });
+/* harmony export (immutable) */ __webpack_exports__["c"] = isNetworkEvent;
+let ATTRIBUTES_OPTIONS = {
+    locale: 'en', //si on met fr ça casse
+    height: '100%',
+    width: '100%',
+    autoResize: true,
+    edges:{
+        arrows: {
+            to: true //affiche la flêche côté arrivé
+        }
+    },
+    interaction: {
+        hover: true //active la gestion des événements de survol des noeuds
+    },
+    manipulation: {
+        enabled: false //true -> affiche le petit menu edit
+    },
+    physics: {
+        enabled: false
+    }
 };
-var options = {};
-var network = new vis.Network(container, data, options);
 
+let STRATEGY_OPTIONS = {
+    locale: 'en', //si on met fr ça casse
+    height: '100%',
+    width: '100%',
+    autoResize: true,
+    edges:{
+        arrows: {
+            to: true //affiche la flêche côté arrivé
+        }
+    },
+    layout: {
+        hierarchical: {
+            direction: 'UD' //diréction de la hiérachisation de l'arbre du haut vers le bas (Up Down)
+        }
+    },
+    interaction: {
+        hover: true //active la gestion des événements de survol des noeuds
+    },
+    manipulation: {
+        enabled: false //true -> affiche le petit menu edit
+    }
+};
+
+
+/**
+ * Evenements disponible pour les ojets Vis.Network
+ * @type {string[]}
+ */
+const NETWORK_EVENTS =   [
+                                    "dragStart", "dragging", "dragEnd", "zoom", "showPopup", "hidePopup",
+                                    "select", "selectNode", "selectEdge", "deselectNode", "deselectEdge",
+                                    "hoverNode", "hoverEdge", "blurNode", "blurEdge"
+                                ];
+
+function isNetworkEvent(event){
+    if(typeof event !== 'string')
+        return false;
+    else
+        return NETWORK_EVENTS.includes(event);
+}
 
 /***/ }),
 /* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__libs_underscore_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__libs_underscore_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__libs_underscore_js__);
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__objects_AttributesPanel__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__objects_StrategyPanel__ = __webpack_require__(7);
+/* global vis */
 
 
-class Personnage{
-    constructor(nom, attributs, img){
-        this._nom = undefined;
-        this._attributs = undefined;
-        this._img = undefined;
-        this.nom = nom;
-        this.attributs = attributs;
-        this.img = img;
-    }
-    
-    get img(){
-        return this._img;
-    }
-    
-    set img(img){
-        console.log("setting img to "+img);
-        this._img = img;
-    }
-    
-    get nom(){
-        return this._nom;
-    }
-    
-    set nom(nom){
-        this._nom = nom;
-    }
-    
-    get attributs(){
-        return this._attributs;
-    }
-    
-    set attributs(attributs){
-        this._attributs = attributs;
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Personnage;
 
+
+// create an array with nodes
+let nodes = new vis.DataSet([
+    {id: 1, label: 'Node 1', level: 0, title: 'Je s\'appel root'},
+    {id: 2, label: 'Node 2', level: 1},
+    {id: 3, label: 'Node 3', level: 1},
+    {id: 4, label: 'Node 4', level: 2},
+    {id: 5, label: 'Node 5', level: 2}
+]);
+
+// create an array with edges
+let edges = new vis.DataSet([
+    {from: 1, to: 2},
+    {from: 1, to: 3},
+    {from: 2, to: 4},
+    {from: 2, to: 5},
+    {from: 3}
+]);
+
+new __WEBPACK_IMPORTED_MODULE_1__objects_StrategyPanel__["a" /* default */](document.getElementById('strategie-network'), nodes, edges, new __WEBPACK_IMPORTED_MODULE_0__objects_AttributesPanel__["a" /* default */](document.getElementById('attributs-network')));
 
 /***/ }),
 /* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AttributesCollection__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Common__ = __webpack_require__(1);
+
+
+
+class AttributesPanel {
+    constructor(element, nodes){
+        this.attributsCollection = new __WEBPACK_IMPORTED_MODULE_0__AttributesCollection__["a" /* default */]();
+        if(element === undefined) {
+            throw new Error("@AttributesPanel() -> Erreur : element doit être définis");
+        }
+        this.element = element;
+
+        if(typeof nodes !== "object"){
+            console.log("@AttributesPanel() -> Debug : noeuds par défaut");
+            this.nodes = new vis.DataSet([
+                {id: 42, label: 'Node 42', title: 'Test panel attributs'},
+            ]);
+        }else{
+            this.nodes = nodes;
+        }
+        this.data = {nodes: this.nodes, edges: new vis.DataSet()};
+        this.network = new vis.Network(this.element, this.data, __WEBPACK_IMPORTED_MODULE_1__Common__["a" /* ATTRIBUTES_OPTIONS */]);
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = AttributesPanel;
+
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__libs_underscore_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__libs_underscore_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__libs_underscore_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Attribut__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__attributs__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Attribut__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__attributs__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__attributs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__attributs__);
 
 
 
 
-class AttributCollection{
+class AttributesCollection{
     constructor(){
-        this._attributs = [];
         this.hydrate();
     }
     
     hydrate(){
-        console.log(__WEBPACK_IMPORTED_MODULE_2__attributs___default.a);
-        this._attributs = __WEBPACK_IMPORTED_MODULE_2__attributs___default.a.attributs;
+        this.attributs = __WEBPACK_IMPORTED_MODULE_2__attributs___default.a.attributs;
+        console.log("@AttributesCollection.hydrate() -> Debug : liste des attributs : "+this.getListeAttributs());
     }
     
-    getValeurs(attribut){
-        if(typeof attribut === "string")
-            return __WEBPACK_IMPORTED_MODULE_0__libs_underscore_js__["toArray"](this._attributs[attribut].valeurs);
-    }
-    
-    existsAttribut(attribut){
-        if(typeof attribut === "string" && typeof attribut === "string")
-            return this._attributs.hasOwnProperty(attribut);
-        else
-            return false;
-    }
-    
-    existsValeur(attribut, valeur){
-        if(this.existsAttribut(attribut) && typeof valeur === "string")
-            return this.getValeurs(attribut).includes(valeur);
-        else
-            return false;
-    }
-    
-    createAttribut(attribut, valeur){
-        if(this.existsValeur(attribut,valeur)){
-            let phrase = this._attributs[attribut].phrase;
-            phrase += " "+valeur+" ?";
-            return new __WEBPACK_IMPORTED_MODULE_1__Attribut__["a" /* default */](attribut,valeur,phrase);
-        }
+    getListeAttributs(){
+        return __WEBPACK_IMPORTED_MODULE_0__libs_underscore_js__["allKeys"](this.attributs);
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = AttributCollection;
+/* harmony export (immutable) */ __webpack_exports__["a"] = AttributesCollection;
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1843,74 +1833,91 @@ class Attribut{
         return this.phrase;
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = Attribut;
+/* unused harmony export default */
 
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-module.exports = {"attributs":{"cheveux":{"valeurs":["chauve","court","long"],"phrase":"le personnage a les cheveux"},"couleur_cheveux":{"valeurs":["blond","noir","roux","chauve"],"phrase":"le personnage a les cheveux"},"yeux":{"valeurs":["verts","bleu","marron"],"phrase":"le personnage a les yeux"},"barbe":{"valeurs":["sans","complète","bouc","moustache"],"phrase":"le personnage a"},"accessoires":{"valeurs":["boucle d'oreilles","lunettes"],"phrase":"le personnage a des"}}}
 
 /***/ }),
 /* 6 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-class AttributsPanel {
-
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = AttributsPanel;
-
-
+module.exports = {"attributs":{"cheveux":{"chauve":{"long":"Le personnage est chauve ?","court":"Chauve ?"},"blond":{"long":"Le personnage est blond ?","court":"Cheveux blond ?"},"brun":{"long":"Le personnage est brun ?","court":"Cheveux brun ?"}},"yeux":{"marron":{"long":"Le personnage a les yeux marron ?","court":"Yeux marron ?"},"bleu":{"long":"Le personnage a les yeux bleu ?","court":"Yeux bleu ?"},"vert":{"long":"Le personnage a les yeux vert ?","court":"Yeux vert ?"}}}}
 
 /***/ }),
 /* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-class PopulationPanel {
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Common__ = __webpack_require__(1);
 
+
+class StrategyPanel {
+    constructor(element, nodes, edges, attributesPanel){
+        if(element === undefined) {
+            throw new Error("@StrategyPanel() -> Erreur : element doit être définis");
+        }
+        if(attributesPanel === undefined){
+            throw new Error("@StrategyPanel() -> Erreur : attributsPanel doit être définis");
+        }
+        this.element = element;
+        this.attributesPanel = attributesPanel;
+        if(typeof nodes !== "object"){
+            console.log("@StrategyPanel() -> Debug : noeuds par défaut");
+            this.nodes = new vis.DataSet([
+
+            ]);
+        }else{
+            this.nodes = nodes;
+        }
+
+        if(typeof edges !== "object"){
+            console.log("@StrategyPanel() -> Debug : liens par défaut");
+            this.edges = new vis.DataSet([
+
+            ]);
+        }else{
+            this.edges = edges;
+        }
+
+        this.data = {
+            nodes: this.nodes,
+            edges: this.edges
+        };
+
+        this.network = new vis.Network(element, this.data, __WEBPACK_IMPORTED_MODULE_0__Common__["b" /* STRATEGY_OPTIONS */]);
+        this.data.nodes.add({id: 6, label: 'Node 6', level: 2});
+        this.setNetworkHandlers();
+    }
+
+    setNetworkHandlers(){
+        this.setNetworkHandler("click", this.onClick);
+        this.setNetworkHandler("doubleClick", this.onDoubleClick);
+    }
+
+    network(){
+        return this.network;
+    }
+
+    setNetworkHandler(event, handler){
+        if(typeof event === 'string' && typeof handler === 'function'){
+            if(__WEBPACK_IMPORTED_MODULE_0__Common__["c" /* isNetworkEvent */](event)){
+                this.network.on(event, handler);
+            }
+        }
+    }
+
+    onClick(params){
+        params.event = "[original event]";
+        document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
+        console.log('click event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM));
+    }
+
+    onDoubleClick(params){
+        params.event = "[original event]";
+        document.getElementById('eventSpan').innerHTML = '<h2>DoubleClick event:</h2>' + JSON.stringify(params, null, 4);
+        console.log('click event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM));
+    }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = PopulationPanel;
-
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class StrategiePanel {
-    
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = StrategiePanel;
-
-
-
-/***/ }),
-/* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class InformationsPanel {
-  constructor(){
-    
-  }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = InformationsPanel;
-
-
-
-/***/ }),
-/* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class Application {
-
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Application;
+/* harmony export (immutable) */ __webpack_exports__["a"] = StrategyPanel;
 
 
 

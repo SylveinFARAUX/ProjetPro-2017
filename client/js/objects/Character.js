@@ -1,6 +1,6 @@
 import * as _ from '../libs/underscore.js'
 
-export default class Personnage{
+export default class Character{
     constructor(nom, attributs, img){
         this._nom = undefined;
         this._attributs = undefined;

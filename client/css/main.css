@@ -7,11 +7,11 @@ body,
 }
 
 .top {
-    height: 70%;
+    height: 50%;
 }
 
 .bottom {
-    height: 30%;
+    height: 50%;
 }
 
 .attributs,
@@ -20,6 +20,10 @@ body,
     min-height: 100%;
     overflow-y: auto;
     padding-bottom: 10px;
+}
+
+#informations{
+    overflow-y: scroll;
 }
 
 .strategie {
@@ -52,7 +56,13 @@ h3 {
     height: 100%;
 }
 
-#mynetwork {
+#strategie-network {
+    width: 100%;
+    height: 100%;
+    border: 1px solid lightgray;
+}
+
+#attributs-network {
     width: 100%;
     height: 100%;
     border: 1px solid lightgray;
