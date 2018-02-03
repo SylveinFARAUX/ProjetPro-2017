@@ -48,7 +48,7 @@ export let STRATEGY_OPTIONS = {
  * @type {string[]}
  */
 const NETWORK_EVENTS =   [
-                                    "dragStart", "dragging", "dragEnd", "zoom", "showPopup", "hidePopup",
+                                    "click", "doubleClick", "dragStart", "dragging", "dragEnd", "zoom", "showPopup", "hidePopup",
                                     "select", "selectNode", "selectEdge", "deselectNode", "deselectEdge",
                                     "hoverNode", "hoverEdge", "blurNode", "blurEdge"
                                 ];

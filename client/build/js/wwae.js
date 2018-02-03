@@ -65,6 +65,85 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export ATTRIBUTES_OPTIONS */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return STRATEGY_OPTIONS; });
+/* harmony export (immutable) */ __webpack_exports__["b"] = isNetworkEvent;
+/* unused harmony export strategyPanelInstance */
+/* harmony export (immutable) */ __webpack_exports__["c"] = setStrategyPanelInstance;
+let ATTRIBUTES_OPTIONS = {
+    locale: 'en', //si on met fr ça casse
+    height: '100%',
+    width: '100%',
+    autoResize: true,
+    edges:{
+        arrows: {
+            to: true //affiche la flêche côté arrivé
+        }
+    },
+    interaction: {
+        hover: true //active la gestion des événements de survol des noeuds
+    },
+    manipulation: {
+        enabled: false //true -> affiche le petit menu edit
+    },
+    physics: {
+        enabled: false
+    }
+};
+
+let STRATEGY_OPTIONS = {
+    locale: 'en', //si on met fr ça casse
+    height: '100%',
+    width: '100%',
+    autoResize: true,
+    edges:{
+        arrows: {
+            to: true //affiche la flêche côté arrivé
+        }
+    },
+    layout: {
+        hierarchical: {
+            direction: 'UD' //diréction de la hiérachisation de l'arbre du haut vers le bas (Up Down)
+        }
+    },
+    interaction: {
+        hover: true //active la gestion des événements de survol des noeuds
+    },
+    manipulation: {
+        enabled: false //true -> affiche le petit menu edit
+    }
+};
+
+
+/**
+ * Evenements disponible pour les ojets Vis.Network
+ * @type {string[]}
+ */
+const NETWORK_EVENTS =   [
+                                    "click", "doubleClick", "dragStart", "dragging", "dragEnd", "zoom", "showPopup", "hidePopup",
+                                    "select", "selectNode", "selectEdge", "deselectNode", "deselectEdge",
+                                    "hoverNode", "hoverEdge", "blurNode", "blurEdge"
+                                ];
+
+function isNetworkEvent(event){
+    if(typeof event !== 'string')
+        return false;
+    else
+        return NETWORK_EVENTS.includes(event);
+}
+
+let strategyPanelInstance;
+
+function setStrategyPanelInstance(instance){
+    strategyPanelInstance = instance;
+}
+
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -1619,76 +1698,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscor
 
 
 /***/ }),
-/* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ATTRIBUTES_OPTIONS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return STRATEGY_OPTIONS; });
-/* harmony export (immutable) */ __webpack_exports__["c"] = isNetworkEvent;
-let ATTRIBUTES_OPTIONS = {
-    locale: 'en', //si on met fr ça casse
-    height: '100%',
-    width: '100%',
-    autoResize: true,
-    edges:{
-        arrows: {
-            to: true //affiche la flêche côté arrivé
-        }
-    },
-    interaction: {
-        hover: true //active la gestion des événements de survol des noeuds
-    },
-    manipulation: {
-        enabled: false //true -> affiche le petit menu edit
-    },
-    physics: {
-        enabled: false
-    }
-};
-
-let STRATEGY_OPTIONS = {
-    locale: 'en', //si on met fr ça casse
-    height: '100%',
-    width: '100%',
-    autoResize: true,
-    edges:{
-        arrows: {
-            to: true //affiche la flêche côté arrivé
-        }
-    },
-    layout: {
-        hierarchical: {
-            direction: 'UD' //diréction de la hiérachisation de l'arbre du haut vers le bas (Up Down)
-        }
-    },
-    interaction: {
-        hover: true //active la gestion des événements de survol des noeuds
-    },
-    manipulation: {
-        enabled: false //true -> affiche le petit menu edit
-    }
-};
-
-
-/**
- * Evenements disponible pour les ojets Vis.Network
- * @type {string[]}
- */
-const NETWORK_EVENTS =   [
-                                    "dragStart", "dragging", "dragEnd", "zoom", "showPopup", "hidePopup",
-                                    "select", "selectNode", "selectEdge", "deselectNode", "deselectEdge",
-                                    "hoverNode", "hoverEdge", "blurNode", "blurEdge"
-                                ];
-
-function isNetworkEvent(event){
-    if(typeof event !== 'string')
-        return false;
-    else
-        return NETWORK_EVENTS.includes(event);
-}
-
-/***/ }),
 /* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1696,6 +1705,7 @@ function isNetworkEvent(event){
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__objects_AttributesPanel__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__objects_StrategyPanel__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__objects_Common__ = __webpack_require__(0);
 /* global vis */
 
 
@@ -1719,7 +1729,7 @@ let edges = new vis.DataSet([
     {from: 3}
 ]);
 
-new __WEBPACK_IMPORTED_MODULE_1__objects_StrategyPanel__["a" /* default */](document.getElementById('strategie-network'), nodes, edges, new __WEBPACK_IMPORTED_MODULE_0__objects_AttributesPanel__["a" /* default */](document.getElementById('attributs-network')));
+__WEBPACK_IMPORTED_MODULE_2__objects_Common__["c" /* setStrategyPanelInstance */](new __WEBPACK_IMPORTED_MODULE_1__objects_StrategyPanel__["a" /* default */](document.getElementById('strategie-network'), nodes, edges, new __WEBPACK_IMPORTED_MODULE_0__objects_AttributesPanel__["a" /* default */](document.getElementById('attributs'))));
 
 /***/ }),
 /* 3 */
@@ -1727,28 +1737,18 @@ new __WEBPACK_IMPORTED_MODULE_1__objects_StrategyPanel__["a" /* default */](docu
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AttributesCollection__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Common__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Common__ = __webpack_require__(0);
 
 
 
 class AttributesPanel {
-    constructor(element, nodes){
+    constructor(element){
         this.attributsCollection = new __WEBPACK_IMPORTED_MODULE_0__AttributesCollection__["a" /* default */]();
         if(element === undefined) {
             throw new Error("@AttributesPanel() -> Erreur : element doit être définis");
         }
         this.element = element;
 
-        if(typeof nodes !== "object"){
-            console.log("@AttributesPanel() -> Debug : noeuds par défaut");
-            this.nodes = new vis.DataSet([
-                {id: 42, label: 'Node 42', title: 'Test panel attributs'},
-            ]);
-        }else{
-            this.nodes = nodes;
-        }
-        this.data = {nodes: this.nodes, edges: new vis.DataSet()};
-        this.network = new vis.Network(this.element, this.data, __WEBPACK_IMPORTED_MODULE_1__Common__["a" /* ATTRIBUTES_OPTIONS */]);
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = AttributesPanel;
@@ -1760,7 +1760,7 @@ class AttributesPanel {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__libs_underscore_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__libs_underscore_js__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__libs_underscore_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__libs_underscore_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Attribut__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__attributs__ = __webpack_require__(6);
@@ -1791,7 +1791,7 @@ class AttributesCollection{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__libs_underscore_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__libs_underscore_js__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__libs_underscore_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__libs_underscore_js__);
 
 
@@ -1847,8 +1847,11 @@ module.exports = {"attributs":{"cheveux":{"chauve":{"long":"Le personnage est ch
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Common__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Common__ = __webpack_require__(0);
+/* global strategyPanelInstance */
 
+
+var singleton;
 
 class StrategyPanel {
     constructor(element, nodes, edges, attributesPanel){
@@ -1883,9 +1886,13 @@ class StrategyPanel {
             edges: this.edges
         };
 
-        this.network = new vis.Network(element, this.data, __WEBPACK_IMPORTED_MODULE_0__Common__["b" /* STRATEGY_OPTIONS */]);
-        this.data.nodes.add({id: 6, label: 'Node 6', level: 2});
+        this.level = 0;
+        this.nextId = 0;
+
+        this.network = new vis.Network(element, this.data, __WEBPACK_IMPORTED_MODULE_0__Common__["a" /* STRATEGY_OPTIONS */]);
+        this.addNode(6, 'Node 6', 2);
         this.setNetworkHandlers();
+        singleton = this;
     }
 
     setNetworkHandlers(){
@@ -1899,10 +1906,22 @@ class StrategyPanel {
 
     setNetworkHandler(event, handler){
         if(typeof event === 'string' && typeof handler === 'function'){
-            if(__WEBPACK_IMPORTED_MODULE_0__Common__["c" /* isNetworkEvent */](event)){
+            if(__WEBPACK_IMPORTED_MODULE_0__Common__["b" /* isNetworkEvent */](event)){
                 this.network.on(event, handler);
             }
         }
+    }
+
+    addQuestion(attribute){
+
+    }
+
+    deleteNode(node){
+        this.data.nodes.remove(node);
+    }
+
+    addNode(id, label, level){
+        this.data.nodes.add({id, label, level});
     }
 
     onClick(params){
@@ -1912,9 +1931,13 @@ class StrategyPanel {
     }
 
     onDoubleClick(params){
+        let clickedNode = this.getNodeAt(params.pointer.DOM);
         params.event = "[original event]";
         document.getElementById('eventSpan').innerHTML = '<h2>DoubleClick event:</h2>' + JSON.stringify(params, null, 4);
-        console.log('click event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM));
+        console.log('click event, getNodeAt returns: ' + clickedNode);
+        if(clickedNode !== undefined){
+            singleton.deleteNode(clickedNode);
+        }
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = StrategyPanel;

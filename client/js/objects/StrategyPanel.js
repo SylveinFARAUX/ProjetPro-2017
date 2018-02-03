@@ -1,4 +1,10 @@
+/* global strategyPanelInstance */
 import * as Common from './Common';
+
+//on a besoin de garder un pointeur vers une instance pour y accèder dans
+//les handlers des événements de vis.js car ces dèrnier sont
+//appelé avec un contexte différents définies par vis.js
+let instance;
 
 export default class StrategyPanel {
     constructor(element, nodes, edges, attributesPanel){
@@ -33,9 +39,13 @@ export default class StrategyPanel {
             edges: this.edges
         };
 
+        this.level = 0;
+        this.nextId = 0;
+
         this.network = new vis.Network(element, this.data, Common.STRATEGY_OPTIONS);
-        this.data.nodes.add({id: 6, label: 'Node 6', level: 2});
+        this.addNode(6, 'Node 6', 2);
         this.setNetworkHandlers();
+        instance = this;
     }
 
     setNetworkHandlers(){
@@ -55,6 +65,18 @@ export default class StrategyPanel {
         }
     }
 
+    addQuestion(attribute){
+
+    }
+
+    deleteNode(node){
+        this.data.nodes.remove(node);
+    }
+
+    addNode(id, label, level){
+        this.data.nodes.add({id, label, level});
+    }
+
     onClick(params){
         params.event = "[original event]";
         document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
@@ -62,8 +84,12 @@ export default class StrategyPanel {
     }
 
     onDoubleClick(params){
+        let clickedNode = this.getNodeAt(params.pointer.DOM);
         params.event = "[original event]";
         document.getElementById('eventSpan').innerHTML = '<h2>DoubleClick event:</h2>' + JSON.stringify(params, null, 4);
-        console.log('click event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM));
+        console.log('click event, getNodeAt returns: ' + clickedNode);
+        if(clickedNode !== undefined){
+            instance.deleteNode(clickedNode);
+        }
     }
 }
