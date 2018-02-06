@@ -268,11 +268,9 @@ class AttributesCollection{
     }
 
     getAttributesValuesKeysMap(){
-        //FIXME retourne une map vide
-        let map = [];
-        let attributeKeys = this.getAttributesKeys();
-        if(attributeKeys !== undefined){
-            attributeKeys.forEach( key => {
+        let map = this.getAttributesKeys();
+        if(map !== undefined){
+            map.forEach(key => {
                 map[key] = this.getValuesKeys(key);
             });
         }

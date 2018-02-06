@@ -287,11 +287,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             value: function getAttributesValuesKeysMap() {
                 var _this = this;
 
-                //FIXME retourne une map vide
-                var map = [];
-                var attributeKeys = this.getAttributesKeys();
-                if (attributeKeys !== undefined) {
-                    attributeKeys.forEach(function (key) {
+                var map = this.getAttributesKeys();
+                if (map !== undefined) {
+                    map.forEach(function (key) {
                         map[key] = _this.getValuesKeys(key);
                     });
                 }
