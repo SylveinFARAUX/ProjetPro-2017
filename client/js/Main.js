@@ -3,6 +3,7 @@
 import AttributesPanel from "./objects/AttributesPanel";
 import StrategyPanel from "./objects/StrategyPanel";
 import * as Common from "./objects/Common";
+
 // create an array with nodes
 let nodes = new vis.DataSet([
     {id: 1, label: 'Node 1', level: 0, title: 'Je s\'appel root'},

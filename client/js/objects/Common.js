@@ -59,3 +59,14 @@ export function isNetworkEvent(event){
     else
         return NETWORK_EVENTS.includes(event);
 }
+
+export function createChildDiv(parent, childId){
+    if(typeof parent !== "object" || typeof childId !== "string"){
+        return undefined;
+    }else{
+        let child = document.createElement('div');
+        child.setAttribute('id', childId);
+        parent.appendChild(child);
+        return child;
+    }
+}
