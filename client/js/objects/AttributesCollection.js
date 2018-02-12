@@ -4,8 +4,13 @@ import attributsJSON from './attributs';
 class AttributesCollection{
     constructor(){
         this.attributs = attributsJSON["attributs"];
-        this.toString();
-        console.log("hey !");
+        this.attributesMap = this.getAttributesValuesKeysMap();
+        this.attributesMap.forEach(attribute => {
+            this.attributesMap[attribute].forEach(value => {
+                this.attributesMap[attribute][value] = undefined;
+            });
+        });
+        this.prettyPrint();
     }
     
     getAttributesKeys(){
@@ -20,18 +25,24 @@ class AttributesCollection{
         }
     }
 
-    getAttributeValue(attribute, value){
-        if(this.checkValueExists()){
+    getAttributeJSON(attribute, value){
+        if(this.checkValueExists(attribute, value)){
             return this.attributs[attribute][value];
         }else{
             return undefined;
         }
     }
 
-    createAttributeInstance(attribute, value){
-        let jsonAttribute = this.getAttributeValue(attribute, value);
-        if(jsonAttribute === undefined){
-            return new Attribute(jsonAttribute);
+    getAttributeInstance(attribute, value){
+        let jsonAttribute = this.getAttributeJSON(attribute, value);
+        if(jsonAttribute !== undefined){
+            if(this.attributesMap[attribute][value] === undefined) {
+                let attr = new Attribute(jsonAttribute, attribute, value);
+                this.attributesMap[attribute][value] = attr;
+                return attr;
+            }else{
+                return this.attributesMap[attribute][value];
+            }
         }
         return undefined;
     }
@@ -42,7 +53,7 @@ class AttributesCollection{
 
     checkValueExists(attribute, value){
         if(this.checkAttributeExists(attribute)){
-            return this.getValuesKeys().includes(value);
+            return this.getValuesKeys(attribute).includes(value);
         }else{
             return false;
         }
@@ -58,7 +69,7 @@ class AttributesCollection{
         return map;
     }
 
-    toString(){
+    prettyPrint(){
         let map = this.getAttributesValuesKeysMap();
         if(map.length < 1){
             console.log("Map des attributs vide");

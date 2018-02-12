@@ -18,15 +18,41 @@ export default class AttributeButton {
         }
         this.element = Common.createChildDiv(this.parent, "attributeButton"+nextButtonId);
         this.element.setAttribute("class", "attributeButton");
-        this.element.setText(this.element.id);
         nextButtonId++;
+        this.hidden = false;
+        this.attribute = attribute;
+        this.setText(this.attribute.getLongText());
+        this.element.addEventListener("click", event => this.onClick(event));
+        //si on ne donne pas un consommateur de event, on perd la référence à this dans le listener
     }
 
     hide(){
-        this.element.setAttribute('style', 'display: none;');
+        if(!this.hidden){
+            this.element.setAttribute('style', 'display: none;');
+        }
     }
 
     show(){
-        this.element.removeAttribute('style');
+        if(this.hidden){
+            this.element.removeAttribute('style');
+        }
+    }
+
+    onClick(event){
+        this.attribute.prettyPrint();
+    }
+
+    isHidden(){
+        return this.hidden;
+    }
+
+    setText(text){
+        let textNode;
+        if(text === undefined) {
+            textNode = document.createTextNode("");
+        }else{
+            textNode = document.createTextNode(text);
+        }
+        this.element.appendChild(textNode);
     }
 }
