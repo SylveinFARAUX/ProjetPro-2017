@@ -2,37 +2,35 @@
 <html>
     <head>
         <title>Who's Who Assessment Engine</title>
-        <meta charset="UTF-8"/>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="css/main.css"/>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
     </head>
     <body>
         <div id="app" class="app">
             <div class="row top">
-                <div class="col-md-9 strategie">
+                <div class="col-md-8 strategie">
                     <div class="title">
                       <h3>Stratégie</h3>
                     </div>
                     <div  id="strategie" class="content">
-
+                        <div id="strategie-network"></div>
                     </div>
                 </div>
-                 <div class="col-md-3 attributs">
+                 <div class="col-md-4 attributs">
                    <div class="title">
                      <h3>Attributs</h3>
                    </div>
                    <div id="attributs" class="content">
-
                    </div>
                 </div>
             </div>
              <div class="row bottom">
-                <div class="col-md-9 population">
+                <div class="col-md-8 population">
                   <div class="title">
                     <h3>Population</h3>
                   </div>
@@ -40,16 +38,28 @@
 
                   </div>
                 </div>
-                 <div class="col-md-3 informations">
+                 <div class="col-md-4 informations">
                    <div class="title">
                      <h3>Informations</h3>
                    </div>
-                   <div id="informations" class="content">
-
+                   <div id="informations" class="content">  
+                        <pre id="eventSpan"></pre>
                    </div>
                 </div>
             </div>
         </div>
+        <!-- Bootstrap -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+        <!-- Vis.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+        <!-- Dépendences dev -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+        <!-- Dépendences prod -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script> -->
+        <!-- WWAE -->
+        <!-- <script src="build/js/wwae.babel.js"> </script> -->
+        <script src="build/js/wwae.js"> </script>
     </body>
-    <script src="build/js/wwae.babel.js"></script>
 </html>

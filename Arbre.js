@@ -1,4 +1,3 @@
-import * as _ from '../libs/underscore.js'
 import './Noeud.js'
 
 export default class Arbre{

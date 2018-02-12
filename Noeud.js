@@ -1,5 +1,4 @@
-import * as _ from '../libs/underscore.js'
-import './Attribut.js'
+import './Attribute.js'
 
 export default class Noeud{
     

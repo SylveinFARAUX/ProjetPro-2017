@@ -4,6 +4,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-webpack');
     grunt.loadNpmTasks('grunt-exec');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.initConfig({
         'babel': {
             options: {
@@ -27,6 +28,12 @@ module.exports = function (grunt) {
         },
         'clean':{
             build: ['client/build/js/*']
+        },
+        'watch': {
+            scripts: {
+                files: ['client/js/**/*.js'],
+                tasks: ['build'],
+            },
         }
     });
     grunt.registerTask('build', ['webpack', 'babel', 'uglify']);

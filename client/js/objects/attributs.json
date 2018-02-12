@@ -1,24 +1,32 @@
 {
-    "attributs":{
-        "cheveux":{
-            "valeurs": ["chauve","court","long"],
-            "phrase": "le personnage a les cheveux"
+    "attributs": {
+        "cheveux": {
+            "chauve": {
+                "long": "Le personnage est chauve ?",
+                "court": "Chauve ?"
             },
-        "couleur_cheveux":{
-            "valeurs": ["blond","noir","roux","chauve"],
-            "phrase": "le personnage a les cheveux"
+            "blond": {
+                "long": "Le personnage est blond ?",
+                "court": "Cheveux blond ?"
             },
-        "yeux":{
-            "valeurs":["verts","bleu","marron"],
-            "phrase": "le personnage a les yeux"
+            "brun": {
+                "long": "Le personnage est brun ?",
+                "court": "Cheveux brun ?"
+            }
         },
-        "barbe":{
-            "valeurs":["sans","complète","bouc","moustache"],
-            "phrase": "le personnage a"
-        },
-        "accessoires":{
-            "valeurs":["boucle d'oreilles", "lunettes"],
-            "phrase": "le personnage a des"
+        "yeux": {
+            "marron": {
+                "long": "Le personnage a les yeux marron ?",
+                "court": "Yeux marron ?"
+            },
+            "bleu": {
+                "long": "Le personnage a les yeux bleu ?",
+                "court": "Yeux bleu ?"
+            },
+            "vert": {
+                "long": "Le personnage a les yeux vert ?",
+                "court": "Yeux vert ?"
+            }
         }
     }
 }
