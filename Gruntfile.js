@@ -5,6 +5,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-exec');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-jsdoc');
     grunt.initConfig({
         'babel': {
             options: {
@@ -34,6 +35,14 @@ module.exports = function (grunt) {
                 files: ['client/js/**/*.js'],
                 tasks: ['build'],
             },
+        },
+        'jsdoc': {
+            build: {
+                src: ['client/js/*.js', 'client/js/objects/*.js'],
+                options: {
+                    destination: 'doc'
+                }
+            }
         }
     });
     grunt.registerTask('build', ['webpack', 'babel', 'uglify']);

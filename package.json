@@ -5,22 +5,24 @@
   "licence": "MIT",
   "scripts": {},
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "grunt": "^1.0.1",
-    "grunt-babel": "^7.0.0",
-    "grunt-contrib-clean": "^1.1.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-exec": "^3.0.0",
-    "grunt-webpack": "^3.0.2",
-    "uglify-js": "^3.3.9",
-    "uglifyjs-webpack-plugin": "^1.0.1",
-    "vis": "^4.21.0",
-    "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.3"
+    "babel-cli": "6.26.0",
+    "babel-preset-env": "1.6.1",
+    "grunt": "1.0.2",
+    "grunt-babel": "7.0.0",
+    "grunt-contrib-clean": "1.1.0",
+    "grunt-contrib-watch": "1.0.0",
+    "grunt-exec": "3.0.0",
+    "grunt-webpack": "3.0.2",
+    "uglify-js": "3.3.10",
+    "uglifyjs-webpack-plugin": "1.1.8",
+    "vis": "4.21.0",
+    "grunt-jsdoc": "2.2.1",
+    "jsdoc": "3.5.5",
+    "webpack": "3.11.0",
+    "webpack-dev-server": "2.11.1"
   },
   "dependencies": {
-    "underscore": "^1.8.3",
-    "vue": "^2.5.9"
+    "underscore": "1.8.3",
+    "vue": "2.5.9"
   }
 }
