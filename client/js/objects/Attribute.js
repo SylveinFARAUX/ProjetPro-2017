@@ -3,7 +3,7 @@ export default class Attribute{
         if(typeof jsonDesc !== "object"){
             throw new Error("@Attribute.constructor() : L'attribut jsonDesc doit être un objet JSON");
         }
-        if(typeof name !== "string"){
+        if(typeof value !== "string"){
             throw new Error("@Attribute.constructor() : L'attribut name doit être une chaîne de caractère");
         }
         this.attributeKey = attribute;
