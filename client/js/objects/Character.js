@@ -1,4 +1,4 @@
-export default class Character{
+class Character{
     constructor(nom, attributs, img){
         this.nom = nom;
         this.attributs = attributs;
@@ -29,3 +29,5 @@ export default class Character{
         this.attributs = attributs;
     }
 }
+
+export default Character;

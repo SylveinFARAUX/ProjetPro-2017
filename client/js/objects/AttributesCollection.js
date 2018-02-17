@@ -10,7 +10,7 @@ import attributsJSON from './attributs';
 /**
  * Gère une collection d'Attribute.
  * Cette classe est implémentée en tant que singleton accessible
- * avec AttributesCollection.singleton,en supposant avoir importé
+ * avec AttributesCollection.singleton, en supposant avoir importé
  * la classe sous ce même nom
  */
 class AttributesCollection{

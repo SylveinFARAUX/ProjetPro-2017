@@ -2,40 +2,25 @@
 
 Projet Professionnel avec M. Julien NARBOUX
 
-## Authors
+## Auteurs
 
 - BROSSARD Florian
 - MENANTEAU Adèle
 - MAILLARD Clovis 
 - FARAUX Sylvein
 
-## First clone
-Coming soon
-
-## How to commit
-
-Strategy is coming soon.
-
-## Memo to update his work
+## Memo concernant la mise à jour du code
 
 Pull -> Commit -> Push.
-Don't forget to comment every commits.
-Help (Linux) : 
 
-### Help (Linux)
-
-Tout tuto est bon à prendre. En voici un : http://tilap.net/gitliste-des-commandes-a-connaitre/
-
-### Help (Windows)
-
-Manipulation avec le client TortoiseGit : http://jc.etiemble.free.fr/abc/index.php/realisations/trucs-astuces/git_win0
+N'oubliez pas de commenter chaque commit
 
 ## Installation de l'environnement
 
 Node.js (Current) : https://nodejs.org/en/
 Étapes d'installation de npm :
 
-- éxécuter la commande : npm install -g grunt webpack uglify-js
+- éxécuter la commande : npm install -g grunt webpack uglify-js jsdoc
 - aller dans le dossier du projet
 - éxécuter la commande : npm install
 
@@ -43,6 +28,12 @@ Node.js (Current) : https://nodejs.org/en/
 
 Éxécuter la commande suivante :
     grunt build
+    
+Pour recompiler le projet après chaque modification (tâche en arrière plan) :
+    grunt watch
+    
+Construction de la doc :
+    grunt jsdoc
 
 ## Éxécution du projet
 
