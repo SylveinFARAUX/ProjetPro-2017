@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -68,31 +68,15 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export ATTRIBUTES_OPTIONS */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return STRATEGY_OPTIONS; });
 /* harmony export (immutable) */ __webpack_exports__["c"] = isNetworkEvent;
 /* harmony export (immutable) */ __webpack_exports__["b"] = createChildDiv;
-let ATTRIBUTES_OPTIONS = {
-    locale: 'en', //si on met fr ça casse
-    height: '100%',
-    width: '100%',
-    autoResize: true,
-    edges:{
-        arrows: {
-            to: true //affiche la flêche côté arrivé
-        }
-    },
-    interaction: {
-        hover: true //active la gestion des événements de survol des noeuds
-    },
-    manipulation: {
-        enabled: false //true -> affiche le petit menu edit
-    },
-    physics: {
-        enabled: false
-    }
-};
+/** @module Common */
 
+/**
+ * L'objet décrivant l'arbre de stratégie pour Vis.js
+ * @type {object}
+ */
 let STRATEGY_OPTIONS = {
     locale: 'en', //si on met fr ça casse
     height: '100%',
@@ -127,6 +111,13 @@ const NETWORK_EVENTS =   [
                                     "hoverNode", "hoverEdge", "blurNode", "blurEdge"
                                 ];
 
+Object.freeze(NETWORK_EVENTS);
+
+/**
+ * Indique si le nom de l'événement donné est un événement supporté par Vis.js
+ * @param {string} event le nom de l'événement
+ * @returns {boolean} true si event est supporté, false sinon
+ */
 function isNetworkEvent(event){
     if(typeof event !== 'string')
         return false;
@@ -134,8 +125,14 @@ function isNetworkEvent(event){
         return NETWORK_EVENTS.includes(event);
 }
 
+/**
+ * Créer un HTMLElement div et le concatène à l'element parent.
+ * @param {HTMLElement} parent le parent
+ * @param {!string} childId l'id de l'élément à créer
+ * @returns {HTMLElement|undefined} l'élément créé ou undefined si parent n'est pas un HTMLElement ou si childID n'est pas une chaîne
+ */
 function createChildDiv(parent, childId){
-    if(typeof parent !== "object" || typeof childId !== "string"){
+    if(!(parent instanceof HTMLElement) || typeof childId !== "string"){
         return undefined;
     }else{
         let child = document.createElement('div');
@@ -150,51 +147,205 @@ function createChildDiv(parent, childId){
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/**
+ * Représente un attribut d'un personnage avec une valeur.
+ * Chaque instance d'Attribute ne contient qu'une seule valeur.
+ */
 class Attribute{
+    /**
+     * Constructeur
+     * @param {!AttributeJSON} jsonDesc Un objet JSON décrivant l'attribut
+     * @param {!string} attribute Le nom de l'attribut (ex : 'cheveux')
+     * @param {!string} value La valeur de l'attribut (ex : 'chauve')
+     * @throws {Error} Lance une erreur si jsonDesc n'est pas un objet ou si attribute ou value ne sont pas une chaîne
+     */
     constructor(jsonDesc, attribute, value){
         if(typeof jsonDesc !== "object"){
-            throw new Error("@Attribute.constructor() : L'attribut jsonDesc doit être un objet JSON");
+            throw new Error("@Attribute.constructor() : L'argument jsonDesc doit être un objet JSON");
         }
-        if(typeof name !== "string"){
-            throw new Error("@Attribute.constructor() : L'attribut name doit être une chaîne de caractère");
+        if(typeof attribute !== "string"){
+            throw new Error("@Attribute.constructor() : L'argument attribute doit être une chaîne de caractère");
         }
+        if(typeof value !== "string"){
+            throw new Error("@Attribute.constructor() : L'argument value doit être une chaîne de caractère");
+        }
+        /**
+         * Le nom de l'attribut
+         * @member {string}
+         */
         this.attributeKey = attribute;
-        this.name = value;
+        /**
+         * La valeur de l'attribut
+         * @member {string}
+         */
+        this.value = value;
+        /**
+         * Le test de la proposition au format court
+         * @member {string}
+         */
         this.short = jsonDesc["court"];
+        /**
+         * Le test de la proposition au format long
+         * @member {string}
+         */
         this.long = jsonDesc["long"];
     }
 
+    /**
+     * Retourne la valeur de l'attribut (ex : 'chauve')
+     * @returns {string}
+     */
     getValue(){
-        return this.name;
+        return this.value;
     }
 
+    /**
+     * Retourne la proposition de l'attribut au format court
+     * @returns {string}
+     */
     getShortText(){
         return this.short;
     }
 
+    /**
+     * Retourne la proposition de l'attribut au format long
+     * @returns {string}
+     */
     getLongText(){
         return this.long;
     }
 
+    /**
+     * Retourne le nom de l'attribut
+     * @returns {string}
+     */
     getAttributeKey(){
         return this.attributeKey;
     }
 
+    /**
+     * Affiche l'attribut dans la console
+     */
     prettyPrint(){
         console.log(`Attribut ${this.getAttributeKey()} -> ${this.getValue()} :`);
         console.log(`\ttexte long  : "${this.getLongText()}"\n\ttexte court : "${this.getShortText()}"`);
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = Attribute;
 
+/* harmony default export */ __webpack_exports__["a"] = (Attribute);
 
 /***/ }),
 /* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AttributesCollection__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Common__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Attribute__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AttributeButton__ = __webpack_require__(6);
+
+
+
+
+
+/**
+ * Panel contenant les boutons des attributs
+ */
+class AttributesPanel {
+    /**
+     * Constructeur.
+     * Instancie directement tout les boutons sans les cacher.
+     * @param {!HTMLElement} element La div servant de conteneurs pour les boutons (censé être la div avec l'id 'attributs')
+     * @trhows {Error} Lance un erreur si element n'est pas une instance de HTMLElement
+     */
+    constructor(element){
+        /**
+         * Singleton de la collection des attributs.
+         * @member {AttributesCollection}
+         */
+        this.attributesCollection = __WEBPACK_IMPORTED_MODULE_0__AttributesCollection__["a" /* singleton */];
+        if(!(element instanceof HTMLElement)) {
+            throw new Error("@AttributesPanel() -> Erreur : element doit être une instance de HTMLElement");
+        }
+        /**
+         * Element HTML du panel
+         * @member {HTMLElement}
+         */
+        this.element = element;
+
+        //création des boutons
+        /**
+         * Liste des boutons du panel
+         * @member {Array<AttributeButton>}
+         */
+        this.buttons = [];
+        let map = this.attributesCollection.getAttributesValuesKeysMap();
+        map.forEach(attribute => {
+           this.buttons[attribute] = [];
+           map[attribute].forEach(value => {
+               this.buttons[attribute][value] = undefined;
+               try{
+                   this.addButton(this.attributesCollection.getAttributeInstance(attribute, value));
+               }catch(e){
+                   console.error("@AttributesPanel.constructor() : erreur lors de l'ajout du boutons ("+attribute+","+value+") : ");
+                   console.error(e);
+               }
+           }) ;
+        });
+    }
+
+    /**
+     * Ajoute un bouton avec l'attribut donné s'il n'existe pas déja
+     * @param {!Attribute} attribute l'instance de l'attribut
+     * @throws {Error} Lance un erreur si attribute n'est pas une instance de Attribute
+     */
+    addButton(attribute){
+        if(!(attribute instanceof __WEBPACK_IMPORTED_MODULE_2__Attribute__["a" /* default */])){
+            throw new Error("@AttributesPanel.addButton() : L'attribut attribute doit être une instance de Attribute");
+        }
+        if(!(this.buttons[attribute.getAttributeKey()][attribute.getValue()] instanceof __WEBPACK_IMPORTED_MODULE_3__AttributeButton__["a" /* default */])){
+            this.buttons[attribute.getAttributeKey()][attribute.getValue()] = new __WEBPACK_IMPORTED_MODULE_3__AttributeButton__["a" /* default */](attribute,this.element);
+        }
+    }
+
+    /**
+     * Chache le bouton correspondant à l'attribut s'il existe
+     * @param {!Attribute} attribute l'instance de l'attribut
+     * @throws {Error} Lance un erreur si attribute n'est pas une instance de Attribute
+     */
+    hideButton(attribute){
+        if(!(attribute instanceof __WEBPACK_IMPORTED_MODULE_2__Attribute__["a" /* default */])){
+            throw new Error("@AttributesPanel.addButton() : L'attribut attribute doit être une instance de Attribute");
+        }
+        if(this.buttons[attribute.getAttributeKey()][attribute.getValue()] instanceof __WEBPACK_IMPORTED_MODULE_2__Attribute__["a" /* default */]){
+            this.buttons[attribute.getAttributeKey()][attribute.getValue()].hide();
+        }
+    }
+
+    /**
+     * Rend visible le bouton correspondant à l'attribut s'il existe
+     * @param {!Attribute} attribute l'instance de l'attribut
+     * @throws {Error} Lance un erreur si attribute n'est pas une instance de Attribute
+     */
+    showButton(attribute){
+        if(!(attribute instanceof __WEBPACK_IMPORTED_MODULE_2__Attribute__["a" /* default */])){
+            throw new Error("@AttributesPanel.addButton() : L'attribut attribute doit être une instance de Attribute");
+        }
+        if(this.buttons[attribute.getAttributeKey()][attribute.getValue()] instanceof __WEBPACK_IMPORTED_MODULE_2__Attribute__["a" /* default */]) {
+            this.buttons[attribute.getAttributeKey()][attribute.getValue()].show();
+        }
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (AttributesPanel);
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__objects_AttributesPanel__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__objects_AttributesPanel__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__objects_StrategyPanel__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__objects_Common__ = __webpack_require__(0);
 /* global vis */
@@ -224,70 +375,6 @@ let edges = new vis.DataSet([
 new __WEBPACK_IMPORTED_MODULE_1__objects_StrategyPanel__["a" /* default */](document.getElementById('strategie-network'), nodes, edges, new __WEBPACK_IMPORTED_MODULE_0__objects_AttributesPanel__["a" /* default */](document.getElementById('attributs')));
 
 /***/ }),
-/* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AttributesCollection__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Common__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Attribute__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AttributeButton__ = __webpack_require__(6);
-
-
-
-
-
-class AttributesPanel {
-    constructor(element){
-        this.attributesCollection = __WEBPACK_IMPORTED_MODULE_0__AttributesCollection__["a" /* singleton */];
-        if(element === undefined) {
-            throw new Error("@AttributesPanel() -> Erreur : element doit être définis");
-        }
-        this.element = element;
-
-        //création des boutons
-        this.buttons = [];
-        let map = this.attributesCollection.getAttributesValuesKeysMap();
-        map.forEach(attribute => {
-           this.buttons[attribute] = [];
-           map[attribute].forEach(value => {
-               this.buttons[attribute][value] = undefined;
-               try{
-                   this.addButton(this.attributesCollection.getAttributeInstance(attribute, value));
-               }catch(e){
-                   console.error("@AttributesPanel.constructor() : erreur lors de l'ajout du boutons ("+attribute+","+value+") : ");
-                   console.error(e);
-               }
-           }) ;
-        });
-    }
-
-    addButton(attribute){
-        if(!(attribute instanceof __WEBPACK_IMPORTED_MODULE_2__Attribute__["a" /* default */])){
-            throw new Error("@AttributesPanel.addButton() : L'attribut attribute doit être une instance de Attribute");
-        }
-        this.buttons[attribute.getAttributeKey()][attribute.getValue()] = new __WEBPACK_IMPORTED_MODULE_3__AttributeButton__["a" /* default */](attribute);
-    }
-
-    hideButton(attribute){
-        if(!(attribute instanceof __WEBPACK_IMPORTED_MODULE_2__Attribute__["a" /* default */])){
-            throw new Error("@AttributesPanel.addButton() : L'attribut attribute doit être une instance de Attribute");
-        }
-        this.buttons[attribute.getAttributeKey()][attribute.getValue()].hide();
-    }
-
-    showButton(attribute){
-        if(!(attribute instanceof __WEBPACK_IMPORTED_MODULE_2__Attribute__["a" /* default */])){
-            throw new Error("@AttributesPanel.addButton() : L'attribut attribute doit être une instance de Attribute");
-        }
-        this.buttons[attribute.getAttributeKey()][attribute.getValue()].show();
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = AttributesPanel;
-
-
-
-/***/ }),
 /* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -298,9 +385,37 @@ class AttributesPanel {
 
 
 
+/**
+ * @typedef {Object} AttributeJSON
+ * @property {string} long Une question décrivant la valeur l'attribut concerné (utilisée avec les boutons)
+ * @property {string} court La même question au format plus court (utilisée pour l'arbre de stratégie)
+ */
+
+/**
+ * Gère une collection d'Attribute.
+ * Cette classe est implémentée en tant que singleton accessible
+ * avec AttributesCollection.singleton, en supposant avoir importé
+ * la classe sous ce même nom
+ */
 class AttributesCollection{
+
+    /**
+     * Stocke le JSON dans 'attributs', construits un tableau 2D
+     * destiné à stocker chaque instance d'Attribute de sorte à
+     * ne pas dupliquer les instances inutilement.
+     */
     constructor(){
+        /**
+         * Le JSON contenant les attributs et leurs valeurs
+         * @member {Object}
+         */
         this.attributs = __WEBPACK_IMPORTED_MODULE_1__attributs___default.a["attributs"];
+        /**
+         * Un tableau 2D servant à contenir chaque instances d'Attribute.
+         * Chaque Attribute n'est effectivement instancié qu'après l'appel de la
+         * méthode getAttributeInstance().
+         * @member {Attribute[][]}
+         */
         this.attributesMap = this.getAttributesValuesKeysMap();
         this.attributesMap.forEach(attribute => {
             this.attributesMap[attribute].forEach(value => {
@@ -309,11 +424,20 @@ class AttributesCollection{
         });
         this.prettyPrint();
     }
-    
+
+    /**
+     * Retourne la liste des attributs contenu dans la collection.
+     * @returns {string[]}
+     */
     getAttributesKeys(){
         return _.allKeys(this.attributs);
     }
 
+    /**
+     * Retourne la liste des valeurs pour un attribut, ou undefined s'il n'existe pas.
+     * @param attribute l'attribut
+     * @returns {string[]}
+     */
     getValuesKeys(attribute){
         if(this.checkAttributeExists(attribute)){
             return _.allKeys(this.attributs[attribute]);
@@ -322,6 +446,13 @@ class AttributesCollection{
         }
     }
 
+    /**
+     * Retourne l'objet JSON représentant un Attribute correspondant à l'attribut
+     * de valeurs donnés, ou undefined si l'un ou l'autre n'existe pas.
+     * @param attribute l'attribut
+     * @param value la valeur
+     * @returns {AttributeJSON|undefined}
+     */
     getAttributeJSON(attribute, value){
         if(this.checkValueExists(attribute, value)){
             return this.attributs[attribute][value];
@@ -330,6 +461,12 @@ class AttributesCollection{
         }
     }
 
+    /**
+     * Retourne l'instance d'Attribute pour un attribut et une valeur données.
+     * @param attribute l'attribut
+     * @param value la valeur
+     * @returns {Attribute|undefined}
+     */
     getAttributeInstance(attribute, value){
         let jsonAttribute = this.getAttributeJSON(attribute, value);
         if(jsonAttribute !== undefined){
@@ -344,10 +481,21 @@ class AttributesCollection{
         return undefined;
     }
 
+    /**
+     * Vérifie que l'attribut existe dans la collection.
+     * @param attribute l'attribut
+     * @returns {boolean} true si l'attribut existe, false sinon.
+     */
     checkAttributeExists(attribute){
         return typeof attribute === "string" && this.getAttributesKeys().includes(attribute);
     }
 
+    /**
+     * Vérifie que la valeur existe pour l'attribut donné
+     * @param attribute l'attribut
+     * @param value la valeur
+     * @returns {boolean} true si la valeur existe pour l'attribut donné, false sinon.
+     */
     checkValueExists(attribute, value){
         if(this.checkAttributeExists(attribute)){
             return this.getValuesKeys(attribute).includes(value);
@@ -356,6 +504,14 @@ class AttributesCollection{
         }
     }
 
+    /**
+     * Retourne un tableau 2D contenant les listes des valeurs pour chaque attributs.
+     * @example
+     * //Supposons que le JSON contient un attribut 'yeux' ayant deux valeurs, 'bleu' et 'vert'
+     * let map = singleton.getAttributesValuesKeysMap();
+     * console.log(map['yeux']); //{'bleu','vert'}
+     * @returns {string[][]}
+     */
     getAttributesValuesKeysMap(){
         let map = this.getAttributesKeys();
         if(map !== undefined){
@@ -366,6 +522,9 @@ class AttributesCollection{
         return map;
     }
 
+    /**
+     * Affiche le contenu de la collection dans la console
+     */
     prettyPrint(){
         let map = this.getAttributesValuesKeysMap();
         if(map.length < 1){
@@ -381,6 +540,10 @@ class AttributesCollection{
     }
 }
 
+/**
+ * Singleton de la collection instancier au démarrage de l'application.
+ * @type {AttributesCollection}
+ */
 const singleton = new AttributesCollection();
 /* harmony export (immutable) */ __webpack_exports__["a"] = singleton;
 
@@ -403,49 +566,94 @@ module.exports = {"attributs":{"cheveux":{"chauve":{"long":"Le personnage est ch
 
 let nextButtonId = 0;
 
+/**
+ * Représente un bouton lié à un attribut.
+ * Utilisé dans le panel 'Attributs'
+ * @see Attribute
+ */
 class AttributeButton {
+    /**
+     * Constructeur.
+     * Dans le cas ou l'argument parent n'est pas un objet ou n'est pas renseigné,
+     * on tente de trouver la div avec l'id 'attributs' à la place.
+     * @param {!Attribute} attribute Une instance d'Attribute
+     * @param {?HTMLElement} parent L'élément parent (censé être la div du panel 'Attributs')
+     * @throws {Error} Lance une erreur si attribute n'est une instance d'Attribute
+     * @throws {Error} Lance une si l'élément d'id 'attributs' n'à pas pu être trouvé dans le cas il l'argument parent serais mal renseigné
+     */
     constructor(attribute, parent){
         if(!(attribute instanceof __WEBPACK_IMPORTED_MODULE_1__Attribute__["a" /* default */])){
-            throw new Error("L'argument attribute doit être une instance de attribute");
+            throw new Error("L'argument attribute doit être une instance de Attribute");
         }
-        if(typeof parent !== "object"){
+        if(!(parent instanceof HTMLElement)){
             this.parent = document.getElementById('attributs');
+            if(!(parent instanceof HTMLElement)){
+                throw new Error("L'argument parent doit être un Element HTML");
+            }
         }else{
             this.parent = parent;
         }
-        if(typeof this.parent !== "object"){
-            throw new Error("L'argument parent doit être un Element HTML");
-        }
+
+        /**
+         * L'élément HTML du bouton
+         * @member{Element}
+         */
         this.element = __WEBPACK_IMPORTED_MODULE_0__Common__["b" /* createChildDiv */](this.parent, "attributeButton"+nextButtonId);
         this.element.setAttribute("class", "attributeButton");
         nextButtonId++;
+        /**
+         * Indique si le bouton est caché ou visible
+         * @member{boolean}
+         */
         this.hidden = false;
+        /**
+         * L'instance d'Attribute liée à ce bouton
+         * @member{Attribute}
+         */
         this.attribute = attribute;
         this.setText(this.attribute.getLongText());
         this.element.addEventListener("click", event => this.onClick(event));
         //si on ne donne pas un consommateur de event, on perd la référence à this dans le listener
     }
 
+    /**
+     * Cache le bouton s'il est visible
+     */
     hide(){
         if(!this.hidden){
             this.element.setAttribute('style', 'display: none;');
         }
     }
 
+    /**
+     * Rend visible le bouton s'il est caché
+     */
     show(){
         if(this.hidden){
             this.element.removeAttribute('style');
         }
     }
 
+    /**
+     * Handler de l'événement 'onClick' sur l'élément HTML du bouton
+     * @param {Event} event l'événement onClick
+     */
     onClick(event){
         this.attribute.prettyPrint();
     }
 
+    /**
+     * Indique si le bouton est caché ou visible
+     * @returns {boolean} true si le bouton est caché, false s'il est visible
+     */
     isHidden(){
         return this.hidden;
     }
 
+    /**
+     * Définis le texte du bouton
+     * @param {?string} text le nouveau texte
+     */
     setText(text){
         let textNode;
         if(text === undefined) {
@@ -453,12 +661,14 @@ class AttributeButton {
         }else{
             textNode = document.createTextNode(text);
         }
+        while (this.element.firstChild) {
+            this.element.removeChild(this.element.firstChild);
+        }
         this.element.appendChild(textNode);
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = AttributeButton;
 
-
+/* harmony default export */ __webpack_exports__["a"] = (AttributeButton);
 
 /***/ }),
 /* 7 */
@@ -466,7 +676,8 @@ class AttributeButton {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Common__ = __webpack_require__(0);
-/* global strategyPanelInstance */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AttributesPanel__ = __webpack_require__(2);
+
 
 
 //on a besoin de garder un pointeur vers une instance pour y accèder dans
@@ -474,17 +685,44 @@ class AttributeButton {
 //appelé avec un contexte différents définies par vis.js
 let instance;
 
+/**
+ * Callback pour un événement
+ * @callback eventCallback
+ * @param {Event} event Un événement
+ */
+
+/**
+ * @typedef {object} StrategyData
+ * @property {vis.DataSet} nodes les noeuds
+ * @property {vis.DataSet} edges les liens
+ */
+
+/**
+ * Représente la panel contenant l'arbre de stratégie.
+ */
 class StrategyPanel {
+    /**
+     *
+     * @param {!HTMLElement} element L'élement HTML conteneur de l'arbre de stratégie
+     * @param {?vis.DataSet} nodes L'ensemble des noeuds de départ
+     * @param {?vis.DataSet} edges L'ensemble des liens de départ
+     * @param {!AttributesPanel} attributesPanel Une instance du panel des attributs
+     * @throws {Error} Lance une erreur si element n'est pas une instance de HTMLElement
+     * @throws {Error} Lance une erreur si attributesPanel n'est pas une instance de AttributesPanel
+     */
     constructor(element, nodes, edges, attributesPanel){
-        if(element === undefined) {
-            throw new Error("@StrategyPanel() -> Erreur : element doit être définis");
+        if(!(element instanceof HTMLElement)) {
+            throw new Error("@StrategyPanel() -> Erreur : element doit être une instance de HTMLElement");
         }
-        if(attributesPanel === undefined){
-            throw new Error("@StrategyPanel() -> Erreur : attributsPanel doit être définis");
+        if(!(attributesPanel instanceof __WEBPACK_IMPORTED_MODULE_1__AttributesPanel__["a" /* default */])){
+            throw new Error("@StrategyPanel() -> Erreur : attributsPanel doit être une instance de AttributesPanel");
         }
+        /**
+         * L'élément conteneur du panel
+         * @member {HTMLElement}
+         */
         this.element = element;
-        this.attributesPanel = attributesPanel;
-        if(typeof nodes !== "object"){
+        if(!(nodes instanceof vis.DataSet)){
             console.log("@StrategyPanel() -> Debug : noeuds par défaut");
             this.nodes = new vis.DataSet([
 
@@ -493,7 +731,7 @@ class StrategyPanel {
             this.nodes = nodes;
         }
 
-        if(typeof edges !== "object"){
+        if(!(edges instanceof vis.DataSet)){
             console.log("@StrategyPanel() -> Debug : liens par défaut");
             this.edges = new vis.DataSet([
 
@@ -502,29 +740,40 @@ class StrategyPanel {
             this.edges = edges;
         }
 
+        /**
+         * Données contenant les noeuds et les liens de l'arbre de stratégie
+         * @member {StrategyData}
+         */
         this.data = {
             nodes: this.nodes,
             edges: this.edges
         };
 
-        this.level = 0;
-        this.nextId = 0;
-
+        /**
+         * Instance de vis.Network permettant de visualiser l'arbre
+         * @member {vis.Network}
+         */
         this.network = new vis.Network(element, this.data, __WEBPACK_IMPORTED_MODULE_0__Common__["a" /* STRATEGY_OPTIONS */]);
         this.addNode(6, 'Node 6', 2);
-        this.setNetworkHandlers();
+        this.setNetworkHandler("click", this.onClick);
+        this.setNetworkHandler("doubleClick", this.onDoubleClick);
         instance = this;
     }
 
-    setNetworkHandlers(){
-        this.setNetworkHandler("click", this.onClick);
-        this.setNetworkHandler("doubleClick", this.onDoubleClick);
-    }
-
+    /**
+     * Retourne le Network de l'arbre de stratégie
+     * @returns {StrategyPanel.network}
+     */
     network(){
         return this.network;
     }
 
+    /**
+     * Définis un handler pour l'événement donnée, s'il est utilisable avec le Network
+     * @param {string} event La chaîne correspondant à l'événement
+     * @param {eventCallback} handler Callback de l'événement
+     * @see {@link module-Common.isNetworkEvent}
+     */
     setNetworkHandler(event, handler){
         if(typeof event === 'string' && typeof handler === 'function'){
             if(__WEBPACK_IMPORTED_MODULE_0__Common__["c" /* isNetworkEvent */](event)){
@@ -533,24 +782,38 @@ class StrategyPanel {
         }
     }
 
-    addQuestion(attribute){
-
-    }
-
+    /**
+     * Supprime le noeud donné en paramètre
+     * @param {object} node le noeud à supprimer
+     */
     deleteNode(node){
         this.data.nodes.remove(node);
     }
 
+    /**
+     * Ajout un nouveau noeud au Network
+     * @param id l'id du noeud
+     * @param label le label du noeud
+     * @param level le niveau hiérarchique du noeud (le plus élevé est en bas de l'écran)
+     */
     addNode(id, label, level){
         this.data.nodes.add({id, label, level});
     }
 
+    /**
+     * Handler appelé lors des événement click sur le network
+     * @param {object} params Objet contenant les infos de l'événement
+     */
     onClick(params){
         params.event = "[original event]";
         document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
         console.log('click event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM));
     }
 
+    /**
+     * Handler appelé lors des événement doubleClick sur le network
+     * @param {object} params Objet contenant les infos de l'événement
+     */
     onDoubleClick(params){
         let clickedNode = this.getNodeAt(params.pointer.DOM);
         params.event = "[original event]";
@@ -561,9 +824,8 @@ class StrategyPanel {
         }
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = StrategyPanel;
 
-
+/* harmony default export */ __webpack_exports__["a"] = (StrategyPanel);
 
 /***/ })
 /******/ ]);
