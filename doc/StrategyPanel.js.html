@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: StrategyPanel.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: StrategyPanel.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import * as Common from './Common';
+import AttributesPanel from "./AttributesPanel";
+
+//on a besoin de garder un pointeur vers une instance pour y accèder dans
+//les handlers des événements de vis.js car ces dèrnier sont
+//appelé avec un contexte différents définies par vis.js
+let instance;
+
+/**
+ * Callback pour un événement
+ * @callback eventCallback
+ * @param {Event} event Un événement
+ */
+
+/**
+ * @typedef {object} StrategyData
+ * @property {vis.DataSet} nodes les noeuds
+ * @property {vis.DataSet} edges les liens
+ */
+
+/**
+ * Représente la panel contenant l'arbre de stratégie.
+ */
+class StrategyPanel {
+    /**
+     *
+     * @param {!HTMLElement} element L'élement HTML conteneur de l'arbre de stratégie
+     * @param {?vis.DataSet} nodes L'ensemble des noeuds de départ
+     * @param {?vis.DataSet} edges L'ensemble des liens de départ
+     * @param {!AttributesPanel} attributesPanel Une instance du panel des attributs
+     * @throws {Error} Lance une erreur si element n'est pas une instance de HTMLElement
+     * @throws {Error} Lance une erreur si attributesPanel n'est pas une instance de AttributesPanel
+     */
+    constructor(element, nodes, edges, attributesPanel){
+        if(!(element instanceof HTMLElement)) {
+            throw new Error("@StrategyPanel() -> Erreur : element doit être une instance de HTMLElement");
+        }
+        if(!(attributesPanel instanceof AttributesPanel)){
+            throw new Error("@StrategyPanel() -> Erreur : attributsPanel doit être une instance de AttributesPanel");
+        }
+        /**
+         * L'élément conteneur du panel
+         * @member {HTMLElement}
+         */
+        this.element = element;
+        if(!(nodes instanceof vis.DataSet)){
+            console.log("@StrategyPanel() -> Debug : noeuds par défaut");
+            this.nodes = new vis.DataSet([
+
+            ]);
+        }else{
+            this.nodes = nodes;
+        }
+
+        if(!(edges instanceof vis.DataSet)){
+            console.log("@StrategyPanel() -> Debug : liens par défaut");
+            this.edges = new vis.DataSet([
+
+            ]);
+        }else{
+            this.edges = edges;
+        }
+
+        /**
+         * Données contenant les noeuds et les liens de l'arbre de stratégie
+         * @member {StrategyData}
+         */
+        this.data = {
+            nodes: this.nodes,
+            edges: this.edges
+        };
+
+        /**
+         * Instance de vis.Network permettant de visualiser l'arbre
+         * @member {vis.Network}
+         */
+        this.network = new vis.Network(element, this.data, Common.STRATEGY_OPTIONS);
+        this.addNode(6, 'Node 6', 2);
+        this.setNetworkHandler("click", this.onClick);
+        this.setNetworkHandler("doubleClick", this.onDoubleClick);
+        instance = this;
+    }
+
+    /**
+     * Retourne le Network de l'arbre de stratégie
+     * @returns {StrategyPanel.network}
+     */
+    network(){
+        return this.network;
+    }
+
+    /**
+     * Définis un handler pour l'événement donnée, s'il est utilisable avec le Network
+     * @param {string} event La chaîne correspondant à l'événement
+     * @param {eventCallback} handler Callback de l'événement
+     * @see {@link module-Common.isNetworkEvent}
+     */
+    setNetworkHandler(event, handler){
+        if(typeof event === 'string' &amp;&amp; typeof handler === 'function'){
+            if(Common.isNetworkEvent(event)){
+                this.network.on(event, handler);
+            }
+        }
+    }
+
+    /**
+     * Supprime le noeud donné en paramètre
+     * @param {object} node le noeud à supprimer
+     */
+    deleteNode(node){
+        this.data.nodes.remove(node);
+    }
+
+    /**
+     * Ajout un nouveau noeud au Network
+     * @param id l'id du noeud
+     * @param label le label du noeud
+     * @param level le niveau hiérarchique du noeud (le plus élevé est en bas de l'écran)
+     */
+    addNode(id, label, level){
+        this.data.nodes.add({id, label, level});
+    }
+
+    /**
+     * Handler appelé lors des événement click sur le network
+     * @param {object} params Objet contenant les infos de l'événement
+     */
+    onClick(params){
+        params.event = "[original event]";
+        document.getElementById('eventSpan').innerHTML = '&lt;h2>Click event:&lt;/h2>' + JSON.stringify(params, null, 4);
+        console.log('click event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM));
+    }
+
+    /**
+     * Handler appelé lors des événement doubleClick sur le network
+     * @param {object} params Objet contenant les infos de l'événement
+     */
+    onDoubleClick(params){
+        let clickedNode = this.getNodeAt(params.pointer.DOM);
+        params.event = "[original event]";
+        document.getElementById('eventSpan').innerHTML = '&lt;h2>DoubleClick event:&lt;/h2>' + JSON.stringify(params, null, 4);
+        console.log('click event, getNodeAt returns: ' + clickedNode);
+        if(clickedNode !== undefined){
+            instance.deleteNode(clickedNode);
+        }
+    }
+}
+
+export default StrategyPanel;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Common.html">Common</a></li></ul><h3>Classes</h3><ul><li><a href="Attribute.html">Attribute</a></li><li><a href="AttributeButton.html">AttributeButton</a></li><li><a href="AttributesCollection.html">AttributesCollection</a></li><li><a href="AttributesPanel.html">AttributesPanel</a></li><li><a href="StrategyPanel.html">StrategyPanel</a></li></ul><h3>Global</h3><ul><li><a href="global.html#singleton">singleton</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Feb 17 2018 13:14:28 GMT+0100 (Paris, Madrid)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

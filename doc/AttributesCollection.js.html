@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: AttributesCollection.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: AttributesCollection.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Attribute from './Attribute';
+import attributsJSON from './attributs';
+
+/**
+ * @typedef {Object} AttributeJSON
+ * @property {string} long Une question décrivant la valeur l'attribut concerné (utilisée avec les boutons)
+ * @property {string} court La même question au format plus court (utilisée pour l'arbre de stratégie)
+ */
+
+/**
+ * Gère une collection d'Attribute.
+ * Cette classe est implémentée en tant que singleton accessible
+ * avec AttributesCollection.singleton, en supposant avoir importé
+ * la classe sous ce même nom
+ */
+class AttributesCollection{
+
+    /**
+     * Stocke le JSON dans 'attributs', construits un tableau 2D
+     * destiné à stocker chaque instance d'Attribute de sorte à
+     * ne pas dupliquer les instances inutilement.
+     */
+    constructor(){
+        /**
+         * Le JSON contenant les attributs et leurs valeurs
+         * @member {Object}
+         */
+        this.attributs = attributsJSON["attributs"];
+        /**
+         * Un tableau 2D servant à contenir chaque instances d'Attribute.
+         * Chaque Attribute n'est effectivement instancié qu'après l'appel de la
+         * méthode getAttributeInstance().
+         * @member {Attribute[][]}
+         */
+        this.attributesMap = this.getAttributesValuesKeysMap();
+        this.attributesMap.forEach(attribute => {
+            this.attributesMap[attribute].forEach(value => {
+                this.attributesMap[attribute][value] = undefined;
+            });
+        });
+        this.prettyPrint();
+    }
+
+    /**
+     * Retourne la liste des attributs contenu dans la collection.
+     * @returns {string[]}
+     */
+    getAttributesKeys(){
+        return _.allKeys(this.attributs);
+    }
+
+    /**
+     * Retourne la liste des valeurs pour un attribut, ou undefined s'il n'existe pas.
+     * @param attribute l'attribut
+     * @returns {string[]}
+     */
+    getValuesKeys(attribute){
+        if(this.checkAttributeExists(attribute)){
+            return _.allKeys(this.attributs[attribute]);
+        }else{
+            return undefined;
+        }
+    }
+
+    /**
+     * Retourne l'objet JSON représentant un Attribute correspondant à l'attribut
+     * de valeurs donnés, ou undefined si l'un ou l'autre n'existe pas.
+     * @param attribute l'attribut
+     * @param value la valeur
+     * @returns {AttributeJSON|undefined}
+     */
+    getAttributeJSON(attribute, value){
+        if(this.checkValueExists(attribute, value)){
+            return this.attributs[attribute][value];
+        }else{
+            return undefined;
+        }
+    }
+
+    /**
+     * Retourne l'instance d'Attribute pour un attribut et une valeur données.
+     * @param attribute l'attribut
+     * @param value la valeur
+     * @returns {Attribute|undefined}
+     */
+    getAttributeInstance(attribute, value){
+        let jsonAttribute = this.getAttributeJSON(attribute, value);
+        if(jsonAttribute !== undefined){
+            if(this.attributesMap[attribute][value] === undefined) {
+                let attr = new Attribute(jsonAttribute, attribute, value);
+                this.attributesMap[attribute][value] = attr;
+                return attr;
+            }else{
+                return this.attributesMap[attribute][value];
+            }
+        }
+        return undefined;
+    }
+
+    /**
+     * Vérifie que l'attribut existe dans la collection.
+     * @param attribute l'attribut
+     * @returns {boolean} true si l'attribut existe, false sinon.
+     */
+    checkAttributeExists(attribute){
+        return typeof attribute === "string" &amp;&amp; this.getAttributesKeys().includes(attribute);
+    }
+
+    /**
+     * Vérifie que la valeur existe pour l'attribut donné
+     * @param attribute l'attribut
+     * @param value la valeur
+     * @returns {boolean} true si la valeur existe pour l'attribut donné, false sinon.
+     */
+    checkValueExists(attribute, value){
+        if(this.checkAttributeExists(attribute)){
+            return this.getValuesKeys(attribute).includes(value);
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * Retourne un tableau 2D contenant les listes des valeurs pour chaque attributs.
+     * @example
+     * //Supposons que le JSON contient un attribut 'yeux' ayant deux valeurs, 'bleu' et 'vert'
+     * let map = singleton.getAttributesValuesKeysMap();
+     * console.log(map['yeux']); //{'bleu','vert'}
+     * @returns {string[][]}
+     */
+    getAttributesValuesKeysMap(){
+        let map = this.getAttributesKeys();
+        if(map !== undefined){
+            map.forEach(key => {
+                map[key] = this.getValuesKeys(key);
+            });
+        }
+        return map;
+    }
+
+    /**
+     * Affiche le contenu de la collection dans la console
+     */
+    prettyPrint(){
+        let map = this.getAttributesValuesKeysMap();
+        if(map.length &lt; 1){
+            console.log("Map des attributs vide");
+        }else{
+            map.forEach(attribute => {
+                console.log(`Valeurs pour l'attribut '${attribute}' :`);
+                map[attribute].forEach(value => {
+                    console.log(`\t${value}`) ;
+                });
+            });
+        }
+    }
+}
+
+/**
+ * Singleton de la collection instancier au démarrage de l'application.
+ * @type {AttributesCollection}
+ */
+export const singleton = new AttributesCollection();</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Common.html">Common</a></li></ul><h3>Classes</h3><ul><li><a href="Attribute.html">Attribute</a></li><li><a href="AttributeButton.html">AttributeButton</a></li><li><a href="AttributesCollection.html">AttributesCollection</a></li><li><a href="AttributesPanel.html">AttributesPanel</a></li><li><a href="StrategyPanel.html">StrategyPanel</a></li></ul><h3>Global</h3><ul><li><a href="global.html#singleton">singleton</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Feb 17 2018 13:14:28 GMT+0100 (Paris, Madrid)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
