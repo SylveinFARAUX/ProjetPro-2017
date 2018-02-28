@@ -412,7 +412,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* global vis */
 
     // create an array with nodes
-    var nodes = new vis.DataSet([{ id: 1, label: 'Node 1', level: 0, title: 'Je s\'appel root' }, { id: 2, label: 'Node 2', level: 1 }, { id: 3, label: 'Node 3', level: 1 }, { id: 4, label: 'Node 4', level: 2 }, { id: 5, label: 'Node 5', level: 2 }]);
+    var nodes = new vis.DataSet([{ id: 1, label: 'Node 1', level: 0, title: 'Je s\'appelle root', enabled: true }, { id: 2, label: 'Node 2', level: 1, enabled: true }, { id: 3, label: 'Node 3', level: 1, enabled: true }, { id: 4, label: 'Node 4', level: 2, enabled: true }, { id: 5, label: 'Node 5', level: 2, enabled: true }]);
 
     // create an array with edges
     var edges = new vis.DataSet([{ from: 1, to: 2 }, { from: 1, to: 3 }, { from: 2, to: 4 }, { from: 2, to: 5 }, { from: 3 }]);
@@ -910,6 +910,79 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
 
             /**
+             * Désactive ou active le noeud donné en paramètre et supprime les fils si désactivés
+             * @param {object} node le noeud à désactiver ou activer
+             */
+
+        }, {
+            key: 'updateNode',
+            value: function updateNode(id) {
+                var _this5 = this;
+
+                var node = this.data.nodes.get(id);
+
+                if (node.enabled) {
+                    // Change le couleur du noeud en gris
+                    this.data.nodes.update([{
+                        id: id,
+                        enabled: false,
+                        color: {
+                            background: '#848484',
+                            border: '#2E2E2E',
+                            highlight: {
+                                background: '#A4A4A4',
+                                border: '#2E2E2E'
+                            },
+                            hover: {
+                                background: '#A4A4A4',
+                                border: '#2E2E2E'
+                            }
+                        }
+                    }]);
+
+                    // Si tous les fils sont désactivés, on les supprime
+                    var allDisabled = true;
+                    var sons = [];
+
+                    this.data.edges.forEach(function (edge) {
+                        if (edge.from == node.id) {
+                            var son = _this5.data.nodes.get(edge.to);
+
+                            sons.push(son);
+
+                            if (son.enabled) {
+                                allDisabled = false;
+                            }
+                        }
+                    });
+
+                    if (allDisabled && sons.length != 0) {
+                        sons.forEach(function (son) {
+                            _this5.deleteNode(son);
+                        });
+                    }
+                } else {
+                    // Remet la couleur du noeud par défaut
+                    this.data.nodes.update([{
+                        id: id,
+                        enabled: true,
+                        color: {
+                            background: '#D2E5FF',
+                            border: '#2B7CE9',
+                            highlight: {
+                                background: '#D2E5FF',
+                                border: '#2B7CE9'
+                            },
+                            hover: {
+                                background: '#D2E5FF',
+                                border: '#2B7CE9'
+                            }
+                        }
+                    }]);
+                }
+            }
+
+            /**
              * Ajout un nouveau noeud au Network
              * @param id l'id du noeud
              * @param label le label du noeud
@@ -948,7 +1021,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 document.getElementById('eventSpan').innerHTML = '<h2>DoubleClick event:</h2>' + JSON.stringify(params, null, 4);
                 console.log('click event, getNodeAt returns: ' + clickedNode);
                 if (clickedNode !== undefined) {
-                    instance.deleteNode(clickedNode);
+                    instance.updateNode(clickedNode);
                 }
             }
         }]);

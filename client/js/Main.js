@@ -6,11 +6,11 @@ import * as Common from "./objects/Common";
 
 // create an array with nodes
 let nodes = new vis.DataSet([
-    {id: 1, label: 'Node 1', level: 0, title: 'Je s\'appel root'},
-    {id: 2, label: 'Node 2', level: 1},
-    {id: 3, label: 'Node 3', level: 1},
-    {id: 4, label: 'Node 4', level: 2},
-    {id: 5, label: 'Node 5', level: 2}
+    {id: 1, label: 'Node 1', level: 0, title: 'Je s\'appelle root', enabled:true},
+    {id: 2, label: 'Node 2', level: 1, enabled:true},
+    {id: 3, label: 'Node 3', level: 1, enabled:true},
+    {id: 4, label: 'Node 4', level: 2, enabled:true},
+    {id: 5, label: 'Node 5', level: 2, enabled:true}
 ]);
 
 // create an array with edges

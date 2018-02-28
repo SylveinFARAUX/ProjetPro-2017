@@ -112,6 +112,75 @@ class StrategyPanel {
     }
 
     /**
+     * Désactive ou active le noeud donné en paramètre et supprime les fils si désactivés
+     * @param {object} node le noeud à désactiver ou activer
+     */
+    updateNode(id){
+      var node = this.data.nodes.get(id);
+
+      if(node.enabled) {
+        // Change le couleur du noeud en gris
+        this.data.nodes.update([{
+          id:id,
+          enabled: false,
+          color:{
+            background:'#848484',
+            border:'#2E2E2E',
+            highlight:{
+              background:'#A4A4A4',
+              border:'#2E2E2E'
+            },
+            hover:{
+              background:'#A4A4A4',
+              border:'#2E2E2E'
+            }
+          }
+        }]);
+
+        // Si tous les fils sont désactivés, on les supprime
+        var allDisabled = true;
+        var sons = [];
+
+        this.data.edges.forEach((edge) => {
+          if (edge.from == node.id) {
+            let son = this.data.nodes.get(edge.to);
+
+            sons.push(son);
+
+            if(son.enabled) {
+              allDisabled = false;
+            }
+          }
+        });
+
+        if (allDisabled && sons.length != 0) {
+          sons.forEach((son) => {
+            this.deleteNode(son);
+          });
+        }
+
+      } else {
+        // Remet la couleur du noeud par défaut
+        this.data.nodes.update([{
+          id:id,
+          enabled: true,
+          color:{
+            background:'#D2E5FF',
+            border:'#2B7CE9',
+            highlight:{
+              background:'#D2E5FF',
+              border:'#2B7CE9'
+            },
+            hover:{
+              background:'#D2E5FF',
+              border:'#2B7CE9'
+            }
+          }
+        }]);
+      }
+    }
+
+    /**
      * Ajout un nouveau noeud au Network
      * @param id l'id du noeud
      * @param label le label du noeud
@@ -141,7 +210,7 @@ class StrategyPanel {
         document.getElementById('eventSpan').innerHTML = '<h2>DoubleClick event:</h2>' + JSON.stringify(params, null, 4);
         console.log('click event, getNodeAt returns: ' + clickedNode);
         if(clickedNode !== undefined){
-            instance.deleteNode(clickedNode);
+            instance.updateNode(clickedNode);
         }
     }
 }

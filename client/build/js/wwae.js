@@ -356,11 +356,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 // create an array with nodes
 let nodes = new vis.DataSet([
-    {id: 1, label: 'Node 1', level: 0, title: 'Je s\'appel root'},
-    {id: 2, label: 'Node 2', level: 1},
-    {id: 3, label: 'Node 3', level: 1},
-    {id: 4, label: 'Node 4', level: 2},
-    {id: 5, label: 'Node 5', level: 2}
+    {id: 1, label: 'Node 1', level: 0, title: 'Je s\'appelle root', enabled:true},
+    {id: 2, label: 'Node 2', level: 1, enabled:true},
+    {id: 3, label: 'Node 3', level: 1, enabled:true},
+    {id: 4, label: 'Node 4', level: 2, enabled:true},
+    {id: 5, label: 'Node 5', level: 2, enabled:true}
 ]);
 
 // create an array with edges
@@ -373,6 +373,7 @@ let edges = new vis.DataSet([
 ]);
 
 new __WEBPACK_IMPORTED_MODULE_1__objects_StrategyPanel__["a" /* default */](document.getElementById('strategie-network'), nodes, edges, new __WEBPACK_IMPORTED_MODULE_0__objects_AttributesPanel__["a" /* default */](document.getElementById('attributs')));
+
 
 /***/ }),
 /* 4 */
@@ -791,6 +792,75 @@ class StrategyPanel {
     }
 
     /**
+     * Désactive ou active le noeud donné en paramètre et supprime les fils si désactivés
+     * @param {object} node le noeud à désactiver ou activer
+     */
+    updateNode(id){
+      var node = this.data.nodes.get(id);
+
+      if(node.enabled) {
+        // Change le couleur du noeud en gris
+        this.data.nodes.update([{
+          id:id,
+          enabled: false,
+          color:{
+            background:'#848484',
+            border:'#2E2E2E',
+            highlight:{
+              background:'#A4A4A4',
+              border:'#2E2E2E'
+            },
+            hover:{
+              background:'#A4A4A4',
+              border:'#2E2E2E'
+            }
+          }
+        }]);
+
+        // Si tous les fils sont désactivés, on les supprime
+        var allDisabled = true;
+        var sons = [];
+
+        this.data.edges.forEach((edge) => {
+          if (edge.from == node.id) {
+            let son = this.data.nodes.get(edge.to);
+
+            sons.push(son);
+
+            if(son.enabled) {
+              allDisabled = false;
+            }
+          }
+        });
+
+        if (allDisabled && sons.length != 0) {
+          sons.forEach((son) => {
+            this.deleteNode(son);
+          });
+        }
+
+      } else {
+        // Remet la couleur du noeud par défaut
+        this.data.nodes.update([{
+          id:id,
+          enabled: true,
+          color:{
+            background:'#D2E5FF',
+            border:'#2B7CE9',
+            highlight:{
+              background:'#D2E5FF',
+              border:'#2B7CE9'
+            },
+            hover:{
+              background:'#D2E5FF',
+              border:'#2B7CE9'
+            }
+          }
+        }]);
+      }
+    }
+
+    /**
      * Ajout un nouveau noeud au Network
      * @param id l'id du noeud
      * @param label le label du noeud
@@ -820,12 +890,13 @@ class StrategyPanel {
         document.getElementById('eventSpan').innerHTML = '<h2>DoubleClick event:</h2>' + JSON.stringify(params, null, 4);
         console.log('click event, getNodeAt returns: ' + clickedNode);
         if(clickedNode !== undefined){
-            instance.deleteNode(clickedNode);
+            instance.updateNode(clickedNode);
         }
     }
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (StrategyPanel);
+
 
 /***/ })
 /******/ ]);
