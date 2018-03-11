@@ -28,6 +28,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>import * as Common from './Common';
 import AttributesPanel from "./AttributesPanel";
+import Application from "./Application";
 
 //on a besoin de garder un pointeur vers une instance pour y accèder dans
 //les handlers des événements de vis.js car ces dèrnier sont
@@ -47,47 +48,52 @@ let instance;
  */
 
 /**
- * Représente la panel contenant l'arbre de stratégie.
+ * Représente le panel contenant l'arbre de stratégie.
  */
 class StrategyPanel {
     /**
      *
-     * @param {!HTMLElement} element L'élement HTML conteneur de l'arbre de stratégie
-     * @param {?vis.DataSet} nodes L'ensemble des noeuds de départ
-     * @param {?vis.DataSet} edges L'ensemble des liens de départ
-     * @param {!AttributesPanel} attributesPanel Une instance du panel des attributs
+     * @param {!Application} appInstance L'instance d'application commune aux panels
      * @throws {Error} Lance une erreur si element n'est pas une instance de HTMLElement
-     * @throws {Error} Lance une erreur si attributesPanel n'est pas une instance de AttributesPanel
+     * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
      */
-    constructor(element, nodes, edges, attributesPanel){
-        if(!(element instanceof HTMLElement)) {
-            throw new Error("@StrategyPanel() -> Erreur : element doit être une instance de HTMLElement");
+    constructor(appInstance){
+        if(!(appInstance instanceof Application)){
+            throw new Error("appInstance doit être l'instance de l'application commune aux panels");
         }
-        if(!(attributesPanel instanceof AttributesPanel)){
-            throw new Error("@StrategyPanel() -> Erreur : attributsPanel doit être une instance de AttributesPanel");
-        }
+        this.appInstance = appInstance;
         /**
          * L'élément conteneur du panel
          * @member {HTMLElement}
          */
-        this.element = element;
-        if(!(nodes instanceof vis.DataSet)){
-            console.log("@StrategyPanel() -> Debug : noeuds par défaut");
-            this.nodes = new vis.DataSet([
-
-            ]);
-        }else{
-            this.nodes = nodes;
+        this.element = document.getElementById('strategie-network');
+        if(!(this.element instanceof HTMLElement)) {
+            throw new Error("@StrategyPanel() -> Erreur : element doit être une instance de HTMLElement d'id 'attributs'");
         }
 
-        if(!(edges instanceof vis.DataSet)){
-            console.log("@StrategyPanel() -> Debug : liens par défaut");
-            this.edges = new vis.DataSet([
+        /**
+         * Liste des noeuds de la stratégie
+         * @type {DataSet}
+         */
+        this.nodes = new vis.DataSet([
+            {id: 1, label: 'Node 1', level: 0, title: 'Je s\'appelle root', enabled:true},
+            {id: 2, label: 'Node 2', level: 1, enabled:true},
+            {id: 3, label: 'Node 3', level: 1, enabled:true},
+            {id: 4, label: 'Node 4', level: 2, enabled:true},
+            {id: 5, label: 'Node 5', level: 2, enabled:true}
+        ]);
 
-            ]);
-        }else{
-            this.edges = edges;
-        }
+        /**
+         * Liste des liens de la stratégie
+         * @type {DataSet}
+         */
+        this.edges = new vis.DataSet([
+            {from: 1, to: 2},
+            {from: 1, to: 3},
+            {from: 2, to: 4},
+            {from: 2, to: 5}
+        ]);
+
 
         /**
          * Données contenant les noeuds et les liens de l'arbre de stratégie
@@ -102,7 +108,7 @@ class StrategyPanel {
          * Instance de vis.Network permettant de visualiser l'arbre
          * @member {vis.Network}
          */
-        this.network = new vis.Network(element, this.data, Common.STRATEGY_OPTIONS);
+        this.network = new vis.Network(this.element, this.data, Common.STRATEGY_OPTIONS);
         this.addNode(6, 'Node 6', 2);
         this.setNetworkHandler("click", this.onClick);
         this.setNetworkHandler("doubleClick", this.onDoubleClick);
@@ -115,6 +121,24 @@ class StrategyPanel {
      */
     network(){
         return this.network;
+    }
+
+    /**
+     * Retourne le lien avec l'id donné
+     * @param id l'id du lien
+     * @returns {Object|undefined} le lien ou undefined
+     */
+    getEdge(id){
+        return this.data.edges.get(id);
+    }
+
+    /**
+     * Retourne le noeud avec l'id donné
+     * @param id l'id du noeud
+     * @returns {Object|undefined} le noeud ou undefined
+     */
+    getNode(id){
+        return this.data.nodes.get(id);
     }
 
     /**
@@ -137,6 +161,124 @@ class StrategyPanel {
      */
     deleteNode(node){
         this.data.nodes.remove(node);
+    }
+
+    /**
+     * Retourne le noeud père du noeud avec l'id donné
+     * @param {!Number} id l'id du noeud fils
+     * @returns {Number|undefined} L'id du noeud père ou undefined
+     */
+    getParentId(id){
+        this.data.edges.forEach((edge) => {
+            if (edge.to === id) {
+                return edge.from;
+            }
+        });
+        return undefined;
+    }
+
+    /**
+     *  /**
+     * Retourne les ids des noeuds fils du noeud avec l'id donné
+     * @param {!Number} id l'id du noeud père
+     * @returns {Array} Les ids des noeuds fils
+     */
+    getChildsIds(id){
+        let sons = [];
+        this.data.edges.forEach((edge) => {
+            if (edge.from === id) {
+                sons.push(edge.to);
+            }
+        });
+        return sons;
+    }
+
+    /**
+     * Active le noeud donné
+     * @param {!Number} id le noeud à activer
+     */
+    enableNode(id){
+        if(id === undefined){
+            return;
+        }
+        // Remet la couleur du noeud par défaut
+        this.data.nodes.update([{
+            id:id,
+            enabled: true,
+            color:{
+                background:'#D2E5FF',
+                border:'#2B7CE9',
+                highlight:{
+                    background:'#D2E5FF',
+                    border:'#2B7CE9'
+                },
+                hover:{
+                    background:'#D2E5FF',
+                    border:'#2B7CE9'
+                }
+            }
+        }]);
+    }
+
+    /**
+     * Désactive le noeud donné
+     * @param {!Number} id le noeud à désactiver
+     */
+    disableNode(id){
+        if(id === undefined){
+            return;
+        }
+        // Remet la couleur du noeud par défaut
+        this.data.nodes.update([{
+            id:id,
+            enabled: false,
+            color:{
+                background:'#848484',
+                border:'#2E2E2E',
+                highlight:{
+                    background:'#A4A4A4',
+                    border:'#2E2E2E'
+                },
+                hover:{
+                    background:'#A4A4A4',
+                    border:'#2E2E2E'
+                }
+            }
+        }]);
+
+        // Si tous les fils sont désactivés, on les supprime
+        let allDisabled = true;
+        let sons = [];
+
+        this.data.edges.forEach((edge) => {
+            if (edge.from === id) {
+                let son = this.getNode(edge.to);
+
+                sons.push(son);
+
+                if(son.enabled) {
+                    allDisabled = false;
+                }
+            }
+        });
+
+        if (allDisabled &amp;&amp; sons.length !== 0) {
+            sons.forEach((son) => {
+                this.deleteNode(son);
+            });
+        }
+    }
+
+    /**
+     * Désactive ou active le noeud donné en paramètre et supprime les fils si désactivés
+     * @param {!Number} id le noeud à désactiver ou activer
+     */
+    updateNode(id){
+      if(this.getNode(id).enabled) {
+        this.disableNode(id);
+      } else {
+          this.enableNode(id);
+      }
     }
 
     /**
@@ -169,12 +311,13 @@ class StrategyPanel {
         document.getElementById('eventSpan').innerHTML = '&lt;h2>DoubleClick event:&lt;/h2>' + JSON.stringify(params, null, 4);
         console.log('click event, getNodeAt returns: ' + clickedNode);
         if(clickedNode !== undefined){
-            instance.deleteNode(clickedNode);
+            instance.updateNode(clickedNode);
         }
     }
 }
 
-export default StrategyPanel;</code></pre>
+export default StrategyPanel;
+</code></pre>
         </article>
     </section>
 
@@ -184,13 +327,13 @@ export default StrategyPanel;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Common.html">Common</a></li></ul><h3>Classes</h3><ul><li><a href="Attribute.html">Attribute</a></li><li><a href="AttributeButton.html">AttributeButton</a></li><li><a href="AttributesCollection.html">AttributesCollection</a></li><li><a href="AttributesPanel.html">AttributesPanel</a></li><li><a href="StrategyPanel.html">StrategyPanel</a></li></ul><h3>Global</h3><ul><li><a href="global.html#singleton">singleton</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Common.html">Common</a></li></ul><h3>Classes</h3><ul><li><a href="Application.html">Application</a></li><li><a href="Attribute.html">Attribute</a></li><li><a href="AttributeButton.html">AttributeButton</a></li><li><a href="AttributesCollection.html">AttributesCollection</a></li><li><a href="AttributesPanel.html">AttributesPanel</a></li><li><a href="InformationsPanel.html">InformationsPanel</a></li><li><a href="PopulationPanel.html">PopulationPanel</a></li><li><a href="StrategyPanel.html">StrategyPanel</a></li></ul><h3>Global</h3><ul><li><a href="global.html#singleton">singleton</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Feb 17 2018 13:14:28 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Mar 11 2018 22:05:09 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

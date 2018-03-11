@@ -15,10 +15,15 @@ body,
 }
 
 .attributs,
-.population,
 .informations {
     min-height: 100%;
     overflow-y: auto;
+    padding-bottom: 10px;
+}
+
+.population {
+    min-height: 100%;
+    overflow-y: hidden;
     padding-bottom: 10px;
 }
 
@@ -85,7 +90,8 @@ h3 {
 #population{
     max-width : 1300px;
     min-height: 50px;
-    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
     background-color : #0C1021;
 }
 

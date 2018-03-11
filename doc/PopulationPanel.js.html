@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: PopulationPanel.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: PopulationPanel.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Character from "./Character";
+import Application from "./Application";
+
+const popSize = 24;
+const charWidth = 150;
+const charHeight = 150;
+let popJson =
+    {
+        "characters": [
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "vert"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            }
+        ]
+    };
+
+/**
+ * Classe représentant le panel de la population
+ */
+class PopulationPanel {
+
+    /**
+     *
+     * @param {!Application} appInstance L'instance d'application commune aux panels
+     * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
+     */
+    constructor(appInstance) {
+        if(!(appInstance instanceof Application)){
+            throw new Error("appInstance doit être l'instance de l'application commune aux panels");
+        }
+        this.appInstance = appInstance;
+        this.population = new Array(popSize);
+        this.table = document.getElementById("tableChar");
+        this.element = document.getElementById("population");
+        this.load();
+        this.createButtons();
+        this.loadTable();
+    }
+
+    load(){
+        let chars = popJson;
+        for(let i = 0; i &lt; chars.characters.length; i++){
+            this.population[i] = new Character(chars.characters[i], i);
+        }
+    }
+
+    /**
+     *
+     * @param {!Number} i l'index du personnage
+     * @returns {Character} l'instance du personnage
+     */
+    getChar(i){
+        return this.population[i];
+    }
+
+    refresh(tabAttribute){
+        for(let i = 0; i &lt; this.population.length; i++){
+            let bool = this.population[i].check(tabAttribute);
+        }
+    }
+
+    loadTable(){
+        let nbCol = Math.floor(this.element.offsetWidth/charWidth);
+        nbCol = (nbCol === 0) ? 1 : nbCol;
+        let nbRow = Math.ceil(popSize/nbCol);
+
+        let row;
+        for(let i = 0; i &lt; popSize; i++){
+            if(i % nbCol === 0){
+                row = this.addRow();
+            }
+            row.appendChild(this.addChar(this.getChar(i%2)));
+        }
+
+        this.centerCharInfos();
+    }
+
+    addRow(){
+        let row = document.createElement("tr");
+        this.table.appendChild(row);
+        return row;
+    }
+
+    /**
+     *
+     * @param {!Character} char l'instance de Character
+     * @returns {HTMLTableDataCellElement} l'élément 'td' de la colonne
+     */
+    addChar(char){
+        let col = document.createElement("td");
+        col.id = "char" + char.id;
+        col.className = "charElem";
+        col.innerHTML = `
+								&lt;figure>
+									&lt;img src ='` + char.img + `' alt='Perso` + char.id + `' id = 'charimg` + char.id + `'/>
+									&lt;figcaption>
+										&lt;div class = 'charInfo'>
+											&lt;h3 id = 'charName'>` + char.nom +`&lt;/h3>
+											&lt;p id = 'charstatus` + char.id + `'>Suspect&lt;/p>
+											&lt;div class = "CharTooltip">
+												&lt;span class="arrow">&lt;/span>
+												&lt;span class='CharTooltip-text'>`+ char.listeAttribute() + `&lt;/span>
+											&lt;/div>
+										&lt;/div>
+									&lt;/figcaption>
+								&lt;/figure>
+							`;
+        return  col;
+    }
+
+    centerCharInfos(){
+        let charinfo = document.getElementsByClassName("charInfo");
+        for(let i = 0; i &lt; charinfo.length; i++){
+            this.centerInParent(charinfo[i]);
+        }
+    }
+
+    /**
+     *
+     * @param node ??
+     */
+    centerInParent(node){
+        //node.style.marginTop = node.parentNode.offsetHeight/2-node.offsetHeight/2 + "px";
+        node.style.marginTop = "50px";
+    }
+
+    /**
+     * Créer un bouton qui désactive le personnage d'index char.
+     * @param {!Number} char Index du personnage à éliminer
+     * @param {!String} text Text du bouton
+     * @param {!String} reason Raison de l'élimination
+     * @returns {HTMLButtonElement} Le bouton HTML
+     */
+    createUnactiveButton(char, text, reason){
+        let buttonElm = document.createElement("button");
+        buttonElm.addEventListener("click", ()=>{
+            this.getChar(char).unactive(reason);
+        });
+        buttonElm.innerText = text;
+        return buttonElm;
+    }
+
+    /**
+     * Créer un bouton qui active le personnage d'index char.
+     * @param {!Number} char Index du personnage à éliminer
+     * @param {!String} text Text du bouton
+     * @returns {HTMLButtonElement} Le bouton HTLM
+     */
+    createActiveButton(char, text){
+        let buttonElm = document.createElement("button");
+        buttonElm.addEventListener("click", ()=>{
+            this.getChar(char).active();
+        });
+        buttonElm.innerText = text;
+        return buttonElm;
+    }
+
+    /**
+     * Instancie les boutons d'activation/désactivation des personnages
+     */
+    createButtons(){
+        let buttonsElm = document.getElementById("populationButtons");
+        buttonsElm.appendChild(this.createUnactiveButton(0, "Désactive perso 0","Trop moche"));
+        buttonsElm.appendChild(this.createActiveButton(0, "Active perso 0"));
+        buttonsElm.appendChild(this.createUnactiveButton(1, "Désactive perso 1","Cheveux blond"));
+        buttonsElm.appendChild(this.createActiveButton(1, "Active perso 1"));
+    }
+}
+
+export default PopulationPanel;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Common.html">Common</a></li></ul><h3>Classes</h3><ul><li><a href="Application.html">Application</a></li><li><a href="Attribute.html">Attribute</a></li><li><a href="AttributeButton.html">AttributeButton</a></li><li><a href="AttributesCollection.html">AttributesCollection</a></li><li><a href="AttributesPanel.html">AttributesPanel</a></li><li><a href="InformationsPanel.html">InformationsPanel</a></li><li><a href="PopulationPanel.html">PopulationPanel</a></li><li><a href="StrategyPanel.html">StrategyPanel</a></li></ul><h3>Global</h3><ul><li><a href="global.html#singleton">singleton</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Mar 11 2018 22:05:09 GMT+0100 (Paris, Madrid)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

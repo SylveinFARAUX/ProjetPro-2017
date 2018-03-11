@@ -25,14 +25,19 @@ class Character{
 
     active(){
         if(this.actived)return;
-        document.getElementById("charimg" + this.id).style.filter = "";
+        let img = document.getElementById("charimg" + this.id);
+        img.style.filter = "";
+        img.style.borderColor = "grey";
         document.getElementById("charstatus" + this.id).innerHTML = "Suspect";
         this.actived = true;
     }
 
     unactive(reason){
         if(!this.actived)return;
-        document.getElementById("charimg" + this.id).style.filter = "grayscale(100%)";
+        let img = document.getElementById("charimg" + this.id);
+        img.style.filter = "grayscale(100%)";
+        console.log("ici");
+        img.style.borderColor = "#A61011";
         document.getElementById("charstatus" + this.id).innerHTML = "Eliminé : " + reason;
         this.actived = false;
     }

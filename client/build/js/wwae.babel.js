@@ -1477,7 +1477,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             key: 'active',
             value: function active() {
                 if (this.actived) return;
-                document.getElementById("charimg" + this.id).style.filter = "";
+                var img = document.getElementById("charimg" + this.id);
+                img.style.filter = "";
+                img.style.borderColor = "grey";
                 document.getElementById("charstatus" + this.id).innerHTML = "Suspect";
                 this.actived = true;
             }
@@ -1485,7 +1487,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             key: 'unactive',
             value: function unactive(reason) {
                 if (!this.actived) return;
-                document.getElementById("charimg" + this.id).style.filter = "grayscale(100%)";
+                var img = document.getElementById("charimg" + this.id);
+                img.style.filter = "grayscale(100%)";
+                console.log("ici");
+                img.style.borderColor = "#A61011";
                 document.getElementById("charstatus" + this.id).innerHTML = "Eliminé : " + reason;
                 this.actived = false;
             }

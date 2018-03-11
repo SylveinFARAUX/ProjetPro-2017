@@ -28,9 +28,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>StrategyPanel<span class="signature">(element<span class="signature-attributes">non-null</span>, nodes<span class="signature-attributes">nullable</span>, edges<span class="signature-attributes">nullable</span>, attributesPanel<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>StrategyPanel<span class="signature">(appInstance<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">Représente la panel contenant l'arbre de stratégie.</div>
+            <div class="class-description">Représente le panel contenant l'arbre de stratégie.</div>
         
     
 </header>
@@ -45,7 +45,7 @@
     
 
     
-    <h4 class="name" id="StrategyPanel"><span class="type-signature"></span>new StrategyPanel<span class="signature">(element<span class="signature-attributes">non-null</span>, nodes<span class="signature-attributes">nullable</span>, edges<span class="signature-attributes">nullable</span>, attributesPanel<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="StrategyPanel"><span class="type-signature"></span>new StrategyPanel<span class="signature">(appInstance<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
     
 
     
@@ -73,8 +73,6 @@
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
         
 
@@ -87,128 +85,23 @@
 
         <tr>
             
-                <td class="name"><code>element</code></td>
+                <td class="name"><code>appInstance</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">HTMLElement</span>
+<span class="param-type"><a href="Application.html">Application</a></span>
 
 
             
             </td>
 
             
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last">L'élement HTML conteneur de l'arbre de stratégie</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>nodes</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">vis.DataSet</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-                    &lt;nullable><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">L'ensemble des noeuds de départ</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>edges</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">vis.DataSet</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-                    &lt;nullable><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">L'ensemble des liens de départ</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>attributesPanel</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="AttributesPanel.html">AttributesPanel</a></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Une instance du panel des attributs</td>
+            <td class="description last">L'instance d'application commune aux panels</td>
         </tr>
 
     
@@ -249,7 +142,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line24">line 24</a>
+        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line25">line 25</a>
     </li></ul></dd>
     
 
@@ -351,7 +244,79 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line68">line 68</a>
+        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line74">line 74</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="edges"><span class="type-signature"></span>edges<span class="type-signature"> :DataSet</span></h4>
+
+
+
+
+<div class="description">
+    Liste des liens de la stratégie
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">DataSet</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line62">line 62</a>
     </li></ul></dd>
     
 
@@ -423,7 +388,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line45">line 45</a>
+        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line41">line 41</a>
     </li></ul></dd>
     
 
@@ -495,7 +460,79 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line77">line 77</a>
+        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line83">line 83</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="nodes"><span class="type-signature"></span>nodes<span class="type-signature"> :DataSet</span></h4>
+
+
+
+
+<div class="description">
+    Liste des noeuds de la stratégie
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">DataSet</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line50">line 50</a>
     </li></ul></dd>
     
 
@@ -655,7 +692,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line120">line 120</a>
+        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line262">line 262</a>
     </li></ul></dd>
     
 
@@ -790,7 +827,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line110">line 110</a>
+        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line134">line 134</a>
     </li></ul></dd>
     
 
@@ -813,6 +850,904 @@
 
 
 
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="disableNode"><span class="type-signature"></span>disableNode<span class="signature">(id<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Désactive le noeud donné
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">le noeud à désactiver</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line199">line 199</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="enableNode"><span class="type-signature"></span>enableNode<span class="signature">(id<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Active le noeud donné
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">le noeud à activer</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line172">line 172</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getChildsIds"><span class="type-signature"></span>getChildsIds<span class="signature">(id<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    /**
+Retourne les ids des noeuds fils du noeud avec l'id donné
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">l'id du noeud père</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line158">line 158</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Les ids des noeuds fils
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getEdge"><span class="type-signature"></span>getEdge<span class="signature">(id)</span><span class="type-signature"> &rarr; {Object|undefined}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Retourne le lien avec l'id donné
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">l'id du lien</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line103">line 103</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    le lien ou undefined
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+|
+
+<span class="param-type">undefined</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getNode"><span class="type-signature"></span>getNode<span class="signature">(id)</span><span class="type-signature"> &rarr; {Object|undefined}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Retourne le noeud avec l'id donné
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">l'id du noeud</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line112">line 112</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    le noeud ou undefined
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+|
+
+<span class="param-type">undefined</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getParentId"><span class="type-signature"></span>getParentId<span class="signature">(id<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {Number|undefined}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Retourne le noeud père du noeud avec l'id donné
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">l'id du noeud fils</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line143">line 143</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    L'id du noeud père ou undefined
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">undefined</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -876,7 +1811,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line88">line 88</a>
+        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line94">line 94</a>
     </li></ul></dd>
     
 
@@ -1029,7 +1964,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line128">line 128</a>
+        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line270">line 270</a>
     </li></ul></dd>
     
 
@@ -1164,7 +2099,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line138">line 138</a>
+        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line280">line 280</a>
     </li></ul></dd>
     
 
@@ -1322,7 +2257,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line98">line 98</a>
+        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line122">line 122</a>
     </li></ul></dd>
     
 
@@ -1335,6 +2270,141 @@
             <li>module-Common.isNetworkEvent</li>
         </ul>
     </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updateNode"><span class="type-signature"></span>updateNode<span class="signature">(id<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Désactive ou active le noeud donné en paramètre et supprime les fils si désactivés
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">le noeud à désactiver ou activer</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="StrategyPanel.js.html">StrategyPanel.js</a>, <a href="StrategyPanel.js.html#line248">line 248</a>
+    </li></ul></dd>
+    
+
+    
+
     
 
     
@@ -1373,13 +2443,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Common.html">Common</a></li></ul><h3>Classes</h3><ul><li><a href="Attribute.html">Attribute</a></li><li><a href="AttributeButton.html">AttributeButton</a></li><li><a href="AttributesCollection.html">AttributesCollection</a></li><li><a href="AttributesPanel.html">AttributesPanel</a></li><li><a href="StrategyPanel.html">StrategyPanel</a></li></ul><h3>Global</h3><ul><li><a href="global.html#singleton">singleton</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Common.html">Common</a></li></ul><h3>Classes</h3><ul><li><a href="Application.html">Application</a></li><li><a href="Attribute.html">Attribute</a></li><li><a href="AttributeButton.html">AttributeButton</a></li><li><a href="AttributesCollection.html">AttributesCollection</a></li><li><a href="AttributesPanel.html">AttributesPanel</a></li><li><a href="InformationsPanel.html">InformationsPanel</a></li><li><a href="PopulationPanel.html">PopulationPanel</a></li><li><a href="StrategyPanel.html">StrategyPanel</a></li></ul><h3>Global</h3><ul><li><a href="global.html#singleton">singleton</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Feb 17 2018 13:14:28 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Mar 11 2018 22:05:09 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>
