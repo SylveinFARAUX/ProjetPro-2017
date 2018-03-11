@@ -41,5 +41,5 @@ Ouvrir le fichier client/index.html dans un navigateur
 
 ## Bibliothèque graphique
 
-On utilisera la librairie graphique Vis.js
+Nous utilisons la librairie graphique Vis.js
 Sit web : http://visjs.org/
