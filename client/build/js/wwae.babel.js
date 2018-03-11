@@ -424,16 +424,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     }
                 });
             });
+
+            this.removeAttributeButton = document.getElementById("boutonAnnulerSupposition");
+            this.removeAttributeButton.addEventListener("click", this.annulerSupposition);
         }
 
-        /**
-         * Ajoute un bouton avec l'attribut donné s'il n'existe pas déja
-         * @param {!Attribute} attribute l'instance de l'attribut
-         * @throws {Error} Lance un erreur si attribute n'est pas une instance de Attribute
-         */
-
-
         _createClass(AttributesPanel, [{
+            key: 'annulerSupposition',
+            value: function annulerSupposition(event) {
+                console.log("Annulation supposition");
+            }
+
+            /**
+             * Ajoute un bouton avec l'attribut donné s'il n'existe pas déja
+             * @param {!Attribute} attribute l'instance de l'attribut
+             * @throws {Error} Lance un erreur si attribute n'est pas une instance de Attribute
+             */
+
+        }, {
             key: 'addButton',
             value: function addButton(attribute) {
                 if (!(attribute instanceof __WEBPACK_IMPORTED_MODULE_2__Attribute__["a" /* default */])) {
@@ -563,7 +571,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
              * Liste des liens de la stratégie
              * @type {DataSet}
              */
-            this.edges = new vis.DataSet([{ from: 1, to: 2 }, { from: 1, to: 3 }, { from: 2, to: 4 }, { from: 2, to: 5 }, { from: 3 }]);
+            this.edges = new vis.DataSet([{ from: 1, to: 2 }, { from: 1, to: 3 }, { from: 2, to: 4 }, { from: 2, to: 5 }]);
 
             /**
              * Données contenant les noeuds et les liens de l'arbre de stratégie
@@ -598,6 +606,30 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
 
             /**
+             * Retourne le lien avec l'id donné
+             * @param id l'id du lien
+             * @returns {Object|undefined} le lien ou undefined
+             */
+
+        }, {
+            key: 'getEdge',
+            value: function getEdge(id) {
+                return this.data.edges.get(id);
+            }
+
+            /**
+             * Retourne le noeud avec l'id donné
+             * @param id l'id du noeud
+             * @returns {Object|undefined} le noeud ou undefined
+             */
+
+        }, {
+            key: 'getNode',
+            value: function getNode(id) {
+                return this.data.nodes.get(id);
+            }
+
+            /**
              * Définis un handler pour l'événement donnée, s'il est utilisable avec le Network
              * @param {string} event La chaîne correspondant à l'événement
              * @param {eventCallback} handler Callback de l'événement
@@ -626,6 +658,42 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
 
             /**
+             * Retourne le noeud père du noeud avec l'id donné
+             * @param {!Number} id l'id du noeud fils
+             * @returns {Number|undefined} L'id du noeud père ou undefined
+             */
+
+        }, {
+            key: 'getParentId',
+            value: function getParentId(id) {
+                this.data.edges.forEach(function (edge) {
+                    if (edge.to === id) {
+                        return edge.from;
+                    }
+                });
+                return undefined;
+            }
+
+            /**
+             *  /**
+             * Retourne les ids des noeuds fils du noeud avec l'id donné
+             * @param {!Number} id l'id du noeud père
+             * @returns {Array} Les ids des noeuds fils
+             */
+
+        }, {
+            key: 'getChildsIds',
+            value: function getChildsIds(id) {
+                var sons = [];
+                this.data.edges.forEach(function (edge) {
+                    if (edge.from === id) {
+                        sons.push(edge.to);
+                    }
+                });
+                return sons;
+            }
+
+            /**
              * Active le noeud donné
              * @param {!Number} id le noeud à activer
              */
@@ -633,6 +701,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }, {
             key: 'enableNode',
             value: function enableNode(id) {
+                if (id === undefined) {
+                    return;
+                }
                 // Remet la couleur du noeud par défaut
                 this.data.nodes.update([{
                     id: id,
@@ -662,6 +733,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             value: function disableNode(id) {
                 var _this2 = this;
 
+                if (id === undefined) {
+                    return;
+                }
                 // Remet la couleur du noeud par défaut
                 this.data.nodes.update([{
                     id: id,
@@ -685,8 +759,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 var sons = [];
 
                 this.data.edges.forEach(function (edge) {
-                    if (edge.from === node.id) {
-                        var son = _this2.data.nodes.get(edge.to);
+                    if (edge.from === id) {
+                        var son = _this2.getNode(edge.to);
 
                         sons.push(son);
 
@@ -711,9 +785,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }, {
             key: 'updateNode',
             value: function updateNode(id) {
-                var node = this.data.nodes.get(id);
-
-                if (node.enabled) {
+                if (this.getNode(id).enabled) {
                     this.disableNode(id);
                 } else {
                     this.enableNode(id);

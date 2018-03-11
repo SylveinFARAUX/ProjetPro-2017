@@ -53,6 +53,13 @@ class AttributesPanel {
                }
            }) ;
         });
+
+        this.removeAttributeButton = document.getElementById("boutonAnnulerSupposition");
+        this.removeAttributeButton.addEventListener("click", this.annulerSupposition);
+    }
+
+    annulerSupposition(event){
+        console.log("Annulation supposition");
     }
 
     /**

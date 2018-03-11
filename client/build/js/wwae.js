@@ -363,6 +363,13 @@ class AttributesPanel {
                }
            }) ;
         });
+
+        this.removeAttributeButton = document.getElementById("boutonAnnulerSupposition");
+        this.removeAttributeButton.addEventListener("click", this.annulerSupposition);
+    }
+
+    annulerSupposition(event){
+        console.log("Annulation supposition");
     }
 
     /**
@@ -494,8 +501,7 @@ class StrategyPanel {
             {from: 1, to: 2},
             {from: 1, to: 3},
             {from: 2, to: 4},
-            {from: 2, to: 5},
-            {from: 3}
+            {from: 2, to: 5}
         ]);
 
 
@@ -528,6 +534,24 @@ class StrategyPanel {
     }
 
     /**
+     * Retourne le lien avec l'id donné
+     * @param id l'id du lien
+     * @returns {Object|undefined} le lien ou undefined
+     */
+    getEdge(id){
+        return this.data.edges.get(id);
+    }
+
+    /**
+     * Retourne le noeud avec l'id donné
+     * @param id l'id du noeud
+     * @returns {Object|undefined} le noeud ou undefined
+     */
+    getNode(id){
+        return this.data.nodes.get(id);
+    }
+
+    /**
      * Définis un handler pour l'événement donnée, s'il est utilisable avec le Network
      * @param {string} event La chaîne correspondant à l'événement
      * @param {eventCallback} handler Callback de l'événement
@@ -550,10 +574,43 @@ class StrategyPanel {
     }
 
     /**
+     * Retourne le noeud père du noeud avec l'id donné
+     * @param {!Number} id l'id du noeud fils
+     * @returns {Number|undefined} L'id du noeud père ou undefined
+     */
+    getParentId(id){
+        this.data.edges.forEach((edge) => {
+            if (edge.to === id) {
+                return edge.from;
+            }
+        });
+        return undefined;
+    }
+
+    /**
+     *  /**
+     * Retourne les ids des noeuds fils du noeud avec l'id donné
+     * @param {!Number} id l'id du noeud père
+     * @returns {Array} Les ids des noeuds fils
+     */
+    getChildsIds(id){
+        let sons = [];
+        this.data.edges.forEach((edge) => {
+            if (edge.from === id) {
+                sons.push(edge.to);
+            }
+        });
+        return sons;
+    }
+
+    /**
      * Active le noeud donné
      * @param {!Number} id le noeud à activer
      */
     enableNode(id){
+        if(id === undefined){
+            return;
+        }
         // Remet la couleur du noeud par défaut
         this.data.nodes.update([{
             id:id,
@@ -578,6 +635,9 @@ class StrategyPanel {
      * @param {!Number} id le noeud à désactiver
      */
     disableNode(id){
+        if(id === undefined){
+            return;
+        }
         // Remet la couleur du noeud par défaut
         this.data.nodes.update([{
             id:id,
@@ -601,8 +661,8 @@ class StrategyPanel {
         let sons = [];
 
         this.data.edges.forEach((edge) => {
-            if (edge.from === node.id) {
-                let son = this.data.nodes.get(edge.to);
+            if (edge.from === id) {
+                let son = this.getNode(edge.to);
 
                 sons.push(son);
 
@@ -624,11 +684,8 @@ class StrategyPanel {
      * @param {!Number} id le noeud à désactiver ou activer
      */
     updateNode(id){
-      let node = this.data.nodes.get(id);
-
-      if(node.enabled) {
+      if(this.getNode(id).enabled) {
         this.disableNode(id);
-
       } else {
           this.enableNode(id);
       }
