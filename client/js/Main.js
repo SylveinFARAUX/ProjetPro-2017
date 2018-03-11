@@ -3,6 +3,8 @@
 import AttributesPanel from "./objects/AttributesPanel";
 import StrategyPanel from "./objects/StrategyPanel";
 import * as Common from "./objects/Common";
+import Character from "./objects/Character";
+import PopulationPanel from "./objects/PopulationPanel";
 
 // create an array with nodes
 let nodes = new vis.DataSet([
@@ -23,3 +25,7 @@ let edges = new vis.DataSet([
 ]);
 
 new StrategyPanel(document.getElementById('strategie-network'), nodes, edges, new AttributesPanel(document.getElementById('attributs')));
+
+let pop = new PopulationPanel();
+pop.load();
+pop.loadTable(pop);

@@ -81,3 +81,113 @@ h3 {
     box-shadow: 0 0 0 3px rgba(0, 255, 0, 0.2),
                 0 0 0 2px rgba(0, 255, 0, 0.18);
 }
+
+#population{
+    max-width : 1300px;
+    min-height: 50px;
+    overflow: hidden;
+    background-color : #0C1021;
+}
+
+#tableChar{
+    margin : auto;
+    padding : 0px;
+    border-style : none;
+}
+
+#population img {
+    border : 3px solid grey;
+}
+
+#population figure {
+    position: relative;
+    overflow: hidden;
+    margin: 0px;
+    padding:0px;
+    padding : 0px;
+    display:inline-block;
+}
+#population img, #population figcaption {
+    transition: all .25s ease;
+    border-radius : 40px;
+}
+#population figcaption {
+    text-align : center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: .5em;
+    background: #000;
+    background: rgba(0, 0, 0, .75);
+    color: #fff;
+    opacity: 0;
+}
+#population figcaption p, #population figcaption h3{
+    margin : 0;
+}
+#population figure:hover img {
+    transform: scale(0.9);
+}
+#population figure:hover figcaption {
+    opacity: 1;
+}
+.charElem {
+    padding: 0;
+    border-collapse : collapse;
+//display : unset;
+}
+/*infobulle*/
+.CharTooltip {
+    left : 25px;
+    text-align : center;
+    margin-top : 10px;
+    position : absolute;
+    display : inline-block;
+    min-width:100px;
+    min-height:25px;
+    max-height:75px;
+    overflow-y:auto;
+    border : 1px solid white;
+    border-radius : 10px;
+    background-color : black;
+    color : white;
+    padding : 5px;
+    pointer-events: none;
+    opacity: 0.0;
+    -o-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    z-index:1200;
+}
+
+.CharTooltip > .arrow{
+    top : -17px;
+    content : "";
+    display: inline;
+    left: 30px;
+    position: absolute;
+    border: 7px solid transparent;
+    border-top: none;
+    border-bottom: 7px solid white;
+    z-index: 600;
+}
+
+.CharTooltip:after {
+    left: -20px;
+    content: " ";
+    display: block;
+    height: 150px;
+    position: absolute;
+    width: 20px;
+    top:10px;
+}
+
+.charInfo:hover > .CharTooltip, .CharTooltip:hover {
+    pointer-events: auto;
+    opacity: 1.0;
+}
+/*infobule FIN*/

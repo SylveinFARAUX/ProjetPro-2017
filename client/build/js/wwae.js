@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -239,10 +239,10 @@ class Attribute{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AttributesCollection__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AttributesCollection__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Common__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Attribute__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AttributeButton__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AttributeButton__ = __webpack_require__(7);
 
 
 
@@ -344,11 +344,70 @@ class AttributesPanel {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+class Character{
+    constructor(json, id){
+        this.id = id;
+        this.nom = json.nom;
+        this.img = json.img;
+        this.actived = true;
+        this.attributs = [];
+        for(let i = 0; i < json.attributs.length; i++){
+            //this.attributs.push(getAttributeInstance(json.attributs[i].key, json.attributs[i].value));
+        }
+    }
+
+
+    getImg(){
+        return this.img;
+    }
+
+    getNom(){
+        return this.nom;
+    }
+
+    getAttributs(){
+        return this.attributs;
+    }
+
+    active(){
+        if(this.actived)return;
+        document.getElementById("charimg" + this.id).style.filter = "";
+        document.getElementById("charstatus" + this.id).innerHTML = "Suspect";
+        this.actived = true;
+    }
+
+    unactive(reason){
+        if(!this.actived)return;
+        document.getElementById("charimg" + this.id).style.filter = "grayscale(100%)";
+        document.getElementById("charstatus" + this.id).innerHTML = "Eliminé : " + reason;
+        this.actived = false;
+    }
+
+    listeAttribute(){
+        let res = "";
+        for(let i = 0; i < this.attributs.length; i++){
+            res += this.attributs[i].attributeKey + ":" + this.attributs[i].attributeValue + "</br>";
+        }
+    }
+
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Character);
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__objects_AttributesPanel__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__objects_StrategyPanel__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__objects_StrategyPanel__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__objects_Common__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__objects_Character__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__objects_PopulationPanel__ = __webpack_require__(9);
 /* global vis */
+
+
 
 
 
@@ -374,14 +433,17 @@ let edges = new vis.DataSet([
 
 new __WEBPACK_IMPORTED_MODULE_1__objects_StrategyPanel__["a" /* default */](document.getElementById('strategie-network'), nodes, edges, new __WEBPACK_IMPORTED_MODULE_0__objects_AttributesPanel__["a" /* default */](document.getElementById('attributs')));
 
+let pop = new __WEBPACK_IMPORTED_MODULE_4__objects_PopulationPanel__["a" /* default */]();
+pop.load();
+pop.loadTable(pop);
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Attribute__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__attributs__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__attributs__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__attributs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__attributs__);
 
 
@@ -550,13 +612,13 @@ const singleton = new AttributesCollection();
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 module.exports = {"attributs":{"cheveux":{"chauve":{"long":"Le personnage est chauve ?","court":"Chauve ?"},"blond":{"long":"Le personnage est blond ?","court":"Cheveux blond ?"},"brun":{"long":"Le personnage est brun ?","court":"Cheveux brun ?"}},"yeux":{"marron":{"long":"Le personnage a les yeux marron ?","court":"Yeux marron ?"},"bleu":{"long":"Le personnage a les yeux bleu ?","court":"Yeux bleu ?"},"vert":{"long":"Le personnage a les yeux vert ?","court":"Yeux vert ?"}}}}
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -672,7 +734,7 @@ class AttributeButton {
 /* harmony default export */ __webpack_exports__["a"] = (AttributeButton);
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -897,6 +959,124 @@ class StrategyPanel {
 
 /* harmony default export */ __webpack_exports__["a"] = (StrategyPanel);
 
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Character__ = __webpack_require__(3);
+
+
+const popSize = 24;
+const charWidth = 150;
+const charHeight = 150;
+let popJson =
+    {
+        "characters": [
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "vert"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            }
+        ]
+    };
+class PopulationPanel {
+
+    constructor() {
+        this.population = new Array(popSize);
+    }
+
+    load(){
+        let chars = popJson;
+        for(let i = 0; i < chars.characters.length; i++){
+            this.population[i] = new __WEBPACK_IMPORTED_MODULE_0__Character__["a" /* default */](chars.characters[i], i);
+        }
+    }
+
+    getChar(i){
+        return this.population[i];
+    }
+
+    refresh(tabAttribute){
+        for(let i = 0; i < this.population.length; i++){
+            let bool = this.population[i].check(tabAttribute);
+        }
+    }
+
+    loadTable(population){
+        let table = document.getElementById("tableChar");
+        let nbCol = Math.floor(document.getElementById("population").offsetWidth/charWidth);
+        nbCol = (nbCol === 0) ? 1 : nbCol;
+        let nbRow = Math.ceil(popSize/nbCol);
+
+        let row;
+        for(let i = 0; i < popSize; i++){
+            if(i % nbCol === 0){
+                row = this.addRow(table);
+            }
+            row.appendChild(this.addChar(population.getChar(i%2)));
+        }
+
+        this.centerCharInfos();
+    }
+
+    addRow(table){
+        let row = document.createElement("tr");
+        table.appendChild(row);
+        return row;
+    }
+
+    addChar(char){
+        let col = document.createElement("td");
+        col.id = "char" + char.id;
+        col.className = "charElem";
+        col.innerHTML = `
+								<figure>
+									<img src ='` + char.img + `' alt='Perso` + char.id + `' id = 'charimg` + char.id + `'/>
+									<figcaption>
+										<div class = 'charInfo'>
+											<h3 id = 'charName'>` + char.nom +`</h3>
+											<p id = 'charstatus` + char.id + `'>Suspect</p>
+											<div class = "CharTooltip">
+												<span class="arrow"></span>
+												<span class='CharTooltip-text'>`+ char.listeAttribute() + `</span>
+											</div>
+										</div>
+									</figcaption>
+								</figure>
+							`;
+        return  col;
+    }
+
+    centerCharInfos(){
+        let charinfo = document.getElementsByClassName("charInfo");
+        for(let i = 0; i < charinfo.length; i++){
+            this.centerInParent(charinfo[i]);
+        }
+    }
+
+    centerInParent(node){
+        //node.style.marginTop = node.parentNode.offsetHeight/2-node.offsetHeight/2 + "px";
+        node.style.marginTop = "50px";
+    }
+
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (PopulationPanel);
 
 /***/ })
 /******/ ]);

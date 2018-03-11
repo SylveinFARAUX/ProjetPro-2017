@@ -80,7 +80,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /******/__webpack_require__.p = "";
     /******/
     /******/ // Load entry module and return exports
-    /******/return __webpack_require__(__webpack_require__.s = 3);
+    /******/return __webpack_require__(__webpack_require__.s = 4);
     /******/
 })(
 /************************************************************************/
@@ -282,10 +282,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     "use strict";
     /* harmony import */
-    var __WEBPACK_IMPORTED_MODULE_0__AttributesCollection__ = __webpack_require__(4);
+    var __WEBPACK_IMPORTED_MODULE_0__AttributesCollection__ = __webpack_require__(5);
     /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__Common__ = __webpack_require__(0);
     /* harmony import */var __WEBPACK_IMPORTED_MODULE_2__Attribute__ = __webpack_require__(1);
-    /* harmony import */var __WEBPACK_IMPORTED_MODULE_3__AttributeButton__ = __webpack_require__(6);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_3__AttributeButton__ = __webpack_require__(7);
 
     /**
      * Panel contenant les boutons des attributs
@@ -405,10 +405,81 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     "use strict";
 
+    var Character = function () {
+        function Character(json, id) {
+            _classCallCheck(this, Character);
+
+            this.id = id;
+            this.nom = json.nom;
+            this.img = json.img;
+            this.actived = true;
+            this.attributs = [];
+            for (var i = 0; i < json.attributs.length; i++) {
+                //this.attributs.push(getAttributeInstance(json.attributs[i].key, json.attributs[i].value));
+            }
+        }
+
+        _createClass(Character, [{
+            key: 'getImg',
+            value: function getImg() {
+                return this.img;
+            }
+        }, {
+            key: 'getNom',
+            value: function getNom() {
+                return this.nom;
+            }
+        }, {
+            key: 'getAttributs',
+            value: function getAttributs() {
+                return this.attributs;
+            }
+        }, {
+            key: 'active',
+            value: function active() {
+                if (this.actived) return;
+                document.getElementById("charimg" + this.id).style.filter = "";
+                document.getElementById("charstatus" + this.id).innerHTML = "Suspect";
+                this.actived = true;
+            }
+        }, {
+            key: 'unactive',
+            value: function unactive(reason) {
+                if (!this.actived) return;
+                document.getElementById("charimg" + this.id).style.filter = "grayscale(100%)";
+                document.getElementById("charstatus" + this.id).innerHTML = "Eliminé : " + reason;
+                this.actived = false;
+            }
+        }, {
+            key: 'listeAttribute',
+            value: function listeAttribute() {
+                var res = "";
+                for (var i = 0; i < this.attributs.length; i++) {
+                    res += this.attributs[i].attributeKey + ":" + this.attributs[i].attributeValue + "</br>";
+                }
+            }
+        }]);
+
+        return Character;
+    }();
+
+    /* harmony default export */
+
+    __webpack_exports__["a"] = Character;
+
+    /***/
+},
+/* 4 */
+/***/function (module, __webpack_exports__, __webpack_require__) {
+
+    "use strict";
+
     Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     /* harmony import */var __WEBPACK_IMPORTED_MODULE_0__objects_AttributesPanel__ = __webpack_require__(2);
-    /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__objects_StrategyPanel__ = __webpack_require__(7);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__objects_StrategyPanel__ = __webpack_require__(8);
     /* harmony import */var __WEBPACK_IMPORTED_MODULE_2__objects_Common__ = __webpack_require__(0);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_3__objects_Character__ = __webpack_require__(3);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_4__objects_PopulationPanel__ = __webpack_require__(9);
     /* global vis */
 
     // create an array with nodes
@@ -419,15 +490,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     new __WEBPACK_IMPORTED_MODULE_1__objects_StrategyPanel__["a" /* default */](document.getElementById('strategie-network'), nodes, edges, new __WEBPACK_IMPORTED_MODULE_0__objects_AttributesPanel__["a" /* default */](document.getElementById('attributs')));
 
+    var pop = new __WEBPACK_IMPORTED_MODULE_4__objects_PopulationPanel__["a" /* default */]();
+    pop.load();
+    pop.loadTable(pop);
+
     /***/
 },
-/* 4 */
+/* 5 */
 /***/function (module, __webpack_exports__, __webpack_require__) {
 
     "use strict";
     /* harmony import */
     var __WEBPACK_IMPORTED_MODULE_0__Attribute__ = __webpack_require__(1);
-    /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__attributs__ = __webpack_require__(5);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__attributs__ = __webpack_require__(6);
     /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__attributs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__attributs__);
 
     /**
@@ -631,14 +706,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     /***/
 },
-/* 5 */
+/* 6 */
 /***/function (module, exports) {
 
     module.exports = { "attributs": { "cheveux": { "chauve": { "long": "Le personnage est chauve ?", "court": "Chauve ?" }, "blond": { "long": "Le personnage est blond ?", "court": "Cheveux blond ?" }, "brun": { "long": "Le personnage est brun ?", "court": "Cheveux brun ?" } }, "yeux": { "marron": { "long": "Le personnage a les yeux marron ?", "court": "Yeux marron ?" }, "bleu": { "long": "Le personnage a les yeux bleu ?", "court": "Yeux bleu ?" }, "vert": { "long": "Le personnage a les yeux vert ?", "court": "Yeux vert ?" } } }
 
         /***/ };
 },
-/* 6 */
+/* 7 */
 /***/function (module, __webpack_exports__, __webpack_require__) {
 
     "use strict";
@@ -782,7 +857,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     /***/
 },
-/* 7 */
+/* 8 */
 /***/function (module, __webpack_exports__, __webpack_require__) {
 
     "use strict";
@@ -1032,6 +1107,114 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
     __webpack_exports__["a"] = StrategyPanel;
+
+    /***/
+},
+/* 9 */
+/***/function (module, __webpack_exports__, __webpack_require__) {
+
+    "use strict";
+    /* harmony import */
+    var __WEBPACK_IMPORTED_MODULE_0__Character__ = __webpack_require__(3);
+
+    var popSize = 24;
+    var charWidth = 150;
+    var charHeight = 150;
+    var popJson = {
+        "characters": [{
+            "nom": "Magalie",
+            "img": "./assets/charimg/magalie.png",
+            "attributs": [{ "key": "cheveux", "value": "rouquine" }, { "key": "yeux", "value": "vert" }, { "key": "personalité", "value": "salope" }]
+        }, {
+            "nom": "Joseph",
+            "img": "./assets/charimg/joseph.png",
+            "attributs": [{ "key": "cheveux", "value": "blond" }, { "key": "yeux", "value": "bleu" }, { "key": "personalité", "value": "nazi" }]
+        }]
+    };
+
+    var PopulationPanel = function () {
+        function PopulationPanel() {
+            _classCallCheck(this, PopulationPanel);
+
+            this.population = new Array(popSize);
+        }
+
+        _createClass(PopulationPanel, [{
+            key: 'load',
+            value: function load() {
+                var chars = popJson;
+                for (var i = 0; i < chars.characters.length; i++) {
+                    this.population[i] = new __WEBPACK_IMPORTED_MODULE_0__Character__["a" /* default */](chars.characters[i], i);
+                }
+            }
+        }, {
+            key: 'getChar',
+            value: function getChar(i) {
+                return this.population[i];
+            }
+        }, {
+            key: 'refresh',
+            value: function refresh(tabAttribute) {
+                for (var i = 0; i < this.population.length; i++) {
+                    var bool = this.population[i].check(tabAttribute);
+                }
+            }
+        }, {
+            key: 'loadTable',
+            value: function loadTable(population) {
+                var table = document.getElementById("tableChar");
+                var nbCol = Math.floor(document.getElementById("population").offsetWidth / charWidth);
+                nbCol = nbCol === 0 ? 1 : nbCol;
+                var nbRow = Math.ceil(popSize / nbCol);
+
+                var row = void 0;
+                for (var i = 0; i < popSize; i++) {
+                    if (i % nbCol === 0) {
+                        row = this.addRow(table);
+                    }
+                    row.appendChild(this.addChar(population.getChar(i % 2)));
+                }
+
+                this.centerCharInfos();
+            }
+        }, {
+            key: 'addRow',
+            value: function addRow(table) {
+                var row = document.createElement("tr");
+                table.appendChild(row);
+                return row;
+            }
+        }, {
+            key: 'addChar',
+            value: function addChar(char) {
+                var col = document.createElement("td");
+                col.id = "char" + char.id;
+                col.className = "charElem";
+                col.innerHTML = '\n\t\t\t\t\t\t\t\t<figure>\n\t\t\t\t\t\t\t\t\t<img src =\'' + char.img + '\' alt=\'Perso' + char.id + '\' id = \'charimg' + char.id + '\'/>\n\t\t\t\t\t\t\t\t\t<figcaption>\n\t\t\t\t\t\t\t\t\t\t<div class = \'charInfo\'>\n\t\t\t\t\t\t\t\t\t\t\t<h3 id = \'charName\'>' + char.nom + '</h3>\n\t\t\t\t\t\t\t\t\t\t\t<p id = \'charstatus' + char.id + '\'>Suspect</p>\n\t\t\t\t\t\t\t\t\t\t\t<div class = "CharTooltip">\n\t\t\t\t\t\t\t\t\t\t\t\t<span class="arrow"></span>\n\t\t\t\t\t\t\t\t\t\t\t\t<span class=\'CharTooltip-text\'>' + char.listeAttribute() + '</span>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</figcaption>\n\t\t\t\t\t\t\t\t</figure>\n\t\t\t\t\t\t\t';
+                return col;
+            }
+        }, {
+            key: 'centerCharInfos',
+            value: function centerCharInfos() {
+                var charinfo = document.getElementsByClassName("charInfo");
+                for (var i = 0; i < charinfo.length; i++) {
+                    this.centerInParent(charinfo[i]);
+                }
+            }
+        }, {
+            key: 'centerInParent',
+            value: function centerInParent(node) {
+                //node.style.marginTop = node.parentNode.offsetHeight/2-node.offsetHeight/2 + "px";
+                node.style.marginTop = "50px";
+            }
+        }]);
+
+        return PopulationPanel;
+    }();
+
+    /* harmony default export */
+
+    __webpack_exports__["a"] = PopulationPanel;
 
     /***/
 }]
