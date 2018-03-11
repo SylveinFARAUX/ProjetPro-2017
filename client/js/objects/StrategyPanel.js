@@ -1,5 +1,6 @@
 import * as Common from './Common';
 import AttributesPanel from "./AttributesPanel";
+import Application from "./Application";
 
 //on a besoin de garder un pointeur vers une instance pour y accèder dans
 //les handlers des événements de vis.js car ces dèrnier sont
@@ -19,19 +20,23 @@ let instance;
  */
 
 /**
- * Représente la panel contenant l'arbre de stratégie.
+ * Représente le panel contenant l'arbre de stratégie.
  */
 class StrategyPanel {
     /**
      *
      * @param {!HTMLElement} element L'élement HTML conteneur de l'arbre de stratégie
-     * @param {?vis.DataSet} nodes L'ensemble des noeuds de départ
-     * @param {?vis.DataSet} edges L'ensemble des liens de départ
      * @param {!AttributesPanel} attributesPanel Une instance du panel des attributs
+     * @param {!Application} appInstance L'instance d'application commune aux panels
      * @throws {Error} Lance une erreur si element n'est pas une instance de HTMLElement
      * @throws {Error} Lance une erreur si attributesPanel n'est pas une instance de AttributesPanel
+     * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
      */
-    constructor(element, nodes, edges, attributesPanel){
+    constructor(element, attributesPanel, appInstance){
+        if(!(appInstance instanceof Application)){
+            throw new Error("appInstance doit être l'instance de l'application commune aux panels");
+        }
+        this.appInstance = appInstance;
         if(!(element instanceof HTMLElement)) {
             throw new Error("@StrategyPanel() -> Erreur : element doit être une instance de HTMLElement");
         }
@@ -43,23 +48,31 @@ class StrategyPanel {
          * @member {HTMLElement}
          */
         this.element = element;
-        if(!(nodes instanceof vis.DataSet)){
-            console.log("@StrategyPanel() -> Debug : noeuds par défaut");
-            this.nodes = new vis.DataSet([
 
-            ]);
-        }else{
-            this.nodes = nodes;
-        }
+        /**
+         * Liste des noeuds de la stratégie
+         * @type {DataSet}
+         */
+        this.nodes = new vis.DataSet([
+            {id: 1, label: 'Node 1', level: 0, title: 'Je s\'appelle root', enabled:true},
+            {id: 2, label: 'Node 2', level: 1, enabled:true},
+            {id: 3, label: 'Node 3', level: 1, enabled:true},
+            {id: 4, label: 'Node 4', level: 2, enabled:true},
+            {id: 5, label: 'Node 5', level: 2, enabled:true}
+        ]);
 
-        if(!(edges instanceof vis.DataSet)){
-            console.log("@StrategyPanel() -> Debug : liens par défaut");
-            this.edges = new vis.DataSet([
+        /**
+         * Liste des liens de la stratégie
+         * @type {DataSet}
+         */
+        this.edges = new vis.DataSet([
+            {from: 1, to: 2},
+            {from: 1, to: 3},
+            {from: 2, to: 4},
+            {from: 2, to: 5},
+            {from: 3}
+        ]);
 
-            ]);
-        }else{
-            this.edges = edges;
-        }
 
         /**
          * Données contenant les noeuds et les liens de l'arbre de stratégie

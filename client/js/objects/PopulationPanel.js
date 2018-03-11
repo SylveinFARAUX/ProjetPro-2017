@@ -1,4 +1,5 @@
 import Character from "./Character";
+import Application from "./Application";
 
 const popSize = 24;
 const charWidth = 150;
@@ -26,10 +27,28 @@ let popJson =
             }
         ]
     };
+
+/**
+ * Classe représentant le panel de la population
+ */
 class PopulationPanel {
 
-    constructor() {
+    /**
+     *
+     * @param {!Application} appInstance L'instance d'application commune aux panels
+     * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
+     */
+    constructor(appInstance) {
+        if(!(appInstance instanceof Application)){
+            throw new Error("appInstance doit être l'instance de l'application commune aux panels");
+        }
+        this.appInstance = appInstance;
         this.population = new Array(popSize);
+        this.table = document.getElementById("tableChar");
+        this.element = document.getElementById("population");
+        this.load();
+        this.createButtons();
+        this.loadTable();
     }
 
     load(){
@@ -49,26 +68,25 @@ class PopulationPanel {
         }
     }
 
-    loadTable(population){
-        let table = document.getElementById("tableChar");
-        let nbCol = Math.floor(document.getElementById("population").offsetWidth/charWidth);
+    loadTable(){
+        let nbCol = Math.floor(this.element.offsetWidth/charWidth);
         nbCol = (nbCol === 0) ? 1 : nbCol;
         let nbRow = Math.ceil(popSize/nbCol);
 
         let row;
         for(let i = 0; i < popSize; i++){
             if(i % nbCol === 0){
-                row = this.addRow(table);
+                row = this.addRow();
             }
-            row.appendChild(this.addChar(population.getChar(i%2)));
+            row.appendChild(this.addChar(this.getChar(i%2)));
         }
 
         this.centerCharInfos();
     }
 
-    addRow(table){
+    addRow(){
         let row = document.createElement("tr");
-        table.appendChild(row);
+        this.table.appendChild(row);
         return row;
     }
 
@@ -106,6 +124,31 @@ class PopulationPanel {
         node.style.marginTop = "50px";
     }
 
+    createUnactiveButton(char, text, reason){
+        let buttonElm = document.createElement("button");
+        buttonElm.addEventListener("click", ()=>{
+            this.getChar(char).unactive(reason);
+        });
+        buttonElm.innerText = text;
+        return buttonElm;
+    }
+
+    createActiveButton(char, text){
+        let buttonElm = document.createElement("button");
+        buttonElm.addEventListener("click", ()=>{
+            this.getChar(char).active();
+        });
+        buttonElm.innerText = text;
+        return buttonElm;
+    }
+
+    createButtons(){
+        let buttonsElm = document.getElementById("populationButtons");
+        buttonsElm.appendChild(this.createUnactiveButton(0, "Désactive perso 0","Trop moche"));
+        buttonsElm.appendChild(this.createActiveButton(0, "Active perso 0"));
+        buttonsElm.appendChild(this.createUnactiveButton(1, "Désactive perso 1","Cheveux blond"));
+        buttonsElm.appendChild(this.createActiveButton(1, "Active perso 1"));
+    }
 }
 
 export default PopulationPanel;

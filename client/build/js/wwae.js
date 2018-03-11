@@ -68,6 +68,70 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__StrategyPanel__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__InformationsPanel__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AttributesPanel__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PopulationPanel__ = __webpack_require__(10);
+
+
+
+
+
+/**
+ * Classe instanciant l'application, panel par panel.
+ */
+class Application {
+    /**
+     * Instancie tout les panels
+     */
+    constructor(){
+        this.attributesPanel = new __WEBPACK_IMPORTED_MODULE_2__AttributesPanel__["a" /* default */](document.getElementById('attributs'), this);
+        this.strategyPanel = new __WEBPACK_IMPORTED_MODULE_0__StrategyPanel__["a" /* default */](document.getElementById('strategie-network'), this.attributesPanel, this);
+        this.populationPanel = new __WEBPACK_IMPORTED_MODULE_3__PopulationPanel__["a" /* default */](this);
+        this.informationsPanel = new __WEBPACK_IMPORTED_MODULE_1__InformationsPanel__["a" /* default */](this);
+    }
+
+    /**
+     * Retourne le panel stratégie
+     * @returns {StrategyPanel}
+     */
+    getStrategyPanel(){
+        return this.strategyPanel;
+    }
+
+    /**
+     * Retourne le panel Population
+     * @returns {PopulationPanel}
+     */
+    getPopulationPanel(){
+        return this.populationPanel;
+    }
+
+    /**
+     * Retourne le panel Attributs
+     * @returns {AttributesPanel}
+     */
+    getAttributesPanel(){
+        return this.attributesPanel;
+    }
+
+    /**
+     * Retourne le panel Informations
+     * @returns {InformationsPanel}
+     */
+    getInformationsPanel(){
+        return this.informationsPanel;
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Application);
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return STRATEGY_OPTIONS; });
 /* harmony export (immutable) */ __webpack_exports__["c"] = isNetworkEvent;
 /* harmony export (immutable) */ __webpack_exports__["b"] = createChildDiv;
@@ -143,7 +207,7 @@ function createChildDiv(parent, childId){
 }
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -235,14 +299,16 @@ class Attribute{
 /* harmony default export */ __webpack_exports__["a"] = (Attribute);
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AttributesCollection__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Common__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Attribute__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AttributeButton__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AttributesCollection__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Common__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Attribute__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AttributeButton__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Application__ = __webpack_require__(0);
+
 
 
 
@@ -256,9 +322,15 @@ class AttributesPanel {
      * Constructeur.
      * Instancie directement tout les boutons sans les cacher.
      * @param {!HTMLElement} element La div servant de conteneurs pour les boutons (censé être la div avec l'id 'attributs')
+     * @param {!Application} appInstance L'instance d'application commune aux panels
      * @trhows {Error} Lance un erreur si element n'est pas une instance de HTMLElement
+     * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
      */
-    constructor(element){
+    constructor(element, appInstance){
+        if(!(appInstance instanceof __WEBPACK_IMPORTED_MODULE_4__Application__["a" /* default */])){
+            throw new Error("appInstance doit être l'instance de l'application commune aux panels");
+        }
+        this.appInstance = appInstance;
         /**
          * Singleton de la collection des attributs.
          * @member {AttributesCollection}
@@ -340,110 +412,264 @@ class AttributesPanel {
 /* harmony default export */ __webpack_exports__["a"] = (AttributesPanel);
 
 /***/ }),
-/* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class Character{
-    constructor(json, id){
-        this.id = id;
-        this.nom = json.nom;
-        this.img = json.img;
-        this.actived = true;
-        this.attributs = [];
-        for(let i = 0; i < json.attributs.length; i++){
-            //this.attributs.push(getAttributeInstance(json.attributs[i].key, json.attributs[i].value));
-        }
-    }
-
-
-    getImg(){
-        return this.img;
-    }
-
-    getNom(){
-        return this.nom;
-    }
-
-    getAttributs(){
-        return this.attributs;
-    }
-
-    active(){
-        if(this.actived)return;
-        document.getElementById("charimg" + this.id).style.filter = "";
-        document.getElementById("charstatus" + this.id).innerHTML = "Suspect";
-        this.actived = true;
-    }
-
-    unactive(reason){
-        if(!this.actived)return;
-        document.getElementById("charimg" + this.id).style.filter = "grayscale(100%)";
-        document.getElementById("charstatus" + this.id).innerHTML = "Eliminé : " + reason;
-        this.actived = false;
-    }
-
-    listeAttribute(){
-        let res = "";
-        for(let i = 0; i < this.attributs.length; i++){
-            res += this.attributs[i].attributeKey + ":" + this.attributs[i].attributeValue + "</br>";
-        }
-    }
-
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (Character);
-
-/***/ }),
 /* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__objects_AttributesPanel__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__objects_StrategyPanel__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__objects_Common__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__objects_Character__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__objects_PopulationPanel__ = __webpack_require__(9);
-/* global vis */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__objects_Application__ = __webpack_require__(0);
 
 
-
-
-
-
-
-// create an array with nodes
-let nodes = new vis.DataSet([
-    {id: 1, label: 'Node 1', level: 0, title: 'Je s\'appelle root', enabled:true},
-    {id: 2, label: 'Node 2', level: 1, enabled:true},
-    {id: 3, label: 'Node 3', level: 1, enabled:true},
-    {id: 4, label: 'Node 4', level: 2, enabled:true},
-    {id: 5, label: 'Node 5', level: 2, enabled:true}
-]);
-
-// create an array with edges
-let edges = new vis.DataSet([
-    {from: 1, to: 2},
-    {from: 1, to: 3},
-    {from: 2, to: 4},
-    {from: 2, to: 5},
-    {from: 3}
-]);
-
-new __WEBPACK_IMPORTED_MODULE_1__objects_StrategyPanel__["a" /* default */](document.getElementById('strategie-network'), nodes, edges, new __WEBPACK_IMPORTED_MODULE_0__objects_AttributesPanel__["a" /* default */](document.getElementById('attributs')));
-
-let pop = new __WEBPACK_IMPORTED_MODULE_4__objects_PopulationPanel__["a" /* default */]();
-pop.load();
-pop.loadTable(pop);
+new __WEBPACK_IMPORTED_MODULE_0__objects_Application__["a" /* default */]();
 
 /***/ }),
 /* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Attribute__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__attributs__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Common__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AttributesPanel__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Application__ = __webpack_require__(0);
+
+
+
+
+//on a besoin de garder un pointeur vers une instance pour y accèder dans
+//les handlers des événements de vis.js car ces dèrnier sont
+//appelé avec un contexte différents définies par vis.js
+let instance;
+
+/**
+ * Callback pour un événement
+ * @callback eventCallback
+ * @param {Event} event Un événement
+ */
+
+/**
+ * @typedef {object} StrategyData
+ * @property {vis.DataSet} nodes les noeuds
+ * @property {vis.DataSet} edges les liens
+ */
+
+/**
+ * Représente le panel contenant l'arbre de stratégie.
+ */
+class StrategyPanel {
+    /**
+     *
+     * @param {!HTMLElement} element L'élement HTML conteneur de l'arbre de stratégie
+     * @param {!AttributesPanel} attributesPanel Une instance du panel des attributs
+     * @param {!Application} appInstance L'instance d'application commune aux panels
+     * @throws {Error} Lance une erreur si element n'est pas une instance de HTMLElement
+     * @throws {Error} Lance une erreur si attributesPanel n'est pas une instance de AttributesPanel
+     * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
+     */
+    constructor(element, attributesPanel, appInstance){
+        if(!(appInstance instanceof __WEBPACK_IMPORTED_MODULE_2__Application__["a" /* default */])){
+            throw new Error("appInstance doit être l'instance de l'application commune aux panels");
+        }
+        this.appInstance = appInstance;
+        if(!(element instanceof HTMLElement)) {
+            throw new Error("@StrategyPanel() -> Erreur : element doit être une instance de HTMLElement");
+        }
+        if(!(attributesPanel instanceof __WEBPACK_IMPORTED_MODULE_1__AttributesPanel__["a" /* default */])){
+            throw new Error("@StrategyPanel() -> Erreur : attributsPanel doit être une instance de AttributesPanel");
+        }
+        /**
+         * L'élément conteneur du panel
+         * @member {HTMLElement}
+         */
+        this.element = element;
+
+        /**
+         * Liste des noeuds de la stratégie
+         * @type {DataSet}
+         */
+        this.nodes = new vis.DataSet([
+            {id: 1, label: 'Node 1', level: 0, title: 'Je s\'appelle root', enabled:true},
+            {id: 2, label: 'Node 2', level: 1, enabled:true},
+            {id: 3, label: 'Node 3', level: 1, enabled:true},
+            {id: 4, label: 'Node 4', level: 2, enabled:true},
+            {id: 5, label: 'Node 5', level: 2, enabled:true}
+        ]);
+
+        /**
+         * Liste des liens de la stratégie
+         * @type {DataSet}
+         */
+        this.edges = new vis.DataSet([
+            {from: 1, to: 2},
+            {from: 1, to: 3},
+            {from: 2, to: 4},
+            {from: 2, to: 5},
+            {from: 3}
+        ]);
+
+
+        /**
+         * Données contenant les noeuds et les liens de l'arbre de stratégie
+         * @member {StrategyData}
+         */
+        this.data = {
+            nodes: this.nodes,
+            edges: this.edges
+        };
+
+        /**
+         * Instance de vis.Network permettant de visualiser l'arbre
+         * @member {vis.Network}
+         */
+        this.network = new vis.Network(element, this.data, __WEBPACK_IMPORTED_MODULE_0__Common__["a" /* STRATEGY_OPTIONS */]);
+        this.addNode(6, 'Node 6', 2);
+        this.setNetworkHandler("click", this.onClick);
+        this.setNetworkHandler("doubleClick", this.onDoubleClick);
+        instance = this;
+    }
+
+    /**
+     * Retourne le Network de l'arbre de stratégie
+     * @returns {StrategyPanel.network}
+     */
+    network(){
+        return this.network;
+    }
+
+    /**
+     * Définis un handler pour l'événement donnée, s'il est utilisable avec le Network
+     * @param {string} event La chaîne correspondant à l'événement
+     * @param {eventCallback} handler Callback de l'événement
+     * @see {@link module-Common.isNetworkEvent}
+     */
+    setNetworkHandler(event, handler){
+        if(typeof event === 'string' && typeof handler === 'function'){
+            if(__WEBPACK_IMPORTED_MODULE_0__Common__["c" /* isNetworkEvent */](event)){
+                this.network.on(event, handler);
+            }
+        }
+    }
+
+    /**
+     * Supprime le noeud donné en paramètre
+     * @param {object} node le noeud à supprimer
+     */
+    deleteNode(node){
+        this.data.nodes.remove(node);
+    }
+
+    /**
+     * Désactive ou active le noeud donné en paramètre et supprime les fils si désactivés
+     * @param {object} node le noeud à désactiver ou activer
+     */
+    updateNode(id){
+      var node = this.data.nodes.get(id);
+
+      if(node.enabled) {
+        // Change le couleur du noeud en gris
+        this.data.nodes.update([{
+          id:id,
+          enabled: false,
+          color:{
+            background:'#848484',
+            border:'#2E2E2E',
+            highlight:{
+              background:'#A4A4A4',
+              border:'#2E2E2E'
+            },
+            hover:{
+              background:'#A4A4A4',
+              border:'#2E2E2E'
+            }
+          }
+        }]);
+
+        // Si tous les fils sont désactivés, on les supprime
+        var allDisabled = true;
+        var sons = [];
+
+        this.data.edges.forEach((edge) => {
+          if (edge.from == node.id) {
+            let son = this.data.nodes.get(edge.to);
+
+            sons.push(son);
+
+            if(son.enabled) {
+              allDisabled = false;
+            }
+          }
+        });
+
+        if (allDisabled && sons.length != 0) {
+          sons.forEach((son) => {
+            this.deleteNode(son);
+          });
+        }
+
+      } else {
+        // Remet la couleur du noeud par défaut
+        this.data.nodes.update([{
+          id:id,
+          enabled: true,
+          color:{
+            background:'#D2E5FF',
+            border:'#2B7CE9',
+            highlight:{
+              background:'#D2E5FF',
+              border:'#2B7CE9'
+            },
+            hover:{
+              background:'#D2E5FF',
+              border:'#2B7CE9'
+            }
+          }
+        }]);
+      }
+    }
+
+    /**
+     * Ajout un nouveau noeud au Network
+     * @param id l'id du noeud
+     * @param label le label du noeud
+     * @param level le niveau hiérarchique du noeud (le plus élevé est en bas de l'écran)
+     */
+    addNode(id, label, level){
+        this.data.nodes.add({id, label, level});
+    }
+
+    /**
+     * Handler appelé lors des événement click sur le network
+     * @param {object} params Objet contenant les infos de l'événement
+     */
+    onClick(params){
+        params.event = "[original event]";
+        document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
+        console.log('click event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM));
+    }
+
+    /**
+     * Handler appelé lors des événement doubleClick sur le network
+     * @param {object} params Objet contenant les infos de l'événement
+     */
+    onDoubleClick(params){
+        let clickedNode = this.getNodeAt(params.pointer.DOM);
+        params.event = "[original event]";
+        document.getElementById('eventSpan').innerHTML = '<h2>DoubleClick event:</h2>' + JSON.stringify(params, null, 4);
+        console.log('click event, getNodeAt returns: ' + clickedNode);
+        if(clickedNode !== undefined){
+            instance.updateNode(clickedNode);
+        }
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (StrategyPanel);
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Attribute__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__attributs__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__attributs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__attributs__);
 
 
@@ -612,18 +838,18 @@ const singleton = new AttributesCollection();
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 module.exports = {"attributs":{"cheveux":{"chauve":{"long":"Le personnage est chauve ?","court":"Chauve ?"},"blond":{"long":"Le personnage est blond ?","court":"Cheveux blond ?"},"brun":{"long":"Le personnage est brun ?","court":"Cheveux brun ?"}},"yeux":{"marron":{"long":"Le personnage a les yeux marron ?","court":"Yeux marron ?"},"bleu":{"long":"Le personnage a les yeux bleu ?","court":"Yeux bleu ?"},"vert":{"long":"Le personnage a les yeux vert ?","court":"Yeux vert ?"}}}}
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Common__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Attribute__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Common__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Attribute__ = __webpack_require__(2);
 
 
 
@@ -734,238 +960,39 @@ class AttributeButton {
 /* harmony default export */ __webpack_exports__["a"] = (AttributeButton);
 
 /***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Common__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AttributesPanel__ = __webpack_require__(2);
-
-
-
-//on a besoin de garder un pointeur vers une instance pour y accèder dans
-//les handlers des événements de vis.js car ces dèrnier sont
-//appelé avec un contexte différents définies par vis.js
-let instance;
-
-/**
- * Callback pour un événement
- * @callback eventCallback
- * @param {Event} event Un événement
- */
-
-/**
- * @typedef {object} StrategyData
- * @property {vis.DataSet} nodes les noeuds
- * @property {vis.DataSet} edges les liens
- */
-
-/**
- * Représente la panel contenant l'arbre de stratégie.
- */
-class StrategyPanel {
-    /**
-     *
-     * @param {!HTMLElement} element L'élement HTML conteneur de l'arbre de stratégie
-     * @param {?vis.DataSet} nodes L'ensemble des noeuds de départ
-     * @param {?vis.DataSet} edges L'ensemble des liens de départ
-     * @param {!AttributesPanel} attributesPanel Une instance du panel des attributs
-     * @throws {Error} Lance une erreur si element n'est pas une instance de HTMLElement
-     * @throws {Error} Lance une erreur si attributesPanel n'est pas une instance de AttributesPanel
-     */
-    constructor(element, nodes, edges, attributesPanel){
-        if(!(element instanceof HTMLElement)) {
-            throw new Error("@StrategyPanel() -> Erreur : element doit être une instance de HTMLElement");
-        }
-        if(!(attributesPanel instanceof __WEBPACK_IMPORTED_MODULE_1__AttributesPanel__["a" /* default */])){
-            throw new Error("@StrategyPanel() -> Erreur : attributsPanel doit être une instance de AttributesPanel");
-        }
-        /**
-         * L'élément conteneur du panel
-         * @member {HTMLElement}
-         */
-        this.element = element;
-        if(!(nodes instanceof vis.DataSet)){
-            console.log("@StrategyPanel() -> Debug : noeuds par défaut");
-            this.nodes = new vis.DataSet([
-
-            ]);
-        }else{
-            this.nodes = nodes;
-        }
-
-        if(!(edges instanceof vis.DataSet)){
-            console.log("@StrategyPanel() -> Debug : liens par défaut");
-            this.edges = new vis.DataSet([
-
-            ]);
-        }else{
-            this.edges = edges;
-        }
-
-        /**
-         * Données contenant les noeuds et les liens de l'arbre de stratégie
-         * @member {StrategyData}
-         */
-        this.data = {
-            nodes: this.nodes,
-            edges: this.edges
-        };
-
-        /**
-         * Instance de vis.Network permettant de visualiser l'arbre
-         * @member {vis.Network}
-         */
-        this.network = new vis.Network(element, this.data, __WEBPACK_IMPORTED_MODULE_0__Common__["a" /* STRATEGY_OPTIONS */]);
-        this.addNode(6, 'Node 6', 2);
-        this.setNetworkHandler("click", this.onClick);
-        this.setNetworkHandler("doubleClick", this.onDoubleClick);
-        instance = this;
-    }
-
-    /**
-     * Retourne le Network de l'arbre de stratégie
-     * @returns {StrategyPanel.network}
-     */
-    network(){
-        return this.network;
-    }
-
-    /**
-     * Définis un handler pour l'événement donnée, s'il est utilisable avec le Network
-     * @param {string} event La chaîne correspondant à l'événement
-     * @param {eventCallback} handler Callback de l'événement
-     * @see {@link module-Common.isNetworkEvent}
-     */
-    setNetworkHandler(event, handler){
-        if(typeof event === 'string' && typeof handler === 'function'){
-            if(__WEBPACK_IMPORTED_MODULE_0__Common__["c" /* isNetworkEvent */](event)){
-                this.network.on(event, handler);
-            }
-        }
-    }
-
-    /**
-     * Supprime le noeud donné en paramètre
-     * @param {object} node le noeud à supprimer
-     */
-    deleteNode(node){
-        this.data.nodes.remove(node);
-    }
-
-    /**
-     * Désactive ou active le noeud donné en paramètre et supprime les fils si désactivés
-     * @param {object} node le noeud à désactiver ou activer
-     */
-    updateNode(id){
-      var node = this.data.nodes.get(id);
-
-      if(node.enabled) {
-        // Change le couleur du noeud en gris
-        this.data.nodes.update([{
-          id:id,
-          enabled: false,
-          color:{
-            background:'#848484',
-            border:'#2E2E2E',
-            highlight:{
-              background:'#A4A4A4',
-              border:'#2E2E2E'
-            },
-            hover:{
-              background:'#A4A4A4',
-              border:'#2E2E2E'
-            }
-          }
-        }]);
-
-        // Si tous les fils sont désactivés, on les supprime
-        var allDisabled = true;
-        var sons = [];
-
-        this.data.edges.forEach((edge) => {
-          if (edge.from == node.id) {
-            let son = this.data.nodes.get(edge.to);
-
-            sons.push(son);
-
-            if(son.enabled) {
-              allDisabled = false;
-            }
-          }
-        });
-
-        if (allDisabled && sons.length != 0) {
-          sons.forEach((son) => {
-            this.deleteNode(son);
-          });
-        }
-
-      } else {
-        // Remet la couleur du noeud par défaut
-        this.data.nodes.update([{
-          id:id,
-          enabled: true,
-          color:{
-            background:'#D2E5FF',
-            border:'#2B7CE9',
-            highlight:{
-              background:'#D2E5FF',
-              border:'#2B7CE9'
-            },
-            hover:{
-              background:'#D2E5FF',
-              border:'#2B7CE9'
-            }
-          }
-        }]);
-      }
-    }
-
-    /**
-     * Ajout un nouveau noeud au Network
-     * @param id l'id du noeud
-     * @param label le label du noeud
-     * @param level le niveau hiérarchique du noeud (le plus élevé est en bas de l'écran)
-     */
-    addNode(id, label, level){
-        this.data.nodes.add({id, label, level});
-    }
-
-    /**
-     * Handler appelé lors des événement click sur le network
-     * @param {object} params Objet contenant les infos de l'événement
-     */
-    onClick(params){
-        params.event = "[original event]";
-        document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
-        console.log('click event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM));
-    }
-
-    /**
-     * Handler appelé lors des événement doubleClick sur le network
-     * @param {object} params Objet contenant les infos de l'événement
-     */
-    onDoubleClick(params){
-        let clickedNode = this.getNodeAt(params.pointer.DOM);
-        params.event = "[original event]";
-        document.getElementById('eventSpan').innerHTML = '<h2>DoubleClick event:</h2>' + JSON.stringify(params, null, 4);
-        console.log('click event, getNodeAt returns: ' + clickedNode);
-        if(clickedNode !== undefined){
-            instance.updateNode(clickedNode);
-        }
-    }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (StrategyPanel);
-
-
-/***/ }),
 /* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Character__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Application__ = __webpack_require__(0);
+
+
+/**
+ * Classe repésentant le panel Informations
+ */
+class InformationsPanel {
+    /**
+     *
+     * @param {!Application} appInstance L'instance d'application commune aux panels
+     * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
+     */
+  constructor(appInstance){
+        if(!(appInstance instanceof __WEBPACK_IMPORTED_MODULE_0__Application__["a" /* default */])){
+            throw new Error("appInstance doit être l'instance de l'application commune aux panels");
+        }
+        this.appInstance = appInstance;
+  }
+}
+/* harmony default export */ __webpack_exports__["a"] = (InformationsPanel);
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Character__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Application__ = __webpack_require__(0);
+
 
 
 const popSize = 24;
@@ -994,10 +1021,28 @@ let popJson =
             }
         ]
     };
+
+/**
+ * Classe représentant le panel de la population
+ */
 class PopulationPanel {
 
-    constructor() {
+    /**
+     *
+     * @param {!Application} appInstance L'instance d'application commune aux panels
+     * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
+     */
+    constructor(appInstance) {
+        if(!(appInstance instanceof __WEBPACK_IMPORTED_MODULE_1__Application__["a" /* default */])){
+            throw new Error("appInstance doit être l'instance de l'application commune aux panels");
+        }
+        this.appInstance = appInstance;
         this.population = new Array(popSize);
+        this.table = document.getElementById("tableChar");
+        this.element = document.getElementById("population");
+        this.load();
+        this.createButtons();
+        this.loadTable();
     }
 
     load(){
@@ -1017,26 +1062,25 @@ class PopulationPanel {
         }
     }
 
-    loadTable(population){
-        let table = document.getElementById("tableChar");
-        let nbCol = Math.floor(document.getElementById("population").offsetWidth/charWidth);
+    loadTable(){
+        let nbCol = Math.floor(this.element.offsetWidth/charWidth);
         nbCol = (nbCol === 0) ? 1 : nbCol;
         let nbRow = Math.ceil(popSize/nbCol);
 
         let row;
         for(let i = 0; i < popSize; i++){
             if(i % nbCol === 0){
-                row = this.addRow(table);
+                row = this.addRow();
             }
-            row.appendChild(this.addChar(population.getChar(i%2)));
+            row.appendChild(this.addChar(this.getChar(i%2)));
         }
 
         this.centerCharInfos();
     }
 
-    addRow(table){
+    addRow(){
         let row = document.createElement("tr");
-        table.appendChild(row);
+        this.table.appendChild(row);
         return row;
     }
 
@@ -1074,9 +1118,89 @@ class PopulationPanel {
         node.style.marginTop = "50px";
     }
 
+    createUnactiveButton(char, text, reason){
+        let buttonElm = document.createElement("button");
+        buttonElm.addEventListener("click", ()=>{
+            this.getChar(char).unactive(reason);
+        });
+        buttonElm.innerText = text;
+        return buttonElm;
+    }
+
+    createActiveButton(char, text){
+        let buttonElm = document.createElement("button");
+        buttonElm.addEventListener("click", ()=>{
+            this.getChar(char).active();
+        });
+        buttonElm.innerText = text;
+        return buttonElm;
+    }
+
+    createButtons(){
+        let buttonsElm = document.getElementById("populationButtons");
+        buttonsElm.appendChild(this.createUnactiveButton(0, "Désactive perso 0","Trop moche"));
+        buttonsElm.appendChild(this.createActiveButton(0, "Active perso 0"));
+        buttonsElm.appendChild(this.createUnactiveButton(1, "Désactive perso 1","Cheveux blond"));
+        buttonsElm.appendChild(this.createActiveButton(1, "Active perso 1"));
+    }
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (PopulationPanel);
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Character{
+    constructor(json, id){
+        this.id = id;
+        this.nom = json.nom;
+        this.img = json.img;
+        this.actived = true;
+        this.attributs = [];
+        for(let i = 0; i < json.attributs.length; i++){
+            //this.attributs.push(getAttributeInstance(json.attributs[i].key, json.attributs[i].value));
+        }
+    }
+
+
+    getImg(){
+        return this.img;
+    }
+
+    getNom(){
+        return this.nom;
+    }
+
+    getAttributs(){
+        return this.attributs;
+    }
+
+    active(){
+        if(this.actived)return;
+        document.getElementById("charimg" + this.id).style.filter = "";
+        document.getElementById("charstatus" + this.id).innerHTML = "Suspect";
+        this.actived = true;
+    }
+
+    unactive(reason){
+        if(!this.actived)return;
+        document.getElementById("charimg" + this.id).style.filter = "grayscale(100%)";
+        document.getElementById("charstatus" + this.id).innerHTML = "Eliminé : " + reason;
+        this.actived = false;
+    }
+
+    listeAttribute(){
+        let res = "";
+        for(let i = 0; i < this.attributs.length; i++){
+            res += this.attributs[i].attributeKey + ":" + this.attributs[i].attributeValue + "</br>";
+        }
+    }
+
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Character);
 
 /***/ })
 /******/ ]);

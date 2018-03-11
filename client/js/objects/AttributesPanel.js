@@ -2,6 +2,7 @@ import * as AttributesCollection from "./AttributesCollection";
 import * as Common from './Common';
 import Attribute from './Attribute';
 import AttributeButton from './AttributeButton';
+import Application from "./Application";
 
 /**
  * Panel contenant les boutons des attributs
@@ -11,9 +12,15 @@ class AttributesPanel {
      * Constructeur.
      * Instancie directement tout les boutons sans les cacher.
      * @param {!HTMLElement} element La div servant de conteneurs pour les boutons (censé être la div avec l'id 'attributs')
+     * @param {!Application} appInstance L'instance d'application commune aux panels
      * @trhows {Error} Lance un erreur si element n'est pas une instance de HTMLElement
+     * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
      */
-    constructor(element){
+    constructor(element, appInstance){
+        if(!(appInstance instanceof Application)){
+            throw new Error("appInstance doit être l'instance de l'application commune aux panels");
+        }
+        this.appInstance = appInstance;
         /**
          * Singleton de la collection des attributs.
          * @member {AttributesCollection}
