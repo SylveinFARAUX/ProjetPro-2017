@@ -12,7 +12,7 @@ let popJson =
                 "img" : "./assets/charimg/magalie.png",
                 "attributs" : [
                     {"key" : "cheveux", "value" : "rouquine"},
-                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "yeux", "value" : "marrons"},
                     {"key" : "personalité", "value" : "salope"}
                 ]
             },
