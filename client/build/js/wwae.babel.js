@@ -1207,6 +1207,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     this.population[i] = new __WEBPACK_IMPORTED_MODULE_0__Character__["a" /* default */](chars.characters[i], i);
                 }
             }
+
+            /**
+             *
+             * @param {!Number} i l'index du personnage
+             * @returns {Character} l'instance du personnage
+             */
+
         }, {
             key: 'getChar',
             value: function getChar(i) {
@@ -1243,6 +1250,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 this.table.appendChild(row);
                 return row;
             }
+
+            /**
+             *
+             * @param {!Character} char l'instance de Character
+             * @returns {HTMLTableDataCellElement} l'élément 'td' de la colonne
+             */
+
         }, {
             key: 'addChar',
             value: function addChar(char) {
@@ -1260,12 +1274,27 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     this.centerInParent(charinfo[i]);
                 }
             }
+
+            /**
+             *
+             * @param node ??
+             */
+
         }, {
             key: 'centerInParent',
             value: function centerInParent(node) {
                 //node.style.marginTop = node.parentNode.offsetHeight/2-node.offsetHeight/2 + "px";
                 node.style.marginTop = "50px";
             }
+
+            /**
+             * Créer un bouton qui désactive le personnage d'index char.
+             * @param {!Number} char Index du personnage à éliminer
+             * @param {!String} text Text du bouton
+             * @param {!String} reason Raison de l'élimination
+             * @returns {HTMLButtonElement} Le bouton HTML
+             */
+
         }, {
             key: 'createUnactiveButton',
             value: function createUnactiveButton(char, text, reason) {
@@ -1278,6 +1307,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 buttonElm.innerText = text;
                 return buttonElm;
             }
+
+            /**
+             * Créer un bouton qui active le personnage d'index char.
+             * @param {!Number} char Index du personnage à éliminer
+             * @param {!String} text Text du bouton
+             * @returns {HTMLButtonElement} Le bouton HTLM
+             */
+
         }, {
             key: 'createActiveButton',
             value: function createActiveButton(char, text) {
@@ -1290,6 +1327,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 buttonElm.innerText = text;
                 return buttonElm;
             }
+
+            /**
+             * Instancie les boutons d'activation/désactivation des personnages
+             */
+
         }, {
             key: 'createButtons',
             value: function createButtons() {

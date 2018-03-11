@@ -1052,6 +1052,11 @@ class PopulationPanel {
         }
     }
 
+    /**
+     *
+     * @param {!Number} i l'index du personnage
+     * @returns {Character} l'instance du personnage
+     */
     getChar(i){
         return this.population[i];
     }
@@ -1084,6 +1089,11 @@ class PopulationPanel {
         return row;
     }
 
+    /**
+     *
+     * @param {!Character} char l'instance de Character
+     * @returns {HTMLTableDataCellElement} l'élément 'td' de la colonne
+     */
     addChar(char){
         let col = document.createElement("td");
         col.id = "char" + char.id;
@@ -1113,11 +1123,22 @@ class PopulationPanel {
         }
     }
 
+    /**
+     *
+     * @param node ??
+     */
     centerInParent(node){
         //node.style.marginTop = node.parentNode.offsetHeight/2-node.offsetHeight/2 + "px";
         node.style.marginTop = "50px";
     }
 
+    /**
+     * Créer un bouton qui désactive le personnage d'index char.
+     * @param {!Number} char Index du personnage à éliminer
+     * @param {!String} text Text du bouton
+     * @param {!String} reason Raison de l'élimination
+     * @returns {HTMLButtonElement} Le bouton HTML
+     */
     createUnactiveButton(char, text, reason){
         let buttonElm = document.createElement("button");
         buttonElm.addEventListener("click", ()=>{
@@ -1127,6 +1148,12 @@ class PopulationPanel {
         return buttonElm;
     }
 
+    /**
+     * Créer un bouton qui active le personnage d'index char.
+     * @param {!Number} char Index du personnage à éliminer
+     * @param {!String} text Text du bouton
+     * @returns {HTMLButtonElement} Le bouton HTLM
+     */
     createActiveButton(char, text){
         let buttonElm = document.createElement("button");
         buttonElm.addEventListener("click", ()=>{
@@ -1136,6 +1163,9 @@ class PopulationPanel {
         return buttonElm;
     }
 
+    /**
+     * Instancie les boutons d'activation/désactivation des personnages
+     */
     createButtons(){
         let buttonsElm = document.getElementById("populationButtons");
         buttonsElm.appendChild(this.createUnactiveButton(0, "Désactive perso 0","Trop moche"));
