@@ -85,8 +85,8 @@ class Application {
      * Instancie tout les panels
      */
     constructor(){
-        this.attributesPanel = new __WEBPACK_IMPORTED_MODULE_2__AttributesPanel__["a" /* default */](document.getElementById('attributs'), this);
-        this.strategyPanel = new __WEBPACK_IMPORTED_MODULE_0__StrategyPanel__["a" /* default */](document.getElementById('strategie-network'), this.attributesPanel, this);
+        this.attributesPanel = new __WEBPACK_IMPORTED_MODULE_2__AttributesPanel__["a" /* default */](this);
+        this.strategyPanel = new __WEBPACK_IMPORTED_MODULE_0__StrategyPanel__["a" /* default */](this);
         this.populationPanel = new __WEBPACK_IMPORTED_MODULE_3__PopulationPanel__["a" /* default */](this);
         this.informationsPanel = new __WEBPACK_IMPORTED_MODULE_1__InformationsPanel__["a" /* default */](this);
     }
@@ -321,12 +321,11 @@ class AttributesPanel {
     /**
      * Constructeur.
      * Instancie directement tout les boutons sans les cacher.
-     * @param {!HTMLElement} element La div servant de conteneurs pour les boutons (censé être la div avec l'id 'attributs')
      * @param {!Application} appInstance L'instance d'application commune aux panels
      * @trhows {Error} Lance un erreur si element n'est pas une instance de HTMLElement
      * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
      */
-    constructor(element, appInstance){
+    constructor(appInstance){
         if(!(appInstance instanceof __WEBPACK_IMPORTED_MODULE_4__Application__["a" /* default */])){
             throw new Error("appInstance doit être l'instance de l'application commune aux panels");
         }
@@ -336,14 +335,14 @@ class AttributesPanel {
          * @member {AttributesCollection}
          */
         this.attributesCollection = __WEBPACK_IMPORTED_MODULE_0__AttributesCollection__["a" /* singleton */];
-        if(!(element instanceof HTMLElement)) {
-            throw new Error("@AttributesPanel() -> Erreur : element doit être une instance de HTMLElement");
-        }
         /**
          * Element HTML du panel
          * @member {HTMLElement}
          */
-        this.element = element;
+        this.element = document.getElementById('attributs');
+        if(!(this.element instanceof HTMLElement)) {
+            throw new Error("@AttributesPanel() -> Erreur : element doit être une instance de HTMLElement d'id 'strategie-network'");
+        }
 
         //création des boutons
         /**
@@ -457,29 +456,23 @@ let instance;
 class StrategyPanel {
     /**
      *
-     * @param {!HTMLElement} element L'élement HTML conteneur de l'arbre de stratégie
-     * @param {!AttributesPanel} attributesPanel Une instance du panel des attributs
      * @param {!Application} appInstance L'instance d'application commune aux panels
      * @throws {Error} Lance une erreur si element n'est pas une instance de HTMLElement
-     * @throws {Error} Lance une erreur si attributesPanel n'est pas une instance de AttributesPanel
      * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
      */
-    constructor(element, attributesPanel, appInstance){
+    constructor(appInstance){
         if(!(appInstance instanceof __WEBPACK_IMPORTED_MODULE_2__Application__["a" /* default */])){
             throw new Error("appInstance doit être l'instance de l'application commune aux panels");
         }
         this.appInstance = appInstance;
-        if(!(element instanceof HTMLElement)) {
-            throw new Error("@StrategyPanel() -> Erreur : element doit être une instance de HTMLElement");
-        }
-        if(!(attributesPanel instanceof __WEBPACK_IMPORTED_MODULE_1__AttributesPanel__["a" /* default */])){
-            throw new Error("@StrategyPanel() -> Erreur : attributsPanel doit être une instance de AttributesPanel");
-        }
         /**
          * L'élément conteneur du panel
          * @member {HTMLElement}
          */
-        this.element = element;
+        this.element = document.getElementById('strategie-network');
+        if(!(this.element instanceof HTMLElement)) {
+            throw new Error("@StrategyPanel() -> Erreur : element doit être une instance de HTMLElement d'id 'attributs'");
+        }
 
         /**
          * Liste des noeuds de la stratégie
@@ -519,7 +512,7 @@ class StrategyPanel {
          * Instance de vis.Network permettant de visualiser l'arbre
          * @member {vis.Network}
          */
-        this.network = new vis.Network(element, this.data, __WEBPACK_IMPORTED_MODULE_0__Common__["a" /* STRATEGY_OPTIONS */]);
+        this.network = new vis.Network(this.element, this.data, __WEBPACK_IMPORTED_MODULE_0__Common__["a" /* STRATEGY_OPTIONS */]);
         this.addNode(6, 'Node 6', 2);
         this.setNetworkHandler("click", this.onClick);
         this.setNetworkHandler("doubleClick", this.onDoubleClick);
@@ -557,71 +550,87 @@ class StrategyPanel {
     }
 
     /**
-     * Désactive ou active le noeud donné en paramètre et supprime les fils si désactivés
-     * @param {object} node le noeud à désactiver ou activer
+     * Active le noeud donné
+     * @param {!Number} id le noeud à activer
      */
-    updateNode(id){
-      var node = this.data.nodes.get(id);
-
-      if(node.enabled) {
-        // Change le couleur du noeud en gris
+    enableNode(id){
+        // Remet la couleur du noeud par défaut
         this.data.nodes.update([{
-          id:id,
-          enabled: false,
-          color:{
-            background:'#848484',
-            border:'#2E2E2E',
-            highlight:{
-              background:'#A4A4A4',
-              border:'#2E2E2E'
-            },
-            hover:{
-              background:'#A4A4A4',
-              border:'#2E2E2E'
+            id:id,
+            enabled: true,
+            color:{
+                background:'#D2E5FF',
+                border:'#2B7CE9',
+                highlight:{
+                    background:'#D2E5FF',
+                    border:'#2B7CE9'
+                },
+                hover:{
+                    background:'#D2E5FF',
+                    border:'#2B7CE9'
+                }
             }
-          }
+        }]);
+    }
+
+    /**
+     * Désactive le noeud donné
+     * @param {!Number} id le noeud à désactiver
+     */
+    disableNode(id){
+        // Remet la couleur du noeud par défaut
+        this.data.nodes.update([{
+            id:id,
+            enabled: false,
+            color:{
+                background:'#848484',
+                border:'#2E2E2E',
+                highlight:{
+                    background:'#A4A4A4',
+                    border:'#2E2E2E'
+                },
+                hover:{
+                    background:'#A4A4A4',
+                    border:'#2E2E2E'
+                }
+            }
         }]);
 
         // Si tous les fils sont désactivés, on les supprime
-        var allDisabled = true;
-        var sons = [];
+        let allDisabled = true;
+        let sons = [];
 
         this.data.edges.forEach((edge) => {
-          if (edge.from == node.id) {
-            let son = this.data.nodes.get(edge.to);
+            if (edge.from === node.id) {
+                let son = this.data.nodes.get(edge.to);
 
-            sons.push(son);
+                sons.push(son);
 
-            if(son.enabled) {
-              allDisabled = false;
+                if(son.enabled) {
+                    allDisabled = false;
+                }
             }
-          }
         });
 
-        if (allDisabled && sons.length != 0) {
-          sons.forEach((son) => {
-            this.deleteNode(son);
-          });
+        if (allDisabled && sons.length !== 0) {
+            sons.forEach((son) => {
+                this.deleteNode(son);
+            });
         }
+    }
+
+    /**
+     * Désactive ou active le noeud donné en paramètre et supprime les fils si désactivés
+     * @param {!Number} id le noeud à désactiver ou activer
+     */
+    updateNode(id){
+      let node = this.data.nodes.get(id);
+
+      if(node.enabled) {
+        this.disableNode(id);
 
       } else {
-        // Remet la couleur du noeud par défaut
-        this.data.nodes.update([{
-          id:id,
-          enabled: true,
-          color:{
-            background:'#D2E5FF',
-            border:'#2B7CE9',
-            highlight:{
-              background:'#D2E5FF',
-              border:'#2B7CE9'
-            },
-            hover:{
-              background:'#D2E5FF',
-              border:'#2B7CE9'
-            }
-          }
-        }]);
+          this.enableNode(id);
       }
     }
 

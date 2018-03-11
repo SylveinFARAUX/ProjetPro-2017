@@ -11,12 +11,11 @@ class AttributesPanel {
     /**
      * Constructeur.
      * Instancie directement tout les boutons sans les cacher.
-     * @param {!HTMLElement} element La div servant de conteneurs pour les boutons (censé être la div avec l'id 'attributs')
      * @param {!Application} appInstance L'instance d'application commune aux panels
      * @trhows {Error} Lance un erreur si element n'est pas une instance de HTMLElement
      * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
      */
-    constructor(element, appInstance){
+    constructor(appInstance){
         if(!(appInstance instanceof Application)){
             throw new Error("appInstance doit être l'instance de l'application commune aux panels");
         }
@@ -26,14 +25,14 @@ class AttributesPanel {
          * @member {AttributesCollection}
          */
         this.attributesCollection = AttributesCollection.singleton;
-        if(!(element instanceof HTMLElement)) {
-            throw new Error("@AttributesPanel() -> Erreur : element doit être une instance de HTMLElement");
-        }
         /**
          * Element HTML du panel
          * @member {HTMLElement}
          */
-        this.element = element;
+        this.element = document.getElementById('attributs');
+        if(!(this.element instanceof HTMLElement)) {
+            throw new Error("@AttributesPanel() -> Erreur : element doit être une instance de HTMLElement d'id 'strategie-network'");
+        }
 
         //création des boutons
         /**

@@ -11,8 +11,8 @@ class Application {
      * Instancie tout les panels
      */
     constructor(){
-        this.attributesPanel = new AttributesPanel(document.getElementById('attributs'), this);
-        this.strategyPanel = new StrategyPanel(document.getElementById('strategie-network'), this.attributesPanel, this);
+        this.attributesPanel = new AttributesPanel(this);
+        this.strategyPanel = new StrategyPanel(this);
         this.populationPanel = new PopulationPanel(this);
         this.informationsPanel = new InformationsPanel(this);
     }
