@@ -72,14 +72,19 @@ h3 {
     overflow-y: scroll;
     margin-top: 10px;
 }
+#attributs button{
+    outline: none;
+}
 
 .attributeButton{
     background: #9c9c9c;
     width: 50%;
     height: 17px;
     border-radius: 5px;
+    border: none;
     text-align: center;
     margin: 10px auto 10px auto;
+    display: block;
 }
 
 .attributeButton:hover{
