@@ -31,15 +31,23 @@
                 </div>
             </div>
              <div class="row bottom">
-                <div class="col-md-8 population">
-                    <div class="PopTitle">
-                        <h3>Etat du jeu</h3>
-                    </div>
-                    <div id="population">
-                        <table id = "tableChar">
-                        </table>
-                    </div>
-                    <div id="populationButtons">
+                 <div class="col-md-8 population">
+                    <div id="PopulationConteneur">
+                        <div class="PopTitle">
+                            <table>
+                                <tr>
+                                    <td><h3>Etat du jeu</h3></td>
+                                    <td><h5>Actif : <span id ="nbActif"></span></h5></td>
+                                    <td><h5>Eliminé : <span id="nbElim"></span></h5></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="population">
+                            <table id = "tableChar">
+                            </table>
+                        </div>
+                        <div id="populationButtons">
+                        </div>
                     </div>
                 </div>
                  <div class="col-md-4 informations">

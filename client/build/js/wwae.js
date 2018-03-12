@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -68,10 +68,10 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__StrategyPanel__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__InformationsPanel__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__StrategyPanel__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__InformationsPanel__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AttributesPanel__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PopulationPanel__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PopulationPanel__ = __webpack_require__(4);
 
 
 
@@ -303,10 +303,10 @@ class Attribute{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AttributesCollection__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AttributesCollection__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Common__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Attribute__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AttributeButton__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AttributeButton__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Application__ = __webpack_require__(0);
 
 
@@ -422,14 +422,435 @@ class AttributesPanel {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__objects_Application__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Character__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Application__ = __webpack_require__(0);
 
 
-new __WEBPACK_IMPORTED_MODULE_0__objects_Application__["a" /* default */]();
+
+const popSize = 24;
+const charWidth = 150;
+const charHeight = 150;
+const borderSize = 3;
+
+let popJson =
+    {
+        "characters": [
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "marrons"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "marrons"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "marrons"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "marrons"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "marrons"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "marrons"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "marrons"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "marrons"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "marrons"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "marrons"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "marrons"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "marrons"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            }
+        ]
+    };
+
+/**
+ * Classe représentant le panel de la population
+ */
+class PopulationPanel {
+
+    /**
+     *
+     * @param {!Application} appInstance L'instance d'application commune aux panels
+     * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
+     */
+    constructor(appInstance) {
+        if(!(appInstance instanceof __WEBPACK_IMPORTED_MODULE_1__Application__["a" /* default */])){
+            throw new Error("appInstance doit être l'instance de l'application commune aux panels");
+        }
+        this.appInstance = appInstance;
+        this.population = new Array(popSize);
+        this.table = document.getElementById("tableChar");
+        this.element = document.getElementById("population");
+        this.load();
+        this.createButtons();
+        this.loadTable();
+    }
+
+    load(){
+        let chars = popJson;
+        for(let i = 0; i < chars.characters.length; i++){
+            this.population[i] = new __WEBPACK_IMPORTED_MODULE_0__Character__["a" /* default */](chars.characters[i], i);
+        }
+    }
+
+    /**
+     *
+     * @param {!Number} i l'index du personnage
+     * @returns {Character} l'instance du personnage
+     */
+    getChar(i){
+        return this.population[i];
+    }
+
+    refresh(tabAttribute){
+        let actif = 0, elim = 0;
+        for(let i = 0; i < this.population.length; i++){
+            let bool = this.population[i].check(tabAttribute);
+            if(bool)
+                actif++;
+            else
+                elim++;
+        }
+        this.majPopInfo(actif, elim);
+    }
+
+    loadTable(){
+        let nbCol = Math.floor(this.element.offsetWidth/(charWidth + borderSize*2));
+        nbCol = (nbCol === 0) ? 1 : nbCol;
+        let nbRow = Math.ceil(popSize/nbCol);
+
+        //vide le tableau -> utile dans le cas d'un rechargement
+        this.table.innerHTML = "";
+
+        let row;
+        for(let i = 0; i < popSize; i++){
+            if(i % nbCol === 0){
+                row = this.addRow();
+            }
+            row.appendChild(this.addChar(this.getChar(i)));
+        }
+
+        this.majPopInfo(popSize, 0);
+        this.centerCharInfos();
+    }
+
+    addRow(){
+        let row = document.createElement("tr");
+        this.table.appendChild(row);
+        return row;
+    }
+
+    /**
+     *
+     * @param {!Character} char l'instance de Character
+     * @returns {HTMLTableDataCellElement} l'élément 'td' de la colonne
+     */
+    addChar(char){
+        let col = document.createElement("td");
+        col.id = "char" + char.id;
+        col.className = "charElem";
+        col.innerHTML = `
+								<figure id = 'charfigure` + char.id + `'>
+									<img src ='` + char.img + `' alt='Perso` + char.id + `' id = 'charimg` + char.id + `'/>
+									<figcaption>
+										<div class = 'charInfo'>
+											<h3 id = 'charName'>` + char.nom +`</h3>
+											<p id = 'charstatus` + char.id + `'>Suspect</p>
+											<div class = "CharTooltip">
+												<span class="arrow"></span>
+												<span class='CharTooltip-text'>`+ char.listeAttribute() + `</span>
+											</div>
+										</div>
+									</figcaption>
+								</figure>
+							`;
+        return  col;
+    }
+
+    centerCharInfos(){
+        let charinfo = document.getElementsByClassName("charInfo");
+        for(let i = 0; i < charinfo.length; i++){
+            this.centerInParent(charinfo[i]);
+        }
+    }
+
+    resize(){
+        this.loadTable();
+        var tab = new Array();//#TODO récupèré la liste d'attributs du noeud actif
+        this.refresh(tab);
+    }
+
+    /**
+     *
+     * @param node ??
+     */
+    centerInParent(node){
+        //node.style.marginTop = node.parentNode.offsetHeight/2-node.offsetHeight/2 + "px";
+        node.style.marginTop = "50px";
+    }
+
+    majPopInfo(actif, elim){
+        document.getElementById("nbActif").innerHTML = actif;
+        document.getElementById("nbElim").innerHTML = elim;
+    }
+
+    /**
+     * Créer un bouton qui désactive le personnage d'index char.
+     * @param {!Number} char Index du personnage à éliminer
+     * @param {!String} text Text du bouton
+     * @param {!String} reason Raison de l'élimination
+     * @returns {HTMLButtonElement} Le bouton HTML
+     */
+    createUnactiveButton(char, text, reason){
+        let buttonElm = document.createElement("button");
+        buttonElm.addEventListener("click", ()=>{
+            this.getChar(char).unactive(reason);
+        });
+        buttonElm.innerText = text;
+        return buttonElm;
+    }
+
+    /**
+     * Créer un bouton qui active le personnage d'index char.
+     * @param {!Number} char Index du personnage à éliminer
+     * @param {!String} text Text du bouton
+     * @returns {HTMLButtonElement} Le bouton HTLM
+     */
+    createActiveButton(char, text){
+        let buttonElm = document.createElement("button");
+        buttonElm.addEventListener("click", ()=>{
+            this.getChar(char).active();
+        });
+        buttonElm.innerText = text;
+        return buttonElm;
+    }
+
+    /**
+     * Instancie les boutons d'activation/désactivation des personnages
+     */
+    createButtons(){
+        let buttonsElm = document.getElementById("populationButtons");
+        buttonsElm.appendChild(this.createUnactiveButton(0, "Désactive perso 0","Trop moche"));
+        buttonsElm.appendChild(this.createActiveButton(0, "Active perso 0"));
+        buttonsElm.appendChild(this.createUnactiveButton(1, "Désactive perso 1","Cheveux blond"));
+        buttonsElm.appendChild(this.createActiveButton(1, "Active perso 1"));
+    }
+
+
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (PopulationPanel);
 
 /***/ }),
 /* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__objects_Application__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__objects_PopulationPanel__ = __webpack_require__(4);
+
+
+
+var app = new __WEBPACK_IMPORTED_MODULE_0__objects_Application__["a" /* default */]();
+
+//listener sur le redimensionnement de la fenêtred
+window.onresize = function(){app.populationPanel.resize();}
+
+
+/***/ }),
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -730,12 +1151,12 @@ class StrategyPanel {
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Attribute__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__attributs__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__attributs__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__attributs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__attributs__);
 
 
@@ -904,13 +1325,13 @@ const singleton = new AttributesCollection();
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 module.exports = {"attributs":{"cheveux":{"chauve":{"long":"Le personnage est chauve ?","court":"Chauve ?"},"blond":{"long":"Le personnage est blond ?","court":"Cheveux blond ?"},"brun":{"long":"Le personnage est brun ?","court":"Cheveux brun ?"}},"yeux":{"marron":{"long":"Le personnage a les yeux marron ?","court":"Yeux marron ?"},"bleu":{"long":"Le personnage a les yeux bleu ?","court":"Yeux bleu ?"},"vert":{"long":"Le personnage a les yeux vert ?","court":"Yeux vert ?"}}}}
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1026,7 +1447,7 @@ class AttributeButton {
 /* harmony default export */ __webpack_exports__["a"] = (AttributeButton);
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1052,198 +1473,6 @@ class InformationsPanel {
 /* harmony default export */ __webpack_exports__["a"] = (InformationsPanel);
 
 /***/ }),
-/* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Character__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Application__ = __webpack_require__(0);
-
-
-
-const popSize = 24;
-const charWidth = 150;
-const charHeight = 150;
-let popJson =
-    {
-        "characters": [
-            {
-                "nom" : "Magalie",
-                "img" : "./assets/charimg/magalie.png",
-                "attributs" : [
-                    {"key" : "cheveux", "value" : "rouquine"},
-                    {"key" : "yeux", "value" : "vert"},
-                    {"key" : "personalité", "value" : "salope"}
-                ]
-            },
-            {
-                "nom" : "Joseph",
-                "img" : "./assets/charimg/joseph.png",
-                "attributs" : [
-                    {"key" : "cheveux", "value" : "blond"},
-                    {"key" : "yeux", "value" : "bleu"},
-                    {"key" : "personalité", "value" : "nazi"}
-                ]
-            }
-        ]
-    };
-
-/**
- * Classe représentant le panel de la population
- */
-class PopulationPanel {
-
-    /**
-     *
-     * @param {!Application} appInstance L'instance d'application commune aux panels
-     * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
-     */
-    constructor(appInstance) {
-        if(!(appInstance instanceof __WEBPACK_IMPORTED_MODULE_1__Application__["a" /* default */])){
-            throw new Error("appInstance doit être l'instance de l'application commune aux panels");
-        }
-        this.appInstance = appInstance;
-        this.population = new Array(popSize);
-        this.table = document.getElementById("tableChar");
-        this.element = document.getElementById("population");
-        this.load();
-        this.createButtons();
-        this.loadTable();
-    }
-
-    load(){
-        let chars = popJson;
-        for(let i = 0; i < chars.characters.length; i++){
-            this.population[i] = new __WEBPACK_IMPORTED_MODULE_0__Character__["a" /* default */](chars.characters[i], i);
-        }
-    }
-
-    /**
-     *
-     * @param {!Number} i l'index du personnage
-     * @returns {Character} l'instance du personnage
-     */
-    getChar(i){
-        return this.population[i];
-    }
-
-    refresh(tabAttribute){
-        for(let i = 0; i < this.population.length; i++){
-            let bool = this.population[i].check(tabAttribute);
-        }
-    }
-
-    loadTable(){
-        let nbCol = Math.floor(this.element.offsetWidth/charWidth);
-        nbCol = (nbCol === 0) ? 1 : nbCol;
-        let nbRow = Math.ceil(popSize/nbCol);
-
-        let row;
-        for(let i = 0; i < popSize; i++){
-            if(i % nbCol === 0){
-                row = this.addRow();
-            }
-            row.appendChild(this.addChar(this.getChar(i%2)));
-        }
-
-        this.centerCharInfos();
-    }
-
-    addRow(){
-        let row = document.createElement("tr");
-        this.table.appendChild(row);
-        return row;
-    }
-
-    /**
-     *
-     * @param {!Character} char l'instance de Character
-     * @returns {HTMLTableDataCellElement} l'élément 'td' de la colonne
-     */
-    addChar(char){
-        let col = document.createElement("td");
-        col.id = "char" + char.id;
-        col.className = "charElem";
-        col.innerHTML = `
-								<figure>
-									<img src ='` + char.img + `' alt='Perso` + char.id + `' id = 'charimg` + char.id + `'/>
-									<figcaption>
-										<div class = 'charInfo'>
-											<h3 id = 'charName'>` + char.nom +`</h3>
-											<p id = 'charstatus` + char.id + `'>Suspect</p>
-											<div class = "CharTooltip">
-												<span class="arrow"></span>
-												<span class='CharTooltip-text'>`+ char.listeAttribute() + `</span>
-											</div>
-										</div>
-									</figcaption>
-								</figure>
-							`;
-        return  col;
-    }
-
-    centerCharInfos(){
-        let charinfo = document.getElementsByClassName("charInfo");
-        for(let i = 0; i < charinfo.length; i++){
-            this.centerInParent(charinfo[i]);
-        }
-    }
-
-    /**
-     *
-     * @param node ??
-     */
-    centerInParent(node){
-        //node.style.marginTop = node.parentNode.offsetHeight/2-node.offsetHeight/2 + "px";
-        node.style.marginTop = "50px";
-    }
-
-    /**
-     * Créer un bouton qui désactive le personnage d'index char.
-     * @param {!Number} char Index du personnage à éliminer
-     * @param {!String} text Text du bouton
-     * @param {!String} reason Raison de l'élimination
-     * @returns {HTMLButtonElement} Le bouton HTML
-     */
-    createUnactiveButton(char, text, reason){
-        let buttonElm = document.createElement("button");
-        buttonElm.addEventListener("click", ()=>{
-            this.getChar(char).unactive(reason);
-        });
-        buttonElm.innerText = text;
-        return buttonElm;
-    }
-
-    /**
-     * Créer un bouton qui active le personnage d'index char.
-     * @param {!Number} char Index du personnage à éliminer
-     * @param {!String} text Text du bouton
-     * @returns {HTMLButtonElement} Le bouton HTLM
-     */
-    createActiveButton(char, text){
-        let buttonElm = document.createElement("button");
-        buttonElm.addEventListener("click", ()=>{
-            this.getChar(char).active();
-        });
-        buttonElm.innerText = text;
-        return buttonElm;
-    }
-
-    /**
-     * Instancie les boutons d'activation/désactivation des personnages
-     */
-    createButtons(){
-        let buttonsElm = document.getElementById("populationButtons");
-        buttonsElm.appendChild(this.createUnactiveButton(0, "Désactive perso 0","Trop moche"));
-        buttonsElm.appendChild(this.createActiveButton(0, "Active perso 0"));
-        buttonsElm.appendChild(this.createUnactiveButton(1, "Désactive perso 1","Cheveux blond"));
-        buttonsElm.appendChild(this.createActiveButton(1, "Active perso 1"));
-    }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (PopulationPanel);
-
-/***/ }),
 /* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1257,6 +1486,7 @@ class Character{
         this.attributs = [];
         for(let i = 0; i < json.attributs.length; i++){
             //this.attributs.push(getAttributeInstance(json.attributs[i].key, json.attributs[i].value));
+            //#TODO trouver comment récupèrer ces putains d'attributs
         }
     }
 
@@ -1275,19 +1505,16 @@ class Character{
 
     active(){
         if(this.actived)return;
-        let img = document.getElementById("charimg" + this.id);
-        img.style.filter = "";
-        img.style.borderColor = "grey";
+        document.getElementById("charimg" + this.id).style.filter = "";
+        document.getElementById("charfigure" + this.id).style.borderColor = "grey";
         document.getElementById("charstatus" + this.id).innerHTML = "Suspect";
         this.actived = true;
     }
 
     unactive(reason){
         if(!this.actived)return;
-        let img = document.getElementById("charimg" + this.id);
-        img.style.filter = "grayscale(100%)";
-        console.log("ici");
-        img.style.borderColor = "#A61011";
+        document.getElementById("charimg" + this.id).style.filter = "grayscale(100%)";
+        document.getElementById("charfigure" + this.id).style.borderColor = "#A61011";
         document.getElementById("charstatus" + this.id).innerHTML = "Eliminé : " + reason;
         this.actived = false;
     }
@@ -1297,6 +1524,16 @@ class Character{
         for(let i = 0; i < this.attributs.length; i++){
             res += this.attributs[i].attributeKey + ":" + this.attributs[i].attributeValue + "</br>";
         }
+    }
+
+    check(tabAttributs){
+        for(let i = 0; i < tabAttributs.length; i++) {
+            if (this.attributs.find(tabAttributs[i]) == undefined) {
+                this.unactive(tabAttributs[i].court);
+                return false;
+            }
+        }
+        return true;
     }
 
 }

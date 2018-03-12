@@ -4,9 +4,209 @@ import Application from "./Application";
 const popSize = 24;
 const charWidth = 150;
 const charHeight = 150;
+const borderSize = 3;
+
 let popJson =
     {
         "characters": [
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "marrons"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "marrons"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "marrons"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "marrons"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "marrons"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "marrons"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "marrons"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "marrons"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "marrons"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "marrons"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "rouquine"},
+                    {"key" : "yeux", "value" : "marrons"},
+                    {"key" : "personalité", "value" : "salope"}
+                ]
+            },
+            {
+                "nom" : "Joseph",
+                "img" : "./assets/charimg/joseph.png",
+                "attributs" : [
+                    {"key" : "cheveux", "value" : "blond"},
+                    {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"}
+                ]
+            },
             {
                 "nom" : "Magalie",
                 "img" : "./assets/charimg/magalie.png",
@@ -68,24 +268,34 @@ class PopulationPanel {
     }
 
     refresh(tabAttribute){
+        let actif = 0, elim = 0;
         for(let i = 0; i < this.population.length; i++){
             let bool = this.population[i].check(tabAttribute);
+            if(bool)
+                actif++;
+            else
+                elim++;
         }
+        this.majPopInfo(actif, elim);
     }
 
     loadTable(){
-        let nbCol = Math.floor(this.element.offsetWidth/charWidth);
+        let nbCol = Math.floor(this.element.offsetWidth/(charWidth + borderSize*2));
         nbCol = (nbCol === 0) ? 1 : nbCol;
         let nbRow = Math.ceil(popSize/nbCol);
+
+        //vide le tableau -> utile dans le cas d'un rechargement
+        this.table.innerHTML = "";
 
         let row;
         for(let i = 0; i < popSize; i++){
             if(i % nbCol === 0){
                 row = this.addRow();
             }
-            row.appendChild(this.addChar(this.getChar(i%2)));
+            row.appendChild(this.addChar(this.getChar(i)));
         }
 
+        this.majPopInfo(popSize, 0);
         this.centerCharInfos();
     }
 
@@ -105,7 +315,7 @@ class PopulationPanel {
         col.id = "char" + char.id;
         col.className = "charElem";
         col.innerHTML = `
-								<figure>
+								<figure id = 'charfigure` + char.id + `'>
 									<img src ='` + char.img + `' alt='Perso` + char.id + `' id = 'charimg` + char.id + `'/>
 									<figcaption>
 										<div class = 'charInfo'>
@@ -129,6 +339,12 @@ class PopulationPanel {
         }
     }
 
+    resize(){
+        this.loadTable();
+        var tab = new Array();//#TODO récupèré la liste d'attributs du noeud actif
+        this.refresh(tab);
+    }
+
     /**
      *
      * @param node ??
@@ -136,6 +352,11 @@ class PopulationPanel {
     centerInParent(node){
         //node.style.marginTop = node.parentNode.offsetHeight/2-node.offsetHeight/2 + "px";
         node.style.marginTop = "50px";
+    }
+
+    majPopInfo(actif, elim){
+        document.getElementById("nbActif").innerHTML = actif;
+        document.getElementById("nbElim").innerHTML = elim;
     }
 
     /**
@@ -179,6 +400,8 @@ class PopulationPanel {
         buttonsElm.appendChild(this.createUnactiveButton(1, "Désactive perso 1","Cheveux blond"));
         buttonsElm.appendChild(this.createActiveButton(1, "Active perso 1"));
     }
+
+
 }
 
 export default PopulationPanel;

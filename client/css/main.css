@@ -22,9 +22,12 @@ body,
 }
 
 .population {
-    min-height: 100%;
+    height : 100%;
+    width : 100%;
     overflow-y: hidden;
     padding-bottom: 10px;
+    padding-right: 0px;
+    background-color: #36393F;
 }
 
 #informations{
@@ -52,7 +55,7 @@ body,
     background-color: rgba(255, 255, 255, 0.75);
 }
 
-h3 {
+h3, h4, h5{
     color: #df4540;
 }
 
@@ -88,9 +91,9 @@ h3 {
 }
 
 #population{
-    max-width : 1300px;
-    min-height: 50px;
-    overflow-y: scroll;
+    width : 100%;
+    height: 82%;
+    overflow-y: auto;
     overflow-x: hidden;
     background-color : #0C1021;
 }
@@ -101,11 +104,9 @@ h3 {
     border-style : none;
 }
 
-#population img {
-    border : 3px solid grey;
-}
-
 #population figure {
+    border : 3px solid grey;
+    border-radius : 40px;
     position: relative;
     overflow: hidden;
     margin: 0px;
@@ -115,7 +116,7 @@ h3 {
 }
 #population img, #population figcaption {
     transition: all .25s ease;
-    border-radius : 40px;
+    border-radius : 35px;
 }
 #population figcaption {
     text-align : center;
@@ -195,6 +196,23 @@ h3 {
 .charInfo:hover > .CharTooltip, .CharTooltip:hover {
     pointer-events: auto;
     opacity: 1.0;
+}
+
+#PopulationConteneur{
+    width : 100%;
+    height : 100%;
+    overflow : hidden;
+}
+.PopTitle{
+    background-color : #36393F;
+    color : #A61011;
+    width : 100%;
+    height : 8%;
+}
+
+.PopTitle table{
+    width : 100%;
+    table-layout: fixed;
 }
 /*infobule FIN*/
 
