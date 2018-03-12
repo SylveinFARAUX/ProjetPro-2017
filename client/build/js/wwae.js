@@ -132,85 +132,6 @@ class Application {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return STRATEGY_OPTIONS; });
-/* harmony export (immutable) */ __webpack_exports__["c"] = isNetworkEvent;
-/* harmony export (immutable) */ __webpack_exports__["b"] = createChildDiv;
-/** @module Common */
-
-/**
- * L'objet décrivant l'arbre de stratégie pour Vis.js
- * @type {object}
- */
-let STRATEGY_OPTIONS = {
-    locale: 'en', //si on met fr ça casse
-    height: '100%',
-    width: '100%',
-    autoResize: true,
-    edges:{
-        arrows: {
-            to: true //affiche la flêche côté arrivé
-        }
-    },
-    layout: {
-        hierarchical: {
-            direction: 'UD' //diréction de la hiérachisation de l'arbre du haut vers le bas (Up Down)
-        }
-    },
-    interaction: {
-        hover: true //active la gestion des événements de survol des noeuds
-    },
-    manipulation: {
-        enabled: false //true -> affiche le petit menu edit
-    }
-};
-
-
-/**
- * Evenements disponible pour les ojets Vis.Network
- * @type {string[]}
- */
-const NETWORK_EVENTS =   [
-                                    "click", "doubleClick", "dragStart", "dragging", "dragEnd", "zoom", "showPopup", "hidePopup",
-                                    "select", "selectNode", "selectEdge", "deselectNode", "deselectEdge",
-                                    "hoverNode", "hoverEdge", "blurNode", "blurEdge"
-                                ];
-
-Object.freeze(NETWORK_EVENTS);
-
-/**
- * Indique si le nom de l'événement donné est un événement supporté par Vis.js
- * @param {string} event le nom de l'événement
- * @returns {boolean} true si event est supporté, false sinon
- */
-function isNetworkEvent(event){
-    if(typeof event !== 'string')
-        return false;
-    else
-        return NETWORK_EVENTS.includes(event);
-}
-
-/**
- * Créer un HTMLElement div et le concatène à l'element parent.
- * @param {HTMLElement} parent le parent
- * @param {!string} childId l'id de l'élément à créer
- * @returns {HTMLElement|undefined} l'élément créé ou undefined si parent n'est pas un HTMLElement ou si childID n'est pas une chaîne
- */
-function createChildDiv(parent, childId){
-    if(!(parent instanceof HTMLElement) || typeof childId !== "string"){
-        return undefined;
-    }else{
-        let child = document.createElement('div');
-        child.setAttribute('id', childId);
-        parent.appendChild(child);
-        return child;
-    }
-}
-
-/***/ }),
-/* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /**
  * Représente un attribut d'un personnage avec une valeur.
  * Chaque instance d'Attribute ne contient qu'une seule valeur.
@@ -299,6 +220,85 @@ class Attribute{
 /* harmony default export */ __webpack_exports__["a"] = (Attribute);
 
 /***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return STRATEGY_OPTIONS; });
+/* harmony export (immutable) */ __webpack_exports__["b"] = isNetworkEvent;
+/* unused harmony export createChildDiv */
+/** @module Common */
+
+/**
+ * L'objet décrivant l'arbre de stratégie pour Vis.js
+ * @type {object}
+ */
+let STRATEGY_OPTIONS = {
+    locale: 'en', //si on met fr ça casse
+    height: '100%',
+    width: '100%',
+    autoResize: true,
+    edges:{
+        arrows: {
+            to: true //affiche la flêche côté arrivé
+        }
+    },
+    layout: {
+        hierarchical: {
+            direction: 'UD' //diréction de la hiérachisation de l'arbre du haut vers le bas (Up Down)
+        }
+    },
+    interaction: {
+        hover: true //active la gestion des événements de survol des noeuds
+    },
+    manipulation: {
+        enabled: false //true -> affiche le petit menu edit
+    }
+};
+
+
+/**
+ * Evenements disponible pour les ojets Vis.Network
+ * @type {string[]}
+ */
+const NETWORK_EVENTS =   [
+                                    "click", "doubleClick", "dragStart", "dragging", "dragEnd", "zoom", "showPopup", "hidePopup",
+                                    "select", "selectNode", "selectEdge", "deselectNode", "deselectEdge",
+                                    "hoverNode", "hoverEdge", "blurNode", "blurEdge"
+                                ];
+
+Object.freeze(NETWORK_EVENTS);
+
+/**
+ * Indique si le nom de l'événement donné est un événement supporté par Vis.js
+ * @param {string} event le nom de l'événement
+ * @returns {boolean} true si event est supporté, false sinon
+ */
+function isNetworkEvent(event){
+    if(typeof event !== 'string')
+        return false;
+    else
+        return NETWORK_EVENTS.includes(event);
+}
+
+/**
+ * Créer un HTMLElement div et le concatène à l'element parent.
+ * @param {HTMLElement} parent le parent
+ * @param {!string} childId l'id de l'élément à créer
+ * @returns {HTMLElement|undefined} l'élément créé ou undefined si parent n'est pas un HTMLElement ou si childID n'est pas une chaîne
+ */
+function createChildDiv(parent, childId){
+    if(!(parent instanceof HTMLElement) || typeof childId !== "string"){
+        return undefined;
+    }else{
+        let child = document.createElement('div');
+        child.setAttribute('id', childId);
+        parent.appendChild(child);
+        return child;
+    }
+}
+
+/***/ }),
 /* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -368,6 +368,38 @@ class AttributesPanel {
         this.removeAttributeButton.addEventListener("click", this.annulerSupposition);
     }
 
+    /**
+     * Met à jour l'états des boutons des attributs en fonction de la sélection de l'arbre de stratégie
+     */
+    updateButtonsStatus(){
+        if(this.appInstance.getStrategyPanel() === undefined){
+            return;
+        }
+        let selection = this.appInstance.getStrategyPanel().getSelection();
+        if(Array.isArray(selection)){
+            if(selection.length === 1){
+                let node = selection[0];
+                if(node.attribute !== undefined && node.attribute !== null && node.attribute instanceof __WEBPACK_IMPORTED_MODULE_2__Attribute__["a" /* default */]){
+                    this.removeAttributeButton.setAttribute("class", "btnActif");
+                }
+                let nodes = this.appInstance.getStrategyPanel().getNodes(selection);
+                if(Array.isArray(nodes) && nodes.length > 0){
+                    this.updateAttributesButtons(nodes);
+                }
+            }else{
+                this.removeAttributeButton.setAttribute("class", "btnInactif");
+            }
+        }
+    }
+
+    /**
+     * Met à jour la liste des boutons attributs à afficher en fonction de la slection donnée
+     * @param {!Object} nodes Liste des noeuds vis.js sélectionnés
+     */
+    updateAttributesButtons(nodes){
+        //TODO
+    }
+
     annulerSupposition(event){
         console.log("Annulation supposition");
     }
@@ -382,7 +414,8 @@ class AttributesPanel {
             throw new Error("@AttributesPanel.addButton() : L'attribut attribute doit être une instance de Attribute");
         }
         if(!(this.buttons[attribute.getAttributeKey()][attribute.getValue()] instanceof __WEBPACK_IMPORTED_MODULE_3__AttributeButton__["a" /* default */])){
-            this.buttons[attribute.getAttributeKey()][attribute.getValue()] = new __WEBPACK_IMPORTED_MODULE_3__AttributeButton__["a" /* default */](attribute,this.element);
+            let button = new __WEBPACK_IMPORTED_MODULE_3__AttributeButton__["a" /* default */](attribute,this);
+            this.buttons[attribute.getAttributeKey()][attribute.getValue()] = button;
         }
     }
 
@@ -412,6 +445,29 @@ class AttributesPanel {
         if(this.buttons[attribute.getAttributeKey()][attribute.getValue()] instanceof __WEBPACK_IMPORTED_MODULE_2__Attribute__["a" /* default */]) {
             this.buttons[attribute.getAttributeKey()][attribute.getValue()].show();
         }
+    }
+
+    /**
+     * Ajoute l'argument au noeuds sélectionné dans le panel de la stratégie,<br>
+     * et met à jour le statut des boutons.
+     * @param {!AttributeButton} button le bouton cliqué.
+     */
+    onButtonClick(button){
+        if(!(button instanceof __WEBPACK_IMPORTED_MODULE_3__AttributeButton__["a" /* default */])){
+            throw new Error("@AttributesPanel.onButtonClick() : L'attribut button doit être une instance de AttributeButton");
+        }
+        button.getAttribute().prettyPrint();
+        if(this.appInstance.getStrategyPanel() !== undefined){
+            this.appInstance.getStrategyPanel().setAttributeToSelection(button.getAttribute());
+        }
+    }
+
+    /**
+     * Retourne l'élément HTML du panel
+     * @returns {HTMLElement} l'élément HTML
+     */
+    getElement(){
+        return this.element;
     }
 }
 
@@ -854,9 +910,11 @@ window.onresize = function(){app.populationPanel.resize();}
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Common__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Common__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AttributesPanel__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Application__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Attribute__ = __webpack_require__(1);
+
 
 
 
@@ -906,24 +964,13 @@ class StrategyPanel {
          * Liste des noeuds de la stratégie
          * @type {DataSet}
          */
-        this.nodes = new vis.DataSet([
-            {id: 1, label: 'Node 1', level: 0, title: 'Je s\'appelle root', enabled:true},
-            {id: 2, label: 'Node 2', level: 1, enabled:true},
-            {id: 3, label: 'Node 3', level: 1, enabled:true},
-            {id: 4, label: 'Node 4', level: 2, enabled:true},
-            {id: 5, label: 'Node 5', level: 2, enabled:true}
-        ]);
+        this.nodes = new vis.DataSet([]);
 
         /**
          * Liste des liens de la stratégie
          * @type {DataSet}
          */
-        this.edges = new vis.DataSet([
-            {from: 1, to: 2},
-            {from: 1, to: 3},
-            {from: 2, to: 4},
-            {from: 2, to: 5}
-        ]);
+        this.edges = new vis.DataSet([]);
 
 
         /**
@@ -940,10 +987,10 @@ class StrategyPanel {
          * @member {vis.Network}
          */
         this.network = new vis.Network(this.element, this.data, __WEBPACK_IMPORTED_MODULE_0__Common__["a" /* STRATEGY_OPTIONS */]);
-        this.addNode(6, 'Node 6', 2);
         this.setNetworkHandler("click", this.onClick);
         this.setNetworkHandler("doubleClick", this.onDoubleClick);
         instance = this;
+        this.addNode(1,'',0);
     }
 
     /**
@@ -980,7 +1027,7 @@ class StrategyPanel {
      */
     setNetworkHandler(event, handler){
         if(typeof event === 'string' && typeof handler === 'function'){
-            if(__WEBPACK_IMPORTED_MODULE_0__Common__["c" /* isNetworkEvent */](event)){
+            if(__WEBPACK_IMPORTED_MODULE_0__Common__["b" /* isNetworkEvent */](event)){
                 this.network.on(event, handler);
             }
         }
@@ -991,6 +1038,7 @@ class StrategyPanel {
      * @param {object} node le noeud à supprimer
      */
     deleteNode(node){
+        //TODO éviter de supprimer la racine
         this.data.nodes.remove(node);
     }
 
@@ -1113,13 +1161,15 @@ class StrategyPanel {
     }
 
     /**
-     * Ajout un nouveau noeud au Network
+     * Ajout un nouveau noeud au Network. La valeur attribute de ce noeud est initialisée à null.
      * @param id l'id du noeud
      * @param label le label du noeud
      * @param level le niveau hiérarchique du noeud (le plus élevé est en bas de l'écran)
      */
     addNode(id, label, level){
         this.data.nodes.add({id, label, level});
+        this.getNode(id).attribute = null;
+        this.disableNode(id);
     }
 
     /**
@@ -1130,6 +1180,7 @@ class StrategyPanel {
         params.event = "[original event]";
         document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
         console.log('click event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM));
+        instance.appInstance.getAttributesPanel().updateButtonsStatus();
     }
 
     /**
@@ -1143,6 +1194,56 @@ class StrategyPanel {
         console.log('click event, getNodeAt returns: ' + clickedNode);
         if(clickedNode !== undefined){
             instance.updateNode(clickedNode);
+        }
+    }
+
+    /**
+     * Retourne la liste des Ids des noeuds sélectionnés
+     * @returns {Array}
+     */
+    getSelection(){
+        return this.network.getSelectedNodes();
+    }
+
+    /**
+     * Retourne la liste des noeuds avec les ids données, ou la liste complète des noeuds<br>
+     * si ids n'est pas un tableau ou n'est pas renseigné
+     * @param {string[]} [ids] la liste des identifiants des noeuds souhaités
+     * @returns {Array|DataSet} la liste des noeuds souhaités ou de tous les noeuds
+     */
+    getNodes(ids){
+        if(Array.isArray(ids)){
+            let nodes =  [];
+            ids.forEach(id => {
+               let node = this.getNode(id);
+               if(node !== undefined){
+                   nodes.push(node);
+               }
+            });
+            return nodes;
+        }else{
+            return this.nodes;
+        }
+    }
+
+    /**
+     * Définis la valeur d'un noeuds à l'attributs donné
+     * @param {!Attribute|null} attribute l'attribut à affecter au noeud sélectionné ou null
+     * @throws {Error} Lance une erreur si attribute n'est pas une instance de Attribute
+     */
+    setAttributeToSelection(attribute){
+        if(attribute !== null && !(attribute instanceof __WEBPACK_IMPORTED_MODULE_3__Attribute__["a" /* default */])){
+            throw new Error("@StrategyPanel() -> Erreur : attribute doit être une instance de Attribute");
+        }
+        let selection = this.getSelection();
+        if(Array.isArray(selection) && selection.length === 1){
+            let selectedNode = selection[0];
+            selectedNode.attribute = attribute;
+            if(attribute === null){
+                console.log("assertion removed");
+            }else{
+                selectedNode.setText(attribute.getShortText());
+            }
         }
     }
 }
@@ -1335,8 +1436,10 @@ module.exports = {"attributs":{"cheveux":{"chauve":{"long":"Le personnage est ch
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Common__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Attribute__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Common__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Attribute__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AttributesPanel__ = __webpack_require__(3);
+
 
 
 
@@ -1353,29 +1456,33 @@ class AttributeButton {
      * Dans le cas ou l'argument parent n'est pas un objet ou n'est pas renseigné,
      * on tente de trouver la div avec l'id 'attributs' à la place.
      * @param {!Attribute} attribute Une instance d'Attribute
-     * @param {?HTMLElement} parent L'élément parent (censé être la div du panel 'Attributs')
+     * @param {!AttributePanel} attributePanel L'instance du panel des attributs
      * @throws {Error} Lance une erreur si attribute n'est une instance d'Attribute
      * @throws {Error} Lance une si l'élément d'id 'attributs' n'à pas pu être trouvé dans le cas il l'argument parent serais mal renseigné
      */
-    constructor(attribute, parent){
+    constructor(attribute, attributePanel){
         if(!(attribute instanceof __WEBPACK_IMPORTED_MODULE_1__Attribute__["a" /* default */])){
             throw new Error("L'argument attribute doit être une instance de Attribute");
         }
-        if(!(parent instanceof HTMLElement)){
-            this.parent = document.getElementById('attributs');
-            if(!(parent instanceof HTMLElement)){
-                throw new Error("L'argument parent doit être un Element HTML");
-            }
-        }else{
-            this.parent = parent;
+        if(!(attributePanel instanceof __WEBPACK_IMPORTED_MODULE_2__AttributesPanel__["a" /* default */])){
+            throw new Error("L'argument attributePanel doit être une de AttributePanel");
         }
+        /**
+         * Référence vers l'instance du panel des attributs
+         * @member{AttributePanel}
+         */
+        this.attributePanel = attributePanel;
 
         /**
          * L'élément HTML du bouton
          * @member{Element}
          */
-        this.element = __WEBPACK_IMPORTED_MODULE_0__Common__["b" /* createChildDiv */](this.parent, "attributeButton"+nextButtonId);
+        this.element = document.createElement("button");
+        this.element.setAttribute("id","attributeButton"+nextButtonId);
         this.element.setAttribute("class", "attributeButton");
+        //si on ne donne pas un consommateur de event, on perd la référence à this dans le listener
+        this.element.addEventListener("click", event => this.onClick(event));
+        this.attributePanel.getElement().appendChild(this.element);
         nextButtonId++;
         /**
          * Indique si le bouton est caché ou visible
@@ -1388,8 +1495,6 @@ class AttributeButton {
          */
         this.attribute = attribute;
         this.setText(this.attribute.getLongText());
-        this.element.addEventListener("click", event => this.onClick(event));
-        //si on ne donne pas un consommateur de event, on perd la référence à this dans le listener
     }
 
     /**
@@ -1415,7 +1520,7 @@ class AttributeButton {
      * @param {Event} event l'événement onClick
      */
     onClick(event){
-        this.attribute.prettyPrint();
+        this.attributePanel.onButtonClick(this);
     }
 
     /**
@@ -1431,16 +1536,17 @@ class AttributeButton {
      * @param {?string} text le nouveau texte
      */
     setText(text){
-        let textNode;
-        if(text === undefined) {
-            textNode = document.createTextNode("");
-        }else{
-            textNode = document.createTextNode(text);
+        if(typeof text === "string") {
+            this.element.innerText = text;
         }
-        while (this.element.firstChild) {
-            this.element.removeChild(this.element.firstChild);
-        }
-        this.element.appendChild(textNode);
+    }
+
+    /**
+     * Retourne l'attribut représenté par le bouton
+     * @returns {Attribute} l'attribut
+     */
+    getAttribute(){
+        return this.attribute;
     }
 }
 

@@ -171,81 +171,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /***/function (module, __webpack_exports__, __webpack_require__) {
 
     "use strict";
-    /* harmony export (binding) */
-    __webpack_require__.d(__webpack_exports__, "a", function () {
-        return STRATEGY_OPTIONS;
-    });
-    /* harmony export (immutable) */__webpack_exports__["c"] = isNetworkEvent;
-    /* harmony export (immutable) */__webpack_exports__["b"] = createChildDiv;
-    /** @module Common */
-
-    /**
-     * L'objet décrivant l'arbre de stratégie pour Vis.js
-     * @type {object}
-     */
-    var STRATEGY_OPTIONS = {
-        locale: 'en', //si on met fr ça casse
-        height: '100%',
-        width: '100%',
-        autoResize: true,
-        edges: {
-            arrows: {
-                to: true //affiche la flêche côté arrivé
-            }
-        },
-        layout: {
-            hierarchical: {
-                direction: 'UD' //diréction de la hiérachisation de l'arbre du haut vers le bas (Up Down)
-            }
-        },
-        interaction: {
-            hover: true //active la gestion des événements de survol des noeuds
-        },
-        manipulation: {
-            enabled: false //true -> affiche le petit menu edit
-        }
-    };
-
-    /**
-     * Evenements disponible pour les ojets Vis.Network
-     * @type {string[]}
-     */
-    var NETWORK_EVENTS = ["click", "doubleClick", "dragStart", "dragging", "dragEnd", "zoom", "showPopup", "hidePopup", "select", "selectNode", "selectEdge", "deselectNode", "deselectEdge", "hoverNode", "hoverEdge", "blurNode", "blurEdge"];
-
-    Object.freeze(NETWORK_EVENTS);
-
-    /**
-     * Indique si le nom de l'événement donné est un événement supporté par Vis.js
-     * @param {string} event le nom de l'événement
-     * @returns {boolean} true si event est supporté, false sinon
-     */
-    function isNetworkEvent(event) {
-        if (typeof event !== 'string') return false;else return NETWORK_EVENTS.includes(event);
-    }
-
-    /**
-     * Créer un HTMLElement div et le concatène à l'element parent.
-     * @param {HTMLElement} parent le parent
-     * @param {!string} childId l'id de l'élément à créer
-     * @returns {HTMLElement|undefined} l'élément créé ou undefined si parent n'est pas un HTMLElement ou si childID n'est pas une chaîne
-     */
-    function createChildDiv(parent, childId) {
-        if (!(parent instanceof HTMLElement) || typeof childId !== "string") {
-            return undefined;
-        } else {
-            var child = document.createElement('div');
-            child.setAttribute('id', childId);
-            parent.appendChild(child);
-            return child;
-        }
-    }
-
-    /***/
-},
-/* 2 */
-/***/function (module, __webpack_exports__, __webpack_require__) {
-
-    "use strict";
     /**
      * Représente un attribut d'un personnage avec une valeur.
      * Chaque instance d'Attribute ne contient qu'une seule valeur.
@@ -359,6 +284,81 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     /***/
 },
+/* 2 */
+/***/function (module, __webpack_exports__, __webpack_require__) {
+
+    "use strict";
+    /* harmony export (binding) */
+    __webpack_require__.d(__webpack_exports__, "a", function () {
+        return STRATEGY_OPTIONS;
+    });
+    /* harmony export (immutable) */__webpack_exports__["b"] = isNetworkEvent;
+    /* unused harmony export createChildDiv */
+    /** @module Common */
+
+    /**
+     * L'objet décrivant l'arbre de stratégie pour Vis.js
+     * @type {object}
+     */
+    var STRATEGY_OPTIONS = {
+        locale: 'en', //si on met fr ça casse
+        height: '100%',
+        width: '100%',
+        autoResize: true,
+        edges: {
+            arrows: {
+                to: true //affiche la flêche côté arrivé
+            }
+        },
+        layout: {
+            hierarchical: {
+                direction: 'UD' //diréction de la hiérachisation de l'arbre du haut vers le bas (Up Down)
+            }
+        },
+        interaction: {
+            hover: true //active la gestion des événements de survol des noeuds
+        },
+        manipulation: {
+            enabled: false //true -> affiche le petit menu edit
+        }
+    };
+
+    /**
+     * Evenements disponible pour les ojets Vis.Network
+     * @type {string[]}
+     */
+    var NETWORK_EVENTS = ["click", "doubleClick", "dragStart", "dragging", "dragEnd", "zoom", "showPopup", "hidePopup", "select", "selectNode", "selectEdge", "deselectNode", "deselectEdge", "hoverNode", "hoverEdge", "blurNode", "blurEdge"];
+
+    Object.freeze(NETWORK_EVENTS);
+
+    /**
+     * Indique si le nom de l'événement donné est un événement supporté par Vis.js
+     * @param {string} event le nom de l'événement
+     * @returns {boolean} true si event est supporté, false sinon
+     */
+    function isNetworkEvent(event) {
+        if (typeof event !== 'string') return false;else return NETWORK_EVENTS.includes(event);
+    }
+
+    /**
+     * Créer un HTMLElement div et le concatène à l'element parent.
+     * @param {HTMLElement} parent le parent
+     * @param {!string} childId l'id de l'élément à créer
+     * @returns {HTMLElement|undefined} l'élément créé ou undefined si parent n'est pas un HTMLElement ou si childID n'est pas une chaîne
+     */
+    function createChildDiv(parent, childId) {
+        if (!(parent instanceof HTMLElement) || typeof childId !== "string") {
+            return undefined;
+        } else {
+            var child = document.createElement('div');
+            child.setAttribute('id', childId);
+            parent.appendChild(child);
+            return child;
+        }
+    }
+
+    /***/
+},
 /* 3 */
 /***/function (module, __webpack_exports__, __webpack_require__) {
 
@@ -429,7 +429,45 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             this.removeAttributeButton.addEventListener("click", this.annulerSupposition);
         }
 
+        /**
+         * Met à jour l'états des boutons des attributs en fonction de la sélection de l'arbre de stratégie
+         */
+
+
         _createClass(AttributesPanel, [{
+            key: 'updateButtonsStatus',
+            value: function updateButtonsStatus() {
+                if (this.appInstance.getStrategyPanel() === undefined) {
+                    return;
+                }
+                var selection = this.appInstance.getStrategyPanel().getSelection();
+                if (Array.isArray(selection)) {
+                    if (selection.length === 1) {
+                        var node = selection[0];
+                        if (node.attribute !== undefined && node.attribute !== null && node.attribute instanceof __WEBPACK_IMPORTED_MODULE_2__Attribute__["a" /* default */]) {
+                            this.removeAttributeButton.setAttribute("class", "btnActif");
+                        }
+                        var nodes = this.appInstance.getStrategyPanel().getNodes(selection);
+                        if (Array.isArray(nodes) && nodes.length > 0) {
+                            this.updateAttributesButtons(nodes);
+                        }
+                    } else {
+                        this.removeAttributeButton.setAttribute("class", "btnInactif");
+                    }
+                }
+            }
+
+            /**
+             * Met à jour la liste des boutons attributs à afficher en fonction de la slection donnée
+             * @param {!Object} nodes Liste des noeuds vis.js sélectionnés
+             */
+
+        }, {
+            key: 'updateAttributesButtons',
+            value: function updateAttributesButtons(nodes) {
+                //TODO
+            }
+        }, {
             key: 'annulerSupposition',
             value: function annulerSupposition(event) {
                 console.log("Annulation supposition");
@@ -448,7 +486,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     throw new Error("@AttributesPanel.addButton() : L'attribut attribute doit être une instance de Attribute");
                 }
                 if (!(this.buttons[attribute.getAttributeKey()][attribute.getValue()] instanceof __WEBPACK_IMPORTED_MODULE_3__AttributeButton__["a" /* default */])) {
-                    this.buttons[attribute.getAttributeKey()][attribute.getValue()] = new __WEBPACK_IMPORTED_MODULE_3__AttributeButton__["a" /* default */](attribute, this.element);
+                    var button = new __WEBPACK_IMPORTED_MODULE_3__AttributeButton__["a" /* default */](attribute, this);
+                    this.buttons[attribute.getAttributeKey()][attribute.getValue()] = button;
                 }
             }
 
@@ -484,6 +523,35 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 if (this.buttons[attribute.getAttributeKey()][attribute.getValue()] instanceof __WEBPACK_IMPORTED_MODULE_2__Attribute__["a" /* default */]) {
                     this.buttons[attribute.getAttributeKey()][attribute.getValue()].show();
                 }
+            }
+
+            /**
+             * Ajoute l'argument au noeuds sélectionné dans le panel de la stratégie,<br>
+             * et met à jour le statut des boutons.
+             * @param {!AttributeButton} button le bouton cliqué.
+             */
+
+        }, {
+            key: 'onButtonClick',
+            value: function onButtonClick(button) {
+                if (!(button instanceof __WEBPACK_IMPORTED_MODULE_3__AttributeButton__["a" /* default */])) {
+                    throw new Error("@AttributesPanel.onButtonClick() : L'attribut button doit être une instance de AttributeButton");
+                }
+                button.getAttribute().prettyPrint();
+                if (this.appInstance.getStrategyPanel() !== undefined) {
+                    this.appInstance.getStrategyPanel().setAttributeToSelection(button.getAttribute());
+                }
+            }
+
+            /**
+             * Retourne l'élément HTML du panel
+             * @returns {HTMLElement} l'élément HTML
+             */
+
+        }, {
+            key: 'getElement',
+            value: function getElement() {
+                return this.element;
             }
         }]);
 
@@ -832,9 +900,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     "use strict";
     /* harmony import */
-    var __WEBPACK_IMPORTED_MODULE_0__Common__ = __webpack_require__(1);
+    var __WEBPACK_IMPORTED_MODULE_0__Common__ = __webpack_require__(2);
     /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__AttributesPanel__ = __webpack_require__(3);
     /* harmony import */var __WEBPACK_IMPORTED_MODULE_2__Application__ = __webpack_require__(0);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_3__Attribute__ = __webpack_require__(1);
 
     //on a besoin de garder un pointeur vers une instance pour y accèder dans
     //les handlers des événements de vis.js car ces dèrnier sont
@@ -884,13 +953,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
              * Liste des noeuds de la stratégie
              * @type {DataSet}
              */
-            this.nodes = new vis.DataSet([{ id: 1, label: 'Node 1', level: 0, title: 'Je s\'appelle root', enabled: true }, { id: 2, label: 'Node 2', level: 1, enabled: true }, { id: 3, label: 'Node 3', level: 1, enabled: true }, { id: 4, label: 'Node 4', level: 2, enabled: true }, { id: 5, label: 'Node 5', level: 2, enabled: true }]);
+            this.nodes = new vis.DataSet([]);
 
             /**
              * Liste des liens de la stratégie
              * @type {DataSet}
              */
-            this.edges = new vis.DataSet([{ from: 1, to: 2 }, { from: 1, to: 3 }, { from: 2, to: 4 }, { from: 2, to: 5 }]);
+            this.edges = new vis.DataSet([]);
 
             /**
              * Données contenant les noeuds et les liens de l'arbre de stratégie
@@ -906,10 +975,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
              * @member {vis.Network}
              */
             this.network = new vis.Network(this.element, this.data, __WEBPACK_IMPORTED_MODULE_0__Common__["a" /* STRATEGY_OPTIONS */]);
-            this.addNode(6, 'Node 6', 2);
             this.setNetworkHandler("click", this.onClick);
             this.setNetworkHandler("doubleClick", this.onDoubleClick);
             instance = this;
+            this.addNode(1, '', 0);
         }
 
         /**
@@ -959,7 +1028,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             key: 'setNetworkHandler',
             value: function setNetworkHandler(event, handler) {
                 if (typeof event === 'string' && typeof handler === 'function') {
-                    if (__WEBPACK_IMPORTED_MODULE_0__Common__["c" /* isNetworkEvent */](event)) {
+                    if (__WEBPACK_IMPORTED_MODULE_0__Common__["b" /* isNetworkEvent */](event)) {
                         this.network.on(event, handler);
                     }
                 }
@@ -973,6 +1042,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }, {
             key: 'deleteNode',
             value: function deleteNode(node) {
+                //TODO éviter de supprimer la racine
                 this.data.nodes.remove(node);
             }
 
@@ -1112,7 +1182,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
 
             /**
-             * Ajout un nouveau noeud au Network
+             * Ajout un nouveau noeud au Network. La valeur attribute de ce noeud est initialisée à null.
              * @param id l'id du noeud
              * @param label le label du noeud
              * @param level le niveau hiérarchique du noeud (le plus élevé est en bas de l'écran)
@@ -1122,6 +1192,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             key: 'addNode',
             value: function addNode(id, label, level) {
                 this.data.nodes.add({ id: id, label: label, level: level });
+                this.getNode(id).attribute = null;
+                this.disableNode(id);
             }
 
             /**
@@ -1135,6 +1207,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 params.event = "[original event]";
                 document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
                 console.log('click event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM));
+                instance.appInstance.getAttributesPanel().updateButtonsStatus();
             }
 
             /**
@@ -1151,6 +1224,67 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 console.log('click event, getNodeAt returns: ' + clickedNode);
                 if (clickedNode !== undefined) {
                     instance.updateNode(clickedNode);
+                }
+            }
+
+            /**
+             * Retourne la liste des Ids des noeuds sélectionnés
+             * @returns {Array}
+             */
+
+        }, {
+            key: 'getSelection',
+            value: function getSelection() {
+                return this.network.getSelectedNodes();
+            }
+
+            /**
+             * Retourne la liste des noeuds avec les ids données, ou la liste complète des noeuds<br>
+             * si ids n'est pas un tableau ou n'est pas renseigné
+             * @param {string[]} [ids] la liste des identifiants des noeuds souhaités
+             * @returns {Array|DataSet} la liste des noeuds souhaités ou de tous les noeuds
+             */
+
+        }, {
+            key: 'getNodes',
+            value: function getNodes(ids) {
+                var _this3 = this;
+
+                if (Array.isArray(ids)) {
+                    var nodes = [];
+                    ids.forEach(function (id) {
+                        var node = _this3.getNode(id);
+                        if (node !== undefined) {
+                            nodes.push(node);
+                        }
+                    });
+                    return nodes;
+                } else {
+                    return this.nodes;
+                }
+            }
+
+            /**
+             * Définis la valeur d'un noeuds à l'attributs donné
+             * @param {!Attribute|null} attribute l'attribut à affecter au noeud sélectionné ou null
+             * @throws {Error} Lance une erreur si attribute n'est pas une instance de Attribute
+             */
+
+        }, {
+            key: 'setAttributeToSelection',
+            value: function setAttributeToSelection(attribute) {
+                if (attribute !== null && !(attribute instanceof __WEBPACK_IMPORTED_MODULE_3__Attribute__["a" /* default */])) {
+                    throw new Error("@StrategyPanel() -> Erreur : attribute doit être une instance de Attribute");
+                }
+                var selection = this.getSelection();
+                if (Array.isArray(selection) && selection.length === 1) {
+                    var selectedNode = selection[0];
+                    selectedNode.attribute = attribute;
+                    if (attribute === null) {
+                        console.log("assertion removed");
+                    } else {
+                        selectedNode.setText(attribute.getShortText());
+                    }
                 }
             }
         }]);
@@ -1386,8 +1520,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     "use strict";
     /* harmony import */
-    var __WEBPACK_IMPORTED_MODULE_0__Common__ = __webpack_require__(1);
-    /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__Attribute__ = __webpack_require__(2);
+    var __WEBPACK_IMPORTED_MODULE_0__Common__ = __webpack_require__(2);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__Attribute__ = __webpack_require__(1);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_2__AttributesPanel__ = __webpack_require__(3);
 
     var nextButtonId = 0;
 
@@ -1403,7 +1538,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
          * Dans le cas ou l'argument parent n'est pas un objet ou n'est pas renseigné,
          * on tente de trouver la div avec l'id 'attributs' à la place.
          * @param {!Attribute} attribute Une instance d'Attribute
-         * @param {?HTMLElement} parent L'élément parent (censé être la div du panel 'Attributs')
+         * @param {!AttributePanel} attributePanel L'instance du panel des attributs
          * @throws {Error} Lance une erreur si attribute n'est une instance d'Attribute
          * @throws {Error} Lance une si l'élément d'id 'attributs' n'à pas pu être trouvé dans le cas il l'argument parent serais mal renseigné
          */
@@ -1415,21 +1550,27 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             if (!(attribute instanceof __WEBPACK_IMPORTED_MODULE_1__Attribute__["a" /* default */])) {
                 throw new Error("L'argument attribute doit être une instance de Attribute");
             }
-            if (!(parent instanceof HTMLElement)) {
-                this.parent = document.getElementById('attributs');
-                if (!(parent instanceof HTMLElement)) {
-                    throw new Error("L'argument parent doit être un Element HTML");
-                }
-            } else {
-                this.parent = parent;
+            if (!(attributePanel instanceof __WEBPACK_IMPORTED_MODULE_2__AttributesPanel__["a" /* default */])) {
+                throw new Error("L'argument attributePanel doit être une de AttributePanel");
             }
+            /**
+             * Référence vers l'instance du panel des attributs
+             * @member{AttributePanel}
+             */
+            this.attributePanel = attributePanel;
 
             /**
              * L'élément HTML du bouton
              * @member{Element}
              */
-            this.element = __WEBPACK_IMPORTED_MODULE_0__Common__["b" /* createChildDiv */](this.parent, "attributeButton" + nextButtonId);
+            this.element = document.createElement("button");
+            this.element.setAttribute("id", "attributeButton" + nextButtonId);
             this.element.setAttribute("class", "attributeButton");
+            //si on ne donne pas un consommateur de event, on perd la référence à this dans le listener
+            this.element.addEventListener("click", function (event) {
+                return _this6.onClick(event);
+            });
+            this.attributePanel.getElement().appendChild(this.element);
             nextButtonId++;
             /**
              * Indique si le bouton est caché ou visible
@@ -1481,7 +1622,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }, {
             key: 'onClick',
             value: function onClick(event) {
-                this.attribute.prettyPrint();
+                this.attributePanel.onButtonClick(this);
             }
 
             /**
@@ -1503,16 +1644,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }, {
             key: 'setText',
             value: function setText(text) {
-                var textNode = void 0;
-                if (text === undefined) {
-                    textNode = document.createTextNode("");
-                } else {
-                    textNode = document.createTextNode(text);
+                if (typeof text === "string") {
+                    this.element.innerText = text;
                 }
-                while (this.element.firstChild) {
-                    this.element.removeChild(this.element.firstChild);
-                }
-                this.element.appendChild(textNode);
+            }
+
+            /**
+             * Retourne l'attribut représenté par le bouton
+             * @returns {Attribute} l'attribut
+             */
+
+        }, {
+            key: 'getAttribute',
+            value: function getAttribute() {
+                return this.attribute;
             }
         }]);
 

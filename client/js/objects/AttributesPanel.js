@@ -58,6 +58,38 @@ class AttributesPanel {
         this.removeAttributeButton.addEventListener("click", this.annulerSupposition);
     }
 
+    /**
+     * Met à jour l'états des boutons des attributs en fonction de la sélection de l'arbre de stratégie
+     */
+    updateButtonsStatus(){
+        if(this.appInstance.getStrategyPanel() === undefined){
+            return;
+        }
+        let selection = this.appInstance.getStrategyPanel().getSelection();
+        if(Array.isArray(selection)){
+            if(selection.length === 1){
+                let node = selection[0];
+                if(node.attribute !== undefined && node.attribute !== null && node.attribute instanceof Attribute){
+                    this.removeAttributeButton.setAttribute("class", "btnActif");
+                }
+                let nodes = this.appInstance.getStrategyPanel().getNodes(selection);
+                if(Array.isArray(nodes) && nodes.length > 0){
+                    this.updateAttributesButtons(nodes);
+                }
+            }else{
+                this.removeAttributeButton.setAttribute("class", "btnInactif");
+            }
+        }
+    }
+
+    /**
+     * Met à jour la liste des boutons attributs à afficher en fonction de la slection donnée
+     * @param {!Object} nodes Liste des noeuds vis.js sélectionnés
+     */
+    updateAttributesButtons(nodes){
+        //TODO
+    }
+
     annulerSupposition(event){
         console.log("Annulation supposition");
     }
@@ -72,7 +104,8 @@ class AttributesPanel {
             throw new Error("@AttributesPanel.addButton() : L'attribut attribute doit être une instance de Attribute");
         }
         if(!(this.buttons[attribute.getAttributeKey()][attribute.getValue()] instanceof AttributeButton)){
-            this.buttons[attribute.getAttributeKey()][attribute.getValue()] = new AttributeButton(attribute,this.element);
+            let button = new AttributeButton(attribute,this);
+            this.buttons[attribute.getAttributeKey()][attribute.getValue()] = button;
         }
     }
 
@@ -102,6 +135,29 @@ class AttributesPanel {
         if(this.buttons[attribute.getAttributeKey()][attribute.getValue()] instanceof Attribute) {
             this.buttons[attribute.getAttributeKey()][attribute.getValue()].show();
         }
+    }
+
+    /**
+     * Ajoute l'argument au noeuds sélectionné dans le panel de la stratégie,<br>
+     * et met à jour le statut des boutons.
+     * @param {!AttributeButton} button le bouton cliqué.
+     */
+    onButtonClick(button){
+        if(!(button instanceof AttributeButton)){
+            throw new Error("@AttributesPanel.onButtonClick() : L'attribut button doit être une instance de AttributeButton");
+        }
+        button.getAttribute().prettyPrint();
+        if(this.appInstance.getStrategyPanel() !== undefined){
+            this.appInstance.getStrategyPanel().setAttributeToSelection(button.getAttribute());
+        }
+    }
+
+    /**
+     * Retourne l'élément HTML du panel
+     * @returns {HTMLElement} l'élément HTML
+     */
+    getElement(){
+        return this.element;
     }
 }
 

@@ -1,6 +1,7 @@
 import * as Common from './Common';
 import AttributesPanel from "./AttributesPanel";
 import Application from "./Application";
+import Attribute from "./Attribute";
 
 //on a besoin de garder un pointeur vers une instance pour y accèder dans
 //les handlers des événements de vis.js car ces dèrnier sont
@@ -47,24 +48,13 @@ class StrategyPanel {
          * Liste des noeuds de la stratégie
          * @type {DataSet}
          */
-        this.nodes = new vis.DataSet([
-            {id: 1, label: 'Node 1', level: 0, title: 'Je s\'appelle root', enabled:true},
-            {id: 2, label: 'Node 2', level: 1, enabled:true},
-            {id: 3, label: 'Node 3', level: 1, enabled:true},
-            {id: 4, label: 'Node 4', level: 2, enabled:true},
-            {id: 5, label: 'Node 5', level: 2, enabled:true}
-        ]);
+        this.nodes = new vis.DataSet([]);
 
         /**
          * Liste des liens de la stratégie
          * @type {DataSet}
          */
-        this.edges = new vis.DataSet([
-            {from: 1, to: 2},
-            {from: 1, to: 3},
-            {from: 2, to: 4},
-            {from: 2, to: 5}
-        ]);
+        this.edges = new vis.DataSet([]);
 
 
         /**
@@ -81,10 +71,10 @@ class StrategyPanel {
          * @member {vis.Network}
          */
         this.network = new vis.Network(this.element, this.data, Common.STRATEGY_OPTIONS);
-        this.addNode(6, 'Node 6', 2);
         this.setNetworkHandler("click", this.onClick);
         this.setNetworkHandler("doubleClick", this.onDoubleClick);
         instance = this;
+        this.addNode(1,'',0);
     }
 
     /**
@@ -132,6 +122,7 @@ class StrategyPanel {
      * @param {object} node le noeud à supprimer
      */
     deleteNode(node){
+        //TODO éviter de supprimer la racine
         this.data.nodes.remove(node);
     }
 
@@ -254,13 +245,15 @@ class StrategyPanel {
     }
 
     /**
-     * Ajout un nouveau noeud au Network
+     * Ajout un nouveau noeud au Network. La valeur attribute de ce noeud est initialisée à null.
      * @param id l'id du noeud
      * @param label le label du noeud
      * @param level le niveau hiérarchique du noeud (le plus élevé est en bas de l'écran)
      */
     addNode(id, label, level){
         this.data.nodes.add({id, label, level});
+        this.getNode(id).attribute = null;
+        this.disableNode(id);
     }
 
     /**
@@ -271,6 +264,7 @@ class StrategyPanel {
         params.event = "[original event]";
         document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
         console.log('click event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM));
+        instance.appInstance.getAttributesPanel().updateButtonsStatus();
     }
 
     /**
@@ -284,6 +278,56 @@ class StrategyPanel {
         console.log('click event, getNodeAt returns: ' + clickedNode);
         if(clickedNode !== undefined){
             instance.updateNode(clickedNode);
+        }
+    }
+
+    /**
+     * Retourne la liste des Ids des noeuds sélectionnés
+     * @returns {Array}
+     */
+    getSelection(){
+        return this.network.getSelectedNodes();
+    }
+
+    /**
+     * Retourne la liste des noeuds avec les ids données, ou la liste complète des noeuds<br>
+     * si ids n'est pas un tableau ou n'est pas renseigné
+     * @param {string[]} [ids] la liste des identifiants des noeuds souhaités
+     * @returns {Array|DataSet} la liste des noeuds souhaités ou de tous les noeuds
+     */
+    getNodes(ids){
+        if(Array.isArray(ids)){
+            let nodes =  [];
+            ids.forEach(id => {
+               let node = this.getNode(id);
+               if(node !== undefined){
+                   nodes.push(node);
+               }
+            });
+            return nodes;
+        }else{
+            return this.nodes;
+        }
+    }
+
+    /**
+     * Définis la valeur d'un noeuds à l'attributs donné
+     * @param {!Attribute|null} attribute l'attribut à affecter au noeud sélectionné ou null
+     * @throws {Error} Lance une erreur si attribute n'est pas une instance de Attribute
+     */
+    setAttributeToSelection(attribute){
+        if(attribute !== null && !(attribute instanceof Attribute)){
+            throw new Error("@StrategyPanel() -> Erreur : attribute doit être une instance de Attribute");
+        }
+        let selection = this.getSelection();
+        if(Array.isArray(selection) && selection.length === 1){
+            let selectedNode = selection[0];
+            selectedNode.attribute = attribute;
+            if(attribute === null){
+                console.log("assertion removed");
+            }else{
+                selectedNode.setText(attribute.getShortText());
+            }
         }
     }
 }

@@ -75,14 +75,19 @@ h3, h4, h5{
     overflow-y: scroll;
     margin-top: 10px;
 }
+#attributs button{
+    outline: none;
+}
 
 .attributeButton{
     background: #9c9c9c;
     width: 50%;
     height: 17px;
     border-radius: 5px;
-    margin: 0 0 10px 10px;
+    border: none;
     text-align: center;
+    margin: 10px auto 10px auto;
+    display: block;
 }
 
 .attributeButton:hover{
@@ -109,9 +114,8 @@ h3, h4, h5{
     border-radius : 40px;
     position: relative;
     overflow: hidden;
-    margin: 0px;
-    padding:0px;
-    padding : 0px;
+    margin: 0;
+    padding : 0;
     display:inline-block;
 }
 #population img, #population figcaption {
@@ -217,5 +221,42 @@ h3, h4, h5{
 /*infobule FIN*/
 
 #boutonAnnulerSupposition{
-    /*TODO*/
+    border:none;
+    border-radius: 5px;
+    display:inline-block;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    vertical-align:middle;
+    background-color: rgba(255, 0, 0, 0.69);
+    color: white;
+    text-align:center;
+    width: 90%;
+    position: absolute;
+    bottom: 5px;
+}
+
+
+.btnInactif{
+    opacity: 0.5;
+}
+
+.btnInactif:hover{
+
+}
+
+#boutonAnnulerSupposition.btnInactif{
+    background-color: rgba(0, 0, 0, 0.69);
+}
+
+.btnActif{
+    opacity: 1.0;
+}
+
+.btnActif:hover{
+
+}
+
+#boutonAnnulerSupposition.btnActif:hover{
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.2),
+    0 0 0 2px rgba(255, 0, 0, 0.18);
 }
