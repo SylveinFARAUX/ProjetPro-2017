@@ -28,7 +28,7 @@ class AttributeButton {
         }
         /**
          * Référence vers l'instance du panel des attributs
-         * @member{AttributePanel}
+         * @type{AttributePanel}
          */
         this.attributePanel = attributePanel;
 
