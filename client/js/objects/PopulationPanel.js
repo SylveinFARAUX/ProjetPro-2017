@@ -1,5 +1,6 @@
 import Character from "./Character";
 import Application from "./Application";
+import * as Main from "../Main";
 
 const popSize = 24;
 const charWidth = 150;
@@ -235,20 +236,16 @@ class PopulationPanel {
 
     /**
      *
-     * @param {!Application} appInstance L'instance d'application commune aux panels
      * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
      */
-    constructor(appInstance) {
-        if(!(appInstance instanceof Application)){
-            throw new Error("appInstance doit être l'instance de l'application commune aux panels");
-        }
-        this.appInstance = appInstance;
+    constructor() {
         this.population = new Array(popSize);
         this.table = document.getElementById("tableChar");
         this.element = document.getElementById("population");
         this.load();
         this.createButtons();
         this.loadTable();
+        this.majPopInfo(popSize, 0);
     }
 
     load(){
@@ -294,9 +291,8 @@ class PopulationPanel {
             }
             row.appendChild(this.addChar(this.getChar(i)));
         }
-
-        this.majPopInfo(popSize, 0);
         this.centerCharInfos();
+        this.sizeTable()
     }
 
     addRow(){
@@ -341,8 +337,14 @@ class PopulationPanel {
 
     resize(){
         this.loadTable();
-        var tab = new Array();//#TODO récupèré la liste d'attributs du noeud actif
+        let tab = [];//#TODO récupèré la liste d'attributs du noeud actif
         this.refresh(tab);
+    }
+
+    sizeTable(){
+        let conteneurH = document.getElementById("PopulationConteneur").clientHeight;
+        let titreH = document.getElementById("PopTitle").offsetHeight;
+        document.getElementById("population").style.height = conteneurH - titreH + "px";
     }
 
     /**
@@ -351,7 +353,7 @@ class PopulationPanel {
      */
     centerInParent(node){
         //node.style.marginTop = node.parentNode.offsetHeight/2-node.offsetHeight/2 + "px";
-        node.style.marginTop = "50px";
+        node.style.marginTop = "40px";
     }
 
     majPopInfo(actif, elim){

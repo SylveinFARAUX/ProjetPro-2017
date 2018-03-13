@@ -1,4 +1,5 @@
 import Application from "./Application";
+import * as Main from "../Main";
 
 /**
  * Classe repésentant le panel Informations
@@ -6,14 +7,9 @@ import Application from "./Application";
 class InformationsPanel {
     /**
      *
-     * @param {!Application} appInstance L'instance d'application commune aux panels
      * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
      */
-  constructor(appInstance){
-        if(!(appInstance instanceof Application)){
-            throw new Error("appInstance doit être l'instance de l'application commune aux panels");
-        }
-        this.appInstance = appInstance;
+  constructor(){
   }
 }
 export default InformationsPanel;
