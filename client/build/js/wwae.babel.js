@@ -365,8 +365,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     "use strict";
     /* harmony import */
     var __WEBPACK_IMPORTED_MODULE_0__AttributesCollection__ = __webpack_require__(7);
-    /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__Common__ = __webpack_require__(1);
-    /* harmony import */var __WEBPACK_IMPORTED_MODULE_2__Attribute__ = __webpack_require__(2);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__Common__ = __webpack_require__(2);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_2__Attribute__ = __webpack_require__(1);
     /* harmony import */var __WEBPACK_IMPORTED_MODULE_3__AttributeButton__ = __webpack_require__(9);
     /* harmony import */var __WEBPACK_IMPORTED_MODULE_4__Application__ = __webpack_require__(0);
 
@@ -1248,12 +1248,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }, {
             key: 'getNodes',
             value: function getNodes(ids) {
-                var _this3 = this;
+                var _this5 = this;
 
                 if (Array.isArray(ids)) {
                     var nodes = [];
                     ids.forEach(function (id) {
-                        var node = _this3.getNode(id);
+                        var node = _this5.getNode(id);
                         if (node !== undefined) {
                             nodes.push(node);
                         }
@@ -1303,7 +1303,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     "use strict";
     /* harmony import */
-    var __WEBPACK_IMPORTED_MODULE_0__Attribute__ = __webpack_require__(2);
+    var __WEBPACK_IMPORTED_MODULE_0__Attribute__ = __webpack_require__(1);
     /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__attributs__ = __webpack_require__(8);
     /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__attributs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__attributs__);
 
@@ -1328,7 +1328,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
          * ne pas dupliquer les instances inutilement.
          */
         function AttributesCollection() {
-            var _this5 = this;
+            var _this6 = this;
 
             _classCallCheck(this, AttributesCollection);
 
@@ -1345,8 +1345,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
              */
             this.attributesMap = this.getAttributesValuesKeysMap();
             this.attributesMap.forEach(function (attribute) {
-                _this5.attributesMap[attribute].forEach(function (value) {
-                    _this5.attributesMap[attribute][value] = undefined;
+                _this6.attributesMap[attribute].forEach(function (value) {
+                    _this6.attributesMap[attribute][value] = undefined;
                 });
             });
             this.prettyPrint();
@@ -1462,12 +1462,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }, {
             key: 'getAttributesValuesKeysMap',
             value: function getAttributesValuesKeysMap() {
-                var _this6 = this;
+                var _this7 = this;
 
                 var map = this.getAttributesKeys();
                 if (map !== undefined) {
                     map.forEach(function (key) {
-                        map[key] = _this6.getValuesKeys(key);
+                        map[key] = _this7.getValuesKeys(key);
                     });
                 }
                 return map;
@@ -1542,8 +1542,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
          * @throws {Error} Lance une erreur si attribute n'est une instance d'Attribute
          * @throws {Error} Lance une si l'élément d'id 'attributs' n'à pas pu être trouvé dans le cas il l'argument parent serais mal renseigné
          */
-        function AttributeButton(attribute, parent) {
-            var _this7 = this;
+        function AttributeButton(attribute, attributePanel) {
+            var _this8 = this;
 
             _classCallCheck(this, AttributeButton);
 
@@ -1568,7 +1568,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             this.element.setAttribute("class", "attributeButton");
             //si on ne donne pas un consommateur de event, on perd la référence à this dans le listener
             this.element.addEventListener("click", function (event) {
-                return _this6.onClick(event);
+                return _this8.onClick(event);
             });
             this.attributePanel.getElement().appendChild(this.element);
             nextButtonId++;
@@ -1583,10 +1583,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
              */
             this.attribute = attribute;
             this.setText(this.attribute.getLongText());
-            this.element.addEventListener("click", function (event) {
-                return _this7.onClick(event);
-            });
-            //si on ne donne pas un consommateur de event, on perd la référence à this dans le listener
         }
 
         /**
