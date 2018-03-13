@@ -2,6 +2,7 @@ import * as Common from './Common';
 import AttributesPanel from "./AttributesPanel";
 import Application from "./Application";
 import Attribute from "./Attribute";
+import * as Main from"../Main";
 
 //on a besoin de garder un pointeur vers une instance pour y accèder dans
 //les handlers des événements de vis.js car ces dèrnier sont
@@ -26,15 +27,10 @@ let instance;
 class StrategyPanel {
     /**
      *
-     * @param {!Application} appInstance L'instance d'application commune aux panels
      * @throws {Error} Lance une erreur si element n'est pas une instance de HTMLElement
      * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
      */
-    constructor(appInstance){
-        if(!(appInstance instanceof Application)){
-            throw new Error("appInstance doit être l'instance de l'application commune aux panels");
-        }
-        this.appInstance = appInstance;
+    constructor(){
         /**
          * L'élément conteneur du panel
          * @member {HTMLElement}
@@ -73,6 +69,8 @@ class StrategyPanel {
         this.network = new vis.Network(this.element, this.data, Common.STRATEGY_OPTIONS);
         this.setNetworkHandler("click", this.onClick);
         this.setNetworkHandler("doubleClick", this.onDoubleClick);
+        this.setNetworkHandler("selectNode", this.onSelectNode);
+        this.setNetworkHandler("deselectNode", this.onDeselectNode);
         instance = this;
         this.addNode(1,'',0);
     }
@@ -264,7 +262,6 @@ class StrategyPanel {
         params.event = "[original event]";
         document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
         console.log('click event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM));
-        instance.appInstance.getAttributesPanel().updateButtonsStatus();
     }
 
     /**
@@ -276,17 +273,33 @@ class StrategyPanel {
         params.event = "[original event]";
         document.getElementById('eventSpan').innerHTML = '<h2>DoubleClick event:</h2>' + JSON.stringify(params, null, 4);
         console.log('click event, getNodeAt returns: ' + clickedNode);
-        if(clickedNode !== undefined){
-            instance.updateNode(clickedNode);
+    }
+
+    onSelectNode(params){
+        if(Main.appInstance === undefined){
+            return;
         }
+        Main.appInstance.getAttributesPanel().updateButtonsStatus();
+    }
+
+    onDeselectNode(params){
+        if(Main.appInstance === undefined){
+            return;
+        }
+        Main.appInstance.getAttributesPanel().updateButtonsStatus();
     }
 
     /**
-     * Retourne la liste des Ids des noeuds sélectionnés
-     * @returns {Array}
+     * Retourne la liste des Noeuds selectionnés
+     * @returns {Array} les noeuds
      */
     getSelection(){
-        return this.network.getSelectedNodes();
+        let selection = this.network.getSelectedNodes();
+        let nodes=[];
+        selection.forEach(id =>{
+            nodes.push(this.getNode(id));
+        });
+        return nodes;
     }
 
     /**
@@ -324,9 +337,10 @@ class StrategyPanel {
             let selectedNode = selection[0];
             selectedNode.attribute = attribute;
             if(attribute === null){
-                console.log("assertion removed");
+                this.nodes.update({id:selectedNode.id,label:""});
             }else{
-                selectedNode.setText(attribute.getShortText());
+                this.nodes.update({id:selectedNode.id,label:attribute.getShortText()});
+                this.updateNode(selectedNode.id);
             }
         }
     }

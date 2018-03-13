@@ -3,6 +3,7 @@ import * as Common from './Common';
 import Attribute from './Attribute';
 import AttributeButton from './AttributeButton';
 import Application from "./Application";
+import * as Main from "../Main";
 
 /**
  * Panel contenant les boutons des attributs
@@ -11,15 +12,10 @@ class AttributesPanel {
     /**
      * Constructeur.
      * Instancie directement tout les boutons sans les cacher.
-     * @param {!Application} appInstance L'instance d'application commune aux panels
      * @trhows {Error} Lance un erreur si element n'est pas une instance de HTMLElement
      * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
      */
-    constructor(appInstance){
-        if(!(appInstance instanceof Application)){
-            throw new Error("appInstance doit être l'instance de l'application commune aux panels");
-        }
-        this.appInstance = appInstance;
+    constructor(){
         /**
          * Singleton de la collection des attributs.
          * @member {AttributesCollection}
@@ -62,17 +58,20 @@ class AttributesPanel {
      * Met à jour l'états des boutons des attributs en fonction de la sélection de l'arbre de stratégie
      */
     updateButtonsStatus(){
-        if(this.appInstance.getStrategyPanel() === undefined){
+        if(Main.appInstance === undefined){
             return;
         }
-        let selection = this.appInstance.getStrategyPanel().getSelection();
+        if(Main.appInstance.getStrategyPanel() === undefined){
+            return;
+        }
+        let selection = Main.appInstance.getStrategyPanel().getSelection();
         if(Array.isArray(selection)){
             if(selection.length === 1){
                 let node = selection[0];
                 if(node.attribute !== undefined && node.attribute !== null && node.attribute instanceof Attribute){
                     this.removeAttributeButton.setAttribute("class", "btnActif");
                 }
-                let nodes = this.appInstance.getStrategyPanel().getNodes(selection);
+                let nodes = Main.appInstance.getStrategyPanel().getNodes(selection);
                 if(Array.isArray(nodes) && nodes.length > 0){
                     this.updateAttributesButtons(nodes);
                 }
@@ -90,8 +89,21 @@ class AttributesPanel {
         //TODO
     }
 
+    /**
+     * Annule la supposition sur le noeud sélectionnée, si elle existe.
+     * @param event l'événement
+     */
     annulerSupposition(event){
         console.log("Annulation supposition");
+        if(Main.appInstance === undefined){
+            return;
+        }
+        let strategyPanel = Main.appInstance.getStrategyPanel();
+        let attributesPanel = Main.appInstance.getAttributesPanel();
+        if(strategyPanel !== undefined && attributesPanel !== undefined){
+            strategyPanel.setAttributeToSelection(null);
+            attributesPanel.updateButtonsStatus();
+        }
     }
 
     /**
@@ -104,8 +116,7 @@ class AttributesPanel {
             throw new Error("@AttributesPanel.addButton() : L'attribut attribute doit être une instance de Attribute");
         }
         if(!(this.buttons[attribute.getAttributeKey()][attribute.getValue()] instanceof AttributeButton)){
-            let button = new AttributeButton(attribute,this);
-            this.buttons[attribute.getAttributeKey()][attribute.getValue()] = button;
+            this.buttons[attribute.getAttributeKey()][attribute.getValue()] = new AttributeButton(attribute,this);
         }
     }
 
@@ -146,9 +157,10 @@ class AttributesPanel {
         if(!(button instanceof AttributeButton)){
             throw new Error("@AttributesPanel.onButtonClick() : L'attribut button doit être une instance de AttributeButton");
         }
-        button.getAttribute().prettyPrint();
-        if(this.appInstance.getStrategyPanel() !== undefined){
-            this.appInstance.getStrategyPanel().setAttributeToSelection(button.getAttribute());
+        //button.getAttribute().prettyPrint();
+        if(Main.appInstance.getStrategyPanel() !== undefined){
+            Main.appInstance.getStrategyPanel().setAttributeToSelection(button.getAttribute());
+            this.updateButtonsStatus();
         }
     }
 

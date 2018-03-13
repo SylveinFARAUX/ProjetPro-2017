@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -68,10 +68,28 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "appInstance", function() { return appInstance; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__objects_Application__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__objects_PopulationPanel__ = __webpack_require__(5);
+
+
+
+let appInstance = new __WEBPACK_IMPORTED_MODULE_0__objects_Application__["a" /* default */]();
+
+//listener sur le redimensionnement de la fenêtred
+window.onresize = function(){appInstance.populationPanel.resize();};
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__StrategyPanel__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__InformationsPanel__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AttributesPanel__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PopulationPanel__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AttributesPanel__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PopulationPanel__ = __webpack_require__(5);
 
 
 
@@ -128,7 +146,7 @@ class Application {
 
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -220,7 +238,7 @@ class Attribute{
 /* harmony default export */ __webpack_exports__["a"] = (Attribute);
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -299,15 +317,17 @@ function createChildDiv(parent, childId){
 }
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AttributesCollection__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Common__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Attribute__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Common__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Attribute__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AttributeButton__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Application__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Application__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Main__ = __webpack_require__(0);
+
 
 
 
@@ -321,15 +341,10 @@ class AttributesPanel {
     /**
      * Constructeur.
      * Instancie directement tout les boutons sans les cacher.
-     * @param {!Application} appInstance L'instance d'application commune aux panels
      * @trhows {Error} Lance un erreur si element n'est pas une instance de HTMLElement
      * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
      */
-    constructor(appInstance){
-        if(!(appInstance instanceof __WEBPACK_IMPORTED_MODULE_4__Application__["a" /* default */])){
-            throw new Error("appInstance doit être l'instance de l'application commune aux panels");
-        }
-        this.appInstance = appInstance;
+    constructor(){
         /**
          * Singleton de la collection des attributs.
          * @member {AttributesCollection}
@@ -372,17 +387,20 @@ class AttributesPanel {
      * Met à jour l'états des boutons des attributs en fonction de la sélection de l'arbre de stratégie
      */
     updateButtonsStatus(){
-        if(this.appInstance.getStrategyPanel() === undefined){
+        if(__WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"] === undefined){
             return;
         }
-        let selection = this.appInstance.getStrategyPanel().getSelection();
+        if(__WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"].getStrategyPanel() === undefined){
+            return;
+        }
+        let selection = __WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"].getStrategyPanel().getSelection();
         if(Array.isArray(selection)){
             if(selection.length === 1){
                 let node = selection[0];
                 if(node.attribute !== undefined && node.attribute !== null && node.attribute instanceof __WEBPACK_IMPORTED_MODULE_2__Attribute__["a" /* default */]){
                     this.removeAttributeButton.setAttribute("class", "btnActif");
                 }
-                let nodes = this.appInstance.getStrategyPanel().getNodes(selection);
+                let nodes = __WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"].getStrategyPanel().getNodes(selection);
                 if(Array.isArray(nodes) && nodes.length > 0){
                     this.updateAttributesButtons(nodes);
                 }
@@ -400,8 +418,21 @@ class AttributesPanel {
         //TODO
     }
 
+    /**
+     * Annule la supposition sur le noeud sélectionnée, si elle existe.
+     * @param event l'événement
+     */
     annulerSupposition(event){
         console.log("Annulation supposition");
+        if(__WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"] === undefined){
+            return;
+        }
+        let strategyPanel = __WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"].getStrategyPanel();
+        let attributesPanel = __WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"].getAttributesPanel();
+        if(strategyPanel !== undefined && attributesPanel !== undefined){
+            strategyPanel.setAttributeToSelection(null);
+            attributesPanel.updateButtonsStatus();
+        }
     }
 
     /**
@@ -414,8 +445,7 @@ class AttributesPanel {
             throw new Error("@AttributesPanel.addButton() : L'attribut attribute doit être une instance de Attribute");
         }
         if(!(this.buttons[attribute.getAttributeKey()][attribute.getValue()] instanceof __WEBPACK_IMPORTED_MODULE_3__AttributeButton__["a" /* default */])){
-            let button = new __WEBPACK_IMPORTED_MODULE_3__AttributeButton__["a" /* default */](attribute,this);
-            this.buttons[attribute.getAttributeKey()][attribute.getValue()] = button;
+            this.buttons[attribute.getAttributeKey()][attribute.getValue()] = new __WEBPACK_IMPORTED_MODULE_3__AttributeButton__["a" /* default */](attribute,this);
         }
     }
 
@@ -456,9 +486,10 @@ class AttributesPanel {
         if(!(button instanceof __WEBPACK_IMPORTED_MODULE_3__AttributeButton__["a" /* default */])){
             throw new Error("@AttributesPanel.onButtonClick() : L'attribut button doit être une instance de AttributeButton");
         }
-        button.getAttribute().prettyPrint();
-        if(this.appInstance.getStrategyPanel() !== undefined){
-            this.appInstance.getStrategyPanel().setAttributeToSelection(button.getAttribute());
+        //button.getAttribute().prettyPrint();
+        if(__WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"].getStrategyPanel() !== undefined){
+            __WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"].getStrategyPanel().setAttributeToSelection(button.getAttribute());
+            this.updateButtonsStatus();
         }
     }
 
@@ -474,12 +505,14 @@ class AttributesPanel {
 /* harmony default export */ __webpack_exports__["a"] = (AttributesPanel);
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Character__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Application__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Application__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Main__ = __webpack_require__(0);
+
 
 
 
@@ -717,14 +750,9 @@ class PopulationPanel {
 
     /**
      *
-     * @param {!Application} appInstance L'instance d'application commune aux panels
      * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
      */
-    constructor(appInstance) {
-        if(!(appInstance instanceof __WEBPACK_IMPORTED_MODULE_1__Application__["a" /* default */])){
-            throw new Error("appInstance doit être l'instance de l'application commune aux panels");
-        }
-        this.appInstance = appInstance;
+    constructor() {
         this.population = new Array(popSize);
         this.table = document.getElementById("tableChar");
         this.element = document.getElementById("population");
@@ -823,7 +851,7 @@ class PopulationPanel {
 
     resize(){
         this.loadTable();
-        var tab = new Array();//#TODO récupèré la liste d'attributs du noeud actif
+        let tab = [];//#TODO récupèré la liste d'attributs du noeud actif
         this.refresh(tab);
     }
 
@@ -895,31 +923,16 @@ class PopulationPanel {
 /* harmony default export */ __webpack_exports__["a"] = (PopulationPanel);
 
 /***/ }),
-/* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__objects_Application__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__objects_PopulationPanel__ = __webpack_require__(4);
-
-
-
-var app = new __WEBPACK_IMPORTED_MODULE_0__objects_Application__["a" /* default */]();
-
-//listener sur le redimensionnement de la fenêtred
-window.onresize = function(){app.populationPanel.resize();}
-
-
-/***/ }),
 /* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Common__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AttributesPanel__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Application__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Attribute__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Common__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AttributesPanel__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Application__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Attribute__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Main__ = __webpack_require__(0);
+
 
 
 
@@ -948,15 +961,10 @@ let instance;
 class StrategyPanel {
     /**
      *
-     * @param {!Application} appInstance L'instance d'application commune aux panels
      * @throws {Error} Lance une erreur si element n'est pas une instance de HTMLElement
      * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
      */
-    constructor(appInstance){
-        if(!(appInstance instanceof __WEBPACK_IMPORTED_MODULE_2__Application__["a" /* default */])){
-            throw new Error("appInstance doit être l'instance de l'application commune aux panels");
-        }
-        this.appInstance = appInstance;
+    constructor(){
         /**
          * L'élément conteneur du panel
          * @member {HTMLElement}
@@ -995,6 +1003,8 @@ class StrategyPanel {
         this.network = new vis.Network(this.element, this.data, __WEBPACK_IMPORTED_MODULE_0__Common__["a" /* STRATEGY_OPTIONS */]);
         this.setNetworkHandler("click", this.onClick);
         this.setNetworkHandler("doubleClick", this.onDoubleClick);
+        this.setNetworkHandler("selectNode", this.onSelectNode);
+        this.setNetworkHandler("deselectNode", this.onDeselectNode);
         instance = this;
         this.addNode(1,'',0);
     }
@@ -1186,7 +1196,6 @@ class StrategyPanel {
         params.event = "[original event]";
         document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
         console.log('click event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM));
-        instance.appInstance.getAttributesPanel().updateButtonsStatus();
     }
 
     /**
@@ -1198,17 +1207,33 @@ class StrategyPanel {
         params.event = "[original event]";
         document.getElementById('eventSpan').innerHTML = '<h2>DoubleClick event:</h2>' + JSON.stringify(params, null, 4);
         console.log('click event, getNodeAt returns: ' + clickedNode);
-        if(clickedNode !== undefined){
-            instance.updateNode(clickedNode);
+    }
+
+    onSelectNode(params){
+        if(__WEBPACK_IMPORTED_MODULE_4__Main__["appInstance"] === undefined){
+            return;
         }
+        __WEBPACK_IMPORTED_MODULE_4__Main__["appInstance"].getAttributesPanel().updateButtonsStatus();
+    }
+
+    onDeselectNode(params){
+        if(__WEBPACK_IMPORTED_MODULE_4__Main__["appInstance"] === undefined){
+            return;
+        }
+        __WEBPACK_IMPORTED_MODULE_4__Main__["appInstance"].getAttributesPanel().updateButtonsStatus();
     }
 
     /**
-     * Retourne la liste des Ids des noeuds sélectionnés
-     * @returns {Array}
+     * Retourne la liste des Noeuds selectionnés
+     * @returns {Array} les noeuds
      */
     getSelection(){
-        return this.network.getSelectedNodes();
+        let selection = this.network.getSelectedNodes();
+        let nodes=[];
+        selection.forEach(id =>{
+            nodes.push(this.getNode(id));
+        });
+        return nodes;
     }
 
     /**
@@ -1246,9 +1271,10 @@ class StrategyPanel {
             let selectedNode = selection[0];
             selectedNode.attribute = attribute;
             if(attribute === null){
-                console.log("assertion removed");
+                this.nodes.update({id:selectedNode.id,label:""});
             }else{
-                selectedNode.setText(attribute.getShortText());
+                this.nodes.update({id:selectedNode.id,label:attribute.getShortText()});
+                this.updateNode(selectedNode.id);
             }
         }
     }
@@ -1262,7 +1288,7 @@ class StrategyPanel {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Attribute__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Attribute__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__attributs__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__attributs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__attributs__);
 
@@ -1310,7 +1336,7 @@ class AttributesCollection{
 
     /**
      * Retourne la liste des attributs contenu dans la collection.
-     * @returns {string[]}
+     * @returns {string[]} la liste des attributs
      */
     getAttributesKeys(){
         return _.allKeys(this.attributs);
@@ -1319,7 +1345,7 @@ class AttributesCollection{
     /**
      * Retourne la liste des valeurs pour un attribut, ou undefined s'il n'existe pas.
      * @param attribute l'attribut
-     * @returns {string[]}
+     * @returns {string[]|undefined} la liste des valeur de l'attribut
      */
     getValuesKeys(attribute){
         if(this.checkAttributeExists(attribute)){
@@ -1442,9 +1468,9 @@ module.exports = {"attributs":{"cheveux":{"chauve":{"long":"Le personnage est ch
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Common__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Attribute__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AttributesPanel__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Common__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Attribute__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AttributesPanel__ = __webpack_require__(4);
 
 
 
@@ -1475,7 +1501,7 @@ class AttributeButton {
         }
         /**
          * Référence vers l'instance du panel des attributs
-         * @member{AttributePanel}
+         * @type{AttributePanel}
          */
         this.attributePanel = attributePanel;
 
@@ -1563,7 +1589,9 @@ class AttributeButton {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Application__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Application__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Main__ = __webpack_require__(0);
+
 
 
 /**
@@ -1572,14 +1600,9 @@ class AttributeButton {
 class InformationsPanel {
     /**
      *
-     * @param {!Application} appInstance L'instance d'application commune aux panels
      * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
      */
-  constructor(appInstance){
-        if(!(appInstance instanceof __WEBPACK_IMPORTED_MODULE_0__Application__["a" /* default */])){
-            throw new Error("appInstance doit être l'instance de l'application commune aux panels");
-        }
-        this.appInstance = appInstance;
+  constructor(){
   }
 }
 /* harmony default export */ __webpack_exports__["a"] = (InformationsPanel);

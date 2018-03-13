@@ -80,7 +80,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /******/__webpack_require__.p = "";
     /******/
     /******/ // Load entry module and return exports
-    /******/return __webpack_require__(__webpack_require__.s = 5);
+    /******/return __webpack_require__(__webpack_require__.s = 0);
     /******/
 })(
 /************************************************************************/
@@ -89,11 +89,32 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /***/function (module, __webpack_exports__, __webpack_require__) {
 
     "use strict";
+
+    Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+    /* harmony export (binding) */__webpack_require__.d(__webpack_exports__, "appInstance", function () {
+        return appInstance;
+    });
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_0__objects_Application__ = __webpack_require__(1);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__objects_PopulationPanel__ = __webpack_require__(5);
+
+    var appInstance = new __WEBPACK_IMPORTED_MODULE_0__objects_Application__["a" /* default */]();
+
+    //listener sur le redimensionnement de la fenêtred
+    window.onresize = function () {
+        appInstance.populationPanel.resize();
+    };
+
+    /***/
+},
+/* 1 */
+/***/function (module, __webpack_exports__, __webpack_require__) {
+
+    "use strict";
     /* harmony import */
     var __WEBPACK_IMPORTED_MODULE_0__StrategyPanel__ = __webpack_require__(6);
     /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__InformationsPanel__ = __webpack_require__(10);
-    /* harmony import */var __WEBPACK_IMPORTED_MODULE_2__AttributesPanel__ = __webpack_require__(3);
-    /* harmony import */var __WEBPACK_IMPORTED_MODULE_3__PopulationPanel__ = __webpack_require__(4);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_2__AttributesPanel__ = __webpack_require__(4);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_3__PopulationPanel__ = __webpack_require__(5);
 
     /**
      * Classe instanciant l'application, panel par panel.
@@ -167,7 +188,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     /***/
 },
-/* 1 */
+/* 2 */
 /***/function (module, __webpack_exports__, __webpack_require__) {
 
     "use strict";
@@ -284,7 +305,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     /***/
 },
-/* 2 */
+/* 3 */
 /***/function (module, __webpack_exports__, __webpack_require__) {
 
     "use strict";
@@ -359,16 +380,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     /***/
 },
-/* 3 */
+/* 4 */
 /***/function (module, __webpack_exports__, __webpack_require__) {
 
     "use strict";
     /* harmony import */
     var __WEBPACK_IMPORTED_MODULE_0__AttributesCollection__ = __webpack_require__(7);
-    /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__Common__ = __webpack_require__(2);
-    /* harmony import */var __WEBPACK_IMPORTED_MODULE_2__Attribute__ = __webpack_require__(1);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__Common__ = __webpack_require__(3);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_2__Attribute__ = __webpack_require__(2);
     /* harmony import */var __WEBPACK_IMPORTED_MODULE_3__AttributeButton__ = __webpack_require__(9);
-    /* harmony import */var __WEBPACK_IMPORTED_MODULE_4__Application__ = __webpack_require__(0);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_4__Application__ = __webpack_require__(1);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_5__Main__ = __webpack_require__(0);
 
     /**
      * Panel contenant les boutons des attributs
@@ -378,19 +400,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         /**
          * Constructeur.
          * Instancie directement tout les boutons sans les cacher.
-         * @param {!Application} appInstance L'instance d'application commune aux panels
          * @trhows {Error} Lance un erreur si element n'est pas une instance de HTMLElement
          * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
          */
-        function AttributesPanel(appInstance) {
+        function AttributesPanel() {
             var _this = this;
 
             _classCallCheck(this, AttributesPanel);
 
-            if (!(appInstance instanceof __WEBPACK_IMPORTED_MODULE_4__Application__["a" /* default */])) {
-                throw new Error("appInstance doit être l'instance de l'application commune aux panels");
-            }
-            this.appInstance = appInstance;
             /**
              * Singleton de la collection des attributs.
              * @member {AttributesCollection}
@@ -437,17 +454,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         _createClass(AttributesPanel, [{
             key: 'updateButtonsStatus',
             value: function updateButtonsStatus() {
-                if (this.appInstance.getStrategyPanel() === undefined) {
+                if (__WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"] === undefined) {
                     return;
                 }
-                var selection = this.appInstance.getStrategyPanel().getSelection();
+                if (__WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"].getStrategyPanel() === undefined) {
+                    return;
+                }
+                var selection = __WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"].getStrategyPanel().getSelection();
                 if (Array.isArray(selection)) {
                     if (selection.length === 1) {
                         var node = selection[0];
                         if (node.attribute !== undefined && node.attribute !== null && node.attribute instanceof __WEBPACK_IMPORTED_MODULE_2__Attribute__["a" /* default */]) {
                             this.removeAttributeButton.setAttribute("class", "btnActif");
                         }
-                        var nodes = this.appInstance.getStrategyPanel().getNodes(selection);
+                        var nodes = __WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"].getStrategyPanel().getNodes(selection);
                         if (Array.isArray(nodes) && nodes.length > 0) {
                             this.updateAttributesButtons(nodes);
                         }
@@ -464,13 +484,28 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         }, {
             key: 'updateAttributesButtons',
-            value: function updateAttributesButtons(nodes) {
-                //TODO
-            }
+            value: function updateAttributesButtons(nodes) {}
+            //TODO
+
+
+            /**
+             * Annule la supposition sur le noeud sélectionnée, si elle existe.
+             * @param event l'événement
+             */
+
         }, {
             key: 'annulerSupposition',
             value: function annulerSupposition(event) {
                 console.log("Annulation supposition");
+                if (__WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"] === undefined) {
+                    return;
+                }
+                var strategyPanel = __WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"].getStrategyPanel();
+                var attributesPanel = __WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"].getAttributesPanel();
+                if (strategyPanel !== undefined && attributesPanel !== undefined) {
+                    strategyPanel.setAttributeToSelection(null);
+                    attributesPanel.updateButtonsStatus();
+                }
             }
 
             /**
@@ -486,8 +521,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     throw new Error("@AttributesPanel.addButton() : L'attribut attribute doit être une instance de Attribute");
                 }
                 if (!(this.buttons[attribute.getAttributeKey()][attribute.getValue()] instanceof __WEBPACK_IMPORTED_MODULE_3__AttributeButton__["a" /* default */])) {
-                    var button = new __WEBPACK_IMPORTED_MODULE_3__AttributeButton__["a" /* default */](attribute, this);
-                    this.buttons[attribute.getAttributeKey()][attribute.getValue()] = button;
+                    this.buttons[attribute.getAttributeKey()][attribute.getValue()] = new __WEBPACK_IMPORTED_MODULE_3__AttributeButton__["a" /* default */](attribute, this);
                 }
             }
 
@@ -537,9 +571,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 if (!(button instanceof __WEBPACK_IMPORTED_MODULE_3__AttributeButton__["a" /* default */])) {
                     throw new Error("@AttributesPanel.onButtonClick() : L'attribut button doit être une instance de AttributeButton");
                 }
-                button.getAttribute().prettyPrint();
-                if (this.appInstance.getStrategyPanel() !== undefined) {
-                    this.appInstance.getStrategyPanel().setAttributeToSelection(button.getAttribute());
+                //button.getAttribute().prettyPrint();
+                if (__WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"].getStrategyPanel() !== undefined) {
+                    __WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"].getStrategyPanel().setAttributeToSelection(button.getAttribute());
+                    this.updateButtonsStatus();
                 }
             }
 
@@ -564,13 +599,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     /***/
 },
-/* 4 */
+/* 5 */
 /***/function (module, __webpack_exports__, __webpack_require__) {
 
     "use strict";
     /* harmony import */
     var __WEBPACK_IMPORTED_MODULE_0__Character__ = __webpack_require__(11);
-    /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__Application__ = __webpack_require__(0);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__Application__ = __webpack_require__(1);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_2__Main__ = __webpack_require__(0);
 
     var popSize = 24;
     var charWidth = 150;
@@ -685,16 +721,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         /**
          *
-         * @param {!Application} appInstance L'instance d'application commune aux panels
          * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
          */
-        function PopulationPanel(appInstance) {
+        function PopulationPanel() {
             _classCallCheck(this, PopulationPanel);
 
-            if (!(appInstance instanceof __WEBPACK_IMPORTED_MODULE_1__Application__["a" /* default */])) {
-                throw new Error("appInstance doit être l'instance de l'application commune aux panels");
-            }
-            this.appInstance = appInstance;
             this.population = new Array(popSize);
             this.table = document.getElementById("tableChar");
             this.element = document.getElementById("population");
@@ -790,7 +821,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             key: 'resize',
             value: function resize() {
                 this.loadTable();
-                var tab = new Array(); //#TODO récupèré la liste d'attributs du noeud actif
+                var tab = []; //#TODO récupèré la liste d'attributs du noeud actif
                 this.refresh(tab);
             }
         }, {
@@ -884,33 +915,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     /***/
 },
-/* 5 */
-/***/function (module, __webpack_exports__, __webpack_require__) {
-
-    "use strict";
-
-    Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-    /* harmony import */var __WEBPACK_IMPORTED_MODULE_0__objects_Application__ = __webpack_require__(0);
-    /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__objects_PopulationPanel__ = __webpack_require__(4);
-
-    var app = new __WEBPACK_IMPORTED_MODULE_0__objects_Application__["a" /* default */]();
-
-    //listener sur le redimensionnement de la fenêtred
-    window.onresize = function () {
-        app.populationPanel.resize();
-    };
-
-    /***/
-},
 /* 6 */
 /***/function (module, __webpack_exports__, __webpack_require__) {
 
     "use strict";
     /* harmony import */
-    var __WEBPACK_IMPORTED_MODULE_0__Common__ = __webpack_require__(2);
-    /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__AttributesPanel__ = __webpack_require__(3);
-    /* harmony import */var __WEBPACK_IMPORTED_MODULE_2__Application__ = __webpack_require__(0);
-    /* harmony import */var __WEBPACK_IMPORTED_MODULE_3__Attribute__ = __webpack_require__(1);
+    var __WEBPACK_IMPORTED_MODULE_0__Common__ = __webpack_require__(3);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__AttributesPanel__ = __webpack_require__(4);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_2__Application__ = __webpack_require__(1);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_3__Attribute__ = __webpack_require__(2);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_4__Main__ = __webpack_require__(0);
 
     //on a besoin de garder un pointeur vers une instance pour y accèder dans
     //les handlers des événements de vis.js car ces dèrnier sont
@@ -936,17 +950,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var StrategyPanel = function () {
         /**
          *
-         * @param {!Application} appInstance L'instance d'application commune aux panels
          * @throws {Error} Lance une erreur si element n'est pas une instance de HTMLElement
          * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
          */
-        function StrategyPanel(appInstance) {
+        function StrategyPanel() {
             _classCallCheck(this, StrategyPanel);
 
-            if (!(appInstance instanceof __WEBPACK_IMPORTED_MODULE_2__Application__["a" /* default */])) {
-                throw new Error("appInstance doit être l'instance de l'application commune aux panels");
-            }
-            this.appInstance = appInstance;
             /**
              * L'élément conteneur du panel
              * @member {HTMLElement}
@@ -984,6 +993,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             this.network = new vis.Network(this.element, this.data, __WEBPACK_IMPORTED_MODULE_0__Common__["a" /* STRATEGY_OPTIONS */]);
             this.setNetworkHandler("click", this.onClick);
             this.setNetworkHandler("doubleClick", this.onDoubleClick);
+            this.setNetworkHandler("selectNode", this.onSelectNode);
+            this.setNetworkHandler("deselectNode", this.onDeselectNode);
             instance = this;
             this.addNode(1, '', 0);
         }
@@ -1214,7 +1225,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 params.event = "[original event]";
                 document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
                 console.log('click event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM));
-                instance.appInstance.getAttributesPanel().updateButtonsStatus();
             }
 
             /**
@@ -1229,20 +1239,40 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 params.event = "[original event]";
                 document.getElementById('eventSpan').innerHTML = '<h2>DoubleClick event:</h2>' + JSON.stringify(params, null, 4);
                 console.log('click event, getNodeAt returns: ' + clickedNode);
-                if (clickedNode !== undefined) {
-                    instance.updateNode(clickedNode);
+            }
+        }, {
+            key: 'onSelectNode',
+            value: function onSelectNode(params) {
+                if (__WEBPACK_IMPORTED_MODULE_4__Main__["appInstance"] === undefined) {
+                    return;
                 }
+                __WEBPACK_IMPORTED_MODULE_4__Main__["appInstance"].getAttributesPanel().updateButtonsStatus();
+            }
+        }, {
+            key: 'onDeselectNode',
+            value: function onDeselectNode(params) {
+                if (__WEBPACK_IMPORTED_MODULE_4__Main__["appInstance"] === undefined) {
+                    return;
+                }
+                __WEBPACK_IMPORTED_MODULE_4__Main__["appInstance"].getAttributesPanel().updateButtonsStatus();
             }
 
             /**
-             * Retourne la liste des Ids des noeuds sélectionnés
-             * @returns {Array}
+             * Retourne la liste des Noeuds selectionnés
+             * @returns {Array} les noeuds
              */
 
         }, {
             key: 'getSelection',
             value: function getSelection() {
-                return this.network.getSelectedNodes();
+                var _this5 = this;
+
+                var selection = this.network.getSelectedNodes();
+                var nodes = [];
+                selection.forEach(function (id) {
+                    nodes.push(_this5.getNode(id));
+                });
+                return nodes;
             }
 
             /**
@@ -1255,12 +1285,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }, {
             key: 'getNodes',
             value: function getNodes(ids) {
-                var _this5 = this;
+                var _this6 = this;
 
                 if (Array.isArray(ids)) {
                     var nodes = [];
                     ids.forEach(function (id) {
-                        var node = _this5.getNode(id);
+                        var node = _this6.getNode(id);
                         if (node !== undefined) {
                             nodes.push(node);
                         }
@@ -1288,9 +1318,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     var selectedNode = selection[0];
                     selectedNode.attribute = attribute;
                     if (attribute === null) {
-                        console.log("assertion removed");
+                        this.nodes.update({ id: selectedNode.id, label: "" });
                     } else {
-                        selectedNode.setText(attribute.getShortText());
+                        this.nodes.update({ id: selectedNode.id, label: attribute.getShortText() });
+                        this.updateNode(selectedNode.id);
                     }
                 }
             }
@@ -1310,7 +1341,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     "use strict";
     /* harmony import */
-    var __WEBPACK_IMPORTED_MODULE_0__Attribute__ = __webpack_require__(1);
+    var __WEBPACK_IMPORTED_MODULE_0__Attribute__ = __webpack_require__(2);
     /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__attributs__ = __webpack_require__(8);
     /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__attributs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__attributs__);
 
@@ -1335,7 +1366,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
          * ne pas dupliquer les instances inutilement.
          */
         function AttributesCollection() {
-            var _this6 = this;
+            var _this7 = this;
 
             _classCallCheck(this, AttributesCollection);
 
@@ -1352,8 +1383,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
              */
             this.attributesMap = this.getAttributesValuesKeysMap();
             this.attributesMap.forEach(function (attribute) {
-                _this6.attributesMap[attribute].forEach(function (value) {
-                    _this6.attributesMap[attribute][value] = undefined;
+                _this7.attributesMap[attribute].forEach(function (value) {
+                    _this7.attributesMap[attribute][value] = undefined;
                 });
             });
             this.prettyPrint();
@@ -1361,7 +1392,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         /**
          * Retourne la liste des attributs contenu dans la collection.
-         * @returns {string[]}
+         * @returns {string[]} la liste des attributs
          */
 
 
@@ -1374,7 +1405,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             /**
              * Retourne la liste des valeurs pour un attribut, ou undefined s'il n'existe pas.
              * @param attribute l'attribut
-             * @returns {string[]}
+             * @returns {string[]|undefined} la liste des valeur de l'attribut
              */
 
         }, {
@@ -1469,12 +1500,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }, {
             key: 'getAttributesValuesKeysMap',
             value: function getAttributesValuesKeysMap() {
-                var _this7 = this;
+                var _this8 = this;
 
                 var map = this.getAttributesKeys();
                 if (map !== undefined) {
                     map.forEach(function (key) {
-                        map[key] = _this7.getValuesKeys(key);
+                        map[key] = _this8.getValuesKeys(key);
                     });
                 }
                 return map;
@@ -1527,9 +1558,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     "use strict";
     /* harmony import */
-    var __WEBPACK_IMPORTED_MODULE_0__Common__ = __webpack_require__(2);
-    /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__Attribute__ = __webpack_require__(1);
-    /* harmony import */var __WEBPACK_IMPORTED_MODULE_2__AttributesPanel__ = __webpack_require__(3);
+    var __WEBPACK_IMPORTED_MODULE_0__Common__ = __webpack_require__(3);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__Attribute__ = __webpack_require__(2);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_2__AttributesPanel__ = __webpack_require__(4);
 
     var nextButtonId = 0;
 
@@ -1550,7 +1581,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
          * @throws {Error} Lance une si l'élément d'id 'attributs' n'à pas pu être trouvé dans le cas il l'argument parent serais mal renseigné
          */
         function AttributeButton(attribute, attributePanel) {
-            var _this8 = this;
+            var _this9 = this;
 
             _classCallCheck(this, AttributeButton);
 
@@ -1562,7 +1593,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
             /**
              * Référence vers l'instance du panel des attributs
-             * @member{AttributePanel}
+             * @type{AttributePanel}
              */
             this.attributePanel = attributePanel;
 
@@ -1575,7 +1606,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             this.element.setAttribute("class", "attributeButton");
             //si on ne donne pas un consommateur de event, on perd la référence à this dans le listener
             this.element.addEventListener("click", function (event) {
-                return _this8.onClick(event);
+                return _this9.onClick(event);
             });
             this.attributePanel.getElement().appendChild(this.element);
             nextButtonId++;
@@ -1678,7 +1709,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     "use strict";
     /* harmony import */
-    var __WEBPACK_IMPORTED_MODULE_0__Application__ = __webpack_require__(0);
+    var __WEBPACK_IMPORTED_MODULE_0__Application__ = __webpack_require__(1);
+    /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__Main__ = __webpack_require__(0);
 
     /**
      * Classe repésentant le panel Informations
@@ -1687,16 +1719,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var InformationsPanel =
     /**
      *
-     * @param {!Application} appInstance L'instance d'application commune aux panels
      * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
      */
-    function InformationsPanel(appInstance) {
+    function InformationsPanel() {
         _classCallCheck(this, InformationsPanel);
-
-        if (!(appInstance instanceof __WEBPACK_IMPORTED_MODULE_0__Application__["a" /* default */])) {
-            throw new Error("appInstance doit être l'instance de l'application commune aux panels");
-        }
-        this.appInstance = appInstance;
     };
     /* harmony default export */
 

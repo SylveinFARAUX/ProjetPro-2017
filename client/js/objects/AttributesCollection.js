@@ -43,7 +43,7 @@ class AttributesCollection{
 
     /**
      * Retourne la liste des attributs contenu dans la collection.
-     * @returns {string[]}
+     * @returns {string[]} la liste des attributs
      */
     getAttributesKeys(){
         return _.allKeys(this.attributs);
@@ -52,7 +52,7 @@ class AttributesCollection{
     /**
      * Retourne la liste des valeurs pour un attribut, ou undefined s'il n'existe pas.
      * @param attribute l'attribut
-     * @returns {string[]}
+     * @returns {string[]|undefined} la liste des valeur de l'attribut
      */
     getValuesKeys(attribute){
         if(this.checkAttributeExists(attribute)){

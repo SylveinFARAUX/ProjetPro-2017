@@ -1,7 +1,7 @@
 import Application from "./objects/Application";
 import PopulationPanel from "./objects/PopulationPanel";
 
-var app = new Application();
+export let appInstance = new Application();
 
 //listener sur le redimensionnement de la fenêtred
-window.onresize = function(){app.populationPanel.resize();}
+window.onresize = function(){appInstance.populationPanel.resize();};
