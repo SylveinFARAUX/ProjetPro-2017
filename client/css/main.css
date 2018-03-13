@@ -14,7 +14,6 @@ body,
     height: 50%;
 }
 
-.attributs,
 .informations {
     min-height: 100%;
     overflow-y: auto;
@@ -81,8 +80,7 @@ h3, h4, h5{
 
 .attributeButton{
     background: #9c9c9c;
-    width: 50%;
-    height: 17px;
+    width: 80%;
     border-radius: 5px;
     border: none;
     text-align: center;
@@ -218,7 +216,7 @@ h3, h4, h5{
     width : 100%;
     table-layout: fixed;
 }
-/*infobule FIN*/
+/*infobulle FIN*/
 
 #boutonAnnulerSupposition{
     border:none;

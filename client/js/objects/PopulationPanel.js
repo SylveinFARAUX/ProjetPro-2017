@@ -341,7 +341,7 @@ class PopulationPanel {
 
     resize(){
         this.loadTable();
-        var tab = new Array();//#TODO récupèré la liste d'attributs du noeud actif
+        let tab = [];//#TODO récupèré la liste d'attributs du noeud actif
         this.refresh(tab);
     }
 

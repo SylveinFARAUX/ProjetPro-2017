@@ -73,6 +73,8 @@ class StrategyPanel {
         this.network = new vis.Network(this.element, this.data, Common.STRATEGY_OPTIONS);
         this.setNetworkHandler("click", this.onClick);
         this.setNetworkHandler("doubleClick", this.onDoubleClick);
+        this.setNetworkHandler("selectNode", this.onSelectNode);
+        this.setNetworkHandler("deselectNode", this.onDeselectNode);
         instance = this;
         this.addNode(1,'',0);
     }
@@ -264,7 +266,6 @@ class StrategyPanel {
         params.event = "[original event]";
         document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
         console.log('click event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM));
-        instance.appInstance.getAttributesPanel().updateButtonsStatus();
     }
 
     /**
@@ -324,9 +325,10 @@ class StrategyPanel {
             let selectedNode = selection[0];
             selectedNode.attribute = attribute;
             if(attribute === null){
-                console.log("assertion removed");
+                this.nodes.update({id:selectedNode.id,label:""});
             }else{
-                selectedNode.setText(attribute.getShortText());
+                this.nodes.update({id:selectedNode.id,label:attribute.getShortText()});
+                this.updateNode(selectedNode.id);
             }
         }
     }

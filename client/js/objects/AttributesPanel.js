@@ -104,8 +104,7 @@ class AttributesPanel {
             throw new Error("@AttributesPanel.addButton() : L'attribut attribute doit être une instance de Attribute");
         }
         if(!(this.buttons[attribute.getAttributeKey()][attribute.getValue()] instanceof AttributeButton)){
-            let button = new AttributeButton(attribute,this);
-            this.buttons[attribute.getAttributeKey()][attribute.getValue()] = button;
+            this.buttons[attribute.getAttributeKey()][attribute.getValue()] = new AttributeButton(attribute,this);
         }
     }
 
