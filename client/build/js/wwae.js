@@ -731,6 +731,7 @@ class PopulationPanel {
         this.load();
         this.createButtons();
         this.loadTable();
+        this.majPopInfo(popSize, 0);
     }
 
     load(){
@@ -776,9 +777,8 @@ class PopulationPanel {
             }
             row.appendChild(this.addChar(this.getChar(i)));
         }
-
-        this.majPopInfo(popSize, 0);
         this.centerCharInfos();
+        this.sizeTable()
     }
 
     addRow(){
@@ -827,13 +827,19 @@ class PopulationPanel {
         this.refresh(tab);
     }
 
+    sizeTable(){
+        let conteneurH = document.getElementById("PopulationConteneur").clientHeight;
+        let titreH = document.getElementById("PopTitle").offsetHeight;
+        document.getElementById("population").style.height = conteneurH - titreH + "px";
+    }
+
     /**
      *
      * @param node ??
      */
     centerInParent(node){
         //node.style.marginTop = node.parentNode.offsetHeight/2-node.offsetHeight/2 + "px";
-        node.style.marginTop = "50px";
+        node.style.marginTop = "40px";
     }
 
     majPopInfo(actif, elim){
@@ -1592,7 +1598,6 @@ class Character{
         this.attributs = [];
         for(let i = 0; i < json.attributs.length; i++){
             //this.attributs.push(getAttributeInstance(json.attributs[i].key, json.attributs[i].value));
-            //#TODO trouver comment récupèrer ces putains d'attributs
         }
     }
 

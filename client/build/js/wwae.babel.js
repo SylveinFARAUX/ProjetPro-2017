@@ -701,6 +701,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             this.load();
             this.createButtons();
             this.loadTable();
+            this.majPopInfo(popSize, 0);
         }
 
         _createClass(PopulationPanel, [{
@@ -751,9 +752,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     }
                     row.appendChild(this.addChar(this.getChar(i)));
                 }
-
-                this.majPopInfo(popSize, 0);
                 this.centerCharInfos();
+                this.sizeTable();
             }
         }, {
             key: 'addRow',
@@ -793,6 +793,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 var tab = new Array(); //#TODO récupèré la liste d'attributs du noeud actif
                 this.refresh(tab);
             }
+        }, {
+            key: 'sizeTable',
+            value: function sizeTable() {
+                var conteneurH = document.getElementById("PopulationConteneur").clientHeight;
+                var titreH = document.getElementById("PopTitle").offsetHeight;
+                document.getElementById("population").style.height = conteneurH - titreH + "px";
+            }
 
             /**
              *
@@ -803,7 +810,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             key: 'centerInParent',
             value: function centerInParent(node) {
                 //node.style.marginTop = node.parentNode.offsetHeight/2-node.offsetHeight/2 + "px";
-                node.style.marginTop = "50px";
+                node.style.marginTop = "40px";
             }
         }, {
             key: 'majPopInfo',
@@ -1713,7 +1720,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             this.attributs = [];
             for (var i = 0; i < json.attributs.length; i++) {
                 //this.attributs.push(getAttributeInstance(json.attributs[i].key, json.attributs[i].value));
-                //#TODO trouver comment récupèrer ces putains d'attributs
             }
         }
 

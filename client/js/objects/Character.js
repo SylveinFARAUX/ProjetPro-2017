@@ -7,7 +7,6 @@ class Character{
         this.attributs = [];
         for(let i = 0; i < json.attributs.length; i++){
             //this.attributs.push(getAttributeInstance(json.attributs[i].key, json.attributs[i].value));
-            //#TODO trouver comment récupèrer ces putains d'attributs
         }
     }
 
