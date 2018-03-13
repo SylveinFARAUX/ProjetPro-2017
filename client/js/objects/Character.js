@@ -1,3 +1,5 @@
+import * as Main from "../Main";
+
 class Character{
     constructor(json, id){
         this.id = id;
@@ -6,7 +8,9 @@ class Character{
         this.actived = true;
         this.attributs = [];
         for(let i = 0; i < json.attributs.length; i++){
-            //this.attributs.push(getAttributeInstance(json.attributs[i].key, json.attributs[i].value));
+            console.log(Main);
+            console.log(Main.appInstance);
+            this.attributs.push(Main.appInstance.getAttributeInstance(json.attributs[i].key, json.attributs[i].value));
         }
     }
 

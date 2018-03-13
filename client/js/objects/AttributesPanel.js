@@ -3,7 +3,6 @@ import * as Common from './Common';
 import Attribute from './Attribute';
 import AttributeButton from './AttributeButton';
 import Application from "./Application";
-import * as Main from "../Main";
 
 /**
  * Panel contenant les boutons des attributs

@@ -91,13 +91,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     "use strict";
 
     Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-    /* harmony export (binding) */__webpack_require__.d(__webpack_exports__, "appInstance", function () {
-        return appInstance;
-    });
     /* harmony import */var __WEBPACK_IMPORTED_MODULE_0__objects_Application__ = __webpack_require__(1);
     /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__objects_PopulationPanel__ = __webpack_require__(5);
 
-    var appInstance = new __WEBPACK_IMPORTED_MODULE_0__objects_Application__["a" /* default */]();
+    appInstance = new __WEBPACK_IMPORTED_MODULE_0__objects_Application__["a" /* default */]();
 
     //listener sur le redimensionnement de la fenêtred
     window.onresize = function () {
@@ -390,7 +387,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */var __WEBPACK_IMPORTED_MODULE_2__Attribute__ = __webpack_require__(2);
     /* harmony import */var __WEBPACK_IMPORTED_MODULE_3__AttributeButton__ = __webpack_require__(9);
     /* harmony import */var __WEBPACK_IMPORTED_MODULE_4__Application__ = __webpack_require__(1);
-    /* harmony import */var __WEBPACK_IMPORTED_MODULE_5__Main__ = __webpack_require__(0);
 
     /**
      * Panel contenant les boutons des attributs
@@ -454,20 +450,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         _createClass(AttributesPanel, [{
             key: 'updateButtonsStatus',
             value: function updateButtonsStatus() {
-                if (__WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"] === undefined) {
+                if (Main.appInstance === undefined) {
                     return;
                 }
-                if (__WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"].getStrategyPanel() === undefined) {
+                if (Main.appInstance.getStrategyPanel() === undefined) {
                     return;
                 }
-                var selection = __WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"].getStrategyPanel().getSelection();
+                var selection = Main.appInstance.getStrategyPanel().getSelection();
                 if (Array.isArray(selection)) {
                     if (selection.length === 1) {
                         var node = selection[0];
                         if (node.attribute !== undefined && node.attribute !== null && node.attribute instanceof __WEBPACK_IMPORTED_MODULE_2__Attribute__["a" /* default */]) {
                             this.removeAttributeButton.setAttribute("class", "btnActif");
                         }
-                        var nodes = __WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"].getStrategyPanel().getNodes(selection);
+                        var nodes = Main.appInstance.getStrategyPanel().getNodes(selection);
                         if (Array.isArray(nodes) && nodes.length > 0) {
                             this.updateAttributesButtons(nodes);
                         }
@@ -497,11 +493,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             key: 'annulerSupposition',
             value: function annulerSupposition(event) {
                 console.log("Annulation supposition");
-                if (__WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"] === undefined) {
+                if (Main.appInstance === undefined) {
                     return;
                 }
-                var strategyPanel = __WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"].getStrategyPanel();
-                var attributesPanel = __WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"].getAttributesPanel();
+                var strategyPanel = Main.appInstance.getStrategyPanel();
+                var attributesPanel = Main.appInstance.getAttributesPanel();
                 if (strategyPanel !== undefined && attributesPanel !== undefined) {
                     strategyPanel.setAttributeToSelection(null);
                     attributesPanel.updateButtonsStatus();
@@ -572,8 +568,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     throw new Error("@AttributesPanel.onButtonClick() : L'attribut button doit être une instance de AttributeButton");
                 }
                 //button.getAttribute().prettyPrint();
-                if (__WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"].getStrategyPanel() !== undefined) {
-                    __WEBPACK_IMPORTED_MODULE_5__Main__["appInstance"].getStrategyPanel().setAttributeToSelection(button.getAttribute());
+                if (Main.appInstance.getStrategyPanel() !== undefined) {
+                    Main.appInstance.getStrategyPanel().setAttributeToSelection(button.getAttribute());
                     this.updateButtonsStatus();
                 }
             }
@@ -1734,6 +1730,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /***/function (module, __webpack_exports__, __webpack_require__) {
 
     "use strict";
+    /* harmony import */
+    var __WEBPACK_IMPORTED_MODULE_0__Main__ = __webpack_require__(0);
 
     var Character = function () {
         function Character(json, id) {
@@ -1745,7 +1743,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             this.actived = true;
             this.attributs = [];
             for (var i = 0; i < json.attributs.length; i++) {
-                //this.attributs.push(getAttributeInstance(json.attributs[i].key, json.attributs[i].value));
+                console.log(__WEBPACK_IMPORTED_MODULE_0__Main__);
+                console.log(__WEBPACK_IMPORTED_MODULE_0__Main__["appInstance"]);
+                this.attributs.push(__WEBPACK_IMPORTED_MODULE_0__Main__["appInstance"].getAttributeInstance(json.attributs[i].key, json.attributs[i].value));
             }
         }
 
