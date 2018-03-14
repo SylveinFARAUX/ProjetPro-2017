@@ -321,13 +321,13 @@ class PopulationPanel {
 										<div class = 'charInfo'>
 											<h3 id = 'charName'>` + char.nom +`</h3>
 											<p id = 'charstatus` + char.id + `'>Suspect</p>
-											<div class = "CharTooltip">
-												<span class="arrow"></span>
-												<span class='CharTooltip-text'>`+ char.listeAttribute() + `</span>
-											</div>
 										</div>
 									</figcaption>
 								</figure>
+								<div class = "CharTooltip" id = 'charToolType` + char.id + `'>
+                                    <span class="arrow"></span>
+                                    <span class='CharTooltip-text'>`+ char.listeAttribute() + `</span>
+                                </div>
 							`;
         return  col;
     }

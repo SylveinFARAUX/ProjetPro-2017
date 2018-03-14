@@ -6,7 +6,7 @@ class Character{
         this.actived = true;
         this.attributs = [];
         for(let i = 0; i < json.attributs.length; i++){
-            //this.attributs.push(getAttributeInstance(json.attributs[i].key, json.attributs[i].value));
+            //this.attributs.push(Main.appInstance.getAttributeInstance(json.attributs[i].key, json.attributs[i].value));
         }
     }
 
