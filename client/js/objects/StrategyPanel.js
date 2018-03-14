@@ -259,6 +259,16 @@ class StrategyPanel {
     }
 
     /**
+     * Ajout d'une nouvel edge au Network.
+     * @param parent id de la source, le parent, de l'edge
+     * @param son id de la destination, le fils, de l'edge
+     */
+    addEdge(parent, son){
+        let lastId = this.getLastId(this.edges);
+        this.data.edges.add({id: lastId + 1, from: parent, to: son});
+    }
+
+    /**
      * Handler appelé lors des événement click sur le network
      * @param {object} params Objet contenant les infos de l'événement
      */
@@ -329,9 +339,41 @@ class StrategyPanel {
             }else{
                 this.nodes.update({id:selectedNode.id,label:attribute.getShortText()});
                 this.updateNode(selectedNode.id);
+                this.addSons(selectedNode);
             }
         }
     }
+
+    /**
+     * Créé deux fils au noeud donné
+     * @param {object} parent le noeud père
+     */
+     addSons(parent) {
+         let lastId = this.getLastId(this.nodes);
+
+         this.addNode(lastId + 1, '', parent.level + 1);
+         this.addNode(lastId + 2, '', parent.level + 1);
+
+         this.addEdge(parent.id, lastId + 1);
+         this.addEdge(parent.id, lastId + 2);
+     }
+
+     /**
+      * Donne l'id du dernier noeud ou edge créé
+      * @param {object} elements les nodes ou les edges
+      * @return {Number} id du dernier noeud ou edge créé
+      */
+     getLastId(elements) {
+         if(elements.length == 0){
+             return 1;
+         }
+
+         let ids = elements.map((element) => {
+            return element.id;
+         });
+
+         return ids[ids.length - 1];
+     }
 }
 
 export default StrategyPanel;
