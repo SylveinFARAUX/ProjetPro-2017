@@ -322,7 +322,7 @@ class StrategyPanel {
         }
         let selection = this.getSelection();
         if(Array.isArray(selection) && selection.length === 1){
-            let selectedNode = selection[0];
+            let selectedNode = this.getNode(selection[0]);
             selectedNode.attribute = attribute;
             if(attribute === null){
                 this.nodes.update({id:selectedNode.id,label:""});
