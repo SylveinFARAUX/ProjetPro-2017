@@ -1,12 +1,12 @@
 class Character{
-    constructor(json, id){
+    constructor(json, id, attributSingleton){
         this.id = id;
         this.nom = json.nom;
         this.img = json.img;
         this.actived = true;
         this.attributs = [];
         for(let i = 0; i < json.attributs.length; i++){
-            //this.attributs.push(Main.appInstance.getAttributeInstance(json.attributs[i].key, json.attributs[i].value));
+            this.attributs.push(attributSingleton.getAttributeInstance(json.attributs[i].key, json.attributs[i].value));
         }
     }
 
@@ -42,8 +42,12 @@ class Character{
     listeAttribute(){
         let res = "";
         for(let i = 0; i < this.attributs.length; i++){
-            res += this.attributs[i].attributeKey + ":" + this.attributs[i].attributeValue + "</br>";
+            if(this.attributs[i] === undefined)
+                res += "Attribut Inconnu</br>"
+            else
+                res += this.attributs[i].attributeKey + " : " + this.attributs[i].value + "</br>";
         }
+        return res;
     }
 
     check(tabAttributs){

@@ -11,52 +11,94 @@
         <link rel="stylesheet" href="css/main.css"/>
     </head>
     <body>
-        <div id="app" class="app">
-            <div class="row top">
-                <div class="col-md-8 strategie">
-                    <div class="title">
-                      <h3>Stratégie</h3>
+        <div id = "maindiv">
+            <div class = "banniere" id = "banniere">
+                <img src="./assets/banniere.png" alt="Who's Who Assessment Engine"/>
+                    <div class = "menu">
+                        <ul id = "menu">
+                            <li>
+                                <h5>Population</h5>
+                                <ul class = "sousmenu" id = "sousmenuPop">
+                                    <li><span>Test 1</span></li>
+                                    <li><span>Test 2</span></li>
+                                    <li><span>Test 3</span></li>
+                                    <li><span>Test 4</span></li>
+                                    <li><span>Test 5</span></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h5>Personnage</h5>
+                                <ul class = "sousmenu" id = "sousmenuChar">
+                                    <li><span>Créer un personnage</span></li>
+                                    <li><span>Charger fichier de personnage</span></li>
+                                    <li><span>Test 3</span></li>
+                                    <li><span>Test 4</span></li>
+                                    <li><span>Test 5</span></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h5>Stratégie</h5>
+                                <ul class = "sousmenu" id = "sousmenuStrat">
+                                    <li><span>Tester stratégie</span></li>
+                                    <li><span>Charge stratégie</span></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h5>Jeu</h5>
+                                <ul class = "sousmenu">
+                                    <li><span>Règles</span></li>
+                                    <li><span>Tuto-Stratégie</span></li>
+                                    <li><span>Créateur</span></li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
-                    <div  id="strategie" class="content">
-                        <div id="strategie-network"></div>
-                    </div>
-                </div>
-                 <div class="col-md-4 attributs">
-                   <div class="title">
-                     <h3>Attributs</h3>
-                   </div>
-                   <div id="attributs" class="content">
-                       <button class="btnInactif" id="boutonAnnulerSupposition">Annuler Supposition</button>
-                   </div>
-                </div>
             </div>
-             <div class="row bottom">
-                 <div class="col-md-8 population">
-                    <div id="PopulationConteneur">
-                        <div id="PopTitle">
-                            <table>
-                                <tr>
-                                    <td><h3>Etat du jeu</h3></td>
-                                    <td><h5>Actif : <span id ="nbActif"></span></h5></td>
-                                    <td><h5>Eliminé : <span id="nbElim"></span></h5></td>
-                                </tr>
-                            </table>
+            <div id="app" class="app">
+                <div class="row top">
+                    <div class="col-md-8 strategie">
+                        <div class="title">
+                          <h3>Stratégie</h3>
                         </div>
-                        <div id="population">
-                            <table id = "tableChar">
-                            </table>
-                        </div>
-                        <div id="populationButtons">
+                        <div  id="strategie" class="content">
+                            <div id="strategie-network"></div>
                         </div>
                     </div>
+                     <div class="col-md-4 attributs">
+                       <div class="title">
+                         <h3>Attributs</h3>
+                       </div>
+                       <div id="attributs" class="content">
+                           <button class="btnInactif" id="boutonAnnulerSupposition">Annuler Supposition</button>
+                       </div>
+                    </div>
                 </div>
-                 <div class="col-md-4 informations">
-                   <div class="title">
-                     <h3>Informations</h3>
-                   </div>
-                   <div id="informations" class="content">  
-                        <pre id="eventSpan"></pre>
-                   </div>
+                 <div class="row bottom">
+                     <div class="col-md-8 population">
+                        <div id="PopulationConteneur">
+                            <div id="PopTitle">
+                                <table>
+                                    <tr>
+                                        <td><h3>Etat du jeu</h3></td>
+                                        <td><h5>Actif : <span id ="nbActif"></span></h5></td>
+                                        <td><h5>Eliminé : <span id="nbElim"></span></h5></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div id="population">
+                                <table id = "tableChar">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-md-4 informations">
+                       <div class="title">
+                         <h3>Informations</h3>
+                       </div>
+                       <div id="informations" class="content">
+                            <pre id="eventSpan"></pre>
+                       </div>
+                    </div>
                 </div>
             </div>
         </div>

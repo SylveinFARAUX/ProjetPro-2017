@@ -2,6 +2,7 @@ import StrategyPanel from "./StrategyPanel";
 import InformationsPanel from "./InformationsPanel";
 import AttributesPanel from "./AttributesPanel";
 import PopulationPanel from "./PopulationPanel";
+import ToolType from "./ToolType";
 
 /**
  * Classe instanciant l'application, panel par panel.
@@ -11,6 +12,7 @@ class Application {
      * Instancie tout les panels
      */
     constructor(){
+        this.infobulle =  new ToolType();
         this.attributesPanel = new AttributesPanel(this);
         this.strategyPanel = new StrategyPanel(this);
         this.populationPanel = new PopulationPanel(this);
@@ -23,6 +25,10 @@ class Application {
      */
     getStrategyPanel(){
         return this.strategyPanel;
+    }
+
+    getInfoBulle(){
+        return this.infobulle;
     }
 
     /**

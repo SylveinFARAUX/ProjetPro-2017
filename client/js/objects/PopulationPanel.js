@@ -1,9 +1,9 @@
 import Character from "./Character";
 import Application from "./Application";
+import * as AttributesCollection from "./AttributesCollection";
 
 const popSize = 24;
-const charWidth = 150;
-const charHeight = 150;
+const charWidth = 125;
 const borderSize = 3;
 
 let popJson =
@@ -13,8 +13,8 @@ let popJson =
                 "nom" : "Magalie",
                 "img" : "./assets/charimg/magalie.png",
                 "attributs" : [
-                    {"key" : "cheveux", "value" : "rouquine"},
-                    {"key" : "yeux", "value" : "marrons"},
+                    {"key" : "cheveux", "value" : "chauve"},
+                    {"key" : "yeux", "value" : "marron"},
                     {"key" : "personalité", "value" : "salope"}
                 ]
             },
@@ -246,8 +246,8 @@ class PopulationPanel {
         this.population = new Array(popSize);
         this.table = document.getElementById("tableChar");
         this.element = document.getElementById("population");
+        this.attributs = AttributesCollection.singleton;
         this.load();
-        this.createButtons();
         this.loadTable();
         this.majPopInfo(popSize, 0);
     }
@@ -255,7 +255,7 @@ class PopulationPanel {
     load(){
         let chars = popJson;
         for(let i = 0; i < chars.characters.length; i++){
-            this.population[i] = new Character(chars.characters[i], i);
+            this.population[i] = new Character(chars.characters[i], i, this.attributs);
         }
     }
 
@@ -311,24 +311,48 @@ class PopulationPanel {
      * @returns {HTMLTableDataCellElement} l'élément 'td' de la colonne
      */
     addChar(char){
+        //________création de la cellule
         let col = document.createElement("td");
         col.id = "char" + char.id;
         col.className = "charElem";
-        col.innerHTML = `
-								<figure id = 'charfigure` + char.id + `'>
-									<img src ='` + char.img + `' alt='Perso` + char.id + `' id = 'charimg` + char.id + `'/>
-									<figcaption>
-										<div class = 'charInfo'>
-											<h3 id = 'charName'>` + char.nom +`</h3>
-											<p id = 'charstatus` + char.id + `'>Suspect</p>
-										</div>
-									</figcaption>
-								</figure>
-								<div class = "CharTooltip" id = 'charToolType` + char.id + `'>
-                                    <span class="arrow"></span>
-                                    <span class='CharTooltip-text'>`+ char.listeAttribute() + `</span>
-                                </div>
-							`;
+        //_______création de l'image :
+        let fig = document.createElement("figure");
+        fig.id = "charfigure" + char.id;
+        fig.addEventListener("mouseover", (evt)=>{ this.appInstance.getInfoBulle().montre(char.id, col.id);});
+        fig.addEventListener("mouseout", (evt)=>{ this.appInstance.getInfoBulle().cache(char.id); });
+        fig.innerHTML = `
+                        <img src ='` + char.img + `' alt='Perso` + char.id + `' id = 'charimg` + char.id + `'/>
+                        <figcaption>
+                            <div class = 'charInfo'>
+                                <h3 class = 'charName'>` + char.nom +`</h3>
+                                <p id = 'charstatus` + char.id + `'>Suspect</p>
+                            </div>
+                        </figcaption>
+        `;
+        //______création de l'infobulle
+        this.appInstance.getInfoBulle().addToolType(char.id);
+        let area = document.createElement("div");
+        area.className = "overarea";
+        area.id = "overarea" + char.id;
+        area.addEventListener("mouseover", (evt)=>{ this.appInstance.getInfoBulle().affiche(char.id); });
+        area.addEventListener("mouseout", (evt)=>{ this.appInstance.getInfoBulle().cache(char.id); });
+        let arrow = document.createElement("div");
+        arrow.className = "arrow";
+        arrow.id = "arrow" + char.id;
+        arrow.addEventListener("mouseover", (evt)=>{ this.appInstance.getInfoBulle().affiche(char.id); });
+        arrow.addEventListener("mouseout", (evt)=>{ this.appInstance.getInfoBulle().cache(char.id); });
+        let tt = document.createElement("div");
+        tt.className = "tooltype";
+        tt.id = "tooltype" + char.id;
+        tt.addEventListener("mouseover", (evt)=>{ this.appInstance.getInfoBulle().affiche(char.id); });
+        tt.addEventListener("mouseout", (evt)=>{ this.appInstance.getInfoBulle().cache(char.id); });
+        tt.innerHTML = char.listeAttribute() + "";
+        //______ajout des éléments
+        col.appendChild(fig);
+        let doc = document.getElementsByTagName("body")[0];
+        doc.appendChild(area);
+        doc.appendChild(tt);
+        doc.appendChild(arrow);
         return  col;
     }
 
@@ -357,57 +381,13 @@ class PopulationPanel {
      */
     centerInParent(node){
         //node.style.marginTop = node.parentNode.offsetHeight/2-node.offsetHeight/2 + "px";
-        node.style.marginTop = "40px";
+        node.style.marginTop = "25px";
     }
 
     majPopInfo(actif, elim){
         document.getElementById("nbActif").innerHTML = actif;
         document.getElementById("nbElim").innerHTML = elim;
     }
-
-    /**
-     * Créer un bouton qui désactive le personnage d'index char.
-     * @param {!Number} char Index du personnage à éliminer
-     * @param {!String} text Text du bouton
-     * @param {!String} reason Raison de l'élimination
-     * @returns {HTMLButtonElement} Le bouton HTML
-     */
-    createUnactiveButton(char, text, reason){
-        let buttonElm = document.createElement("button");
-        buttonElm.addEventListener("click", ()=>{
-            this.getChar(char).unactive(reason);
-        });
-        buttonElm.innerText = text;
-        return buttonElm;
-    }
-
-    /**
-     * Créer un bouton qui active le personnage d'index char.
-     * @param {!Number} char Index du personnage à éliminer
-     * @param {!String} text Text du bouton
-     * @returns {HTMLButtonElement} Le bouton HTLM
-     */
-    createActiveButton(char, text){
-        let buttonElm = document.createElement("button");
-        buttonElm.addEventListener("click", ()=>{
-            this.getChar(char).active();
-        });
-        buttonElm.innerText = text;
-        return buttonElm;
-    }
-
-    /**
-     * Instancie les boutons d'activation/désactivation des personnages
-     */
-    createButtons(){
-        let buttonsElm = document.getElementById("populationButtons");
-        buttonsElm.appendChild(this.createUnactiveButton(0, "Désactive perso 0","Trop moche"));
-        buttonsElm.appendChild(this.createActiveButton(0, "Active perso 0"));
-        buttonsElm.appendChild(this.createUnactiveButton(1, "Désactive perso 1","Cheveux blond"));
-        buttonsElm.appendChild(this.createActiveButton(1, "Active perso 1"));
-    }
-
-
 }
 
 export default PopulationPanel;
