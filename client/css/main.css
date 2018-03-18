@@ -314,3 +314,20 @@ h3, h4, h5{
     padding : 10px;
 }
 /*Bannière FIN*/
+
+/*Menu contextuel*/
+/* Optionally define a fixed width for menus */
+.ui-menu {
+    width: 250px;
+}
+/* Allow to use <kbd> elements inside the title to define shortcut hints. */
+.ui-menu kbd {
+    padding-left: 1em;
+    float: right;
+}
+
+/* Define a custom icon */
+.ui-icon.custom-icon-firefox {
+    background-image: url("http://raw.githubusercontent.com/mar10/jquery-ui-contextmenu/master/demo/application_firefox.gif");
+    background-position: 0 0;
+}

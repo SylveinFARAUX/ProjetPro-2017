@@ -39,7 +39,7 @@ Construction de la doc :
 
 Ouvrir le fichier client/index.html dans un navigateur
 
-## Bibliothèque graphique
+## Bibliothèques
 
 Nous utilisons la librairie graphique Vis.js
-Sit web : http://visjs.org/
+Site web : http://visjs.org/

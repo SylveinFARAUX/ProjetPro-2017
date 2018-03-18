@@ -55,7 +55,9 @@ class AttributesPanel {
         });
 
         this.removeAttributeButton = document.getElementById("boutonAnnulerSupposition");
-        this.removeAttributeButton.addEventListener("click", this.annulerSupposition);
+        this.removeAttributeButton.addEventListener("click", (evt) =>{
+            this.annulerSupposition();
+        });
     }
 
     /**
