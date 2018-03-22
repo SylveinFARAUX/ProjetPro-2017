@@ -42,15 +42,12 @@ $(function(){
                         }
                     },
                     action: (event, ui) => {
-
+                        if(appt instanceof Application){
+                            appt.getStrategyPanel().setAttributeToSelection(null);
+                        }
                     }},
                 {
-                    title: "Supposition", cmd:"assert", children: [
-                        {
-                            title: "Test",
-                            action: (event, ui) => alert("supposition test")
-                        },
-                    ]
+                    title: "Supposition", cmd:"assert", children: []
                 }
         ],
         // Implement the beforeOpen callback to dynamically change the entries

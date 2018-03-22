@@ -237,7 +237,7 @@ class StrategyPanel {
 
     /**
      * Désactive ou active le noeud donné en paramètre et supprime les fils si désactivés
-     * @param {!Number} id le noeud à désactiver ou activer
+     * @param {Number} id le noeud à désactiver ou activer
      */
     updateNode(id){
       if(this.getNode(id).enabled) {
@@ -357,9 +357,9 @@ class StrategyPanel {
                 this.nodes.update({id:selectedNode.id,label:""});
             }else{
                 this.nodes.update({id:selectedNode.id,label:attribute.getShortText()});
-                this.updateNode(selectedNode.id);
                 this.addSons(selectedNode);
             }
+            this.updateNode(selectedNode.id);
         }
     }
 
