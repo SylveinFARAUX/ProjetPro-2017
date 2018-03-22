@@ -435,7 +435,9 @@ class StrategyPanel {
     selectNode(x,y){
         let node = this.getNodeAt(x,y);
         console.log("selecting node "+JSON.stringify(node));
-        this.network.selectNodes([node]);
+        if(node !== undefined){
+            this.network.selectNodes([node]);
+        }
     }
 }
 

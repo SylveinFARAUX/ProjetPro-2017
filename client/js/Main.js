@@ -16,7 +16,7 @@ let rightClickY = 0;
 
 document.addEventListener("contextmenu", (evt)=>{
     rightClickX = evt.x;
-    rightClickY = evt.y - $('#strategie-title').height() - $('#banniere').height(); //le js <3
+    rightClickY = evt.y - document.getElementById('strategie-network').getBoundingClientRect().top; //le js <3
 });
 
 document.addEventListener("click", (evt)=>{
