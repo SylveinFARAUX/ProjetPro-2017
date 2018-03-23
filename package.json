@@ -12,16 +12,18 @@
     "grunt-contrib-clean": "1.1.0",
     "grunt-contrib-watch": "1.0.0",
     "grunt-exec": "3.0.0",
+    "grunt-jsdoc": "2.2.1",
     "grunt-webpack": "3.0.2",
+    "jquery": "3.3.1",
+    "jsdoc": "3.5.5",
     "uglify-js": "3.3.10",
     "uglifyjs-webpack-plugin": "1.1.8",
     "vis": "4.21.0",
-    "grunt-jsdoc": "2.2.1",
-    "jsdoc": "3.5.5",
     "webpack": "3.11.0",
     "webpack-dev-server": "2.11.1"
   },
   "dependencies": {
+    "ui-contextmenu": "^1.18.1",
     "underscore": "1.8.3",
     "vue": "2.5.9"
   }

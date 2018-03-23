@@ -2,6 +2,7 @@ import * as Common from './Common';
 import AttributesPanel from "./AttributesPanel";
 import Application from "./Application";
 import Attribute from "./Attribute";
+import * as AttributesCollection from "./AttributesCollection";
 
 //on a besoin de garder un pointeur vers une instance pour y accèder dans
 //les handlers des événements de vis.js car ces dèrnier sont
@@ -236,7 +237,7 @@ class StrategyPanel {
 
     /**
      * Désactive ou active le noeud donné en paramètre et supprime les fils si désactivés
-     * @param {!Number} id le noeud à désactiver ou activer
+     * @param {Number} id le noeud à désactiver ou activer
      */
     updateNode(id){
       if(this.getNode(id).enabled) {
@@ -293,6 +294,24 @@ class StrategyPanel {
     }
 
     /**
+     * Calback appelée lors de la sélection d'un noeuds
+     */
+    onSelectNode(params){
+        if(instance.appInstance !== undefined){
+            instance.appInstance.getAttributesPanel().updateButtonsStatus();
+        }
+    }
+
+    /**
+     * Calback appelée lors de la désélection d'un noeuds
+     */
+    onDeselectNode(params){
+        if(instance.appInstance !== undefined){
+            instance.appInstance.getAttributesPanel().updateButtonsStatus();
+        }
+    }
+
+    /**
      * Retourne la liste des Ids des noeuds sélectionnés
      * @returns {Array}
      */
@@ -338,9 +357,9 @@ class StrategyPanel {
                 this.nodes.update({id:selectedNode.id,label:""});
             }else{
                 this.nodes.update({id:selectedNode.id,label:attribute.getShortText()});
-                this.updateNode(selectedNode.id);
                 this.addSons(selectedNode);
             }
+            this.updateNode(selectedNode.id);
         }
     }
 
@@ -364,7 +383,7 @@ class StrategyPanel {
       * @return {Number} id du dernier noeud ou edge créé
       */
      getLastId(elements) {
-         if(elements.length == 0){
+         if(elements.length === 0){
              return 1;
          }
 
@@ -374,6 +393,52 @@ class StrategyPanel {
 
          return ids[ids.length - 1];
      }
+
+    /**
+     * Retourne le noeud à la position donnée
+     * @param {Number} x
+     * @param {Number} y
+     * @returns {Object|undefined} le noeud à la position ou undefined s'il n'y en a pas
+     */
+    getNodeAt(x,y){
+        return this.network.getNodeAt({x,y});
+    }
+
+    /**
+     * Retourne la liste des attributs pouvant être définis pour le noeud présent en (x,y)
+     * @param x
+     * @param y
+     * @returns {Array} la liste des attributs. Si aucun noeuds n'est présent, retourne une liste vide
+     */
+    getAssertionsForNode(x,y){
+        let node = this.getNodeAt(x,y);
+        if(node === undefined){
+            return [];
+        }
+        let attributes = [];
+        let collection = AttributesCollection.singleton;
+        let map = collection.getAttributesValuesKeysMap();
+        //TODO retirer les assertions deja présentes sur la branche de node
+        map.forEach(attribute =>{
+            map[attribute].forEach( value =>{
+                attributes.push(collection.getAttributeInstance(attribute,value));
+            })
+        });
+        return attributes;
+    }
+
+    /**
+     * Sélectionne le noeud en (x,y) s'il existe
+     * @param x
+     * @param y
+     */
+    selectNode(x,y){
+        let node = this.getNodeAt(x,y);
+        console.log("selecting node "+JSON.stringify(node));
+        if(node !== undefined){
+            this.network.selectNodes([node]);
+        }
+    }
 }
 
 export default StrategyPanel;
