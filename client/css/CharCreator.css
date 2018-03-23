@@ -1,0 +1,114 @@
+.char_creator{
+	margin-left : 10%;
+	margin-right : 10%;
+	min-height : 700px;
+}
+
+.char_creator h3, h2, h1, h4, h5 {
+	margin : 5px auto;
+	color : #df4540;
+}
+
+#char_creator_table{
+	width : 100%;
+	margin : 30px;
+}
+
+#char_creator_table, #char_creator_table td{
+	border : 3px solid #36393F;
+	border-collapse : collapse;
+	text-align : center;
+	color : white;
+	vertical-align: baseline;
+}
+
+#char_attributs hr {
+	border : 1.5px solid #36393F;
+	margin : 0 -10px;
+	
+}
+
+#char_creator_table td{
+	width : 50%;
+	overflow-y : auto;
+	overflow-x : hidden;
+}
+
+#dragg_img{
+	transition: .5s ease;
+	backface-visibility: hidden;
+	border-radius : 17px;
+}
+
+#dragg_img_container, #dragg_img{
+	height : 150px;
+	width : 150px;
+}
+
+#dragg_img_container{
+	position : relative;
+	border : 3px solid #36393F;
+	border-radius : 20px;
+	margin : 10px auto;
+}
+
+#dragg_img_container:hover #dragg_img {
+	opacity: 0.3;
+}
+
+#menu li:hover li a{
+	text-transform:inherit;
+}
+
+.attr_key{
+	border-radius : 10px;
+	margin : 20px;
+	background-color : #36393F;
+	padding : 5px;
+}
+
+#added_attributs p:hover{
+	color : #df4540;
+}
+
+.purpose_attributs_elem p:hover, #purpose_attributs_title{
+	color : #000066;
+}
+
+.purpose_attributs_elem li{
+	text-align : left;
+	padding-left : 20px;
+	list-style:none;
+}
+
+.purpose_attributs_elem ul {
+	display : none;
+}
+
+#added_attributs {
+	margin : 10px;
+	padding : 0;
+}
+
+#added_attributs li{
+	list-style :  none;
+	border-radius : 10px;
+	background-color : #36393F;
+	margin : 0 10px;
+	padding : 5px;
+}
+
+#added_attributs li{
+	margin : 5px 0;
+}
+
+#nom_perso_créat{
+	margin : 0 10% 10px 10%;
+	text-align : center;
+	border : 2px solid #36393F;
+	border-radius : 10px;
+	font-size : 15px;
+	font-weight : bold;
+	color : #df4540;
+	padding : 5px;
+}

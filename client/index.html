@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="css/main.css"/>
+        <link rel="stylesheet" href="css/CharCreator.css"/>
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"/>
         <!--<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.min.css"/>-->
     </head>
@@ -94,6 +95,29 @@
                        </div>
                     </div>
                 </div>
+            </div>
+            <div id = "char_creator" class = "char_creator">
+                <table id = "char_creator_table">
+                    <tr>
+                        <td id = "char_attributs">
+                            <h3>Dépose ton image de personnage ici</h3>
+                            <h5>Taille accepté : 150*150px</h5>
+                            <div id = "dragg_img_container">
+                                <img id = "dragg_img" draggable = 'true' src = "./dragg.png"/>
+                            </div>
+                            <input id = "nom_perso_créat" type="text" placeholder="Nom de ton perso"></input>
+                            <hr/>
+                            <h3 id = "title_added_attributs">Attributs de ton personnage</h3>
+                            <ul id = "added_attributs">
+                            </ul>
+                        </td>
+                        <td id = "purpose_attributs">
+                            <div class = "purpose_attributs_elem">
+                                <h3 id = "purpose_attributs_title">Attributs disponibles</h3>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
         <!-- Bootstrap -->

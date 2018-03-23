@@ -1,11 +1,6 @@
 import Application from "./objects/Application";
 import * as AttributesCollection from "./objects/AttributesCollection";
 
-//dimenssionnement de la div app et de la banière
-let mainH = document.getElementById("maindiv").clientHeight;
-let banH = document.getElementById("banniere").offsetHeight;
-document.getElementById("app").style.height = mainH - banH + "px";
-
 let appt = new Application();
 
 //listener sur le redimensionnement de la fenêtre
