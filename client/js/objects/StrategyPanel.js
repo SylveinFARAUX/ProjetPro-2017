@@ -1,5 +1,4 @@
 import * as Common from './Common';
-import AttributesPanel from "./AttributesPanel";
 import Application from "./Application";
 import Attribute from "./Attribute";
 import * as AttributesCollection from "./AttributesCollection";

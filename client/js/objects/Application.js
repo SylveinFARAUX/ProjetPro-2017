@@ -1,6 +1,5 @@
 import StrategyPanel from "./StrategyPanel";
 import InformationsPanel from "./InformationsPanel";
-import AttributesPanel from "./AttributesPanel";
 import PopulationPanel from "./PopulationPanel";
 import ToolType from "./ToolType";
 
@@ -13,7 +12,6 @@ class Application {
      */
     constructor(){
         this.infobulle =  new ToolType();
-        this.attributesPanel = new AttributesPanel(this);
         this.strategyPanel = new StrategyPanel(this);
         this.populationPanel = new PopulationPanel(this);
         this.informationsPanel = new InformationsPanel(this);
@@ -37,14 +35,6 @@ class Application {
      */
     getPopulationPanel(){
         return this.populationPanel;
-    }
-
-    /**
-     * Retourne le panel Attributs
-     * @returns {AttributesPanel}
-     */
-    getAttributesPanel(){
-        return this.attributesPanel;
     }
 
     /**
