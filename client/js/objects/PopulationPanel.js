@@ -222,6 +222,18 @@ let popJson =
                 "attributs" : [
                     {"key" : "cheveux", "value" : "blond"},
                     {"key" : "yeux", "value" : "bleu"},
+                    {"key" : "personalité", "value" : "nazi"},
+                    {"key" : "personalité", "value" : "nazi"},
+                    {"key" : "personalité", "value" : "nazi"},
+                    {"key" : "personalité", "value" : "nazi"},
+                    {"key" : "personalité", "value" : "nazi"},
+                    {"key" : "personalité", "value" : "nazi"},
+                    {"key" : "personalité", "value" : "nazi"},
+                    {"key" : "personalité", "value" : "nazi"},
+                    {"key" : "personalité", "value" : "nazi"},
+                    {"key" : "personalité", "value" : "nazi"},
+                    {"key" : "personalité", "value" : "nazi"},
+                    {"key" : "personalité", "value" : "nazi"},
                     {"key" : "personalité", "value" : "nazi"}
                 ]
             }
