@@ -52,7 +52,7 @@ class Character{
 
     check(tabAttributs){
         for(let i = 0; i < tabAttributs.length; i++) {
-            if (this.attributs.find(tabAttributs[i]) == undefined) {
+            if (this.attributs.find(tabAttributs[i]) === undefined) {
                 this.unactive(tabAttributs[i].court);
                 return false;
             }

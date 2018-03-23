@@ -124,7 +124,6 @@ class StrategyPanel {
      * @param {object} node le noeud à supprimer
      */
     deleteNode(node){
-        //TODO éviter de supprimer la racine
         this.data.nodes.remove(node);
     }
 
@@ -134,16 +133,16 @@ class StrategyPanel {
      * @returns {Number|undefined} L'id du noeud père ou undefined
      */
     getParentId(id){
+        let result = undefined;
         this.data.edges.forEach((edge) => {
             if (edge.to === id) {
-                return edge.from;
+                result =  edge.from;
             }
         });
-        return undefined;
+        return result;
     }
 
     /**
-     *  /**
      * Retourne les ids des noeuds fils du noeud avec l'id donné
      * @param {!Number} id l'id du noeud père
      * @returns {Array} Les ids des noeuds fils
@@ -275,7 +274,6 @@ class StrategyPanel {
     onClick(params){
         params.event = "[original event]";
         document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
-        console.log('click event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM));
     }
 
     /**
@@ -286,7 +284,6 @@ class StrategyPanel {
         let clickedNode = this.getNodeAt(params.pointer.DOM);
         params.event = "[original event]";
         document.getElementById('eventSpan').innerHTML = '<h2>DoubleClick event:</h2>' + JSON.stringify(params, null, 4);
-        console.log('click event, getNodeAt returns: ' + clickedNode);
         if(clickedNode !== undefined){
             instance.updateNode(clickedNode);
         }
@@ -296,18 +293,12 @@ class StrategyPanel {
      * Calback appelée lors de la sélection d'un noeuds
      */
     onSelectNode(params){
-        if(instance.appInstance !== undefined){
-            instance.appInstance.getAttributesPanel().updateButtonsStatus();
-        }
     }
 
     /**
      * Calback appelée lors de la désélection d'un noeuds
      */
     onDeselectNode(params){
-        if(instance.appInstance !== undefined){
-            instance.appInstance.getAttributesPanel().updateButtonsStatus();
-        }
     }
 
     /**
@@ -351,14 +342,14 @@ class StrategyPanel {
         let selection = this.getSelection();
         if(Array.isArray(selection) && selection.length === 1){
             let selectedNode = this.getNode(selection[0]);
-            selectedNode.attribute = attribute;
-            if(attribute === null){
-                this.nodes.update({id:selectedNode.id,label:""});
+            if(attribute === null || attribute === undefined){
+                this.nodes.update({id:selectedNode.id,label:"", attribute:null});
+                this.disableNode(selectedNode.id);
             }else{
-                this.nodes.update({id:selectedNode.id,label:attribute.getShortText()});
+                this.nodes.update({id:selectedNode.id,label:attribute.getShortText(), attribute:attribute});
                 this.addSons(selectedNode);
+                this.enableNode(selectedNode.id);
             }
-            this.updateNode(selectedNode.id);
         }
     }
 
@@ -397,7 +388,7 @@ class StrategyPanel {
      * Retourne le noeud à la position donnée
      * @param {Number} x
      * @param {Number} y
-     * @returns {Object|undefined} le noeud à la position ou undefined s'il n'y en a pas
+     * @returns {Number|undefined} l'id du noeud à la position ou undefined s'il n'y en a pas
      */
     getNodeAt(x,y){
         return this.network.getNodeAt({x,y});
@@ -417,13 +408,40 @@ class StrategyPanel {
         let attributes = [];
         let collection = AttributesCollection.singleton;
         let map = collection.getAttributesValuesKeysMap();
-        //TODO retirer les assertions deja présentes sur la branche de node
+        let alreadyUsedAttributes = [];
+        let parentsNodes = this.getParentsNodes(node);
+        parentsNodes.forEach(node => {
+           if(node.attribute !== undefined && node.attribute !== null){
+               alreadyUsedAttributes.push(node.attribute.getAttributeKey());
+           }
+        });
         map.forEach(attribute =>{
-            map[attribute].forEach( value =>{
-                attributes.push(collection.getAttributeInstance(attribute,value));
-            })
+            if(!alreadyUsedAttributes.includes(attribute)){
+                map[attribute].forEach( value =>{
+                    attributes.push(collection.getAttributeInstance(attribute,value));
+                })
+            }
         });
         return attributes;
+    }
+
+    /**
+     * Retourne la liste des noeuds parents du noeud dont l'id est donné
+     * @param id l'id du noeud dont on souhaite les parents
+     * @returns {Array} La liste des noeuds parents
+     */
+    getParentsNodes(id){
+        let parents = [];
+        let currentParent = id;
+        let parent;
+        do{
+           parent = this.getParentId(currentParent);
+           if(parent !== undefined){
+               parents.push(parent);
+               currentParent = parent;
+           }
+        }while(parent !== undefined);
+        return parents;
     }
 
     /**
@@ -433,7 +451,6 @@ class StrategyPanel {
      */
     selectNode(x,y){
         let node = this.getNodeAt(x,y);
-        console.log("selecting node "+JSON.stringify(node));
         if(node !== undefined){
             this.network.selectNodes([node]);
         }

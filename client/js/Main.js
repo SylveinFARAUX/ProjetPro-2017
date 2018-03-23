@@ -36,7 +36,14 @@ $(function(){
                     cmd:"delete",
                     disabled: (event, ui) => {
                         if(appt instanceof Application){
-                            return appt.getStrategyPanel().getNodeAt(rightClickX, rightClickY) === undefined;
+                            let id = appt.getStrategyPanel().getNodeAt(rightClickX, rightClickY);
+                            if(id === undefined){
+                                return true;
+                            }else{
+                                let node = appt.getStrategyPanel().getNode(id);
+                                let attr = node.attribute;
+                                return attr === undefined || attr === null;
+                            }
                         }else{
                             return true;
                         }
@@ -47,7 +54,14 @@ $(function(){
                         }
                     }},
                 {
-                    title: "Supposition", cmd:"assert", children: []
+                    title: "Supposition", cmd:"assert", children: [],
+                    disabled : (event, ui) =>{
+                        if(appt instanceof Application){
+                            return appt.getStrategyPanel().getNodeAt(rightClickX, rightClickY) === undefined;
+                        }else{
+                            return true;
+                        }
+                    }
                 }
         ],
         // Implement the beforeOpen callback to dynamically change the entries
@@ -61,7 +75,6 @@ $(function(){
                        title: attribute.getLongText(),
                        action: (event, ui) => {
                            appt.getStrategyPanel().setAttributeToSelection(attribute);
-                           console.log("assertion made : "+attribute.getShortText());
                        }
                    });
                 });
