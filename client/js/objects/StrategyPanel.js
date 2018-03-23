@@ -154,7 +154,23 @@ class StrategyPanel {
                 sons.push(edge.to);
             }
         });
+
         return sons;
+    }
+
+    /**
+     * Vérifie si le parent a déjà 2 enfants
+     * @param {!Number} id l'id du noeud père
+     * @returns {Boolean} True si le parent a 2 enfants, False sinon
+     */
+    hasTwoSons(id){
+      let sons = this.getChildsIds(id);
+
+      if (sons.length == 2) {
+        return true;
+      }
+
+      return false;
     }
 
     /**
@@ -358,6 +374,10 @@ class StrategyPanel {
      * @param {object} parent le noeud père
      */
      addSons(parent) {
+         if(this.hasTwoSons(parent)) {
+           return;
+         }
+
          let lastId = this.getLastId(this.nodes);
 
          this.addNode(lastId + 1, '', parent.level + 1);
