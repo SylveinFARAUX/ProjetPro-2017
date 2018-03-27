@@ -2,18 +2,18 @@ import PopulationPanel from "./PopulationPanel";
 
 const arrowSize = 7;
 
-class ToolType{
+class Tooltip{
 	constructor(){
 		this.ttVisible = []; // Le tableau ttVisible nous dit si l'infobulle d'indice i est visible ou non
 	}
 	
-	addToolType(id){
+	addTooltip(id){
 		this.ttVisible[id] = false;
 	}
 	 
 	pos(id, conteneur) {
 		if(this.ttVisible[id]) {  // Si la bulle est visible, on calcul en temps reel sa position ideale
-			let tt = document.getElementById("tooltype" + id);
+			let tt = document.getElementById("tooltip" + id);
 			let arw = document.getElementById("arrow" + id);
 			let area = document.getElementById("overarea" + id);
 			let elem = document.getElementById(conteneur);
@@ -36,7 +36,7 @@ class ToolType{
 	}
 	cache(id) {
 		if(this.ttVisible[id]==true) {
-			document.getElementById("tooltype" + id).style.visibility="hidden";
+			document.getElementById("tooltip" + id).style.visibility="hidden";
 			document.getElementById("arrow" + id).style.visibility="hidden";
 			document.getElementById("overarea" + id).style.visibility="hidden";
 			this.ttVisible[id] = false;
@@ -45,10 +45,10 @@ class ToolType{
 	
 	affiche(id){
         this.ttVisible[id] = true;
-		document.getElementById("tooltype" + id).style.visibility="visible"; //on rend la bulle visible.
+		document.getElementById("tooltip" + id).style.visibility="visible"; //on rend la bulle visible.
 		document.getElementById("arrow" + id).style.visibility="visible"; //flèche qui orriente l'infobulle
 		document.getElementById("overarea" + id).style.visibility="visible"; //area qui prend le relais quand la souris est dans le vide entre l'infobulle et l'élément lié
 	}
 }
 
-export default ToolType;
+export default Tooltip;

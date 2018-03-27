@@ -342,7 +342,7 @@ class PopulationPanel {
                         </figcaption>
         `;
         //______création de l'infobulle
-        this.appInstance.getInfoBulle().addToolType(char.id);
+        this.appInstance.getInfoBulle().addTooltip(char.id);
         let area = document.createElement("div");
         area.className = "overarea";
         area.id = "overarea" + char.id;
@@ -354,14 +354,14 @@ class PopulationPanel {
         arrow.addEventListener("mouseover", (evt)=>{ this.appInstance.getInfoBulle().affiche(char.id); });
         arrow.addEventListener("mouseout", (evt)=>{ this.appInstance.getInfoBulle().cache(char.id); });
         let tt = document.createElement("div");
-        tt.className = "tooltype";
-        tt.id = "tooltype" + char.id;
+        tt.className = "tooltip";
+        tt.id = "tooltip" + char.id;
         tt.addEventListener("mouseover", (evt)=>{ this.appInstance.getInfoBulle().affiche(char.id); });
         tt.addEventListener("mouseout", (evt)=>{ this.appInstance.getInfoBulle().cache(char.id); });
         tt.innerHTML = char.listeAttribute() + "";
         //______ajout des éléments
         col.appendChild(fig);
-        let doc = document.getElementById("tooltype_conteneur");
+        let doc = document.getElementById("tooltip_conteneur");
         doc.appendChild(area);
         doc.appendChild(tt);
         doc.appendChild(arrow);

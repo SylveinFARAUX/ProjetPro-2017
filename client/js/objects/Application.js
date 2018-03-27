@@ -1,7 +1,7 @@
 import StrategyPanel from "./StrategyPanel";
 import InformationsPanel from "./InformationsPanel";
 import PopulationPanel from "./PopulationPanel";
-import ToolType from "./ToolType";
+import Tooltip from "./Tooltip";
 import GestionnairePage from "./GestionnairePage";
 import Banniere from "./Banniere";
 import CharCreator from "./CharCreator";
@@ -14,7 +14,7 @@ class Application {
      * Instancie tout les panels
      */
     constructor(){
-        this.infobulle =  new ToolType();
+        this.infobulle =  new Tooltip();
         this.gestionnairePages = new GestionnairePage(this);
         this.banniere = new Banniere(this);
         this.strategyPanel = new StrategyPanel(this);
