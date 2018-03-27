@@ -92,8 +92,24 @@ class StrategyPanel {
      * @param id l'id du lien
      * @returns {Object|undefined} le lien ou undefined
      */
-    getEdge(id){
+    getEdgeById(id){
         return this.data.edges.get(id);
+    }
+    
+    /**
+     * Retourne le lien avec l'id donné
+     * @param idParent l'id du noeud père
+     * @param idFils l'id du noeud fils
+     * @returns {Object|undefined} le lien ou undefined
+     */
+    getEdgeByNodes(idParent, idFils){
+        let res = undefined;
+        this.data.edges.forEach(edge => {
+            if(edge.from === idParent && edge.to === idFils){
+                res = edge;
+            }
+        });
+        return res;
     }
 
     /**
@@ -439,10 +455,14 @@ class StrategyPanel {
         let map = collection.getAttributesValuesKeysMap();
         let alreadyUsedAttributes = [];
         let parentsNodes = this.getParentsNodes(node);
-        parentsNodes.forEach(node => {
-           if(node.attribute !== undefined && node.attribute !== null){
-               alreadyUsedAttributes.push(node.attribute.getAttributeKey());
-           }
+        parentsNodes.forEach(idNode => {
+            let nodeParent = this.getNode(idNode);
+            if(nodeParent !== undefined && nodeParent !== null){
+                let edge = this.getEdgeByNodes(idNode, node);
+                if (edge !== undefined && edge.isTrue) {
+                    alreadyUsedAttributes.push(nodeParent.attribute.getAttributeKey());
+                }
+            }
         });
         map.forEach(attribute =>{
             if(!alreadyUsedAttributes.includes(attribute)){
