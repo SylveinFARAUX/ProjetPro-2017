@@ -1,0 +1,62 @@
+.banniere img{
+    border : none;
+    max-width : 70%;
+    max-height: 50px;
+}
+
+#menu li:hover ul{
+    max-height:30em;
+}
+
+.banniere {
+    text-align: center;
+    background-color: black;
+    color : white;
+}
+#menu {
+    padding:10px;
+    font-family : 'garamond', sans-serif;
+}
+#menu, #menu ul{
+    margin:0;
+    list-style:none;
+    text-align:center;
+    background-color: black;
+}
+
+#menu ul{
+    padding : 7px 0 0 0;
+    position:absolute;
+    z-index: 1000;
+    max-height:0;
+    left: 0;
+    right: 0;
+    overflow:hidden;
+    -moz-transition: .8s all .100ms;
+    -webkit-transition: .8s all .100ms;
+    transition: .8s all .100ms;
+    border-radius : 0 0 8px 8px;
+}
+
+#menu ul li{
+    display :inherit;
+    margin : 5px;
+}
+#menu li{
+    display:inline-block;
+    position:relative;
+    padding : 0;
+}
+#menu h5{
+    text-decoration:none;
+    display:block;
+    padding:0 32px;
+}
+
+#menu li:hover li span{
+    color:#fff;
+    text-transform:inherit;
+}
+#menu li:hover span, #menu li li:hover span{
+    color: grey;
+}

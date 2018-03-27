@@ -7,11 +7,11 @@ class GestionnairePage {
         }
         this.appInstance = appInstance;
         this.actif = undefined;
-        this.sizePages();
-        this.showPage("app");
+        this.resizePages();
+        this.showPage("app", "inherit");
     }
 
-    sizePages(){
+    resizePages(){
         //hauteur des pages de l'applciation (taille total - taille bannière)
         let contentH = document.getElementById("maindiv").clientHeight - document.getElementById("banniere").offsetHeight;
 
@@ -19,15 +19,33 @@ class GestionnairePage {
         document.getElementById("char_creator").style.height = contentH + "px";
     }
 
-    showPage(pageId){
+    showPage(pageId, display = "flex"){
         let page = document.getElementById(pageId);
-        if(!(page instanceof Element)) return;
+        if(!(page instanceof Element)){
+            console.log("Gestionnaire de Page -> showPage :\n\tPage inconnue : " + pageId + "\n\tNothing to display");
+            return;
+        }
         if(this.actif !== undefined)
             document.getElementById(this.actif).style.display = "none";
         this.actif = pageId;
-        page.style.dysplay = "inherit";
+        page.style.display = display;
+    }
+
+    showInfo(infoDivId){
+        let infoDiv = document.getElementById(infoDivId);
+        if(!(infoDiv instanceof Element)){
+            console.log("Gestionnaire de Page -> showInfo :\n\tDivision d'information inconnue : " + infoDivId + "\n\tNothing to display");
+            return;
+        }
+    }
+
+    showLoader(loadId){
+        switch(loadId){
+            default :
+                console.log("Gestionnaire de Page -> showLoader :\n\tLoader inconnu : " + loadId + "\n\tNothing to display");
+                break;
+        }
     }
 
 }
-
 export default GestionnairePage;

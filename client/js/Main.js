@@ -4,7 +4,10 @@ import * as AttributesCollection from "./objects/AttributesCollection";
 let appt = new Application();
 
 //listener sur le redimensionnement de la fenêtre
-window.onresize = function(){appt.populationPanel.resize();};
+window.onresize = function(){
+    appt.getPopulationPanel.resizePanel();
+    appt.getGestionnairePage.resizePages();
+};
 
 let rightClickX = 0;
 let rightClickY = 0;

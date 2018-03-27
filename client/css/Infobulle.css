@@ -1,0 +1,28 @@
+.tooltype {
+    position:absolute;
+    max-height : 200px;
+    max-width : 150px;
+    overflow-y : auto;
+    overflow-x : hidden;
+    display:inline;
+    background-color : #0C1021;
+    border : 3px solid #df4540;
+    border-radius : 10px;
+    color : white;
+    visibility : hidden;
+    padding : 5px;
+    font-size: 12px;
+}
+
+.arrow{
+    display: inline;
+    position: absolute;
+    border: 7px solid transparent;
+    border-top: 7px solid #df4540;
+    visibility : hidden;
+}
+
+.overarea{
+    display: inline;
+    position: absolute;
+}

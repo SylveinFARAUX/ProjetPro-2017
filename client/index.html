@@ -9,6 +9,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="css/main.css"/>
+        <link rel="stylesheet" href="css/Infobulle.css"/>
+        <link rel="stylesheet" href="css/Banniere.css"/>
         <link rel="stylesheet" href="css/CharCreator.css"/>
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"/>
         <!--<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.min.css"/>-->
@@ -22,36 +24,21 @@
                             <li>
                                 <h5>Population</h5>
                                 <ul class = "sousmenu" id = "sousmenuPop">
-                                    <li><span>Test 1</span></li>
-                                    <li><span>Test 2</span></li>
-                                    <li><span>Test 3</span></li>
-                                    <li><span>Test 4</span></li>
-                                    <li><span>Test 5</span></li>
                                 </ul>
                             </li>
                             <li>
                                 <h5>Personnage</h5>
                                 <ul class = "sousmenu" id = "sousmenuChar">
-                                    <li><span>Créer un personnage</span></li>
-                                    <li><span>Charger fichier de personnage</span></li>
-                                    <li><span>Test 3</span></li>
-                                    <li><span>Test 4</span></li>
-                                    <li><span>Test 5</span></li>
                                 </ul>
                             </li>
                             <li>
                                 <h5>Stratégie</h5>
                                 <ul class = "sousmenu" id = "sousmenuStrat">
-                                    <li><span>Tester stratégie</span></li>
-                                    <li><span>Charge stratégie</span></li>
                                 </ul>
                             </li>
                             <li>
                                 <h5>Jeu</h5>
-                                <ul class = "sousmenu">
-                                    <li><span>Règles</span></li>
-                                    <li><span>Tuto-Stratégie</span></li>
-                                    <li><span>Créateur</span></li>
+                                <ul class = "sousmenu" id = "sousmenuJeu">
                                 </ul>
                             </li>
                         </ul>
@@ -98,26 +85,34 @@
             </div>
             <div id = "char_creator" class = "char_creator">
                 <table id = "char_creator_table">
+                    <tr id = "char_creator_option">
+                        <td colspan="2">
+                            <div class = "button" id = "char_creator_save" tooltype="Enregistrer la saisie actuelle">Valider</div>
+                            <div class = "button" id = "char_creator_ret" tooltype="Abandonner la création du personnage">Retour à la stratégie</div>
+                            <div class = "button" id = "char_creator_save_all" tooltype ="Sauvegarder les personnages créés dans un fihcier local">Sauvgarder les personnages (<span id="crea_perso_nbChar">0</span>)</div>
+                        </td>
+                    </tr>
                     <tr>
                         <td id = "char_attributs">
-                            <h3>Dépose ton image de personnage ici</h3>
-                            <h5>Taille accepté : 150*150px</h5>
+                            <h5>Dépose ton image de personnage ici</h5>
+                            <p id="char_creator_taille">Taille accepté : 150*150px</p>
                             <div id = "dragg_img_container">
-                                <img id = "dragg_img" draggable = 'true' src = "./dragg.png"/>
+                                <img id = "dragg_img" draggable = 'true' src = "./assets/dragg.png"/>
                             </div>
-                            <input id = "nom_perso_créat" type="text" placeholder="Nom de ton perso"></input>
+                            <input id = "nom_perso_creat" type="text" placeholder="Nom de ton perso"></input>
                             <hr/>
-                            <h3 id = "title_added_attributs">Attributs de ton personnage</h3>
-                            <ul id = "added_attributs">
-                            </ul>
+                            <h4 id = "title_added_attributs">Attributs de ton personnage</h4>
+                            <ul id = "added_attributs"></ul>
                         </td>
                         <td id = "purpose_attributs">
-                            <div class = "purpose_attributs_elem">
-                                <h3 id = "purpose_attributs_title">Attributs disponibles</h3>
+                            <h4 id = "purpose_attributs_title">Attributs disponibles</h4>
+                            <div id = "purpose_attributs_elem">
                             </div>
                         </td>
                     </tr>
                 </table>
+            </div>
+            <div id = "tooltype_conteneur">
             </div>
         </div>
         <!-- Bootstrap -->

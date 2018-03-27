@@ -3,6 +3,8 @@ import InformationsPanel from "./InformationsPanel";
 import PopulationPanel from "./PopulationPanel";
 import ToolType from "./ToolType";
 import GestionnairePage from "./GestionnairePage";
+import Banniere from "./Banniere";
+import CharCreator from "./CharCreator";
 
 /**
  * Classe instanciant l'application, panel par panel.
@@ -14,9 +16,11 @@ class Application {
     constructor(){
         this.infobulle =  new ToolType();
         this.gestionnairePages = new GestionnairePage(this);
+        this.banniere = new Banniere(this);
         this.strategyPanel = new StrategyPanel(this);
         this.populationPanel = new PopulationPanel(this);
         this.informationsPanel = new InformationsPanel(this);
+        this.charcreator = new CharCreator(this);
     }
 
     /**
@@ -27,12 +31,20 @@ class Application {
         return this.strategyPanel;
     }
 
+    getBanniere(){
+        return this.banniere;
+    }
+
     getGestionnairePage(){
         return this.gestionnairePages;
     }
 
     getInfoBulle(){
         return this.infobulle;
+    }
+
+    getCharCreator(){
+        return this.charcreator;
     }
 
     /**

@@ -1,7 +1,3 @@
-html {
-	background-color : #0C1021;
-}
-
 html,
 body,
 #maindiv{
@@ -119,7 +115,7 @@ h3, h4, h5{
 
 #population figure {
     border : 3px solid grey;
-    border-radius : 40px;
+    border-radius : 30px;
     position: relative;
     overflow: hidden;
     margin: 0;
@@ -128,7 +124,7 @@ h3, h4, h5{
 }
 #population img, #population figcaption {
     transition: all .25s ease;
-    border-radius : 35px;
+    border-radius : 25px;
 }
 #population figcaption {
     text-align : center;
@@ -155,7 +151,8 @@ h3, h4, h5{
 .charElem {
     padding: 0;
     border-collapse : collapse;
-//display : unset;
+    display : inline-flex;
+    margin : 0 2px 2px;
 }
 
 #PopulationConteneur{
@@ -175,37 +172,6 @@ h3, h4, h5{
     table-layout: fixed;
 }
 /*perso image FIN*/
-
-/*infobulle*/
-.tooltype {
-    position:absolute;
-    max-height : 200px;
-    max-width : 150px;
-    overflow-y : auto;
-    overflow-x : hidden;
-    display:inline;
-    background-color : #0C1021;
-    border : 3px solid #df4540;
-    border-radius : 10px;
-    color : white;
-    visibility : hidden;
-    padding : 5px;
-    font-size: 12px;
-}
-
-.arrow{
-    display: inline;
-    position: absolute;
-    border: 7px solid transparent;
-    border-top: 7px solid #df4540;
-    visibility : hidden;
-}
-
-.overarea{
-    display: inline;
-    position: absolute;
-}
-/*infobulle FIN*/
 
 #boutonAnnulerSupposition{
     border:none;
@@ -248,77 +214,6 @@ h3, h4, h5{
     0 0 0 2px rgba(255, 0, 0, 0.18);
 }
 
-/*Bannière*/
-.banniere img{
-    border : none;
-    max-width : 70%;
-    max-height: 50px;
-}
-
-#menu li:hover ul{
-    max-height:30em;
-    padding : 8px;
-}
-
-.banniere {
-    text-align: center;
-    background-color: black;
-    color : white;
-}
-#menu {
-    padding:10px;
-    font-family : 'garamond', sans-serif;
-}
-#menu, #menu ul{
-    margin:0;
-    list-style:none;
-    text-align:center;
-    background-color: black;
-}
-
-#menu ul{
-    padding:0;
-    position:absolute;
-    z-index: 1000;
-    max-height:0;
-    left: 0;
-    right: 0;
-    overflow:hidden;
-    -moz-transition: .8s all .500ms;
-    -webkit-transition: .8s all .500ms;
-    transition: .8s all .500ms;
-    border-radius : 0 0 8px 8px;
-}
-
-#menu ul li{
-    display:inherit;
-    border-radius:0;
-}
-#menu li{
-    display:inline-block;
-    position:relative;
-    border-radius:8px 8px 0 0;
-}
-#menu h5{
-    text-decoration:none;
-    display:block;
-    padding:0 32px;
-}
-#menu ul li span{
-    padding:8px 0;
-}
-#menu li:hover li span{
-    color:#fff;
-    text-transform:inherit;
-}
-#menu li:hover span, #menu li li:hover span{
-    color: grey;
-}
-#sousmenu {
-    padding : 10px;
-}
-/*Bannière FIN*/
-
 /*Menu contextuel*/
 /* Optionally define a fixed width for menus */
 .ui-menu {
@@ -334,4 +229,18 @@ h3, h4, h5{
 .ui-icon.custom-icon-firefox {
     background-image: url("http://raw.githubusercontent.com/mar10/jquery-ui-contextmenu/master/demo/application_firefox.gif");
     background-position: 0 0;
+}
+
+.button {
+    border-radius : 10px;
+    background-color: #36393F;
+    color : #df4540;
+    font-weight: bold;
+    display: inline-block;
+    padding: 5px;
+}
+
+.button:hover{
+    background-color: #36393F;
+    color : white;
 }

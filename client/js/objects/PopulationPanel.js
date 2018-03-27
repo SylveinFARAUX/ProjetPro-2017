@@ -361,7 +361,7 @@ class PopulationPanel {
         tt.innerHTML = char.listeAttribute() + "";
         //______ajout des éléments
         col.appendChild(fig);
-        let doc = document.getElementsByTagName("body")[0];
+        let doc = document.getElementById("tooltype_conteneur");
         doc.appendChild(area);
         doc.appendChild(tt);
         doc.appendChild(arrow);
@@ -375,7 +375,7 @@ class PopulationPanel {
         }
     }
 
-    resize(){
+    resizePanel(){
         this.loadTable();
         let tab = [];//#TODO récupèré la liste d'attributs du noeud actif
         this.refresh(tab);
