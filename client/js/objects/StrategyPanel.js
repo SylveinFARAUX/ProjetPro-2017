@@ -374,7 +374,7 @@ class StrategyPanel {
      * @param {object} parent le noeud père
      */
      addSons(parent) {
-         if(this.hasTwoSons(parent)) {
+         if(this.hasTwoSons(parent.id)) {
            return;
          }
 
