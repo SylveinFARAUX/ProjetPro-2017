@@ -30,6 +30,16 @@ $(function(){
         taphold: true,
         menu: [
                 {
+                    title: "Supposition", cmd:"assert", children: [],
+                    disabled : (event, ui) =>{
+                        if(appt instanceof Application){
+                            return appt.getStrategyPanel().getNodeAt(rightClickX, rightClickY) === undefined;
+                        }else{
+                            return true;
+                        }
+                    }
+                },
+                {
                     title: "Supprimer la supposition",
                     cmd:"delete",
                     disabled: (event, ui) => {
@@ -50,17 +60,8 @@ $(function(){
                         if(appt instanceof Application){
                             appt.getStrategyPanel().setAttributeToSelection(null);
                         }
-                    }},
-                {
-                    title: "Supposition", cmd:"assert", children: [],
-                    disabled : (event, ui) =>{
-                        if(appt instanceof Application){
-                            return appt.getStrategyPanel().getNodeAt(rightClickX, rightClickY) === undefined;
-                        }else{
-                            return true;
-                        }
                     }
-                }
+                },
         ],
         // Implement the beforeOpen callback to dynamically change the entries
         beforeOpen: function(event, ui) {
