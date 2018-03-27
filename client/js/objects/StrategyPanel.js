@@ -166,7 +166,7 @@ class StrategyPanel {
     hasTwoSons(id){
       let sons = this.getChildsIds(id);
 
-      if (sons.length == 2) {
+      if(sons.length === 2) {
         return true;
       }
 
@@ -277,12 +277,18 @@ class StrategyPanel {
      * Ajout d'une nouvel edge au Network.
      * @param parent id de la source, le parent, de l'edge
      * @param son id de la destination, le fils, de l'edge
-     * @param label label de l'edge
+     * @param {boolean} isTrue indique si le lien est 'oui' ou 'non' concernant le noeud d'ou il part
      * @return {Number} l'id du nouveau edge
      */
-    addEdge(parent, son, label=''){
+    addEdge(parent, son, isTrue){
         let lastId = this.getLastId(this.edges);
-        this.data.edges.add({id: lastId + 1, from: parent, to: son, label:label});
+        this.data.edges.add({
+                id: lastId + 1,
+                from: parent,
+                to: son,
+                label: isTrue ? 'oui' : 'non',
+                isTrue: isTrue
+            });
         return lastId + 1;
     }
 
@@ -386,8 +392,8 @@ class StrategyPanel {
          this.addNode(lastId + 1, '', parent.level + 1);
          this.addNode(lastId + 2, '', parent.level + 1);
 
-         this.addEdge(parent.id, lastId + 1, 'non');
-         this.addEdge(parent.id, lastId + 2, 'oui');
+         this.addEdge(parent.id, lastId + 1, false);
+         this.addEdge(parent.id, lastId + 2, true);
      }
 
      /**
