@@ -277,10 +277,13 @@ class StrategyPanel {
      * Ajout d'une nouvel edge au Network.
      * @param parent id de la source, le parent, de l'edge
      * @param son id de la destination, le fils, de l'edge
+     * @param label label de l'edge
+     * @return {Number} l'id du nouveau edge
      */
-    addEdge(parent, son){
+    addEdge(parent, son, label=''){
         let lastId = this.getLastId(this.edges);
-        this.data.edges.add({id: lastId + 1, from: parent, to: son});
+        this.data.edges.add({id: lastId + 1, from: parent, to: son, label:label});
+        return lastId + 1;
     }
 
     /**
@@ -383,8 +386,8 @@ class StrategyPanel {
          this.addNode(lastId + 1, '', parent.level + 1);
          this.addNode(lastId + 2, '', parent.level + 1);
 
-         this.addEdge(parent.id, lastId + 1);
-         this.addEdge(parent.id, lastId + 2);
+         this.addEdge(parent.id, lastId + 1, 'non');
+         this.addEdge(parent.id, lastId + 2, 'oui');
      }
 
      /**
