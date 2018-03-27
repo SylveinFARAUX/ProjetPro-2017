@@ -371,10 +371,10 @@ class StrategyPanel {
 
     /**
      * Créé deux fils au noeud donné
-     * @param {object} parent le noeud père
+     * @param {Object} parent le noeud père
      */
      addSons(parent) {
-         if(this.hasTwoSons(parent)) {
+         if(this.hasTwoSons(parent.id)) {
            return;
          }
 
