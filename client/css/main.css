@@ -12,61 +12,17 @@ body,
     overflow: hidden;
 }
 
-.top {
-    height: 50%;
-}
-
-.bottom {
-    height: 50%;
-}
-
-.informations {
-    min-height: 100%;
-    overflow-y: auto;
-    padding-bottom: 10px;
-}
-
-.population {
-    height : 100%;
+.title{
+    background-color : #36393F;
+    color : #A61011;
     width : 100%;
-    overflow: hidden;
-    padding-bottom: 0px;
-    padding-right: 0px;
-    background-color: #36393F;
+    height : auto;
 }
 
-#informations{
-    overflow-y: scroll;
-}
-
-.strategie {
-    padding-bottom: 10px;
-    min-height: 100%;
-    border-bottom: 1px solid #000;
-}
-
-.attributs {
-    border-bottom: 1px solid #000;
-    border-left: 1px solid #000;
-}
-
-.informations {
-    border-left: 1px solid #000;
-}
-
-.title {
-    position: fixed;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.75);
-}
-
-h3, h4, h5{
+h1, h2, h3, h4, h5{
     color: #df4540;
-}
-
-.content {
-    padding-top: 41px;
-    height: 100%;
+    padding: 5px;
+    margin-bottom: 0;
 }
 
 #strategie-network {
@@ -99,80 +55,6 @@ h3, h4, h5{
                 0 0 0 2px rgba(0, 255, 0, 0.18);
 }
 
-/*perso image*/
-#population{
-    width : 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-    background-color : #0C1021;
-}
-
-#tableChar{
-    margin : 5px auto;
-    padding : 0px;
-    border-style : none;
-}
-
-#population figure {
-    border : 3px solid grey;
-    border-radius : 30px;
-    position: relative;
-    overflow: hidden;
-    margin: 0;
-    padding : 0;
-    display:inline-block;
-}
-#population img, #population figcaption {
-    transition: all .25s ease;
-    border-radius : 25px;
-}
-#population figcaption {
-    text-align : center;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: .5em;
-    background: #000;
-    background: rgba(0, 0, 0, .75);
-    color: #fff;
-    opacity: 0;
-}
-#population figcaption p, #population figcaption h3{
-    margin : 0;
-}
-#population figure:hover img {
-    transform: scale(0.9);
-}
-#population figure:hover figcaption {
-    opacity: 1;
-}
-.charElem {
-    padding: 0;
-    border-collapse : collapse;
-    display : inline-flex;
-    margin : 0 2px 2px;
-}
-
-#PopulationConteneur{
-    width : 100%;
-    height : 100%;
-    overflow : hidden;
-}
-#PopTitle{
-    background-color : #36393F;
-    color : #A61011;
-    width : 100%;
-    height : auto;
-}
-
-#PopTitle table{
-    width : 100%;
-    table-layout: fixed;
-}
-/*perso image FIN*/
-
 #boutonAnnulerSupposition{
     border:none;
     border-radius: 5px;
@@ -187,7 +69,6 @@ h3, h4, h5{
     position: absolute;
     bottom: 5px;
 }
-
 
 .btnInactif{
     opacity: 0.5;
@@ -244,3 +125,32 @@ h3, h4, h5{
     background-color: #36393F;
     color : white;
 }
+
+#appTable{
+    border : 3px solid #36393F;
+    height : 100%;
+    width : 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+#appTable td{
+    border : 3px solid #36393F;
+    overflow: hidden;
+    padding : 0;
+}
+
+.content{
+    width : 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.appLeft{
+    height: 100%;
+}
+
+.appRight{
+    height: 50%;
+}
+

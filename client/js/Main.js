@@ -5,8 +5,9 @@ let appt = new Application();
 
 //listener sur le redimensionnement de la fenêtre
 window.onresize = function(){
-    appt.getPopulationPanel().resizePanel();
     appt.getGestionnairePage().resizePages();
+    appt.getGestionnairePage().sizeApp();
+    appt.getPopulationPanel().resizePanel();
 };
 
 let rightClickX = 0;

@@ -4,7 +4,7 @@ import * as AttributesCollection from "./AttributesCollection";
 
 const popSize = 24;
 const charWidth = 125;
-const borderSize = 3;
+const borderSize = 1;
 
 let popJson =
     {
@@ -293,9 +293,8 @@ class PopulationPanel {
     }
 
     loadTable(){
-        let nbCol = Math.floor(this.element.offsetWidth/(charWidth + borderSize*2));
+        let nbCol = Math.floor(this.element.clientWidth/(charWidth + borderSize*2));
         nbCol = (nbCol === 0) ? 1 : nbCol;
-        let nbRow = Math.ceil(popSize/nbCol);
 
         //vide le tableau -> utile dans le cas d'un rechargement
         this.table.innerHTML = "";
@@ -308,7 +307,6 @@ class PopulationPanel {
             row.appendChild(this.addChar(this.getChar(i)));
         }
         this.centerCharInfos();
-        this.sizeTable()
     }
 
     addRow(){
@@ -379,12 +377,6 @@ class PopulationPanel {
         this.loadTable();
         let tab = [];//#TODO récupèré la liste d'attributs du noeud actif
         this.refresh(tab);
-    }
-
-    sizeTable(){
-        let conteneurH = document.getElementById("PopulationConteneur").clientHeight;
-        let titreH = document.getElementById("PopTitle").offsetHeight;
-        document.getElementById("population").style.height = conteneurH - titreH + "px";
     }
 
     /**

@@ -8,6 +8,7 @@ class GestionnairePage {
         this.appInstance = appInstance;
         this.actif = undefined;
         this.resizePages();
+        this.sizeApp();
         this.showPage("app", "inherit");
     }
 
@@ -44,6 +45,20 @@ class GestionnairePage {
             default :
                 console.log("Gestionnaire de Page -> showLoader :\n\tLoader inconnu : " + loadId + "\n\tNothing to display");
                 break;
+        }
+    }
+
+    sizeApp(){
+        let title = document.getElementsByClassName("title");
+        let content = document.getElementsByClassName("content");
+        let parent;
+        if(title.length != content.length) {
+            console.log("Dimmensionnement de l'application impossible :\nNombres de titre différent du nombre de conteneur.");
+            return;
+        }
+        for(let i = 0; i < title.length; i++){
+            parent = content[i].parentNode;
+            content[i].style.height = parent.clientHeight - title[i].offsetHeight + "px";
         }
     }
 

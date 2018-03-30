@@ -3,7 +3,7 @@
     background-color : #0C1021;
 }
 
-.char_creator h3, h2, h1, h4, h5 {
+.char_creator h3, .char_creator h2, .char_creator h1, .char_creator h4, .char_creator h5 {
 	margin : 5px auto;
 	color : #df4540;
 }
