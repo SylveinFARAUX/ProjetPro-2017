@@ -352,7 +352,7 @@ class PopulationPanel {
         arrow.addEventListener("mouseover", (evt)=>{ this.appInstance.getInfoBulle().affiche(char.id); });
         arrow.addEventListener("mouseout", (evt)=>{ this.appInstance.getInfoBulle().cache(char.id); });
         let tt = document.createElement("div");
-        tt.className = "tooltip";
+        tt.className = "custom-tooltip";
         tt.id = "tooltip" + char.id;
         tt.addEventListener("mouseover", (evt)=>{ this.appInstance.getInfoBulle().affiche(char.id); });
         tt.addEventListener("mouseout", (evt)=>{ this.appInstance.getInfoBulle().cache(char.id); });
