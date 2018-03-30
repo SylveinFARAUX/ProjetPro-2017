@@ -1,18 +1,18 @@
 let arrowSize = 7;
 
-class ToolType{
+class Tooltip{
 	constructor(){
 		this.ttVisible = []; // La variable this.ttVisible nous dit si l'infobulle d'indice i est visible ou non
 	}
 	
-	addToolType(){
+	addTooltip(){
 		this.ttVisible.push(false);
 		return this.ttVisible.length - 1;
 	}
 	 
 	pos(id) {
 		if(this.ttVisible[id]) {  // Si la bulle est visible, on calcul en temps reel sa position ideale
-			var tt = document.getElementById("tooltype" + id);
+			var tt = document.getElementById("tooltip" + id);
 			var arw = document.getElementById("arrow" + id);
 			var area = document.getElementById("overarea" + id);
 			var elem = document.getElementById("charElem" + id);
@@ -35,7 +35,7 @@ class ToolType{
 	}
 	cache(id) {
 		if(this.ttVisible[id]==true) {
-			document.getElementById("tooltype" + id).style.visibility="hidden";
+			document.getElementById("tooltip" + id).style.visibility="hidden";
 			document.getElementById("arrow" + id).style.visibility="hidden";
 			document.getElementById("overarea" + id).style.visibility="hidden";
 			this.ttVisible[id] = false;
@@ -43,7 +43,7 @@ class ToolType{
 	}
 	
 	affiche(id){
-		document.getElementById("tooltype" + id).style.visibility="visible"; //on rend la bulle visible.
+		document.getElementById("tooltip" + id).style.visibility="visible"; //on rend la bulle visible.
 		document.getElementById("arrow" + id).style.visibility="visible"; //flèche qui orriente l'infobulle
 		document.getElementById("overarea" + id).style.visibility="visible"; //area qui prend le relais quand la souris est dans le vide entre l'infobulle et l'élément lié
 		this.ttVisible[id] = true;
