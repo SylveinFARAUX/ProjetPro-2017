@@ -7,6 +7,7 @@ class GestionnairePage {
         }
         this.appInstance = appInstance;
         this.actif = undefined;
+        this.activeInfo = undefined;
         this.resizePages();
         this.sizeApp();
         this.showPage("app", "inherit");
@@ -38,10 +39,21 @@ class GestionnairePage {
             console.log("Gestionnaire de Page -> showInfo :\n\tDivision d'information inconnue : " + infoDivId + "\n\tNothing to display");
             return;
         }
+        if(this.activeInfo !== undefined)document.getElementById(this.activeInfo).style.display = "none";
+        this.activeInfo = infoDivId;
+        infoDiv.style.display = "inherit";
+        if(this.activeInfo !== "app")
+            this.showPage("app");
     }
 
     showLoader(loadId){
         switch(loadId){
+            case "pop_loader" :
+                this.appInstance.getGestionnairePopulation().loadPopulations();
+                break;
+            case "char_loader" :
+                this.appInstance.getGestionnairePopulation().loadCharacters();
+                break;
             default :
                 console.log("Gestionnaire de Page -> showLoader :\n\tLoader inconnu : " + loadId + "\n\tNothing to display");
                 break;

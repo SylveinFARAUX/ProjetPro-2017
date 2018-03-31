@@ -27,7 +27,7 @@
 #menu ul{
     padding : 7px 0 0 0;
     position:absolute;
-    z-index: 1000;
+    z-index: 10;
     max-height:0;
     left: 0;
     right: 0;
@@ -59,4 +59,9 @@
 }
 #menu li:hover span, #menu li li:hover span{
     color: grey;
+}
+
+.sousmenu{
+    max-height: 200px;
+    overflow-y: auto;
 }

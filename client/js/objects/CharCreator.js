@@ -8,6 +8,7 @@ class CharCreator {
         }
         this.appInstance = appInstance;
         this.characters = [];
+        this.img = "test";
         this.load();
     }
 
@@ -51,7 +52,19 @@ class CharCreator {
         document.getElementById("char_creator_save").addEventListener("click", (evt)=>{this.save_char();});
         document.getElementById("char_creator_save_all").addEventListener("click", (evt)=>{this.save_all();});
         document.getElementById("char_creator_save_all").style.display = "none";
+        this.loadImage();
+    }
 
+    loadImage(){
+        document.getElementById("dragg_img").addEventListener("dragover", function(e){
+            e.preventDefault();
+        });
+        let instance = this;
+        document.getElementById("dragg_img").addEventListener("drop", function(e){
+            e.preventDefault();
+            instance.img = e.dataTransfer.files[0];
+            document.getElementById("dragg_img").src = instance.img;
+        });
     }
 
     afficher_attr_key(id){
@@ -110,6 +123,8 @@ class CharCreator {
             document.getElementById("char_creator_save_all").style.display = "inline-block";
         else
             document.getElementById("char_creator_save_all").style.display = "none";
+        this.img = undefined;
+        document.getElementById("dragg_img").src = "./assets/dragg.png";
     }
 
     quit(){
@@ -119,19 +134,11 @@ class CharCreator {
     }
 
     save_char(){
-        let nom = document.getElementById("nom_perso_creat").value;
-        if(document.getElementById("added_attributs").childNodes.length <= 0){
-            alert("Vous n'avez saisie aucun attributs\nRien à sauvegarder");
-            return;
-        }
-        if(nom === undefined || nom === ""){
-            alert("Vous n'avez pas saisie le nom\nSauvegarde annulée");
-            return;
-        }
+        if (!this.check())return;
 
         let char = Object();
         char.img = "./assets/dragg.png";
-        char.nom = nom;
+        char.nom = document.getElementById("nom_perso_creat").value;
         char.attr = [];
         let attr = Object();
         let attrKeys = document.getElementsByClassName("char_creator_key");
@@ -142,18 +149,44 @@ class CharCreator {
             char.attr.push(attr);
         }
         this.characters.push(JSON.stringify(char));
-        alert("Personnage bien sauvegardé\nTotal : " + this.characters.length);
         this.rehinit();
     }
 
+    check(){
+        let nom = document.getElementById("nom_perso_creat").value;
+        if(document.getElementById("added_attributs").childNodes.length <= 0){
+            alert("Vous n'avez saisie aucun attributs\nRien à sauvegarder");
+            return false;
+        }
+        if(nom === undefined || nom === ""){
+            alert("Vous n'avez pas saisie le nom\nSauvegarde annulée");
+            return false;
+        }
+        if(this.img === undefined){
+            alert("Vous n'avez pas déposé d'image\nSauvegarde annulée");
+            return false;
+        }
+        return true;
+    }
+
     save_all(){
-        if(this.characters.length == 0)
+        let count = this.characters.length, ansJson;
+        if(count === 0)
             return;
-        let r = confirm("Voulez vous ajouter les personnages à un fichier existant ?");
-        if(r)
-            alert("ajout fichier");
-        else
-            alert("nouveau fichier");
+        let ansChar = localStorage.getItem('characters');
+        if(ansChar !== null){
+            ansJson = JSON.parse(ansChar);
+            console.log(ansJson);
+            this.characters = this.characters.concat(ansJson);
+            console.log(this.characters);
+        }
+        let json = JSON.stringify(this.characters);
+        localStorage.clear();
+        localStorage.setItem('characters', json);
+        alert("Personnages bien sauvegardés.\nAjoutés : " + count + "\nTotal : " + this.characters.length);
+        this.characters = [];
+        this.rehinit();
+
     }
 
 }

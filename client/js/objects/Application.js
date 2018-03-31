@@ -5,6 +5,7 @@ import Tooltip from "./Tooltip";
 import GestionnairePage from "./GestionnairePage";
 import Banniere from "./Banniere";
 import CharCreator from "./CharCreator";
+import GestionnairePopulation from "./GestionnairePopulation";
 
 /**
  * Classe instanciant l'application, panel par panel.
@@ -17,6 +18,7 @@ class Application {
         this.infobulle =  new Tooltip();
         this.gestionnairePages = new GestionnairePage(this);
         this.banniere = new Banniere(this);
+        this.gestionnairePopulation = new GestionnairePopulation(this);
         this.strategyPanel = new StrategyPanel(this);
         this.populationPanel = new PopulationPanel(this);
         this.informationsPanel = new InformationsPanel(this);
@@ -29,6 +31,10 @@ class Application {
      */
     getStrategyPanel(){
         return this.strategyPanel;
+    }
+
+    getGestionnairePopulation(){
+        return this.gestionnairePopulation;
     }
 
     getBanniere(){

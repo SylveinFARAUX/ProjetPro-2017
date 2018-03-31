@@ -28,7 +28,8 @@ class Banniere {
 
     loadStrategies(){
         this.addMenuItem("sousmenuStrat", (evt)=>{ this.appInstance.getGestionnairePage().showPage("strat_test"); }, "Tester ma stratégie");
-        this.addMenuItem("sousmenuStrat", (evt)=>{ this.appInstance.getGestionnairePage().showLoader("strat_loader"); }, "Charger une sratégie");
+        this.addMenuItem("sousmenuStrat", (evt)=>{ this.appInstance.getGestionnairePage().showLoader("strat_saver"); }, "Sauvegarder ma sratégie");
+        this.addMenuItem("sousmenuStrat", (evt)=>{ this.appInstance.getGestionnairePage().showLoader("strat_loader"); }, "Charger mes sratégies");
     }
 
     loadJeu(){
@@ -37,7 +38,7 @@ class Banniere {
         this.addMenuItem("sousmenuJeu", (evt)=>{ this.appInstance.getGestionnairePage().showInfo("info_creator"); }, "Créateurs");
     }
 
-    addMenuItem(idSousMenu, evt, txt){
+    addMenuItem(idSousMenu, evt, txt, classItem = undefined){
         let menuPop = document.getElementById(idSousMenu);
         if(!(menuPop instanceof Element)) return;
         let spa = document.createElement("span");
@@ -45,6 +46,7 @@ class Banniere {
         let li = document.createElement("li");
         li.addEventListener("click", evt);
         li.appendChild(spa);
+        if(classItem !== undefined) li.className = classItem;
         menuPop.appendChild(li);
     }
 }
