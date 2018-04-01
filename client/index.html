@@ -11,8 +11,7 @@
         <link rel="stylesheet" href="css/main.css"/>
         <link rel="stylesheet" href="css/Infobulle.css"/>
         <link rel="stylesheet" href="css/Banniere.css"/>
-        <link rel="stylesheet" href="css/CharCreator.css"/>
-        <link rel="stylesheet" href="css/PopCreator.css"/>
+        <link rel="stylesheet" href="css/Creator.css"/>
         <link rel="stylesheet" href="css/Population.css"/>
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"/>
         <!--<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.min.css"/>-->
@@ -90,44 +89,58 @@
                 </table>
             </div>
             <div id = "char_creator" class = "char_creator">
-                <table id = "char_creator_table">
-                    <tr id = "char_creator_option">
-                        <td colspan="2">
-                            <div class = "button" id = "char_creator_save" tooltip="Enregistrer la saisie actuelle">Valider</div>
-                            <div class = "button" id = "char_creator_ret" tooltip="Abandonner la création du personnage">Retour à la stratégie</div>
-                            <div class = "button" id = "char_creator_save_all" tooltip ="Sauvegarder les personnages créés dans un fihcier local">Sauvegarder les personnages (<span id="crea_perso_nbChar">0</span>)</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td id = "char_attributs">
-                            <h5>Dépose ton image de personnage ici</h5>
-                            <p id="char_creator_taille">Taille accepté : 150*150px</p>
-                            <div id = "dragg_img_container">
-                                <img id = "dragg_img" src = "./assets/dragg.png"/>
-                            </div>
-                            <input id = "nom_perso_creat" type="text" placeholder="Nom de ton perso"></input>
-                            <hr/>
-                            <h4 id = "title_added_attributs">Attributs de ton personnage</h4>
-                            <ul id = "added_attributs"></ul>
-                        </td>
-                        <td id = "purpose_attributs">
-                            <h4 id = "purpose_attributs_title">Attributs disponibles</h4>
-                            <div id = "purpose_attributs_elem">
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+                <div id="char_crea_title" class="title">
+                    <h3>Créer mes propres personnages</h3>
+                    <table class = "CreatorOption">
+                        <tr>
+                            <td class = "CreatorOptionCell">
+                                <div class = "button" id = "char_creator_save" tooltip="Enregistrer la saisie actuelle">Valider</div>
+                            </td>
+                            <td class = "CreatorOptionCell">
+                                <div class = "button" id = "char_creator_ret" tooltip="Abandonner la création du personnage">Retour à la stratégie</div>
+                            </td>
+                            <td class = "CreatorOptionCell">
+                                <div class = "button" id = "char_creator_save_all" tooltip ="Sauvegarder les personnages créés dans un fihcier local">Sauvegarder les personnages (<span id="crea_perso_nbChar">0</span>)</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id = 'char_creator_content' class = 'content'>
+                    <table id = "char_creator_table">
+                        <tr>
+                            <td id = "char_attributs">
+                                <h5>Dépose ton image de personnage ici</h5>
+                                <p id="char_creator_taille">Taille accepté : 150*150px</p>
+                                <div id = "dragg_img_container">
+                                    <img id = "dragg_img" src = "./assets/dragg.png"/>
+                                </div>
+                                <input id = "nom_perso_creat" type="text" placeholder="Nom de ton perso"></input>
+                            </td>
+                            <td id = "cell_purpose_attributs" rowspan="2">
+                                <h4 id = "purpose_attributs_title">Attributs disponibles</h4>
+                                <div id = "purpose_attributs_elem">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id = "cell_added_attributs">
+                                <h4 id = "title_added_attributs">Attributs de ton personnage</h4>
+                                <ul id = "added_attributs"></ul>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
             <div id = "pop_creator" class = "pop_creator">
                 <div id="pop_crea_title" class="title">
                     <h3>Créer ma propre population</h3>
                     <h5>Personnages manquants : <span id = "nbPerManquant">24<span></h5>
-                    <table id = "popCreatorOption">
+                    <table class = "CreatorOption">
                         <tr>
-                            <td class = "popCreatorOptionCell">
+                            <td class = "CreatorOptionCell">
                                 <div class = "button" id = "pop_creator_save" tooltip="Enregistrer la saisie actuelle">Sauvegarder</div>
                             </td>
-                            <td class = "popCreatorOptionCell">
+                            <td class = "CreatorOptionCell">
                                 <div class = "button" id = "pop_creator_ret" tooltip="Abandonner la création du personnage">Retour à la stratégie</div>
                             </td>
                         </tr>

@@ -9,7 +9,10 @@ class GestionnairePage {
         this.actif = undefined;
         this.activeInfo = undefined;
         this.resizePages();
-        this.sizeApp();
+        this.resizeContenu();
+        //cache les autres pages
+        document.getElementById("char_creator").style.display = "none";
+        document.getElementById("pop_creator").style.display = "none";
         this.showPage("app", "inherit");
     }
 
@@ -22,7 +25,7 @@ class GestionnairePage {
         document.getElementById("pop_creator").style.height = contentH + "px";
     }
 
-    showPage(pageId, display = "flex"){
+    showPage(pageId, display = "inherit"){
         let page = document.getElementById(pageId);
         if(!(page instanceof Element)){
             console.log("Gestionnaire de Page -> showPage :\n\tPage inconnue : " + pageId + "\n\tNothing to display");
@@ -61,7 +64,7 @@ class GestionnairePage {
         }
     }
 
-    sizeApp(){
+    resizeContenu(){
         let title = document.getElementsByClassName("title");
         let content = document.getElementsByClassName("content");
         let parent;

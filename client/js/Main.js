@@ -6,7 +6,7 @@ let appt = new Application();
 //listener sur le redimensionnement de la fenêtre
 window.onresize = function(){
     appt.getGestionnairePage().resizePages();
-    appt.getGestionnairePage().sizeApp();
+    appt.getGestionnairePage().resizeContenu();
 };
 
 let rightClickX = 0;
