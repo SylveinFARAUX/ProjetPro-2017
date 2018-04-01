@@ -19,6 +19,7 @@ class GestionnairePage {
 
         document.getElementById("app").style.height = contentH + "px";
         document.getElementById("char_creator").style.height = contentH + "px";
+        document.getElementById("pop_creator").style.height = contentH + "px";
     }
 
     showPage(pageId, display = "flex"){

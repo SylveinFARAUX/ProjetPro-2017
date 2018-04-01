@@ -3,13 +3,13 @@
     background-color : #0C1021;
 }
 
-#tableChar{
+.tableChar{
     margin : 5px auto;
     padding : 0px;
     border-style : none;
 }
 
-#population figure {
+.tableChar figure {
     border : 3px solid grey;
     border-radius : 30px;
     position: relative;
@@ -18,11 +18,18 @@
     padding : 0;
     display:inline-block;
 }
-#population img, #population figcaption {
+
+.tableChar img{
+    max-width: 125px;
+    max-height: 125px;
+}
+
+.tableChar img, .tableChar figcaption {
     transition: all .25s ease;
     border-radius : 25px;
 }
-#population figcaption {
+
+.tableChar figcaption {
     text-align : center;
     position: absolute;
     top: 0;
@@ -35,15 +42,19 @@
     color: #fff;
     opacity: 0;
 }
-#population figcaption p, #population figcaption h3{
+
+.tableChar figcaption p, .tableChar figcaption h3{
     margin : 0;
 }
-#population figure:hover img {
+
+.tableChar figure:hover img {
     transform: scale(0.9);
 }
-#population figure:hover figcaption {
+
+.tableChar figure:hover figcaption {
     opacity: 1;
 }
+
 .charElem {
     padding: 0;
     border-collapse : collapse;
@@ -68,7 +79,7 @@
     border : 0;
 }
 
-#tableChar td {
+.tableChar td {
     border: 1px solid transparent;
     margin: 0;
     padding: 0;

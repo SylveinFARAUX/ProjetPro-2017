@@ -2,10 +2,6 @@ import Character from "./Character";
 import Application from "./Application";
 import * as AttributesCollection from "./AttributesCollection";
 
-const popSize = 24;
-const charWidth = 125;
-const borderSize = 1;
-
 /**
  * Classe représentant le panel de la population
  */
@@ -21,20 +17,50 @@ class PopulationPanel {
             throw new Error("appInstance doit être l'instance de l'application commune aux panels");
         }
         this.appInstance = appInstance;
-        this.population = new Array(popSize);
-        this.table = document.getElementById("tableChar");
-        this.element = document.getElementById("population");
+        this.population = [];
+        this.activePopulation = [];
         this.attributs = AttributesCollection.singleton;
-        this.load("Vannilla");
+        //chargement du panel population principale
+        this.loadPopulation("Vannilla");
+        //chargement du panel population par défaut pour le creapop
+        this.loadPopCreator();
+    }
+
+    loadPopulation(idPop, idPopClient = 0){
+        this.load(idPop, idPopClient);
+        this.table = document.getElementById("mainTableChar");
         this.loadTable();
-        this.majPopInfo(popSize, 0);
+        this.activePopulation = [];
+        this.activePopulation = this.activePopulation.concat(this.population);
+    }
+
+    loadPopCreator(){
+        this.load("All");
+        this.table = document.getElementById("vannilla_pops");
+        this.loadTable();
+        this.load("ClientChars");
+        this.table = document.getElementById("clientchars");
+        this.loadTable();
+        //modif spécifiques
+        let fig = document.getElementById("pop_creator_content").getElementsByClassName("charfigcaptation");
+        let obj = this.appInstance;
+        for(let i = 0; i < fig.length; i++){
+            fig[i].addEventListener("click", function(){ obj.getGestionnairePopulation().selectChar(fig[i].id);});
+        }
+        obj.getGestionnairePopulation().rehinit();
     }
 
     load(idPop, idPopClient = 0){
-        let chars;
+        let chars = [];
         switch (idPop) {
+            case "All" :
+                chars = this.appInstance.getGestionnairePopulation().getVannilla().characters;
+                break;
             case "Vannilla" :
-                chars = this.appInstance.getGestionnairePopulation().getVannilla();
+                chars = this.appInstance.getGestionnairePopulation().getVannilla().characters;
+                break;
+            case "ClientChars" :
+                chars = this.appInstance.getGestionnairePopulation().getClientChars();
                 break;
             case "ClientPop" :
                 chars = this.appInstance.getGestionnairePopulation().getClientPop(idPopClient);
@@ -42,8 +68,10 @@ class PopulationPanel {
             default :
                 return;
         }
-        for(let i = 0; i < chars.characters.length; i++){
-            this.population[i] = new Character(chars.characters[i], i, this.attributs);
+        let d = new Date();
+        this.population = [];
+        for(let i = 0; i < chars.length; i++){
+            this.population[i] = new Character(chars[i], i + "" + d.getTime(), this.attributs);
         }
     }
 
@@ -53,43 +81,39 @@ class PopulationPanel {
      * @returns {Character} l'instance du personnage
      */
     getChar(i){
-        return this.population[i];
+        return this.activePopulation[i];
     }
 
     refresh(tabAttribute){
         let actif = 0, elim = 0;
-        for(let i = 0; i < this.population.length; i++){
-            let bool = this.population[i].check(tabAttribute);
+        for(let i = 0; i < this.activePopulation.length; i++){
+            let bool = this.activePopulation[i].check(tabAttribute);
             if(bool)
                 actif++;
             else
                 elim++;
         }
         this.majPopInfo(actif, elim);
+        return actif;
     }
 
     loadTable(){
-        let nbCol = Math.floor(this.element.clientWidth/(charWidth + borderSize*2));
-        nbCol = (nbCol === 0) ? 1 : nbCol;
-
+        let char;
         //vide le tableau -> utile dans le cas d'un rechargement
+        if(this.population === undefined || this.population.length === 0){
+            this.table.innerHTML = "<p>Aucun personnage n'as été chargé.</p>";
+            return;
+        }
         this.table.innerHTML = "";
 
-        let row;
-        for(let i = 0; i < popSize; i++){
-            if(i % nbCol === 0){
-                row = this.addRow();
-            }
-            row.appendChild(this.addChar(this.getChar(i)));
-        }
-        this.centerCharInfos();
-    }
-
-    addRow(){
         let row = document.createElement("tr");
         this.table.appendChild(row);
-        return row;
+        for(let i = 0; i < this.population.length; i++){
+            char = this.population[i];
+            row.appendChild(this.addChar(char));
+        }
     }
+
 
     /**
      *
@@ -98,20 +122,22 @@ class PopulationPanel {
      */
     addChar(char){
         //________création de la cellule
+        let obj = this.appInstance;
         let col = document.createElement("td");
         col.id = "char" + char.id;
         col.className = "charElem";
         //_______création de l'image :
         let fig = document.createElement("figure");
         fig.id = "charfigure" + char.id;
-        fig.addEventListener("mouseover", (evt)=>{ this.appInstance.getInfoBulle().montre(char.id, col.id);});
-        fig.addEventListener("mouseout", (evt)=>{ this.appInstance.getInfoBulle().cache(char.id); });
+        fig.className = "charfigure";
+        fig.addEventListener("mouseover", function(){ obj.getInfoBulle().montre(char.id, col.id);});
+        fig.addEventListener("mouseout", function(){ obj.getInfoBulle().cache(char.id); });
         fig.innerHTML = `
                         <img src ='` + char.img + `' alt='Perso` + char.id + `' id = 'charimg` + char.id + `'/>
-                        <figcaption>
+                        <figcaption class = 'charfigcaptation' id = '` + char.id + `'>
                             <div class = 'charInfo'>
-                                <h3 class = 'charName'>` + char.nom +`</h3>
-                                <p id = 'charstatus` + char.id + `'>Suspect</p>
+                                <h3 class = 'charName' id = 'charName` + char.id + `'>` + char.nom +`</h3>
+                                <p id = 'charstatus` + char.id + `' class = "charstatus">Suspect</p>
                             </div>
                         </figcaption>
         `;
@@ -120,18 +146,18 @@ class PopulationPanel {
         let area = document.createElement("div");
         area.className = "overarea";
         area.id = "overarea" + char.id;
-        area.addEventListener("mouseover", (evt)=>{ this.appInstance.getInfoBulle().affiche(char.id); });
-        area.addEventListener("mouseout", (evt)=>{ this.appInstance.getInfoBulle().cache(char.id); });
+        area.addEventListener("mouseover", function(){ obj.getInfoBulle().affiche(char.id); });
+        area.addEventListener("mouseout", function(){ obj.getInfoBulle().cache(char.id); });
         let arrow = document.createElement("div");
         arrow.className = "arrow";
         arrow.id = "arrow" + char.id;
-        arrow.addEventListener("mouseover", (evt)=>{ this.appInstance.getInfoBulle().affiche(char.id); });
-        arrow.addEventListener("mouseout", (evt)=>{ this.appInstance.getInfoBulle().cache(char.id); });
+        arrow.addEventListener("mouseover", function(){ obj.getInfoBulle().affiche(char.id); });
+        arrow.addEventListener("mouseout", function(){ obj.getInfoBulle().cache(char.id); });
         let tt = document.createElement("div");
         tt.className = "custom-tooltip";
         tt.id = "tooltip" + char.id;
-        tt.addEventListener("mouseover", (evt)=>{ this.appInstance.getInfoBulle().affiche(char.id); });
-        tt.addEventListener("mouseout", (evt)=>{ this.appInstance.getInfoBulle().cache(char.id); });
+        tt.addEventListener("mouseover", function(){ obj.getInfoBulle().affiche(char.id); });
+        tt.addEventListener("mouseout", function(){ obj.getInfoBulle().cache(char.id); });
         tt.innerHTML = char.listeAttribute() + "";
         //______ajout des éléments
         col.appendChild(fig);
@@ -142,29 +168,7 @@ class PopulationPanel {
         return  col;
     }
 
-    centerCharInfos(){
-        let charinfo = document.getElementsByClassName("charInfo");
-        for(let i = 0; i < charinfo.length; i++){
-            this.centerInParent(charinfo[i]);
-        }
-    }
-
-    resizePanel(){
-        this.loadTable();
-        let tab = [];//#TODO récupèré la liste d'attributs du noeud actif
-        this.refresh(tab);
-    }
-
-    /**
-     *
-     * @param node ??
-     */
-    centerInParent(node){
-        //node.style.marginTop = node.parentNode.offsetHeight/2-node.offsetHeight/2 + "px";
-        node.style.marginTop = "25px";
-    }
-
-    majPopInfo(actif, elim){
+    static majPopInfo(actif, elim){
         document.getElementById("nbActif").innerHTML = actif;
         document.getElementById("nbElim").innerHTML = elim;
     }

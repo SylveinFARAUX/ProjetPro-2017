@@ -114,7 +114,7 @@ class CharCreator {
     rehinit(){
         document.getElementById("nom_perso_creat").value = "";
         document.getElementById("added_attributs").innerHTML = "";
-        var attrs = document.getElementById("purpose_attributs_elem").childNodes;
+        let attrs = document.getElementById("purpose_attributs_elem").childNodes;
         for(let i = 1; i < attrs.length; i++){
             attrs[i].style.display = "inherit";
         }
@@ -139,16 +139,16 @@ class CharCreator {
         let char = Object();
         char.img = "./assets/dragg.png";
         char.nom = document.getElementById("nom_perso_creat").value;
-        char.attr = [];
+        char.attributs = [];
         let attr = Object();
         let attrKeys = document.getElementsByClassName("char_creator_key");
         let attrVals = document.getElementsByClassName("char_creator_value");
         for(let i = 0; i < attrKeys.length; i++){
             attr.key = attrKeys[i].innerText;
             attr.value = attrVals[i].innerText;
-            char.attr.push(attr);
+            char.attributs.push(attr);
         }
-        this.characters.push(JSON.stringify(char));
+        this.characters.push(char);
         this.rehinit();
     }
 
@@ -174,11 +174,9 @@ class CharCreator {
         if(count === 0)
             return;
         let ansChar = localStorage.getItem('characters');
-        if(ansChar !== null){
+        if(ansChar !== null && ansChar !== "" && ansChar !== undefined){
             ansJson = JSON.parse(ansChar);
-            console.log(ansJson);
             this.characters = this.characters.concat(ansJson);
-            console.log(this.characters);
         }
         let json = JSON.stringify(this.characters);
         localStorage.clear();

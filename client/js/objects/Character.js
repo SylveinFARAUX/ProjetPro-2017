@@ -43,9 +43,9 @@ class Character{
         let res = "";
         for(let i = 0; i < this.attributs.length; i++){
             if(this.attributs[i] === undefined)
-                res += "Attribut Inconnu</br>"
+                res += "<span class = 'attr_id'></span>Attribut Inconnu<span class = 'attr_value'></span></br>"
             else
-                res += this.attributs[i].attributeKey + " : " + this.attributs[i].value + "</br>";
+                res += "<span class = 'attr_id'>" + this.attributs[i].attributeKey + "</span> : <span class = 'attr_value'>" + this.attributs[i].value + "</span></br>";
         }
         return res;
     }

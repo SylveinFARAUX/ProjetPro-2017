@@ -7,7 +7,6 @@ let appt = new Application();
 window.onresize = function(){
     appt.getGestionnairePage().resizePages();
     appt.getGestionnairePage().sizeApp();
-    appt.getPopulationPanel().resizePanel();
 };
 
 let rightClickX = 0;

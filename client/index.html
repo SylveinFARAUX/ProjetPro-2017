@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="css/Infobulle.css"/>
         <link rel="stylesheet" href="css/Banniere.css"/>
         <link rel="stylesheet" href="css/CharCreator.css"/>
+        <link rel="stylesheet" href="css/PopCreator.css"/>
         <link rel="stylesheet" href="css/Population.css"/>
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"/>
         <!--<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.min.css"/>-->
@@ -48,7 +49,7 @@
             <div id="app" class="app">
                 <table id = "appTable">
                     <tr>
-                        <td rowspan="2" class = "appLeft">
+                        <td rowspan="2" class = "appLeft appTd">
                             <div id="strategie-title" class="title">
                                 <h3>Stratégie</h3>
                             </div>
@@ -56,7 +57,7 @@
                                 <div id="strategie-network"></div>
                             </div>
                         </td>
-                        <td class = "appRight">
+                        <td class = "appRight appTd">
                             <div id="PopTitle" class ="title">
                                 <table>
                                     <tr>
@@ -67,13 +68,13 @@
                                 </table>
                             </div>
                             <div id="population" class="content">
-                                <table id = "tableChar">
+                                <table id = "mainTableChar" class = "tableChar">
                                 </table>
                             </div>
                         </td>
                     </tr>
                     <tr>
-                        <td class = "appRight">
+                        <td class = "appRight appTd">
                             <div id="info-title" class="title">
                                 <h3>Informations</h3>
                             </div>
@@ -116,6 +117,30 @@
                         </td>
                     </tr>
                 </table>
+            </div>
+            <div id = "pop_creator" class = "pop_creator">
+                <div id="pop_crea_title" class="title">
+                    <h3>Créer ma propre population</h3>
+                    <h5>Personnages manquants : <span id = "nbPerManquant">24<span></h5>
+                    <table id = "popCreatorOption">
+                        <tr>
+                            <td class = "popCreatorOptionCell">
+                                <div class = "button" id = "pop_creator_save" tooltip="Enregistrer la saisie actuelle">Sauvegarder</div>
+                            </td>
+                            <td class = "popCreatorOptionCell">
+                                <div class = "button" id = "pop_creator_ret" tooltip="Abandonner la création du personnage">Retour à la stratégie</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="pop_creator_content" class="content">
+                    <h5>Mes Personnages :</h5>
+                    <table id = "clientchars" class = "tableChar">
+                    </table>
+                    <h5>Personnages par défauts :</h5>
+                    <table id = "vannilla_pops" class = "tableChar">
+                    </table>
+                </div>
             </div>
             <div id = "tooltip_conteneur">
             </div>

@@ -1,5 +1,4 @@
 import Application from "./Application";
-import PopulationPanel from "./PopulationPanel";
 
 let vanilla =
     {
@@ -247,8 +246,12 @@ class GestionnairePopulation {
             throw new Error("appInstance doit être l'instance de l'application commune aux panels");
         }
         this.appInstance = appInstance;
-        this.clientChars = undefined;
+        this.clientChars = [];
         this.clientPops = undefined;
+        this.rehinit();
+        let obj = this;
+        document.getElementById("pop_creator_ret").addEventListener("click", function(){obj.appInstance.getGestionnairePage().showPage("app", "inherit");});
+        document.getElementById("pop_creator_save").addEventListener("click", function(){obj.save();});
     }
 
     getVannilla(){
@@ -259,10 +262,15 @@ class GestionnairePopulation {
         return this.clientPops[idPopClient];
     }
 
+    getClientChars(){
+        return this.clientChars;
+    }
+
     loadCharacters(){
         let chars = localStorage.getItem('characters');
         if(chars !== null){
             this.clientChars = JSON.parse(chars);
+            this.appInstance.getPopulationPanel().loadPopCreator();
             alert(this.clientChars.length + " personnages ont été chargés.");
         }else{
             alert("Aucun personnage n'a été trouvé sur cet ordinateur.");
@@ -270,27 +278,105 @@ class GestionnairePopulation {
     }
 
     loadPopulations(){
-        let pops = localStorage.getItem('populations');
-        if(pops !== null){
-            this.clientPops = JSON.parse(pops);
-            alert(this.clientPops.length + " populations ont été chargés.");
+        let popCount = localStorage.getItem('popCount');
+        let pops;
+        this.clientPops = [];
+        for(let i = 0; i < popCount; i++){
+            pops = localStorage.getItem('population' + i);
+            this.clientPops.push(JSON.parse(pops));
+        }
+        if(popCount == 0 || popCount === null){
+            alert("Aucune population n'a été trouvée sur cet ordinateur.");
+        }else{
             this.clearMenuPop();
             this.loadMenuPop();
-        }else{
-            alert("Aucune population n'a été trouvée sur cet ordinateur.");
+            alert(popCount + " populations ont été chargés.");
         }
     }
 
     clearMenuPop(){
-        li = document.getElementsByClassName("clientPop");
-        for(let i = 0; i < li.length; i++) {
-            document.removeChild(li[i]);
+        let li = document.getElementsByClassName("clientPop");
+        while(li.length != 0) {
+            document.getElementById("sousmenuPop").removeChild(li[0]);
         }
     }
 
     loadMenuPop(){
+        let obj = this.appInstance.getPopulationPanel();
         for(let i = 0; i < this.clientPops.length; i++){
-            this.appInstance.getBanniere().addMenuItem(sousmenuPop, (evt)=>{ this.appInstance.getPopulationPanel().load("ClientPop", i); }, "Ma Population " + i)
+            this.appInstance.getBanniere().addMenuItem("sousmenuPop", function(){ obj.loadPopulation("ClientPop", i); }, "Ma Population " + i, "clientPop")
+        }
+    }
+
+    selectChar(idChar){
+        let idx = this.selected.indexOf(idChar);
+        if(idx < 0)
+            this.select(idChar);
+        else
+            this.unselect(idChar, idx);
+    }
+
+    select(idChar){
+        if(this.selected.length === 24)
+            return;
+        this.selected.push(idChar);
+        document.getElementById("charfigure" + idChar).style.borderColor = "#df4540";
+        document.getElementById("charstatus" + idChar).innerText = "Sélectionné";
+        let char = Object();
+        char.img = document.getElementById("charimg" + idChar).src;
+        char.nom = document.getElementById("charName" + idChar).innerText;
+        char.attributs = [];
+        let attr;
+        let attrKeys = document.getElementById("tooltip" + idChar).getElementsByClassName("attr_id");
+        let attrVals = document.getElementById("tooltip" + idChar).getElementsByClassName("attr_value");
+        for(let i = 0; i < attrKeys.length; i++){
+            attr = new Object()
+            attr.key = attrKeys[i].innerHTML;
+            attr.value = attrVals[i].innerHTML;
+            char.attributs.push(attr);
+        }
+        this.creaPop.push(char);
+        this.majCompteur();
+    }
+
+    unselect(idChar, idx){
+        document.getElementById("charfigure" + idChar).style.borderColor = "grey";
+        document.getElementById("charstatus" + idChar).innerText = "";
+        this.selected.splice(idx, 1);
+        this.creaPop.splice(idx, 1);
+        this.majCompteur();
+    }
+
+    majCompteur(){
+        let cpt = (24 - this.creaPop.length);
+        if(cpt == 0)
+            document.getElementById("pop_creator_save").style.display = "inherit";
+        else
+            document.getElementById("pop_creator_save").style.display = "none";
+        document.getElementById("nbPerManquant").innerText = cpt + "";
+    }
+
+    save(){
+        let count = localStorage.getItem('popCount');
+        if(count == null)
+            count = 0;
+        let json = JSON.stringify(this.creaPop);
+        localStorage.setItem('population' + count, json);
+        count++;
+        localStorage.setItem('popCount', count);
+        alert("Population bien sauvegardés.\nTotal : " + count);
+        this.rehinit();
+    }
+
+    rehinit(){
+        this.selected = [];
+        this.creaPop = [];
+        document.getElementById("pop_creator_save").style.display = "none";
+        let status = document.getElementById("pop_creator_content").getElementsByClassName("charstatus");
+        let fig = document.getElementById("pop_creator_content").getElementsByClassName("charfigure");
+        for(let i = 0; i < status.length; i++){
+            status[i].innerText = "";
+            fig[i].style.borderColor = "grey";
         }
     }
 }

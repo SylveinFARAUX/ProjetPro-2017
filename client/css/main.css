@@ -114,16 +114,17 @@ h1, h2, h3, h4, h5{
 
 .button {
     border-radius : 10px;
-    background-color: #36393F;
+    background-color: #0C1021;/*#36393F;*/
     color : #df4540;
     font-weight: bold;
     display: inline-block;
+    border : 2px solid #df4540;
     padding: 5px;
 }
 
 .button:hover{
-    background-color: #36393F;
     color : white;
+    border-color : white;
 }
 
 #appTable{
@@ -134,7 +135,7 @@ h1, h2, h3, h4, h5{
     border-collapse: collapse;
 }
 
-#appTable td{
+.appTd{
     border : 3px solid #36393F;
     overflow: hidden;
     padding : 0;
@@ -154,7 +155,7 @@ h1, h2, h3, h4, h5{
     height: 50%;
 }
 
-#informations, #informations pre{
+#informations, #informations pre, #pop_creator_content{
     background-color: #0C1021;
     color : white;
 }

@@ -17,13 +17,13 @@ class Banniere {
     }
 
     loadPopulations(){
-        this.addMenuItem("sousmenuPop", (evt)=>{ this.appInstance.getGestionnairePage().showPage("pop_creator"); }, "Créer une population");
-        this.addMenuItem("sousmenuPop", (evt)=>{ this.appInstance.getGestionnairePage().showLoader("pop_loader"); }, "Charger une population");
+        this.addMenuItem("sousmenuPop", (evt)=>{ this.appInstance.getGestionnairePage().showPage("pop_creator", "inherit"); }, "Créer une population");
+        this.addMenuItem("sousmenuPop", (evt)=>{ this.appInstance.getGestionnairePage().showLoader("pop_loader"); }, "Charger mes populations");
     }
 
     loadCharacters(){
         this.addMenuItem("sousmenuChar", (evt)=>{ this.appInstance.getGestionnairePage().showPage("char_creator"); }, "Créer un personnage");
-        this.addMenuItem("sousmenuChar", (evt)=>{ this.appInstance.getGestionnairePage().showLoader("char_loader"); }, "Charger des personnages");
+        this.addMenuItem("sousmenuChar", (evt)=>{ this.appInstance.getGestionnairePage().showLoader("char_loader"); }, "Charger mes personnages");
     }
 
     loadStrategies(){
