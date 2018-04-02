@@ -140,10 +140,11 @@ class CharCreator {
         char.img = "./assets/dragg.png";
         char.nom = document.getElementById("nom_perso_creat").value;
         char.attributs = [];
-        let attr = Object();
+        let attr;
         let attrKeys = document.getElementsByClassName("char_creator_key");
         let attrVals = document.getElementsByClassName("char_creator_value");
         for(let i = 0; i < attrKeys.length; i++){
+            attr = new Object();
             attr.key = attrKeys[i].innerText;
             attr.value = attrVals[i].innerText;
             char.attributs.push(attr);

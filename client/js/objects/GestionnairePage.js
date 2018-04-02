@@ -35,6 +35,7 @@ class GestionnairePage {
             document.getElementById(this.actif).style.display = "none";
         this.actif = pageId;
         page.style.display = display;
+        this.resizeContenu();
     }
 
     showInfo(infoDivId){
