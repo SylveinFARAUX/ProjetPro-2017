@@ -1,10 +1,6 @@
 {
     "attributs": {
-        "cheveux": {
-            "chauve": {
-                "long": "Le personnage est chauve ?",
-                "court": "Chauve ?"
-            },
+        "Couleur Cheveux": {
             "blond": {
                 "long": "Le personnage est blond ?",
                 "court": "Cheveux blond ?"
@@ -12,21 +8,219 @@
             "brun": {
                 "long": "Le personnage est brun ?",
                 "court": "Cheveux brun ?"
+            },
+			"roux": {
+                "long": "Le personnage est roux ?",
+                "court": "Cheveux roux ?"
+            },
+			"noir": {
+                "long": "Le personnage a les cheveux noir ?",
+                "court": "Cheveux noir ?"
             }
         },
-        "yeux": {
-            "marron": {
+        "Couleurs Yeux": {
+            "Marron": {
                 "long": "Le personnage a les yeux marron ?",
                 "court": "Yeux marron ?"
             },
-            "bleu": {
+            "Bleu": {
                 "long": "Le personnage a les yeux bleu ?",
                 "court": "Yeux bleu ?"
             },
-            "vert": {
+            "Vert": {
                 "long": "Le personnage a les yeux vert ?",
                 "court": "Yeux vert ?"
+            },
+			"Noir":{
+			   "long": "Le personnage a les yeux noir ?",
+               "court": "Yeux noir ?"
+			}
+        },
+		"Couvre-Chef": {
+			"Aucun" {
+				  "long": "Le personnage porte un couvre-chef ?",
+                  "court": "Tête nue ?"
+			},
+			"Chapeau"{
+                "long": "Le personnage porte un chapeau ?",
+                "court": "Chapeau ?"
+            },
+			"Bonnet"{
+                "long": "Le personnage porte un bonnet ?",
+                "court": "Bonnet ?"
             }
-        }
+		},
+		"Couleur Couvre-Chef"{
+			"Bleu"{
+                "long": "Le personnage porte un couvre-chef bleu ?",
+                "court": "Couvre-chef bleu ?"
+            },
+			"Jaune"{
+                "long": "Le personnage porte un couvre-chef jaune ?",
+                "court": "Couvre-chef jaune ?"
+            },
+			"Rose"{
+                "long": "Le personnage porte un couvre-chef rose ?",
+                "court": "Couvre-chef rose ?"
+            }
+		},
+		"Lunettes"{
+			"Non"{
+                "long": "Le personnage ne porte pas de lunettes ?",
+                "court": "Pas de lunetttes ?"
+            },
+			"Rondes"{
+                "long": "Le personnage porte des lunettes rondes ?",
+                "court": "Lunettes rondes ?"
+            },
+			"Carrées"{
+                "long": "Le personnage porte des lunettes carrées ?",
+                "court": "Lunettes carrées ?"
+            },
+			"Monocle"{
+                "long": "Le personnage porte un monocle ?",
+                "court": "Monocle ?"
+            }
+		},
+		"Coupe de Cheveux"{
+			"Chauve": {
+                "long": "Le personnage est chauve ?",
+                "court": "Chauve ?"
+            },
+			"Au bol"{
+                "long": "Le personnage a une coupe au bol ?",
+                "court": "Coupe au bol ?"
+            },
+			"Court"{
+                "long": "Le personnage a les cheveux courts ?",
+                "court": "Cheveux court ?"
+            },
+			"Long"{
+                "long": "Le personnage a les cheveux long ?",
+                "court": "Cheveux long ?"
+            },
+			"Mi-Long"{
+                "long": "Le personnage a les cheveux mi-long ?",
+                "court": "Cheveux mi-long ?"
+            },
+			"Afro"{
+                "long": "Le personnage a la coupe affro ?",
+                "court": "Coupe affro ?"
+            },
+			"Frisé"{
+                "long": "Le personnage a les cheveux frisés ?",
+                "court": "Cheveux frisés ?"
+            }
+		},
+		"Attache de Cheveux"{
+			"Détaché": {
+                "long": "Le personnage a les cheveux détachés ?",
+                "court": "Cheveux détachés ?"
+            },
+			"Couettes-hautes"{
+                "long": "Le personnage porte des couettes hautes ?",
+                "court": "Couettes hautes ?"
+            },
+			"Couettes-basses"{
+                "long": "Le personnage porte des couettes basses ?",
+                "court": "Couettes basses ?"
+            },
+			"Nattes"{
+                "long": "Le personnage porte des nattes ?",
+                "court": "Nattes ?"
+            },
+			"Queue de Cheval"{
+                "long": "Le personnage porte une queue de cheval ?",
+                "court": "Queue de cheval ?"
+            },
+			"Frisé"{
+                "long": "",
+                "court": ""
+            }
+		},
+		"Motif Maillot"{
+			"Uni": {
+                "long": "Le personnage porte un maillot uni ?",
+                "court": "Mayots uni ?"
+            },
+			"Rayures"{
+                "long": "Le personnage porte un maillot à rayures ?",
+                "court": "Mayots à rayures ?"
+            },
+			"Poix"{
+                "long": "Le personnage porte un maillot à poix ?",
+                "court": "Mayots à poix ?"
+            }
+		},
+		"Couleur Maillot"{
+			"Bleu": {
+                "long": "Le personnage porte un maillot bleu ?",
+                "court": "Maillot bleu ?"
+            },
+			"Jaune"{
+                "long": "Le personnage porte un maillot jaune ?",
+                "court": "Maillot jaune ?"
+            },
+			"Rose"{
+                "long": "Le personnage porte un maillot rose ?",
+                "court": "Maillot rose ?"
+            },
+			"Vert"{
+                "long": "Le personnage porte un maillot vert ?",
+                "court": "Maillot vert ?"
+            },
+			"Violet"{
+                "long": "Le personnage porte un maillot violet ?",
+                "court": "Maillot violet ?"
+            },
+			"Rouge"{
+                "long": "Le personnage porte un maillot rouge ?",
+                "court": "Maillot rouge ?"
+            },
+			"Vert-Bleu"{
+                "long": "Le personnage porte un maillot vert-bleu ?",
+                "court": "Maillot vert-bleu ?"
+            },
+			"Rouge-Bleu"{
+                "long": "Le personnage porte un maillot rouge-bleu ?",
+                "court": "Maillot rouge-bleu ?"
+            }
+		},
+		"Genre"{
+			"Non-Genré": {
+                "long": "Le personnage n'à pas de genre ?",
+                "court": "Pas de genre ?"
+            },
+			"Homme"{
+                "long": "Le personnage est un homme ?",
+                "court": "Homme ?"
+            },
+			"Femme"{
+                "long": "Le personnage est une femme ?",
+                "court": "Femme ?"
+            }
+		},
+		"Ethnie"{
+			"Cocasien": {
+                "long": "Le personnage est d'ethnie caucasienne ?",
+                "court": "Ethnie caucasienne ?"
+            },
+			"Afro"{
+                "long": "Le personnage est d'ethnie affro-américaine ?",
+                "court": "Ethnie afro-américaine ?"
+            },
+			"Moyenne-Orientale"{
+                "long": "Le personnage est d'ethnie moyen-orientale ?",
+                "court": "Ethnie moyen-orientale ?"
+            },
+			"Asiatique"{
+				"long": "Le personnage est d'ethnie asiatique ?",
+                "court": "Ethnie asiatique ?"
+			},
+			"Métis"{
+				"long": "Le personnage est d'ethnie métis ?",
+                "court": "Ethnie métis ?"
+			}
+		}
     }
 }
