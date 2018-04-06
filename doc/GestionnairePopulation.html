@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: AttributesCollection</title>
+    <title>JSDoc: Class: GestionnairePopulation</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: AttributesCollection</h1>
+    <h1 class="page-title">Class: GestionnairePopulation</h1>
 
     
 
@@ -28,6 +28,7 @@
 
 <header>
     
+        <h2><span class="attribs"><span class="type-signature"></span></span>GestionnairePopulation<span class="signature">(appInstance<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -37,54 +38,72 @@
     
         
 
+    
+
+    
+    <h4 class="name" id="GestionnairePopulation"><span class="type-signature"></span>new GestionnairePopulation<span class="signature">(appInstance<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
         
-    
-    </div>
+        <th>Name</th>
+        
 
-    
-
-    
-
-    
-        <h3 class="subsection-title">Classes</h3>
-
-        <dl>
-            <dt><a href="module-AttributesCollection-AttributesCollection.html">AttributesCollection</a></dt>
-            <dd></dd>
-        </dl>
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
+        <th>Type</th>
 
         
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
             
-<h4 class="name" id=".singleton"><span class="type-signature">(static, constant) </span>singleton<span class="type-signature"> :AttributesCollection</span></h4>
-
-
-
-
-<div class="description">
-    Singleton de la collection instancier au démarrage de l'application.
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
+                <td class="name"><code>appInstance</code></td>
             
-<span class="param-type">AttributesCollection</span>
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Application.html">Application</a></span>
 
 
-        </li>
-    </ul>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">L'instance d'application commune aux panels</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
 
 
 
@@ -119,7 +138,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AttributesCollection.js.html">AttributesCollection.js</a>, <a href="AttributesCollection.js.html#line171">line 171</a>
+        <a href="GestionnairePopulation.js.html">GestionnairePopulation.js</a>, <a href="GestionnairePopulation.js.html#line244">line 244</a>
     </li></ul></dd>
     
 
@@ -134,13 +153,63 @@
 
 
 
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>//Utilisation :import * as AttributesCollection from "./AttributesCollection";let collection = AttributesCollection.singleton;let attribute = collection.getAttributeInstance("foo", "bar");</code></pre>
 
 
+
+
+
+
+<h5>Throws:</h5>
 
         
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        Lance une erreur si appInstance n'est pas une instance de Application
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">Error</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+
+    
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     
 
     

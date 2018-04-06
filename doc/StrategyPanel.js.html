@@ -27,8 +27,9 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import * as Common from './Common';
-import AttributesPanel from "./AttributesPanel";
 import Application from "./Application";
+import Attribute from "./Attribute";
+import * as AttributesCollection from "./AttributesCollection";
 
 //on a besoin de garder un pointeur vers une instance pour y accèder dans
 //les handlers des événements de vis.js car ces dèrnier sont
@@ -42,9 +43,36 @@ let instance;
  */
 
 /**
+ * Objet contenant les données de l'arbre de stratégie manipulées par vis.js
  * @typedef {object} StrategyData
- * @property {vis.DataSet} nodes les noeuds
- * @property {vis.DataSet} edges les liens
+ * @property {DataSet} nodes les noeuds
+ * @property {DataSet} edges les liens
+ */
+
+/**
+ * Un noeud de l'arbre de stratégie
+ * @typedef {Object} Node
+ * @property {Number} id id du noeud
+ * @property {string} label label du noeud
+ * @property {Number} level niveau hiérarchique du noeud
+ * @property {Attribute|null} attribute instance d'attribut lié au noeud
+ */
+
+/**
+ * Un lien de l'arbre de stratégie
+ * @typedef {Object} Edge
+ * @property {Number} id id du lien
+ * @property {string} label label du lien
+ * @property {Number} from id du noeud de départ du lien
+ * @property {Number} to id du noeud d'arrivée du lien
+ * @property {boolean} isTrue indique si le lien est une affirmation ou une négation
+ */
+
+/**
+ * Objet décrivant des coordonnées 2D
+ * @typedef {Object} Point2D
+ * @property {Number} x coordonnée x
+ * @property {Number} y coordonnée y
  */
 
 /**
@@ -75,24 +103,13 @@ class StrategyPanel {
          * Liste des noeuds de la stratégie
          * @type {DataSet}
          */
-        this.nodes = new vis.DataSet([
-            {id: 1, label: 'Node 1', level: 0, title: 'Je s\'appelle root', enabled:true},
-            {id: 2, label: 'Node 2', level: 1, enabled:true},
-            {id: 3, label: 'Node 3', level: 1, enabled:true},
-            {id: 4, label: 'Node 4', level: 2, enabled:true},
-            {id: 5, label: 'Node 5', level: 2, enabled:true}
-        ]);
+        this.nodes = new vis.DataSet([]);
 
         /**
          * Liste des liens de la stratégie
          * @type {DataSet}
          */
-        this.edges = new vis.DataSet([
-            {from: 1, to: 2},
-            {from: 1, to: 3},
-            {from: 2, to: 4},
-            {from: 2, to: 5}
-        ]);
+        this.edges = new vis.DataSet([]);
 
 
         /**
@@ -109,15 +126,17 @@ class StrategyPanel {
          * @member {vis.Network}
          */
         this.network = new vis.Network(this.element, this.data, Common.STRATEGY_OPTIONS);
-        this.addNode(6, 'Node 6', 2);
         this.setNetworkHandler("click", this.onClick);
         this.setNetworkHandler("doubleClick", this.onDoubleClick);
+        this.setNetworkHandler("selectNode", this.onSelectNode);
+        this.setNetworkHandler("deselectNode", this.onDeselectNode);
         instance = this;
+        this.addNode(1,'',0);
     }
 
     /**
      * Retourne le Network de l'arbre de stratégie
-     * @returns {StrategyPanel.network}
+     * @returns {vis.Network}
      */
     network(){
         return this.network;
@@ -125,17 +144,33 @@ class StrategyPanel {
 
     /**
      * Retourne le lien avec l'id donné
-     * @param id l'id du lien
+     * @param {!Number} id l'id du lien
      * @returns {Object|undefined} le lien ou undefined
      */
-    getEdge(id){
+    getEdgeById(id){
         return this.data.edges.get(id);
+    }
+    
+    /**
+     * Retourne le lien avec l'id donné
+     * @param {!Number} idParent l'id du noeud père
+     * @param {!Number} idFils l'id du noeud fils
+     * @returns {Edge|undefined} le lien ou undefined
+     */
+    getEdgeByNodes(idParent, idFils){
+        let res = undefined;
+        this.data.edges.forEach(edge => {
+            if(edge.from === idParent &amp;&amp; edge.to === idFils){
+                res = edge;
+            }
+        });
+        return res;
     }
 
     /**
      * Retourne le noeud avec l'id donné
-     * @param id l'id du noeud
-     * @returns {Object|undefined} le noeud ou undefined
+     * @param {!Number} id l'id du noeud
+     * @returns {Node|undefined} le noeud ou undefined
      */
     getNode(id){
         return this.data.nodes.get(id);
@@ -143,21 +178,24 @@ class StrategyPanel {
 
     /**
      * Définis un handler pour l'événement donnée, s'il est utilisable avec le Network
-     * @param {string} event La chaîne correspondant à l'événement
-     * @param {eventCallback} handler Callback de l'événement
+     * @param {!string} event La chaîne correspondant à l'événement
+     * @param {!eventCallback} handler Callback de l'événement
      * @see {@link module-Common.isNetworkEvent}
      */
     setNetworkHandler(event, handler){
         if(typeof event === 'string' &amp;&amp; typeof handler === 'function'){
             if(Common.isNetworkEvent(event)){
+                console.log("nouvel handler pour l'événement '"+event+"'");
                 this.network.on(event, handler);
+            }else{
+                console.log("Attention : l'événement '"+event+"' n'est pas un événement vis.js valide");
             }
         }
     }
 
     /**
      * Supprime le noeud donné en paramètre
-     * @param {object} node le noeud à supprimer
+     * @param {Node} node le noeud à supprimer
      */
     deleteNode(node){
         this.data.nodes.remove(node);
@@ -169,19 +207,19 @@ class StrategyPanel {
      * @returns {Number|undefined} L'id du noeud père ou undefined
      */
     getParentId(id){
+        let result = undefined;
         this.data.edges.forEach((edge) => {
             if (edge.to === id) {
-                return edge.from;
+                result =  edge.from;
             }
         });
-        return undefined;
+        return result;
     }
 
     /**
-     *  /**
      * Retourne les ids des noeuds fils du noeud avec l'id donné
      * @param {!Number} id l'id du noeud père
-     * @returns {Array} Les ids des noeuds fils
+     * @returns {Array.&lt;Number>} Les ids des noeuds fils
      */
     getChildsIds(id){
         let sons = [];
@@ -190,7 +228,18 @@ class StrategyPanel {
                 sons.push(edge.to);
             }
         });
+
         return sons;
+    }
+
+    /**
+     * Vérifie si le parent a déjà 2 enfants
+     * @param {!Number} id l'id du noeud père
+     * @returns {Boolean} True si le parent a 2 enfants, False sinon
+     */
+    hasTwoSons(id){
+      let sons = this.getChildsIds(id);
+      return sons !== undefined &amp;&amp; sons.length === 2;
     }
 
     /**
@@ -282,13 +331,34 @@ class StrategyPanel {
     }
 
     /**
-     * Ajout un nouveau noeud au Network
-     * @param id l'id du noeud
-     * @param label le label du noeud
-     * @param level le niveau hiérarchique du noeud (le plus élevé est en bas de l'écran)
+     * Ajout un nouveau noeud au Network. La valeur attribute de ce noeud est initialisée à null.
+     * @param {!Number} id l'id du noeud
+     * @param {!string} label le label du noeud
+     * @param {!Number} level le niveau hiérarchique du noeud (le plus élevé est en bas de l'écran)
      */
     addNode(id, label, level){
         this.data.nodes.add({id, label, level});
+        this.getNode(id).attribute = null;
+        this.disableNode(id);
+    }
+
+    /**
+     * Ajout d'une nouvel edge au Network.
+     * @param {!Number} parent id de la source, le parent, de l'edge
+     * @param {!Number} son id de la destination, le fils, de l'edge
+     * @param {!boolean} isTrue indique si le lien est 'oui' ou 'non' concernant le noeud d'ou il part
+     * @return {Number} l'id du nouveau edge
+     */
+    addEdge(parent, son, isTrue){
+        let lastId = StrategyPanel.getLastId(this.edges);
+        this.data.edges.add({
+                id: lastId + 1,
+                from: parent,
+                to: son,
+                label: isTrue ? 'oui' : 'non',
+                isTrue: isTrue
+            });
+        return lastId + 1;
     }
 
     /**
@@ -298,7 +368,6 @@ class StrategyPanel {
     onClick(params){
         params.event = "[original event]";
         document.getElementById('eventSpan').innerHTML = '&lt;h2>Click event:&lt;/h2>' + JSON.stringify(params, null, 4);
-        console.log('click event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM));
     }
 
     /**
@@ -309,9 +378,202 @@ class StrategyPanel {
         let clickedNode = this.getNodeAt(params.pointer.DOM);
         params.event = "[original event]";
         document.getElementById('eventSpan').innerHTML = '&lt;h2>DoubleClick event:&lt;/h2>' + JSON.stringify(params, null, 4);
-        console.log('click event, getNodeAt returns: ' + clickedNode);
-        if(clickedNode !== undefined){
-            instance.updateNode(clickedNode);
+    }
+
+    /**
+     * Calback appelée lors de la sélection d'un noeuds
+     */
+    onSelectNode(params){
+        console.log("Assertions actuelles:");
+        console.log(JSON.stringify(instance.getCurrentAssertionsForNode(this.getNodeAt(params.pointer.DOM))));
+    }
+
+    /**
+     * Calback appelée lors de la désélection d'un noeuds
+     */
+    onDeselectNode(params){
+    }
+
+    /**
+     * Retourne la liste des Ids des noeuds sélectionnés
+     * @returns {Array.&lt;Number>}
+     */
+    getSelection(){
+        return this.network.getSelectedNodes();
+    }
+
+    /**
+     * Retourne la liste des noeuds avec les ids données, ou la liste complète des noeuds&lt;br>
+     * si ids n'est pas un tableau ou n'est pas renseigné
+     * @param {?Array.&lt;Number>} [ids] la liste des identifiants des noeuds souhaités
+     * @returns {Array.&lt;Node>|DataSet} la liste des noeuds souhaités ou de tous les noeuds
+     */
+    getNodes(ids){
+        if(Array.isArray(ids)){
+            let nodes =  [];
+            ids.forEach(id => {
+               let node = this.getNode(id);
+               if(node !== undefined){
+                   nodes.push(node);
+               }
+            });
+            return nodes;
+        }else{
+            return this.nodes;
+        }
+    }
+
+    /**
+     * Définis la valeur d'un noeuds à l'attributs donné
+     * @param {?Attribute} [attribute] l'attribut à affecter au noeud sélectionné ou null
+     * @throws {Error} Lance une erreur si attribute n'est pas une instance de Attribute
+     */
+    setAttributeToSelection(attribute){
+        if(attribute !== null &amp;&amp; !(attribute instanceof Attribute)){
+            throw new Error("@StrategyPanel() -> Erreur : attribute doit être une instance de Attribute");
+        }
+        let selection = this.getSelection();
+        if(Array.isArray(selection) &amp;&amp; selection.length === 1){
+            let selectedNode = this.getNode(selection[0]);
+            if(attribute === null || attribute === undefined){
+                this.nodes.update({id:selectedNode.id,label:"", attribute:null});
+                this.disableNode(selectedNode.id);
+            }else{
+                this.nodes.update({id:selectedNode.id,label:attribute.getShortText(), attribute:attribute});
+                this.addSons(selectedNode);
+                this.enableNode(selectedNode.id);
+            }
+        }
+    }
+
+    /**
+     * Créé deux fils au noeud donné
+     * @param {!Node} parent le noeud père
+     */
+     addSons(parent) {
+         if(this.hasTwoSons(parent.id)) {
+           return;
+         }
+
+         let lastId = StrategyPanel.getLastId(this.nodes);
+
+         this.addNode(lastId + 1, '', parent.level + 1);
+         this.addNode(lastId + 2, '', parent.level + 1);
+
+         this.addEdge(parent.id, lastId + 1, false);
+         this.addEdge(parent.id, lastId + 2, true);
+     }
+
+     /**
+      * Donne l'id du dernier noeud ou edge créé
+      * @param {!DataSet} elements les nodes ou les edges
+      * @return {Number} id du dernier noeud ou edge créé
+      */
+     static getLastId(elements) {
+         if(elements.length === 0){
+             return 1;
+         }
+
+         let ids = [];
+         elements.map(element => ids.push(element.id));
+         return ids[ids.length - 1];
+     }
+
+    /**
+     * Retourne le noeud à la position donnée
+     * @param {!Number} x
+     * @param {!Number} y
+     * @returns {Number|undefined} l'id du noeud à la position ou undefined s'il n'y en a pas
+     */
+    getNodeAt(x,y){
+        return this.network.getNodeAt({x,y});
+    }
+
+    /**
+     * Objet indiquant si l'attribut à la valeur donné est vrai ou faux.
+     * @typedef {Object} Assertion
+     * @property {string} attributeName le nom de l'attribut
+     * @property {string} valueName le nom de la valeur
+     * @property {boolean} value true si le personnage à cette valeur pour cet attribut, false sinon.
+     */
+
+    /**
+     * Retourne la liste des assertions faites pour le noeud à l'id donné.
+     * @param id l'id du noeuds jusqu'auquel on souhaite la liste des assertions actuelles
+     * @returns {Array.&lt;Assertion>} la liste des assertions connues
+     */
+    getCurrentAssertionsForNode(id){
+        let childId = id;
+        if(id === 1){
+            return [];
+        }
+        let assertions = [];
+        let edge, attribute, parentId, parentNode;
+        do{
+            parentId = this.getParentId(id);
+            parentNode = this.getNode(parentId);
+            attribute = parentNode.attribute;
+            edge = this.getEdgeByNodes(parentId, childId);
+            assertions.push({
+                attributeName: attribute.getAttributeKey(),
+                valueName: attribute.getValue(),
+                value: edge.isTrue
+            });
+        }while(parentId !== undefined &amp;&amp; parentId !== 1);
+        return assertions;
+    }
+
+    /**
+     * Retourne la liste des attributs pouvant être définis pour le noeud présent en (x,y)
+     * @param {!Number} x
+     * @param {!Number} y
+     * @returns {Object} Retourne un objet donc les clés sont les groupes des attributs, et les valeurs des tableaux d'instances de ces attributs.
+     * @example
+     * //Example de retour :
+     * return {"Couleur Cheveux": [instanceBlond, instanceBrun], "Coupe de Cheveux": [instanceChauve, instanceLong]};
+     */
+    getAvailableAssertionsForNode(x, y){
+        let node = this.getNodeAt(x,y);
+        if(node === undefined){
+            return [];
+        }
+        let collection = AttributesCollection.singleton;
+        let attr1 = [collection.getAttributeInstance("Couleur Cheveux", "blond"), collection.getAttributeInstance("Couleur Cheveux", "brun")];
+        let attr2 = [collection.getAttributeInstance("Coupe de Cheveux", "Chauve"), collection.getAttributeInstance("Coupe de Cheveux", "Mi-Long")];
+        return {
+            "Couleur Cheveux": attr1,
+            "Coupe de Cheveux" :attr2
+        };
+    }
+
+    /**
+     * Retourne la liste des noeuds parents du noeud dont l'id est donné
+     * @param {!Number} id l'id du noeud dont on souhaite les parents
+     * @returns {Array.&lt;Node>} La liste des noeuds parents
+     */
+    getParentsNodes(id){
+        let parents = [];
+        let currentParent = id;
+        let parent;
+        do{
+           parent = this.getParentId(currentParent);
+           if(parent !== undefined){
+               parents.push(parent);
+               currentParent = parent;
+           }
+        }while(parent !== undefined);
+        return parents;
+    }
+
+    /**
+     * Sélectionne le noeud en (x,y) s'il existe
+     * @param {!Number|Point2D} x coordonnées x ou objet contenant x et y
+     * @param {Number} [y] optionnel si x contient les coordonnées
+     */
+    selectNode(x,y){
+        let node = this.getNodeAt(x,y);
+        if(node !== undefined){
+            this.network.selectNodes([node]);
         }
     }
 }
@@ -327,13 +589,13 @@ export default StrategyPanel;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Common.html">Common</a></li></ul><h3>Classes</h3><ul><li><a href="Application.html">Application</a></li><li><a href="Attribute.html">Attribute</a></li><li><a href="AttributeButton.html">AttributeButton</a></li><li><a href="AttributesCollection.html">AttributesCollection</a></li><li><a href="AttributesPanel.html">AttributesPanel</a></li><li><a href="InformationsPanel.html">InformationsPanel</a></li><li><a href="PopulationPanel.html">PopulationPanel</a></li><li><a href="StrategyPanel.html">StrategyPanel</a></li></ul><h3>Global</h3><ul><li><a href="global.html#singleton">singleton</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-AttributesCollection.html">AttributesCollection</a></li><li><a href="module-Common.html">Common</a></li></ul><h3>Classes</h3><ul><li><a href="Application.html">Application</a></li><li><a href="Attribute.html">Attribute</a></li><li><a href="GestionnairePopulation.html">GestionnairePopulation</a></li><li><a href="InformationsPanel.html">InformationsPanel</a></li><li><a href="module-AttributesCollection-AttributesCollection.html">AttributesCollection</a></li><li><a href="PopulationPanel.html">PopulationPanel</a></li><li><a href="StrategyPanel.html">StrategyPanel</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Mar 11 2018 22:05:09 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Apr 06 2018 18:08:54 GMT+0200 (Paris, Madrid (heure d’été))
 </footer>
 
 <script> prettyPrint(); </script>
