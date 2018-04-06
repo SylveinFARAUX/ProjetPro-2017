@@ -1,10 +1,13 @@
 import Attribute from './Attribute';
 import attributsJSON from './attributs';
 
+/** @module module:AttributesCollection */
+
 /**
  * @typedef {Object} AttributeJSON
  * @property {string} long Une question décrivant la valeur l'attribut concerné (utilisée avec les boutons)
  * @property {string} court La même question au format plus court (utilisée pour l'arbre de stratégie)
+ * @global
  */
 
 /**
@@ -159,5 +162,10 @@ class AttributesCollection{
 /**
  * Singleton de la collection instancier au démarrage de l'application.
  * @type {AttributesCollection}
+ * @example
+ * //Utilisation :
+ * import * as AttributesCollection from "./AttributesCollection";
+ * let collection = AttributesCollection.singleton;
+ * let attribute = collection.getAttributeInstance("foo", "bar");
  */
 export const singleton = new AttributesCollection();

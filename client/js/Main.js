@@ -21,6 +21,30 @@ document.addEventListener("click", (evt)=>{
     $(document).contextmenu("close");
 });
 
+function createAttributesMenuItemList(attributesInstances){
+    let menuItemsList = [];
+    attributesInstances.forEach(instance => {
+        menuItemsList.push({
+            title: instance.getLongText(),
+            action: (event, ui) => {
+                appt.getStrategyPanel().setAttributeToSelection(instance);
+            }
+        })
+    });
+    return menuItemsList;
+}
+
+function createAssertsGroups(attributes){
+    let assertsGroups = [];
+    Object.keys(attributes).forEach(attribute =>{
+        assertsGroups.push({
+            title: attribute,
+            children: createAttributesMenuItemList(attributes[attribute])
+        });
+    });
+    return assertsGroups;
+}
+
 $(function(){
     $(document).contextmenu({
         delegate: "#strategie-network",
@@ -66,17 +90,9 @@ $(function(){
         // Implement the beforeOpen callback to dynamically change the entries
         beforeOpen: function(event, ui) {
             if(appt instanceof Application){
-                let attributes = appt.getStrategyPanel().getAssertionsForNode(rightClickX, rightClickY);
+                let attributes = appt.getStrategyPanel().getAvailableAssertionsForNode(rightClickX, rightClickY);
                 appt.getStrategyPanel().selectNode(rightClickX, rightClickY);
-                let childs = [];
-                attributes.forEach(attribute =>{
-                   childs.push({
-                       title: attribute.getLongText(),
-                       action: (event, ui) => {
-                           appt.getStrategyPanel().setAttributeToSelection(attribute);
-                       }
-                   });
-                });
+                let childs = createAssertsGroups(attributes);
                 $(document).contextmenu("setEntry", "assert", {title: "Supposition", children:childs});
             }
         }

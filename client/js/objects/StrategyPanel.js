@@ -15,9 +15,36 @@ let instance;
  */
 
 /**
+ * Objet contenant les données de l'arbre de stratégie manipulées par vis.js
  * @typedef {object} StrategyData
- * @property {vis.DataSet} nodes les noeuds
- * @property {vis.DataSet} edges les liens
+ * @property {DataSet} nodes les noeuds
+ * @property {DataSet} edges les liens
+ */
+
+/**
+ * Un noeud de l'arbre de stratégie
+ * @typedef {Object} Node
+ * @property {Number} id id du noeud
+ * @property {string} label label du noeud
+ * @property {Number} level niveau hiérarchique du noeud
+ * @property {Attribute|null} attribute instance d'attribut lié au noeud
+ */
+
+/**
+ * Un lien de l'arbre de stratégie
+ * @typedef {Object} Edge
+ * @property {Number} id id du lien
+ * @property {string} label label du lien
+ * @property {Number} from id du noeud de départ du lien
+ * @property {Number} to id du noeud d'arrivée du lien
+ * @property {boolean} isTrue indique si le lien est une affirmation ou une négation
+ */
+
+/**
+ * Objet décrivant des coordonnées 2D
+ * @typedef {Object} Point2D
+ * @property {Number} x coordonnée x
+ * @property {Number} y coordonnée y
  */
 
 /**
@@ -81,7 +108,7 @@ class StrategyPanel {
 
     /**
      * Retourne le Network de l'arbre de stratégie
-     * @returns {StrategyPanel.network}
+     * @returns {vis.Network}
      */
     network(){
         return this.network;
@@ -89,7 +116,7 @@ class StrategyPanel {
 
     /**
      * Retourne le lien avec l'id donné
-     * @param id l'id du lien
+     * @param {!Number} id l'id du lien
      * @returns {Object|undefined} le lien ou undefined
      */
     getEdgeById(id){
@@ -98,9 +125,9 @@ class StrategyPanel {
     
     /**
      * Retourne le lien avec l'id donné
-     * @param idParent l'id du noeud père
-     * @param idFils l'id du noeud fils
-     * @returns {Object|undefined} le lien ou undefined
+     * @param {!Number} idParent l'id du noeud père
+     * @param {!Number} idFils l'id du noeud fils
+     * @returns {Edge|undefined} le lien ou undefined
      */
     getEdgeByNodes(idParent, idFils){
         let res = undefined;
@@ -114,8 +141,8 @@ class StrategyPanel {
 
     /**
      * Retourne le noeud avec l'id donné
-     * @param id l'id du noeud
-     * @returns {Object|undefined} le noeud ou undefined
+     * @param {!Number} id l'id du noeud
+     * @returns {Node|undefined} le noeud ou undefined
      */
     getNode(id){
         return this.data.nodes.get(id);
@@ -123,21 +150,24 @@ class StrategyPanel {
 
     /**
      * Définis un handler pour l'événement donnée, s'il est utilisable avec le Network
-     * @param {string} event La chaîne correspondant à l'événement
-     * @param {eventCallback} handler Callback de l'événement
+     * @param {!string} event La chaîne correspondant à l'événement
+     * @param {!eventCallback} handler Callback de l'événement
      * @see {@link module-Common.isNetworkEvent}
      */
     setNetworkHandler(event, handler){
         if(typeof event === 'string' && typeof handler === 'function'){
             if(Common.isNetworkEvent(event)){
+                console.log("nouvel handler pour l'événement '"+event+"'");
                 this.network.on(event, handler);
+            }else{
+                console.log("Attention : l'événement '"+event+"' n'est pas un événement vis.js valide");
             }
         }
     }
 
     /**
      * Supprime le noeud donné en paramètre
-     * @param {object} node le noeud à supprimer
+     * @param {Node} node le noeud à supprimer
      */
     deleteNode(node){
         this.data.nodes.remove(node);
@@ -161,7 +191,7 @@ class StrategyPanel {
     /**
      * Retourne les ids des noeuds fils du noeud avec l'id donné
      * @param {!Number} id l'id du noeud père
-     * @returns {Array} Les ids des noeuds fils
+     * @returns {Array.<Number>} Les ids des noeuds fils
      */
     getChildsIds(id){
         let sons = [];
@@ -181,12 +211,7 @@ class StrategyPanel {
      */
     hasTwoSons(id){
       let sons = this.getChildsIds(id);
-
-      if(sons.length === 2) {
-        return true;
-      }
-
-      return false;
+      return sons !== undefined && sons.length === 2;
     }
 
     /**
@@ -267,7 +292,7 @@ class StrategyPanel {
 
     /**
      * Désactive ou active le noeud donné en paramètre et supprime les fils si désactivés
-     * @param {Number} id le noeud à désactiver ou activer
+     * @param {!Number} id le noeud à désactiver ou activer
      */
     updateNode(id){
       if(this.getNode(id).enabled) {
@@ -279,9 +304,9 @@ class StrategyPanel {
 
     /**
      * Ajout un nouveau noeud au Network. La valeur attribute de ce noeud est initialisée à null.
-     * @param id l'id du noeud
-     * @param label le label du noeud
-     * @param level le niveau hiérarchique du noeud (le plus élevé est en bas de l'écran)
+     * @param {!Number} id l'id du noeud
+     * @param {!string} label le label du noeud
+     * @param {!Number} level le niveau hiérarchique du noeud (le plus élevé est en bas de l'écran)
      */
     addNode(id, label, level){
         this.data.nodes.add({id, label, level});
@@ -291,13 +316,13 @@ class StrategyPanel {
 
     /**
      * Ajout d'une nouvel edge au Network.
-     * @param parent id de la source, le parent, de l'edge
-     * @param son id de la destination, le fils, de l'edge
-     * @param {boolean} isTrue indique si le lien est 'oui' ou 'non' concernant le noeud d'ou il part
+     * @param {!Number} parent id de la source, le parent, de l'edge
+     * @param {!Number} son id de la destination, le fils, de l'edge
+     * @param {!boolean} isTrue indique si le lien est 'oui' ou 'non' concernant le noeud d'ou il part
      * @return {Number} l'id du nouveau edge
      */
     addEdge(parent, son, isTrue){
-        let lastId = this.getLastId(this.edges);
+        let lastId = StrategyPanel.getLastId(this.edges);
         this.data.edges.add({
                 id: lastId + 1,
                 from: parent,
@@ -325,15 +350,14 @@ class StrategyPanel {
         let clickedNode = this.getNodeAt(params.pointer.DOM);
         params.event = "[original event]";
         document.getElementById('eventSpan').innerHTML = '<h2>DoubleClick event:</h2>' + JSON.stringify(params, null, 4);
-        if(clickedNode !== undefined){
-            instance.updateNode(clickedNode);
-        }
     }
 
     /**
      * Calback appelée lors de la sélection d'un noeuds
      */
     onSelectNode(params){
+        console.log("Assertions actuelles:");
+        console.log(JSON.stringify(instance.getCurrentAssertionsForNode(this.getNodeAt(params.pointer.DOM))));
     }
 
     /**
@@ -344,7 +368,7 @@ class StrategyPanel {
 
     /**
      * Retourne la liste des Ids des noeuds sélectionnés
-     * @returns {Array}
+     * @returns {Array.<Number>}
      */
     getSelection(){
         return this.network.getSelectedNodes();
@@ -353,8 +377,8 @@ class StrategyPanel {
     /**
      * Retourne la liste des noeuds avec les ids données, ou la liste complète des noeuds<br>
      * si ids n'est pas un tableau ou n'est pas renseigné
-     * @param {string[]} [ids] la liste des identifiants des noeuds souhaités
-     * @returns {Array|DataSet} la liste des noeuds souhaités ou de tous les noeuds
+     * @param {?Array.<Number>} [ids] la liste des identifiants des noeuds souhaités
+     * @returns {Array.<Node>|DataSet} la liste des noeuds souhaités ou de tous les noeuds
      */
     getNodes(ids){
         if(Array.isArray(ids)){
@@ -373,7 +397,7 @@ class StrategyPanel {
 
     /**
      * Définis la valeur d'un noeuds à l'attributs donné
-     * @param {!Attribute|null} attribute l'attribut à affecter au noeud sélectionné ou null
+     * @param {?Attribute} [attribute] l'attribut à affecter au noeud sélectionné ou null
      * @throws {Error} Lance une erreur si attribute n'est pas une instance de Attribute
      */
     setAttributeToSelection(attribute){
@@ -396,14 +420,14 @@ class StrategyPanel {
 
     /**
      * Créé deux fils au noeud donné
-     * @param {Object} parent le noeud père
+     * @param {!Node} parent le noeud père
      */
      addSons(parent) {
          if(this.hasTwoSons(parent.id)) {
            return;
          }
 
-         let lastId = this.getLastId(this.nodes);
+         let lastId = StrategyPanel.getLastId(this.nodes);
 
          this.addNode(lastId + 1, '', parent.level + 1);
          this.addNode(lastId + 2, '', parent.level + 1);
@@ -414,25 +438,23 @@ class StrategyPanel {
 
      /**
       * Donne l'id du dernier noeud ou edge créé
-      * @param {object} elements les nodes ou les edges
+      * @param {!DataSet} elements les nodes ou les edges
       * @return {Number} id du dernier noeud ou edge créé
       */
-     getLastId(elements) {
+     static getLastId(elements) {
          if(elements.length === 0){
              return 1;
          }
 
-         let ids = elements.map((element) => {
-            return element.id;
-         });
-
+         let ids = [];
+         elements.map(element => ids.push(element.id));
          return ids[ids.length - 1];
      }
 
     /**
      * Retourne le noeud à la position donnée
-     * @param {Number} x
-     * @param {Number} y
+     * @param {!Number} x
+     * @param {!Number} y
      * @returns {Number|undefined} l'id du noeud à la position ou undefined s'il n'y en a pas
      */
     getNodeAt(x,y){
@@ -440,44 +462,66 @@ class StrategyPanel {
     }
 
     /**
-     * Retourne la liste des attributs pouvant être définis pour le noeud présent en (x,y)
-     * @param x
-     * @param y
-     * @returns {Array} la liste des attributs. Si aucun noeuds n'est présent, retourne une liste vide
+     * Objet indiquant si l'attribut à la valeur donné est vrai ou faux.
+     * @typedef {Object} Assertion
+     * @property {string} attributeName le nom de l'attribut
+     * @property {string} valueName le nom de la valeur
+     * @property {boolean} value true si le personnage à cette valeur pour cet attribut, false sinon.
      */
-    getAssertionsForNode(x,y){
+
+    /**
+     * Retourne la liste des assertions faites pour le noeud à l'id donné.
+     * @param id l'id du noeuds jusqu'auquel on souhaite la liste des assertions actuelles
+     * @returns {Array.<Assertion>} la liste des assertions connues
+     */
+    getCurrentAssertionsForNode(id){
+        let childId = id;
+        if(id === 1){
+            return [];
+        }
+        let assertions = [];
+        let edge, attribute, parentId, parentNode;
+        do{
+            parentId = this.getParentId(id);
+            parentNode = this.getNode(parentId);
+            attribute = parentNode.attribute;
+            edge = this.getEdgeByNodes(parentId, childId);
+            assertions.push({
+                attributeName: attribute.getAttributeKey(),
+                valueName: attribute.getValue(),
+                value: edge.isTrue
+            });
+        }while(parentId !== undefined && parentId !== 1);
+        return assertions;
+    }
+
+    /**
+     * Retourne la liste des attributs pouvant être définis pour le noeud présent en (x,y)
+     * @param {!Number} x
+     * @param {!Number} y
+     * @returns {Object} Retourne un objet donc les clés sont les groupes des attributs, et les valeurs des tableaux d'instances de ces attributs.
+     * @example
+     * //Example de retour :
+     * return {"Couleur Cheveux": [instanceBlond, instanceBrun], "Coupe de Cheveux": [instanceChauve, instanceLong]};
+     */
+    getAvailableAssertionsForNode(x, y){
         let node = this.getNodeAt(x,y);
         if(node === undefined){
             return [];
         }
-        let attributes = [];
         let collection = AttributesCollection.singleton;
-        let map = collection.getAttributesValuesKeysMap();
-        let alreadyUsedAttributes = [];
-        let parentsNodes = this.getParentsNodes(node);
-        parentsNodes.forEach(idNode => {
-            let nodeParent = this.getNode(idNode);
-            if(nodeParent !== undefined && nodeParent !== null){
-                let edge = this.getEdgeByNodes(idNode, node);
-                if (edge !== undefined && edge.isTrue) {
-                    alreadyUsedAttributes.push(nodeParent.attribute.getAttributeKey());
-                }
-            }
-        });
-        map.forEach(attribute =>{
-            if(!alreadyUsedAttributes.includes(attribute)){
-                map[attribute].forEach( value =>{
-                    attributes.push(collection.getAttributeInstance(attribute,value));
-                })
-            }
-        });
-        return attributes;
+        let attr1 = [collection.getAttributeInstance("Couleur Cheveux", "blond"), collection.getAttributeInstance("Couleur Cheveux", "brun")];
+        let attr2 = [collection.getAttributeInstance("Coupe de Cheveux", "Chauve"), collection.getAttributeInstance("Coupe de Cheveux", "Mi-Long")];
+        return {
+            "Couleur Cheveux": attr1,
+            "Coupe de Cheveux" :attr2
+        };
     }
 
     /**
      * Retourne la liste des noeuds parents du noeud dont l'id est donné
-     * @param id l'id du noeud dont on souhaite les parents
-     * @returns {Array} La liste des noeuds parents
+     * @param {!Number} id l'id du noeud dont on souhaite les parents
+     * @returns {Array.<Node>} La liste des noeuds parents
      */
     getParentsNodes(id){
         let parents = [];
@@ -495,8 +539,8 @@ class StrategyPanel {
 
     /**
      * Sélectionne le noeud en (x,y) s'il existe
-     * @param x
-     * @param y
+     * @param {!Number|Point2D} x coordonnées x ou objet contenant x et y
+     * @param {Number} [y] optionnel si x contient les coordonnées
      */
     selectNode(x,y){
         let node = this.getNodeAt(x,y);
