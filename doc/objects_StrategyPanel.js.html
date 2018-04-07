@@ -1,4 +1,32 @@
-import * as Common from './Common';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: objects/StrategyPanel.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: objects/StrategyPanel.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import * as Common from './Common';
 import Application from "./Application";
 import Attribute from "./Attribute";
 import * as AttributesCollection from "./AttributesCollection";
@@ -132,7 +160,7 @@ class StrategyPanel {
     getEdgeByNodes(idParent, idFils){
         let res = undefined;
         this.data.edges.forEach(edge => {
-            if(edge.from === idParent && edge.to === idFils){
+            if(edge.from === idParent &amp;&amp; edge.to === idFils){
                 res = edge;
             }
         });
@@ -155,7 +183,7 @@ class StrategyPanel {
      * @see {@link module-Common.isNetworkEvent}
      */
     setNetworkHandler(event, handler){
-        if(typeof event === 'string' && typeof handler === 'function'){
+        if(typeof event === 'string' &amp;&amp; typeof handler === 'function'){
             if(Common.isNetworkEvent(event)){
                 console.log("nouvel handler pour l'événement '"+event+"'");
                 this.network.on(event, handler);
@@ -191,7 +219,7 @@ class StrategyPanel {
     /**
      * Retourne les ids des noeuds fils du noeud avec l'id donné
      * @param {!Number} id l'id du noeud père
-     * @returns {Array.<Number>} Les ids des noeuds fils
+     * @returns {Array.&lt;Number>} Les ids des noeuds fils
      */
     getChildsIds(id){
         let sons = [];
@@ -211,7 +239,7 @@ class StrategyPanel {
      */
     hasTwoSons(id){
       let sons = this.getChildsIds(id);
-      return sons !== undefined && sons.length === 2;
+      return sons !== undefined &amp;&amp; sons.length === 2;
     }
 
     /**
@@ -283,7 +311,7 @@ class StrategyPanel {
             }
         });
 
-        if (allDisabled && sons.length !== 0) {
+        if (allDisabled &amp;&amp; sons.length !== 0) {
             sons.forEach((son) => {
                 this.deleteNode(son);
             });
@@ -339,7 +367,7 @@ class StrategyPanel {
      */
     onClick(params){
         params.event = "[original event]";
-        document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
+        document.getElementById('eventSpan').innerHTML = '&lt;h2>Click event:&lt;/h2>' + JSON.stringify(params, null, 4);
     }
 
     /**
@@ -349,7 +377,7 @@ class StrategyPanel {
     onDoubleClick(params){
         let clickedNode = this.getNodeAt(params.pointer.DOM);
         params.event = "[original event]";
-        document.getElementById('eventSpan').innerHTML = '<h2>DoubleClick event:</h2>' + JSON.stringify(params, null, 4);
+        document.getElementById('eventSpan').innerHTML = '&lt;h2>DoubleClick event:&lt;/h2>' + JSON.stringify(params, null, 4);
     }
 
     /**
@@ -369,17 +397,17 @@ class StrategyPanel {
 
     /**
      * Retourne la liste des Ids des noeuds sélectionnés
-     * @returns {Array.<Number>}
+     * @returns {Array.&lt;Number>}
      */
     getSelection(){
         return this.network.getSelectedNodes();
     }
 
     /**
-     * Retourne la liste des noeuds avec les ids données, ou la liste complète des noeuds<br>
+     * Retourne la liste des noeuds avec les ids données, ou la liste complète des noeuds&lt;br>
      * si ids n'est pas un tableau ou n'est pas renseigné
-     * @param {?Array.<Number>} [ids] la liste des identifiants des noeuds souhaités
-     * @returns {Array.<Node>|DataSet} la liste des noeuds souhaités ou de tous les noeuds
+     * @param {?Array.&lt;Number>} [ids] la liste des identifiants des noeuds souhaités
+     * @returns {Array.&lt;Node>|DataSet} la liste des noeuds souhaités ou de tous les noeuds
      */
     getNodes(ids){
         if(Array.isArray(ids)){
@@ -402,11 +430,11 @@ class StrategyPanel {
      * @throws {Error} Lance une erreur si attribute n'est pas une instance de Attribute
      */
     setAttributeToSelection(attribute){
-        if(attribute !== null && !(attribute instanceof Attribute)){
+        if(attribute !== null &amp;&amp; !(attribute instanceof Attribute)){
             throw new Error("@StrategyPanel() -> Erreur : attribute doit être une instance de Attribute");
         }
         let selection = this.getSelection();
-        if(Array.isArray(selection) && selection.length === 1){
+        if(Array.isArray(selection) &amp;&amp; selection.length === 1){
             let selectedNode = this.getNode(selection[0]);
             if(attribute === null || attribute === undefined){
                 this.nodes.update({id:selectedNode.id,label:"", attribute:null});
@@ -473,7 +501,7 @@ class StrategyPanel {
     /**
      * Retourne la liste des assertions faites pour le noeud à l'id donné.
      * @param id l'id du noeuds jusqu'auquel on souhaite la liste des assertions actuelles
-     * @returns {Array.<Assertion>} la liste des assertions connues
+     * @returns {Array.&lt;Assertion>} la liste des assertions connues
      */
     getCurrentAssertionsForNode(id){
         let childId = id;
@@ -486,7 +514,7 @@ class StrategyPanel {
             parentId = this.getParentId(id);
             parentNode = this.getNode(parentId);
             attribute = parentNode.attribute;
-            if(attribute !== undefined && attribute !== null){
+            if(attribute !== undefined &amp;&amp; attribute !== null){
                 edge = this.getEdgeByNodes(parentId, childId);
                 assertions.push({
                     attributeName: attribute.getAttributeKey(),
@@ -494,7 +522,7 @@ class StrategyPanel {
                     value: edge.isTrue
                 });
             }
-        }while(parentId !== undefined && parentId !== 1);
+        }while(parentId !== undefined &amp;&amp; parentId !== 1);
         return assertions;
     }
 
@@ -509,8 +537,9 @@ class StrategyPanel {
      * return {"Couleur Cheveux": [instanceBlond, instanceBrun], "Coupe de Cheveux": [instanceChauve, instanceLong]};
      */
     getAvailableAssertionsForNode(x, y){
+        //FIXME si le noeud est sur une branche affirmative -> rien ou plantage
         let node;
-        if(typeof x === 'number' && typeof y === 'number'){
+        if(typeof x === 'number' &amp;&amp; typeof y === 'number'){
             //si x et y sont des coordonnées
             node = this.getNodeAt(x,y);
         }
@@ -549,7 +578,7 @@ class StrategyPanel {
     /**
      * Retourne la liste des noeuds parents du noeud dont l'id est donné
      * @param {!Number} id l'id du noeud dont on souhaite les parents
-     * @returns {Array.<Node>} La liste des noeuds parents
+     * @returns {Array.&lt;Node>} La liste des noeuds parents
      */
     getParentsNodes(id){
         let parents = [];
@@ -579,3 +608,26 @@ class StrategyPanel {
 }
 
 export default StrategyPanel;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-AttributesCollection.html">AttributesCollection</a></li><li><a href="module-Common.html">Common</a></li></ul><h3>Classes</h3><ul><li><a href="Application.html">Application</a></li><li><a href="Attribute.html">Attribute</a></li><li><a href="GestionnairePopulation.html">GestionnairePopulation</a></li><li><a href="InformationsPanel.html">InformationsPanel</a></li><li><a href="module-AttributesCollection-AttributesCollection.html">AttributesCollection</a></li><li><a href="PopulationPanel.html">PopulationPanel</a></li><li><a href="StrategyPanel.html">StrategyPanel</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Apr 07 2018 10:40:44 GMT+0200 (Paris, Madrid (heure d’été))
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

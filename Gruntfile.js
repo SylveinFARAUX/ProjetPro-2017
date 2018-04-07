@@ -6,6 +6,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-jsdoc');
+    grunt.loadNpmTasks('grunt-open');
     grunt.initConfig({
         'babel': {
             options: {
@@ -43,9 +44,16 @@ module.exports = function (grunt) {
                     destination: 'doc'
                 }
             }
+        },
+        'open': {
+            doc:{
+                path: 'doc/index.html',
+                app: 'Chrome'
+            }
         }
     });
     grunt.registerTask('build', ['webpack', 'babel', 'uglify']);
     grunt.registerTask('uglify', ['exec:uglify']);
+    grunt.registerTask('openDoc', ['jsdoc', 'open:doc']);
     grunt.registerTask('default', ['clean','build']);
 };

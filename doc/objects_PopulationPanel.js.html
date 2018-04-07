@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: objects/PopulationPanel.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: objects/PopulationPanel.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Character from "./Character";
+import Application from "./Application";
+import * as AttributesCollection from "./AttributesCollection";
+
+/**
+ * Classe représentant le panel de la population
+ */
+class PopulationPanel {
+
+    /**
+     *
+     * @param {!Application} appInstance L'instance d'application commune aux panels
+     * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
+     */
+    constructor(appInstance) {
+        if(!(appInstance instanceof Application)){
+            throw new Error("appInstance doit être l'instance de l'application commune aux panels");
+        }
+        this.appInstance = appInstance;
+        this.population = [];
+        this.activePopulation = [];
+        this.attributs = AttributesCollection.singleton;
+        //chargement du panel population principale
+        this.loadPopulation("Vannilla");
+        //chargement du panel population par défaut pour le creapop
+        this.loadPopCreator();
+    }
+
+    loadPopulation(idPop, idPopClient = 0){
+        this.load(idPop, idPopClient);
+        this.table = document.getElementById("mainTableChar");
+        this.loadTable();
+        this.activePopulation = [];
+        this.activePopulation = this.activePopulation.concat(this.population);
+    }
+
+    loadPopCreator(){
+        this.load("All");
+        this.table = document.getElementById("vannilla_pops");
+        this.loadTable();
+        this.load("ClientChars");
+        this.table = document.getElementById("clientchars");
+        this.loadTable();
+        //modif spécifiques
+        let fig = document.getElementById("pop_creator_content").getElementsByClassName("charfigcaptation");
+        let obj = this.appInstance;
+        for(let i = 0; i &lt; fig.length; i++){
+            fig[i].addEventListener("click", function(){ obj.getGestionnairePopulation().selectChar(fig[i].id);});
+        }
+        obj.getGestionnairePopulation().rehinit();
+    }
+
+    load(idPop, idPopClient = 0){
+        let chars = [];
+        switch (idPop) {
+            case "All" :
+                chars = this.appInstance.getGestionnairePopulation().getVannilla().characters;
+                break;
+            case "Vannilla" :
+                chars = this.appInstance.getGestionnairePopulation().getVannilla().characters;
+                break;
+            case "ClientChars" :
+                chars = this.appInstance.getGestionnairePopulation().getClientChars();
+                break;
+            case "ClientPop" :
+                chars = this.appInstance.getGestionnairePopulation().getClientPop(idPopClient);
+                break;
+            default :
+                return;
+        }
+        let d = new Date();
+        this.population = [];
+        for(let i = 0; i &lt; chars.length; i++){
+            this.population[i] = new Character(chars[i], i + "" + d.getTime(), this.attributs);
+        }
+    }
+
+    /**
+     *
+     * @param {!Number} i l'index du personnage
+     * @returns {Character} l'instance du personnage
+     */
+    getChar(i){
+        return this.activePopulation[i];
+    }
+
+    refresh(tabAttribute){
+        let actif = 0, elim = 0;
+        for(let i = 0; i &lt; this.activePopulation.length; i++){
+            let bool = this.activePopulation[i].check(tabAttribute);
+            if(bool)
+                actif++;
+            else
+                elim++;
+        }
+        this.majPopInfo(actif, elim);
+        return actif;
+    }
+
+    loadTable(){
+        let char;
+        //vide le tableau -> utile dans le cas d'un rechargement
+        if(this.population === undefined || this.population.length === 0){
+            this.table.innerHTML = "&lt;p>Aucun personnage n'as été chargé.&lt;/p>";
+            return;
+        }
+        this.table.innerHTML = "";
+
+        let row = document.createElement("tr");
+        this.table.appendChild(row);
+        for(let i = 0; i &lt; this.population.length; i++){
+            char = this.population[i];
+            row.appendChild(this.addChar(char));
+        }
+    }
+
+
+    /**
+     *
+     * @param {!Character} char l'instance de Character
+     * @returns {HTMLTableDataCellElement} l'élément 'td' de la colonne
+     */
+    addChar(char){
+        //________création de la cellule
+        let obj = this.appInstance;
+        let col = document.createElement("td");
+        col.id = "char" + char.id;
+        col.className = "charElem";
+        //_______création de l'image :
+        let fig = document.createElement("figure");
+        fig.id = "charfigure" + char.id;
+        fig.className = "charfigure";
+        fig.addEventListener("mouseover", function(){ obj.getInfoBulle().montre(char.id, col.id);});
+        fig.addEventListener("mouseout", function(){ obj.getInfoBulle().cache(char.id); });
+        fig.innerHTML = `
+                        &lt;img src ='` + char.img + `' alt='Perso` + char.id + `' id = 'charimg` + char.id + `'/>
+                        &lt;figcaption class = 'charfigcaptation' id = '` + char.id + `'>
+                            &lt;div class = 'charInfo'>
+                                &lt;h3 class = 'charName' id = 'charName` + char.id + `'>` + char.nom +`&lt;/h3>
+                                &lt;p id = 'charstatus` + char.id + `' class = "charstatus">Suspect&lt;/p>
+                            &lt;/div>
+                        &lt;/figcaption>
+        `;
+        //______création de l'infobulle
+        this.appInstance.getInfoBulle().addTooltip(char.id);
+        let area = document.createElement("div");
+        area.className = "overarea";
+        area.id = "overarea" + char.id;
+        area.addEventListener("mouseover", function(){ obj.getInfoBulle().affiche(char.id); });
+        area.addEventListener("mouseout", function(){ obj.getInfoBulle().cache(char.id); });
+        let arrow = document.createElement("div");
+        arrow.className = "arrow";
+        arrow.id = "arrow" + char.id;
+        arrow.addEventListener("mouseover", function(){ obj.getInfoBulle().affiche(char.id); });
+        arrow.addEventListener("mouseout", function(){ obj.getInfoBulle().cache(char.id); });
+        let tt = document.createElement("div");
+        tt.className = "custom-tooltip";
+        tt.id = "tooltip" + char.id;
+        tt.addEventListener("mouseover", function(){ obj.getInfoBulle().affiche(char.id); });
+        tt.addEventListener("mouseout", function(){ obj.getInfoBulle().cache(char.id); });
+        tt.innerHTML = char.listeAttribute() + "";
+        //______ajout des éléments
+        col.appendChild(fig);
+        let doc = document.getElementById("tooltip_conteneur");
+        doc.appendChild(area);
+        doc.appendChild(tt);
+        doc.appendChild(arrow);
+        return  col;
+    }
+
+    static majPopInfo(actif, elim){
+        document.getElementById("nbActif").innerHTML = actif;
+        document.getElementById("nbElim").innerHTML = elim;
+    }
+}
+
+export default PopulationPanel;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-AttributesCollection.html">AttributesCollection</a></li><li><a href="module-Common.html">Common</a></li></ul><h3>Classes</h3><ul><li><a href="Application.html">Application</a></li><li><a href="Attribute.html">Attribute</a></li><li><a href="GestionnairePopulation.html">GestionnairePopulation</a></li><li><a href="InformationsPanel.html">InformationsPanel</a></li><li><a href="module-AttributesCollection-AttributesCollection.html">AttributesCollection</a></li><li><a href="PopulationPanel.html">PopulationPanel</a></li><li><a href="StrategyPanel.html">StrategyPanel</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Apr 07 2018 10:40:44 GMT+0200 (Paris, Madrid (heure d’été))
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

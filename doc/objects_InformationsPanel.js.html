@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: objects/InformationsPanel.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,36 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: objects/InformationsPanel.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Application from "./Application";
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+/**
+ * Classe repésentant le panel Informations
+ */
+class InformationsPanel {
+    /**
+     *
+     * @param {!Application} appInstance L'instance d'application commune aux panels
+     * @throws {Error} Lance une erreur si appInstance n'est pas une instance de Application
+     */
+  constructor(appInstance){
+        if(!(appInstance instanceof Application)){
+            throw new Error("appInstance doit être l'instance de l'application commune aux panels");
+        }
+        this.appInstance = appInstance;
+  }
+}
+export default InformationsPanel;</code></pre>
+        </article>
+    </section>
 
 
 
