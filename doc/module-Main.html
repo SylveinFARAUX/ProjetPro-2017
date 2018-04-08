@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: Common</title>
+    <title>JSDoc: Module: Main</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: Common</h1>
+    <h1 class="page-title">Module: Main</h1>
 
     
 
@@ -58,26 +58,16 @@
 
         
             
-<h4 class="name" id=".STRATEGY_OPTIONS"><span class="type-signature">(static) </span>STRATEGY_OPTIONS<span class="type-signature"> :object</span></h4>
+<h4 class="name" id="~rightClickX"><span class="type-signature">(inner) </span>rightClickX<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    L'objet décrivant l'arbre de stratégie pour Vis.js
+    Coordonnée X du dernier clic droit
 </div>
 
 
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">object</span>
-
-
-        </li>
-    </ul>
 
 
 
@@ -112,7 +102,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="objects_Common.js.html">objects/Common.js</a>, <a href="objects_Common.js.html#line7">line 7</a>
+        <a href="Main.js.html">Main.js</a>, <a href="Main.js.html#line116">line 116</a>
     </li></ul></dd>
     
 
@@ -130,26 +120,16 @@
 
         
             
-<h4 class="name" id="~NETWORK_EVENTS"><span class="type-signature">(inner, constant) </span>NETWORK_EVENTS<span class="type-signature"> :Array.&lt;string></span></h4>
+<h4 class="name" id="~rightClickY"><span class="type-signature">(inner) </span>rightClickY<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Evenements disponible pour les ojets Vis.Network
+    Coordonnée Y du dernier clic droit
 </div>
 
 
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Array.&lt;string></span>
-
-
-        </li>
-    </ul>
 
 
 
@@ -184,7 +164,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="objects_Common.js.html">objects/Common.js</a>, <a href="objects_Common.js.html#line35">line 35</a>
+        <a href="Main.js.html">Main.js</a>, <a href="Main.js.html#line118">line 118</a>
     </li></ul></dd>
     
 
@@ -212,7 +192,7 @@
     
 
     
-    <h4 class="name" id=".createChildDiv"><span class="type-signature">(static) </span>createChildDiv<span class="signature">(parent, childId<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {HTMLElement|undefined}</span></h4>
+    <h4 class="name" id="~createAssertsGroups"><span class="type-signature">(inner) </span>createAssertsGroups<span class="signature">(attributes<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {Array}</span></h4>
     
 
     
@@ -220,7 +200,7 @@
 
 
 <div class="description">
-    Créer un HTMLElement div et le concatène à l'element parent.
+    Créer un liste de fils contenant chacun une liste d'items correspondant aux instances d'Attribute contenues dans attributes
 </div>
 
 
@@ -256,13 +236,13 @@
 
         <tr>
             
-                <td class="name"><code>parent</code></td>
+                <td class="name"><code>attributes</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">HTMLElement</span>
+<span class="param-type">Object</span>
 
 
             
@@ -272,30 +252,7 @@
 
             
 
-            <td class="description last">le parent</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>childId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">l'id de l'élément à créer</td>
+            <td class="description last">dont chaque proprétés porte le nom d'un attribut et chaque valeur est un tableau d'instance d'Attribute</td>
         </tr>
 
     
@@ -336,12 +293,19 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="objects_Common.js.html">objects/Common.js</a>, <a href="objects_Common.js.html#line61">line 61</a>
+        <a href="Main.js.html">Main.js</a>, <a href="Main.js.html#line153">line 153</a>
     </li></ul></dd>
     
 
     
 
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="StrategyPanel.html#getAvailableAssertionsForNode">StrategyPanel#getAvailableAssertionsForNode</a></li>
+        </ul>
+    </dd>
     
 
     
@@ -363,7 +327,7 @@
 
         
 <div class="param-desc">
-    l'élément créé ou undefined si parent n'est pas un HTMLElement ou si childID n'est pas une chaîne
+    Liste des fils correspondant aux assertions données en paramètres
 </div>
 
 
@@ -374,10 +338,7 @@
     </dt>
     <dd>
         
-<span class="param-type">HTMLElement</span>
-|
-
-<span class="param-type">undefined</span>
+<span class="param-type">Array</span>
 
 
     </dd>
@@ -395,7 +356,7 @@
     
 
     
-    <h4 class="name" id=".isNetworkEvent"><span class="type-signature">(static) </span>isNetworkEvent<span class="signature">(event)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id="~createAttributesMenuItemList"><span class="type-signature">(inner) </span>createAttributesMenuItemList<span class="signature">(attributesInstances)</span><span class="type-signature"> &rarr; {Array.&lt;<a href="global.html#ContextMenuItem">ContextMenuItem</a>>}</span></h4>
     
 
     
@@ -403,7 +364,7 @@
 
 
 <div class="description">
-    Indique si le nom de l'événement donné est un événement supporté par Vis.js
+    Créer une liste d'item pour le menu contextuel correspondant à la liste d'Attribute donnée
 </div>
 
 
@@ -439,13 +400,13 @@
 
         <tr>
             
-                <td class="name"><code>event</code></td>
+                <td class="name"><code>attributesInstances</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Array.&lt;<a href="Attribute.html">Attribute</a>></span>
 
 
             
@@ -455,7 +416,7 @@
 
             
 
-            <td class="description last">le nom de l'événement</td>
+            <td class="description last">la liste d'Attribute</td>
         </tr>
 
     
@@ -496,7 +457,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="objects_Common.js.html">objects/Common.js</a>, <a href="objects_Common.js.html#line48">line 48</a>
+        <a href="Main.js.html">Main.js</a>, <a href="Main.js.html#line134">line 134</a>
     </li></ul></dd>
     
 
@@ -523,7 +484,7 @@
 
         
 <div class="param-desc">
-    true si event est supporté, false sinon
+    tableau d'items du menu contextuel
 </div>
 
 
@@ -534,7 +495,7 @@
     </dt>
     <dd>
         
-<span class="param-type">boolean</span>
+<span class="param-type">Array.&lt;<a href="global.html#ContextMenuItem">ContextMenuItem</a>></span>
 
 
     </dd>

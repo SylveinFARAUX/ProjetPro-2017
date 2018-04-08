@@ -14,6 +14,48 @@ let instance;
  * @param {Event} event Un événement
  */
 
+/*
+{
+    "pointer": {
+        "DOM": {
+            "x": 508,
+            "y": 235
+        },
+        "canvas": {
+            "x": 91.5,
+            "y": 4.5
+        }
+    },
+    "event": "[original event]",
+    "nodes": [
+        3
+    ],
+    "edges": [
+        3,
+        6,
+        7
+    ],
+    "items": [
+        {
+            "edgeId": 7
+        },
+        {
+            "edgeId": 6
+        },
+        {
+            "edgeId": 3
+        }
+    ]
+}
+*/
+
+/**
+ * Objet contenant les données envoyé à un handler d'un événement vis.js
+ * @typedef {object} VisEventHandlerParam
+ * @property {{DOM:Point2D, canvas:Point2D}} pointer positiondu pointeur par rapport au DOM et au canvas
+ * @property {DataSet} edges les liens
+ */
+
 /**
  * Objet contenant les données de l'arbre de stratégie manipulées par vis.js
  * @typedef {object} StrategyData
@@ -97,7 +139,7 @@ class StrategyPanel {
          * Instance de vis.Network permettant de visualiser l'arbre
          * @member {vis.Network}
          */
-        this.network = new vis.Network(this.element, this.data, Common.STRATEGY_OPTIONS);
+        this._network = new vis.Network(this.element, this.data, Common.STRATEGY_OPTIONS);
         this.setNetworkHandler("click", this.onClick);
         this.setNetworkHandler("doubleClick", this.onDoubleClick);
         this.setNetworkHandler("selectNode", this.onSelectNode);
@@ -111,7 +153,7 @@ class StrategyPanel {
      * @returns {vis.Network}
      */
     network(){
-        return this.network;
+        return this._network;
     }
 
     /**
@@ -141,7 +183,6 @@ class StrategyPanel {
 
     /**
      * Retourne le noeud avec l'id donné
-     * @param {!Number} id l'id du noeud
      * @returns {Node|undefined} le noeud ou undefined
      */
     getNode(id){
@@ -158,7 +199,7 @@ class StrategyPanel {
         if(typeof event === 'string' && typeof handler === 'function'){
             if(Common.isNetworkEvent(event)){
                 console.log("nouvel handler pour l'événement '"+event+"'");
-                this.network.on(event, handler);
+                this.network().on(event, handler);
             }else{
                 console.log("Attention : l'événement '"+event+"' n'est pas un événement vis.js valide");
             }
@@ -336,6 +377,7 @@ class StrategyPanel {
     /**
      * Handler appelé lors des événement click sur le network
      * @param {object} params Objet contenant les infos de l'événement
+     * @this {vis.Network}
      */
     onClick(params){
         params.event = "[original event]";
@@ -345,6 +387,8 @@ class StrategyPanel {
     /**
      * Handler appelé lors des événement doubleClick sur le network
      * @param {object} params Objet contenant les infos de l'événement
+     * @this {vis.Network}
+     * @param {VisEventHandlerParam} params
      */
     onDoubleClick(params){
         let clickedNode = this.getNodeAt(params.pointer.DOM);
@@ -354,6 +398,8 @@ class StrategyPanel {
 
     /**
      * Calback appelée lors de la sélection d'un noeuds
+     * @this {vis.Network}
+     * @param {VisEventHandlerParam} params
      */
     onSelectNode(params){
         let node = this.getNodeAt(params.pointer.DOM);
@@ -363,6 +409,8 @@ class StrategyPanel {
 
     /**
      * Calback appelée lors de la désélection d'un noeuds
+     * @this {vis.Network}
+     * @param {VisEventHandlerParam} params
      */
     onDeselectNode(params){
     }
@@ -372,7 +420,7 @@ class StrategyPanel {
      * @returns {Array.<Number>}
      */
     getSelection(){
-        return this.network.getSelectedNodes();
+        return this.network().getSelectedNodes();
     }
 
     /**
@@ -459,7 +507,7 @@ class StrategyPanel {
      * @returns {Number|undefined} l'id du noeud à la position ou undefined s'il n'y en a pas
      */
     getNodeAt(x,y){
-        return this.network.getNodeAt({x,y});
+        return this.network().getNodeAt({x,y});
     }
 
     /**
@@ -483,7 +531,7 @@ class StrategyPanel {
         let assertions = [];
         let edge, attribute, parentId, parentNode;
         do{
-            parentId = this.getParentId(id);
+            parentId = this.getParentId(childId);
             parentNode = this.getNode(parentId);
             attribute = parentNode.attribute;
             if(attribute !== undefined && attribute !== null){
@@ -494,6 +542,7 @@ class StrategyPanel {
                     value: edge.isTrue
                 });
             }
+            childId = parentId;
         }while(parentId !== undefined && parentId !== 1);
         return assertions;
     }
@@ -573,7 +622,7 @@ class StrategyPanel {
     selectNode(x,y){
         let node = this.getNodeAt(x,y);
         if(node !== undefined){
-            this.network.selectNodes([node]);
+            this.network().selectNodes([node]);
         }
     }
 }

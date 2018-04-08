@@ -54,6 +54,6 @@ module.exports = function (grunt) {
     });
     grunt.registerTask('build', ['webpack', 'babel', 'uglify']);
     grunt.registerTask('uglify', ['exec:uglify']);
-    grunt.registerTask('openDoc', ['jsdoc', 'open:doc']);
+    grunt.registerTask('openDoc', ['jsdoc:build', 'open:doc']);
     grunt.registerTask('default', ['clean','build']);
 };

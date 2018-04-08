@@ -42,6 +42,48 @@ let instance;
  * @param {Event} event Un événement
  */
 
+/*
+{
+    "pointer": {
+        "DOM": {
+            "x": 508,
+            "y": 235
+        },
+        "canvas": {
+            "x": 91.5,
+            "y": 4.5
+        }
+    },
+    "event": "[original event]",
+    "nodes": [
+        3
+    ],
+    "edges": [
+        3,
+        6,
+        7
+    ],
+    "items": [
+        {
+            "edgeId": 7
+        },
+        {
+            "edgeId": 6
+        },
+        {
+            "edgeId": 3
+        }
+    ]
+}
+*/
+
+/**
+ * Objet contenant les données envoyé à un handler d'un événement vis.js
+ * @typedef {object} VisEventHandlerParam
+ * @property {{DOM:Point2D, canvas:Point2D}} pointer positiondu pointeur par rapport au DOM et au canvas
+ * @property {DataSet} edges les liens
+ */
+
 /**
  * Objet contenant les données de l'arbre de stratégie manipulées par vis.js
  * @typedef {object} StrategyData
@@ -125,7 +167,7 @@ class StrategyPanel {
          * Instance de vis.Network permettant de visualiser l'arbre
          * @member {vis.Network}
          */
-        this.network = new vis.Network(this.element, this.data, Common.STRATEGY_OPTIONS);
+        this._network = new vis.Network(this.element, this.data, Common.STRATEGY_OPTIONS);
         this.setNetworkHandler("click", this.onClick);
         this.setNetworkHandler("doubleClick", this.onDoubleClick);
         this.setNetworkHandler("selectNode", this.onSelectNode);
@@ -139,7 +181,7 @@ class StrategyPanel {
      * @returns {vis.Network}
      */
     network(){
-        return this.network;
+        return this._network;
     }
 
     /**
@@ -169,7 +211,6 @@ class StrategyPanel {
 
     /**
      * Retourne le noeud avec l'id donné
-     * @param {!Number} id l'id du noeud
      * @returns {Node|undefined} le noeud ou undefined
      */
     getNode(id){
@@ -186,7 +227,7 @@ class StrategyPanel {
         if(typeof event === 'string' &amp;&amp; typeof handler === 'function'){
             if(Common.isNetworkEvent(event)){
                 console.log("nouvel handler pour l'événement '"+event+"'");
-                this.network.on(event, handler);
+                this.network().on(event, handler);
             }else{
                 console.log("Attention : l'événement '"+event+"' n'est pas un événement vis.js valide");
             }
@@ -364,6 +405,7 @@ class StrategyPanel {
     /**
      * Handler appelé lors des événement click sur le network
      * @param {object} params Objet contenant les infos de l'événement
+     * @this {vis.Network}
      */
     onClick(params){
         params.event = "[original event]";
@@ -373,6 +415,8 @@ class StrategyPanel {
     /**
      * Handler appelé lors des événement doubleClick sur le network
      * @param {object} params Objet contenant les infos de l'événement
+     * @this {vis.Network}
+     * @param {VisEventHandlerParam} params
      */
     onDoubleClick(params){
         let clickedNode = this.getNodeAt(params.pointer.DOM);
@@ -382,6 +426,8 @@ class StrategyPanel {
 
     /**
      * Calback appelée lors de la sélection d'un noeuds
+     * @this {vis.Network}
+     * @param {VisEventHandlerParam} params
      */
     onSelectNode(params){
         let node = this.getNodeAt(params.pointer.DOM);
@@ -391,6 +437,8 @@ class StrategyPanel {
 
     /**
      * Calback appelée lors de la désélection d'un noeuds
+     * @this {vis.Network}
+     * @param {VisEventHandlerParam} params
      */
     onDeselectNode(params){
     }
@@ -400,7 +448,7 @@ class StrategyPanel {
      * @returns {Array.&lt;Number>}
      */
     getSelection(){
-        return this.network.getSelectedNodes();
+        return this.network().getSelectedNodes();
     }
 
     /**
@@ -487,7 +535,7 @@ class StrategyPanel {
      * @returns {Number|undefined} l'id du noeud à la position ou undefined s'il n'y en a pas
      */
     getNodeAt(x,y){
-        return this.network.getNodeAt({x,y});
+        return this.network().getNodeAt({x,y});
     }
 
     /**
@@ -511,7 +559,7 @@ class StrategyPanel {
         let assertions = [];
         let edge, attribute, parentId, parentNode;
         do{
-            parentId = this.getParentId(id);
+            parentId = this.getParentId(childId);
             parentNode = this.getNode(parentId);
             attribute = parentNode.attribute;
             if(attribute !== undefined &amp;&amp; attribute !== null){
@@ -522,6 +570,7 @@ class StrategyPanel {
                     value: edge.isTrue
                 });
             }
+            childId = parentId;
         }while(parentId !== undefined &amp;&amp; parentId !== 1);
         return assertions;
     }
@@ -537,7 +586,6 @@ class StrategyPanel {
      * return {"Couleur Cheveux": [instanceBlond, instanceBrun], "Coupe de Cheveux": [instanceChauve, instanceLong]};
      */
     getAvailableAssertionsForNode(x, y){
-        //FIXME si le noeud est sur une branche affirmative -> rien ou plantage
         let node;
         if(typeof x === 'number' &amp;&amp; typeof y === 'number'){
             //si x et y sont des coordonnées
@@ -602,7 +650,7 @@ class StrategyPanel {
     selectNode(x,y){
         let node = this.getNodeAt(x,y);
         if(node !== undefined){
-            this.network.selectNodes([node]);
+            this.network().selectNodes([node]);
         }
     }
 }
@@ -618,13 +666,13 @@ export default StrategyPanel;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-AttributesCollection.html">AttributesCollection</a></li><li><a href="module-Common.html">Common</a></li></ul><h3>Classes</h3><ul><li><a href="Application.html">Application</a></li><li><a href="Attribute.html">Attribute</a></li><li><a href="GestionnairePopulation.html">GestionnairePopulation</a></li><li><a href="InformationsPanel.html">InformationsPanel</a></li><li><a href="module-AttributesCollection-AttributesCollection.html">AttributesCollection</a></li><li><a href="PopulationPanel.html">PopulationPanel</a></li><li><a href="StrategyPanel.html">StrategyPanel</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-AttributesCollection.html">AttributesCollection</a></li><li><a href="module-Common.html">Common</a></li><li><a href="module-Main.html">Main</a></li></ul><h3>Externals</h3><ul><li><a href="external-Array.html">Array</a></li></ul><h3>Classes</h3><ul><li><a href="Application.html">Application</a></li><li><a href="Attribute.html">Attribute</a></li><li><a href="GestionnairePage.html">GestionnairePage</a></li><li><a href="GestionnairePopulation.html">GestionnairePopulation</a></li><li><a href="InformationsPanel.html">InformationsPanel</a></li><li><a href="module-AttributesCollection-AttributesCollection.html">AttributesCollection</a></li><li><a href="PopulationPanel.html">PopulationPanel</a></li><li><a href="StrategyPanel.html">StrategyPanel</a></li><li><a href="Tooltip.html">Tooltip</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Apr 07 2018 10:40:44 GMT+0200 (Paris, Madrid (heure d’été))
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Apr 08 2018 14:20:31 GMT+0200 (Paris, Madrid (heure d’été))
 </footer>
 
 <script> prettyPrint(); </script>

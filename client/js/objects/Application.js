@@ -15,13 +15,45 @@ class Application {
      * Instancie tout les panels
      */
     constructor(){
+        /**
+         * Infobulle
+         * @member {Tooltip}
+         */
         this.infobulle =  new Tooltip();
+        /**
+         * Gestionnaire de page
+         * @member {GestionnairePage}
+         */
         this.gestionnairePages = new GestionnairePage(this);
+        /**
+         * Bannière de l'application
+         * @member {Banniere}
+         */
         this.banniere = new Banniere(this);
+        /**
+         * Gestionnaire de population
+         * @member {GestionnairePopulation}
+         */
         this.gestionnairePopulation = new GestionnairePopulation(this);
+        /**
+         * Instance du panel de stratégie
+         * @member {StrategyPanel}
+         */
         this.strategyPanel = new StrategyPanel(this);
+        /**
+         * Instance du panel de population
+         * @member {PopulationPanel}
+         */
         this.populationPanel = new PopulationPanel(this);
+        /**
+         * Instance du panel d'informations
+         * @member {InformationsPanel}
+         */
         this.informationsPanel = new InformationsPanel(this);
+        /**
+         * Créateur de personnage
+         * @member {CharCreator}
+         */
         this.charcreator = new CharCreator(this);
     }
 
@@ -33,22 +65,42 @@ class Application {
         return this.strategyPanel;
     }
 
+    /**
+     *
+     * @returns {GestionnairePopulation}
+     */
     getGestionnairePopulation(){
         return this.gestionnairePopulation;
     }
 
+    /**
+     *
+     * @returns {Banniere}
+     */
     getBanniere(){
         return this.banniere;
     }
 
+    /**
+     *
+     * @returns {GestionnairePage}
+     */
     getGestionnairePage(){
         return this.gestionnairePages;
     }
 
+    /**
+     *
+     * @returns {Tooltip}
+     */
     getInfoBulle(){
         return this.infobulle;
     }
 
+    /**
+     *
+     * @returns {CharCreator}
+     */
     getCharCreator(){
         return this.charcreator;
     }

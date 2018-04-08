@@ -2,6 +2,9 @@ import PopulationPanel from "./PopulationPanel";
 
 const arrowSize = 7;
 
+/**
+ * Classe pour les infobulles
+ */
 class Tooltip{
 	constructor(){
 		this.ttVisible = []; // Le tableau ttVisible nous dit si l'infobulle d'indice i est visible ou non

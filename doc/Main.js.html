@@ -27,7 +27,31 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import Application from "./objects/Application";
-import * as AttributesCollection from "./objects/AttributesCollection";
+
+/**
+ * Classe des tableaux JavaScript
+ * @external Array
+ */
+
+/**
+ * Créé une copie du tableau non-profonde du tableau.
+ * @returns {Array} La copie du tableau
+ * @function external:Array#clone
+ * @example
+ * let a = [1,2,3], b=a.clone();
+ * a[0] = 0;
+ * console.log(b); // [1,2,3] (copie des valeurs)
+ * @example
+ * let obj1 = {a:1}, obj2 = {b:2};
+ * let a = [obj1, obj2];
+ * let b = a.clone();
+ * console.log(b); //[ { a: 1 }, { b: 2 } ]
+ * obj2.b = 0;
+ * console.log(b); //[ { a: 1 }, { b: 0 } ] (copie des références)
+ */
+Array.prototype.clone = function(){
+    return this.map(e => Array.isArray(e) ? e.clone() : e);
+};
 
 // Array Remove - By John Resig (MIT Licensed)
 /**
@@ -35,42 +59,78 @@ import * as AttributesCollection from "./objects/AttributesCollection";
  * &lt;ul>
  *     &lt;li>Si to n'est pas renseigné :
  *      &lt;ul>
- *         &lt;li>from >= 0 : supprime l'item à l'index from&lt;/li>
- *         &lt;li>from &lt; 0 : soit n la taille, supprime l'item à l'index  n + from&lt;/li>
+ *         &lt;li>from >= 0 : supprime l'item à l'index from, s'il existe&lt;/li>
+ *         &lt;li>from &lt; 0 : soit n la taille, supprime l'item à l'index  n + from, s'il existe&lt;/li>
  *      &lt;/ul>
  *     &lt;/li>
  *     &lt;li>Si to est renseigné :
  *      &lt;ul>
- *         &lt;li>from et to >= 0 : supprime les items de l'index from à l'index to inclus&lt;/li>
- *         &lt;li>from et to &lt; 0 : soit n la taille, supprime les items de l'index n + from à l'index n + to inclus&lt;/li>
+ *         &lt;li>from et to >= 0 : supprime les items de l'index from à l'index to inclus, s'ils existent&lt;/li>
+ *         &lt;li>from et to &lt; 0 : soit n la taille, supprime les items de l'index n + from à l'index n + to inclus, s'ils existent&lt;/li>
  *      &lt;/ul>
  *     &lt;/li>
  * &lt;/ul>
  * @param {!Number} from Index de l'élément à supprimer, ou du premier élément à supprimer
  * @param {Number} [to] Index du dernier élément à supprimer
  * @returns {Number} La nouvelle longueur du tableau
+ * @function external:Array#remove
  * @example
+ * let a = ['a', "b", 2, 3], b = a.clone(), c = a.clone(), d = a.clone();
  * // Supprime le deuxième item du tableau
- * array.remove(1);
+ * a.remove(1); //['a', 2, 3]
  * // Supprime l'avant-avant dernier item du tableau
- * array.remove(-2);
+ * b.remove(-2); //['a', 'b', 3]
  * // Supprime les deuxième et troisième items du tableau
- * array.remove(1,2);
+ * c.remove(1,2); //['a', 3]
  * // Supprime l'avant-avant dernier et l'avant dernier items du tableau
- * array.remove(-2,-1);
+ * d.remove(-2,-1); //['a', 'b']
  */
 Array.prototype.remove = function(from, to) {
-    let rest = this.slice((to || from) + 1 || this.length);
-    this.length = from &lt; 0 ? this.length + from : from;
-    return this.push.apply(this, rest);
+    if(typeof from === 'number'){
+        if(Math.abs(from) >= this.length){
+            console.error("from out of bounds : "+from);
+            return this.length;
+        }else{
+            if(typeof to === 'number' &amp;&amp; Math.abs(to) >= this.length){
+                console.error("from out of bounds : "+from);
+                return this.length;
+            }else{
+                let rest = this.slice((to || from) + 1 || this.length);
+                this.length = from &lt; 0 ? this.length + from : from;
+                return this.push.apply(this, rest);
+            }
+        }
+    }
 };
 
+/**
+ * Supprime la valeur value du tableau si elle existe
+ * @param {!Object} value La valeur à supprimer
+ * @returns {Number} La nouvelle longueur du tableau
+ * @function external:Array#removeValue
+ * @example
+ * let array a = ['a','b',1,2]
+ * // Supprime le deuxième item du tableau
+ * array.remove(1);
+ */
 Array.prototype.removeValue = function(value) {
     let index = this.indexOf(value);
     if(index >= 0){
-        this.remove(index);
+        return this.remove(index);
+    }else{
+        return this.length;
     }
 };
+
+/**
+ * Item clicable du menu contextuelle de l'arbre de stratégie
+ * @typedef {Object} ContextMenuItem
+ * @property {string} title le texte de l'item
+ * @property {function} action la fonction éxécutée à la sélection de l'item
+ * @global
+ */
+
+/** @module Main */
 
 let appt = new Application();
 
@@ -80,7 +140,9 @@ window.onresize = function(){
     appt.getGestionnairePage().resizeContenu();
 };
 
+/** Coordonnée X du dernier clic droit */
 let rightClickX = 0;
+/** Coordonnée Y du dernier clic droit */
 let rightClickY = 0;
 
 document.addEventListener("contextmenu", (evt)=>{
@@ -92,6 +154,11 @@ document.addEventListener("click", (evt)=>{
     $(document).contextmenu("close");
 });
 
+/**
+ * Créer une liste d'item pour le menu contextuel correspondant à la liste d'Attribute donnée
+ * @param {Array.&lt;Attribute>} attributesInstances la liste d'Attribute
+ * @returns {Array.&lt;ContextMenuItem>} tableau d'items du menu contextuel
+ */
 function createAttributesMenuItemList(attributesInstances){
     let menuItemsList = [];
     attributesInstances.forEach(instance => {
@@ -105,6 +172,12 @@ function createAttributesMenuItemList(attributesInstances){
     return menuItemsList;
 }
 
+/**
+ * Créer un liste de fils contenant chacun une liste d'items correspondant aux instances d'Attribute contenues dans attributes
+ * @param {!Object} attributes dont chaque proprétés porte le nom d'un attribut et chaque valeur est un tableau d'instance d'Attribute
+ * @returns {Array} Liste des fils correspondant aux assertions données en paramètres
+ * @see StrategyPanel#getAvailableAssertionsForNode
+ */
 function createAssertsGroups(attributes){
     let assertsGroups = [];
     Object.keys(attributes).forEach(attribute =>{
@@ -179,13 +252,13 @@ $(function(){
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-AttributesCollection.html">AttributesCollection</a></li><li><a href="module-Common.html">Common</a></li></ul><h3>Classes</h3><ul><li><a href="Application.html">Application</a></li><li><a href="Attribute.html">Attribute</a></li><li><a href="GestionnairePopulation.html">GestionnairePopulation</a></li><li><a href="InformationsPanel.html">InformationsPanel</a></li><li><a href="module-AttributesCollection-AttributesCollection.html">AttributesCollection</a></li><li><a href="PopulationPanel.html">PopulationPanel</a></li><li><a href="StrategyPanel.html">StrategyPanel</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-AttributesCollection.html">AttributesCollection</a></li><li><a href="module-Common.html">Common</a></li><li><a href="module-Main.html">Main</a></li></ul><h3>Externals</h3><ul><li><a href="external-Array.html">Array</a></li></ul><h3>Classes</h3><ul><li><a href="Application.html">Application</a></li><li><a href="Attribute.html">Attribute</a></li><li><a href="GestionnairePage.html">GestionnairePage</a></li><li><a href="GestionnairePopulation.html">GestionnairePopulation</a></li><li><a href="InformationsPanel.html">InformationsPanel</a></li><li><a href="module-AttributesCollection-AttributesCollection.html">AttributesCollection</a></li><li><a href="PopulationPanel.html">PopulationPanel</a></li><li><a href="StrategyPanel.html">StrategyPanel</a></li><li><a href="Tooltip.html">Tooltip</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Apr 07 2018 10:40:44 GMT+0200 (Paris, Madrid (heure d’été))
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Apr 08 2018 14:20:31 GMT+0200 (Paris, Madrid (heure d’été))
 </footer>
 
 <script> prettyPrint(); </script>
