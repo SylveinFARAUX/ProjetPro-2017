@@ -389,6 +389,7 @@ class StrategyPanel {
     onClick(params){
         /*params.event = "[original event]";
         document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);*/
+        instance.appInstance.getGestionnairePage().majInfo(12, 48, 24, 23);
     }
 
     /**
@@ -410,7 +411,7 @@ class StrategyPanel {
      */
     onSelectNode(params){
         let node = this.getNodeAt(params.pointer.DOM);
-        let peroRestant = instance.appInstance.getPopulationPanel().refresh(instance.getCurrentAssertionsForNode(node));
+        let persoRestant = instance.appInstance.getPopulationPanel().refresh(instance.getCurrentAssertionsForNode(node));
         //instance.appInstance.getGestionnairePage().majInfo(profMin, profMax, profMoy,hitByAsssert);
     }
 
