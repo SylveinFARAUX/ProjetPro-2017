@@ -330,9 +330,10 @@ class GestionnairePopulation {
         let attrKeys = document.getElementById("tooltip" + idChar).getElementsByClassName("attr_id");
         let attrVals = document.getElementById("tooltip" + idChar).getElementsByClassName("attr_value");
         for(let i = 0; i < attrKeys.length; i++){
-            attr = {};
-            attr.key = attrKeys[i].innerHTML;
-            attr.value = attrVals[i].innerHTML;
+            attr = {
+                key: attrKeys[i].innerHTML,
+                value: attrVals[i].innerHTML
+            };
             char.attributs.push(attr);
         }
         this.creaPop.push(char);
