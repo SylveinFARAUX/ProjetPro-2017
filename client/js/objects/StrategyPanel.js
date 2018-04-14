@@ -467,12 +467,10 @@ class StrategyPanel {
             if(attribute === null || attribute === undefined){
                 this.nodes.update({id:selectedNode.id,label:"", attribute:null});
                 this.disableNode(selectedNode.id);
-                //TODO faire remonter les noeuds fils
             }else{
                 this.nodes.update({id:selectedNode.id,label:attribute.getShortText(), attribute:attribute});
                 this.addSons(selectedNode);
                 this.enableNode(selectedNode.id);
-                //TODO faire remonter les noeuds fils
             }
         }
     }
