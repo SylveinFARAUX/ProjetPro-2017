@@ -363,12 +363,7 @@ class StrategyPanel {
         this.data.nodes.add({id, label, level, isLeaf:false});
         this.getNode(id).attribute = null;
         this.disableNode(id);
-
-        let profMax = instance.maxDepth();
-        let profMin = instance.minDepth();
-        let profMoy = instance.moyDepth(profMin, profMax);
-
-        instance.appInstance.getGestionnairePage().majInfo(profMin, profMax, profMoy, 0);
+        this.updateStats(id);
     }
 
     /**
@@ -398,7 +393,6 @@ class StrategyPanel {
     onClick(params){
         /*params.event = "[original event]";
         document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);*/
-        instance.appInstance.getGestionnairePage().majInfo(12, 48, 24, 23);
     }
 
     /**
@@ -419,8 +413,6 @@ class StrategyPanel {
      * @param {VisEventHandlerParam} params
      */
     onSelectNode(params){
-        let node = this.getNodeAt(params.pointer.DOM);
-        let persoRestants = instance.appInstance.getPopulationPanel().refresh(instance.getCurrentAssertionsForNode(node));
     }
 
     /**
@@ -475,6 +467,20 @@ class StrategyPanel {
      */
     moyDepth(min, max) {
         return Math.ceil((min + max) / 2);
+    }
+
+    /**
+     * Retourne la profondeur moyenne de l'arbre
+     * @param {!Number} [node] identidiant du noeud créé
+     */
+    updateStats(node) {
+        //let persosRestants = instance.appInstance.getPopulationPanel().refresh(this.getCurrentAssertionsForNode(node));
+
+        let profMax = this.maxDepth();
+        let profMin = this.minDepth();
+        let profMoy = this.moyDepth(profMin, profMax);
+
+        instance.appInstance.getGestionnairePage().majInfo(profMin, profMax, profMoy, 0);
     }
 
     /**
