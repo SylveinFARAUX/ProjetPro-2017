@@ -363,6 +363,12 @@ class StrategyPanel {
         this.data.nodes.add({id, label, level, isLeaf:false});
         this.getNode(id).attribute = null;
         this.disableNode(id);
+
+        let profMax = instance.maxDepth();
+        let profMin = instance.minDepth();
+        let profMoy = instance.moyDepth(profMin, profMax);
+
+        instance.appInstance.getGestionnairePage().majInfo(profMin, profMax, profMoy, 0);
     }
 
     /**
@@ -414,8 +420,7 @@ class StrategyPanel {
      */
     onSelectNode(params){
         let node = this.getNodeAt(params.pointer.DOM);
-        let persoRestant = instance.appInstance.getPopulationPanel().refresh(instance.getCurrentAssertionsForNode(node));
-        //instance.appInstance.getGestionnairePage().majInfo(profMin, profMax, profMoy,hitByAsssert);
+        let persoRestants = instance.appInstance.getPopulationPanel().refresh(instance.getCurrentAssertionsForNode(node));
     }
 
     /**
@@ -424,6 +429,52 @@ class StrategyPanel {
      * @param {VisEventHandlerParam} params
      */
     onDeselectNode(params){
+    }
+
+    /**
+     * Retourne la profondeur maximum de l'arbre
+     * @returns {Number}
+     */
+    maxDepth() {
+        let nodes = this.data.nodes;
+        let res = 1;
+
+        nodes.forEach((node) => {
+            if (node.level > res) {
+                res = node.level;
+            }
+        });
+
+        return res;
+    }
+
+    /**
+     * Retourne la profondeur miminum de l'arbre
+     * @returns {Number}
+     */
+    minDepth() {
+        let nodes = this.data.nodes;
+        let res = 1;
+        let first = true;
+
+        nodes.forEach((node) => {
+            if (this.getChildsIds(node.id).length === 0 && first) {
+                res = node.level;
+                first = false;
+            }
+        });
+
+        return res;
+    }
+
+    /**
+     * Retourne la profondeur moyenne de l'arbre
+     * @param {!Number} [min] profondeur minimum de l'arbre
+     * @param {!Number} [max] profondeur maximum de l'arbre
+     * @returns {Number}
+     */
+    moyDepth(min, max) {
+        return Math.ceil((min + max) / 2);
     }
 
     /**
