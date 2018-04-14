@@ -4,132 +4,1080 @@ let vanilla =
     {
         "characters": [
             {
-                "nom" : "Magalie",
-                "img" : "./assets/charimg/magalie.png",
-                "attributs" : [
-                    {"key" : "Couleur Cheveux", "value" : "Blond"},
-                    {"key" : "Coupe de Cheveux", "value" : "Chauve"},
-                    {"key" : "Attache de Cheveux", "value" : "Détaché"}
+                "img":"./assets/charimg/simon.png",
+                "nom":"Simon",
+                "attributs":[
+                    {
+                        "key":"Couleur Cheveux",
+                        "value":"Brun"
+                    },
+                    {
+                        "key":"Coupe de Cheveux",
+                        "value":"Court"
+                    },
+                    {
+                        "key":"Attache de Cheveux",
+                        "value":"Détaché"
+                    },
+                    {
+                        "key":"Barbes",
+                        "value":"Imberbe"
+                    },
+                    {
+                        "key":"Couleurs Yeux",
+                        "value":"Marron"
+                    },
+                    {
+                        "key":"Couvre-Chef",
+                        "value":"Fez"
+                    },
+                    {
+                        "key":"Couleur Couvre-Chef",
+                        "value":"Rouge"
+                    },
+                    {
+                        "key":"Lunettes",
+                        "value":"Non"
+                    },
+                    {
+                        "key":"Genre",
+                        "value":"Homme"
+                    },
+                    {
+                        "key":"Ethnie",
+                        "value":"Moyenne-Orientale"
+                    }
                 ]
             },
             {
-                "nom" : "Joseph",
-                "img" : "./assets/charimg/joseph.png",
-                "attributs" : [
-                    {"key" : "Couleur Cheveux", "value" : "Brun"},
-                    {"key" : "Coupe de Cheveux", "value" : "Court"},
-                    {"key" : "Attache de Cheveux", "value" : "Nattes"}
+                "img":"./assets/charimg/andre.png",
+                "nom":"Andre",
+                "attributs":[
+                    {
+                        "key":"Couleur Cheveux",
+                        "value":"Blanc"
+                    },
+                    {
+                        "key":"Coupe de Cheveux",
+                        "value":"Dégarni"
+                    },
+                    {
+                        "key":"Barbes",
+                        "value":"Imberbe"
+                    },
+                    {
+                        "key":"Couleurs Yeux",
+                        "value":"Marron"
+                    },
+                    {
+                        "key":"Couvre-Chef",
+                        "value":"Aucun"
+                    },
+                    {
+                        "key":"Lunettes",
+                        "value":"Rondes"
+                    },
+                    {
+                        "key":"Genre",
+                        "value":"Homme"
+                    },
+                    {
+                        "key":"Ethnie",
+                        "value":"Caucasienne"
+                    }
                 ]
             },
             {
-                "nom" : "Magalie",
-                "img" : "./assets/charimg/magalie.png",
-                "attributs" : []
+                "img":"./assets/charimg/baptiste.png",
+                "nom":"Baptiste",
+                "attributs":[
+                    {
+                        "key":"Coupe de Cheveux",
+                        "value":"Chauve"
+                    },
+                    {
+                        "key":"Barbes",
+                        "value":"Barbe-longue"
+                    },
+                    {
+                        "key":"Couleurs Yeux",
+                        "value":"Marron"
+                    },
+                    {
+                        "key":"Genre",
+                        "value":"Homme"
+                    },
+                    {
+                        "key":"Ethnie",
+                        "value":"Caucasienne"
+                    }
+                ]
             },
             {
-                "nom" : "Magalie",
-                "img" : "./assets/charimg/magalie.png",
-                "attributs" : []
+                "img":"./assets/charimg/agathe.png",
+                "nom":"Agathe",
+                "attributs":[
+                    {
+                        "key":"Couleur Cheveux",
+                        "value":"Brun"
+                    },
+                    {
+                        "key":"Coupe de Cheveux",
+                        "value":"Mi-Long"
+                    },
+                    {
+                        "key":"Attache de Cheveux",
+                        "value":"Détaché"
+                    },
+                    {
+                        "key":"Barbes",
+                        "value":"Imberbe"
+                    },
+                    {
+                        "key":"Couvre-Chef",
+                        "value":"Bonnet"
+                    },
+                    {
+                        "key":"Couleur Couvre-Chef",
+                        "value":"Vert"
+                    },
+                    {
+                        "key":"Motif Maillot",
+                        "value":"Uni"
+                    },
+                    {
+                        "key":"Couleur Maillot",
+                        "value":"Rose"
+                    },
+                    {
+                        "key":"Genre",
+                        "value":"Femme"
+                    },
+                    {
+                        "key":"Ethnie",
+                        "value":"Caucasienne"
+                    }
+                ]
             },
             {
-                "nom" : "Magalie",
-                "img" : "./assets/charimg/magalie.png",
-                "attributs" : []
+                "img":"./assets/charimg/arthur.png",
+                "nom":"Arthur",
+                "attributs":[
+                    {
+                        "key":"Couleur Cheveux",
+                        "value":"Brun"
+                    },
+                    {
+                        "key":"Coupe de Cheveux",
+                        "value":"Frisé"
+                    },
+                    {
+                        "key":"Attache de Cheveux",
+                        "value":"Détaché"
+                    },
+                    {
+                        "key":"Barbes",
+                        "value":"Imberbe"
+                    },
+                    {
+                        "key":"Couleurs Yeux",
+                        "value":"Noir"
+                    },
+                    {
+                        "key":"Couvre-Chef",
+                        "value":"Aucun"
+                    },
+                    {
+                        "key":"Lunettes",
+                        "value":"Non"
+                    },
+                    {
+                        "key":"Motif Maillot",
+                        "value":"Uni"
+                    },
+                    {
+                        "key":"Couleur Maillot",
+                        "value":"Orange"
+                    },
+                    {
+                        "key":"Genre",
+                        "value":"Homme"
+                    },
+                    {
+                        "key":"Ethnie",
+                        "value":"Caucasienne"
+                    }
+                ]
             },
             {
-                "nom" : "Magalie",
-                "img" : "./assets/charimg/magalie.png",
-                "attributs" : []
+                "img":"./assets/charimg/carole.png",
+                "nom":"Carole",
+                "attributs":[
+                    {
+                        "key":"Couleur Cheveux",
+                        "value":"Roux"
+                    },
+                    {
+                        "key":"Barbes",
+                        "value":"Imberbe"
+                    },
+                    {
+                        "key":"Couleurs Yeux",
+                        "value":"Marron"
+                    },
+                    {
+                        "key":"Couleur Couvre-Chef",
+                        "value":"Jaune"
+                    },
+                    {
+                        "key":"Couvre-Chef",
+                        "value":"Chapeau"
+                    },
+                    {
+                        "key":"Lunettes",
+                        "value":"Carrées"
+                    },
+                    {
+                        "key":"Genre",
+                        "value":"Femme"
+                    },
+                    {
+                        "key":"Ethnie",
+                        "value":"Caucasienne"
+                    }
+                ]
             },
             {
-                "nom" : "Magalie",
-                "img" : "./assets/charimg/magalie.png",
-                "attributs" : []
+                "img":"./assets/charimg/francois.png",
+                "nom":"François",
+                "attributs":[
+                    {
+                        "key":"Couleur Cheveux",
+                        "value":"Blanc"
+                    },
+                    {
+                        "key":"Coupe de Cheveux",
+                        "value":"Court"
+                    },
+                    {
+                        "key":"Attache de Cheveux",
+                        "value":"Détaché"
+                    },
+                    {
+                        "key":"Barbes",
+                        "value":"Imberbe"
+                    },
+                    {
+                        "key":"Couleurs Yeux",
+                        "value":"Marron"
+                    },
+                    {
+                        "key":"Couvre-Chef",
+                        "value":"Chapeau"
+                    },
+                    {
+                        "key":"Couleur Couvre-Chef",
+                        "value":"Vert"
+                    },
+                    {
+                        "key":"Lunettes",
+                        "value":"Non"
+                    },
+                    {
+                        "key":"Genre",
+                        "value":"Homme"
+                    },
+                    {
+                        "key":"Ethnie",
+                        "value":"Caucasienne"
+                    }
+                ]
             },
             {
-                "nom" : "Magalie",
-                "img" : "./assets/charimg/magalie.png",
-                "attributs" : []
+                "img":"./assets/charimg/gaspard.png",
+                "nom":"Gaspard",
+                "attributs":[
+                    {
+                        "key":"Couleur Cheveux",
+                        "value":"Blond"
+                    },
+                    {
+                        "key":"Coupe de Cheveux",
+                        "value":"Court"
+                    },
+                    {
+                        "key":"Attache de Cheveux",
+                        "value":"Détaché"
+                    },
+                    {
+                        "key":"Barbes",
+                        "value":"Imberbe"
+                    },
+                    {
+                        "key":"Couvre-Chef",
+                        "value":"Chapeau"
+                    },
+                    {
+                        "key":"Couleur Couvre-Chef",
+                        "value":"Vert"
+                    },
+                    {
+                        "key":"Lunettes",
+                        "value":"Non"
+                    },
+                    {
+                        "key":"Motif Maillot",
+                        "value":"Rayures"
+                    },
+                    {
+                        "key":"Couleur Maillot",
+                        "value":"Vert-Bleu"
+                    },
+                    {
+                        "key":"Ethnie",
+                        "value":"Caucasienne"
+                    },
+                    {
+                        "key":"Genre",
+                        "value":"Homme"
+                    }
+                ]
             },
             {
-                "nom" : "Magalie",
-                "img" : "./assets/charimg/magalie.png",
-                "attributs" : []
+                "img":"./assets/charimg/georges.png",
+                "nom":"Georges",
+                "attributs":[
+                    {
+                        "key":"Couleur Cheveux",
+                        "value":"Blond"
+                    },
+                    {
+                        "key":"Coupe de Cheveux",
+                        "value":"Court"
+                    },
+                    {
+                        "key":"Attache de Cheveux",
+                        "value":"Détaché"
+                    },
+                    {
+                        "key":"Barbes",
+                        "value":"Imberbe"
+                    },
+                    {
+                        "key":"Couleurs Yeux",
+                        "value":"Marron"
+                    },
+                    {
+                        "key":"Couvre-Chef",
+                        "value":"Kepis"
+                    },
+                    {
+                        "key":"Couleur Couvre-Chef",
+                        "value":"Bleu"
+                    },
+                    {
+                        "key":"Lunettes",
+                        "value":"Non"
+                    },
+                    {
+                        "key":"Genre",
+                        "value":"Homme"
+                    },
+                    {
+                        "key":"Ethnie",
+                        "value":"Caucasienne"
+                    }
+                ]
             },
             {
-                "nom" : "Magalie",
-                "img" : "./assets/charimg/magalie.png",
-                "attributs" : []
+                "img":"./assets/charimg/melanie.png",
+                "nom":"Melanie",
+                "attributs":[
+                    {
+                        "key":"Couleur Cheveux",
+                        "value":"Blond"
+                    },
+                    {
+                        "key":"Coupe de Cheveux",
+                        "value":"Long"
+                    },
+                    {
+                        "key":"Attache de Cheveux",
+                        "value":"Couettes-basses"
+                    },
+                    {
+                        "key":"Barbes",
+                        "value":"Imberbe"
+                    },
+                    {
+                        "key":"Couleurs Yeux",
+                        "value":"Bleu"
+                    },
+                    {
+                        "key":"Couvre-Chef",
+                        "value":"Aucun"
+                    },
+                    {
+                        "key":"Lunettes",
+                        "value":"Non"
+                    },
+                    {
+                        "key":"Genre",
+                        "value":"Femme"
+                    },
+                    {
+                        "key":"Ethnie",
+                        "value":"Caucasienne"
+                    }
+                ]
             },
             {
-                "nom" : "Magalie",
-                "img" : "./assets/charimg/magalie.png",
-                "attributs" : []
+                "img":"./assets/charimg/luc.png",
+                "nom":"Luc",
+                "attributs":[
+                    {
+                        "key":"Couleur Cheveux",
+                        "value":"Blond"
+                    },
+                    {
+                        "key":"Coupe de Cheveux",
+                        "value":"Court"
+                    },
+                    {
+                        "key":"Attache de Cheveux",
+                        "value":"Détaché"
+                    },
+                    {
+                        "key":"Barbes",
+                        "value":"Barbe-courte"
+                    },
+                    {
+                        "key":"Couleurs Yeux",
+                        "value":"Marron"
+                    },
+                    {
+                        "key":"Couvre-Chef",
+                        "value":"Aucun"
+                    },
+                    {
+                        "key":"Lunettes",
+                        "value":"Non"
+                    },
+                    {
+                        "key":"Genre",
+                        "value":"Homme"
+                    },
+                    {
+                        "key":"Ethnie",
+                        "value":"Caucasienne"
+                    }
+                ]
             },
             {
-                "nom" : "Magalie",
-                "img" : "./assets/charimg/magalie.png",
-                "attributs" : []
+                "img":"./assets/charimg/paul.png",
+                "nom":"Paul",
+                "attributs":[
+                    {
+                        "key":"Couleur Cheveux",
+                        "value":"Roux"
+                    },
+                    {
+                        "key":"Coupe de Cheveux",
+                        "value":"Court"
+                    },
+                    {
+                        "key":"Attache de Cheveux",
+                        "value":"Détaché"
+                    },
+                    {
+                        "key":"Couleurs Yeux",
+                        "value":"Noir"
+                    },
+                    {
+                        "key":"Couvre-Chef",
+                        "value":"Aucun"
+                    },
+                    {
+                        "key":"Lunettes",
+                        "value":"Non"
+                    },
+                    {
+                        "key":"Motif Maillot",
+                        "value":"Uni"
+                    },
+                    {
+                        "key":"Couleur Maillot",
+                        "value":"Bleu"
+                    },
+                    {
+                        "key":"Genre",
+                        "value":"Non-Genré"
+                    },
+                    {
+                        "key":"Ethnie",
+                        "value":"Caucasienne"
+                    }
+                ]
             },
             {
-                "nom" : "Magalie",
-                "img" : "./assets/charimg/magalie.png",
-                "attributs" : []
+                "img":"./assets/charimg/lou.png",
+                "nom":"Lou",
+                "attributs":[
+                    {
+                        "key":"Couleur Cheveux",
+                        "value":"Noir"
+                    },
+                    {
+                        "key":"Coupe de Cheveux",
+                        "value":"Court"
+                    },
+                    {
+                        "key":"Attache de Cheveux",
+                        "value":"Couettes-hautes"
+                    },
+                    {
+                        "key":"Couleurs Yeux",
+                        "value":"Noir"
+                    },
+                    {
+                        "key":"Couvre-Chef",
+                        "value":"Aucun"
+                    },
+                    {
+                        "key":"Lunettes",
+                        "value":"Non"
+                    },
+                    {
+                        "key":"Motif Maillot",
+                        "value":"Uni"
+                    },
+                    {
+                        "key":"Couleur Maillot",
+                        "value":"Rouge"
+                    },
+                    {
+                        "key":"Genre",
+                        "value":"Femme"
+                    },
+                    {
+                        "key":"Ethnie",
+                        "value":"Asiatique"
+                    }
+                ]
             },
             {
-                "nom" : "Magalie",
-                "img" : "./assets/charimg/magalie.png",
-                "attributs" : []
+                "img":"./assets/charimg/ines.png",
+                "nom":"Ines",
+                "attributs":[
+                    {
+                        "key":"Couleur Cheveux",
+                        "value":"Brun"
+                    },
+                    {
+                        "key":"Coupe de Cheveux",
+                        "value":"Frisé"
+                    },
+                    {
+                        "key":"Attache de Cheveux",
+                        "value":"Couettes-basses"
+                    },
+                    {
+                        "key":"Couleurs Yeux",
+                        "value":"Noir"
+                    },
+                    {
+                        "key":"Couvre-Chef",
+                        "value":"Bonnet"
+                    },
+                    {
+                        "key":"Couleur Couvre-Chef",
+                        "value":"Rose"
+                    },
+                    {
+                        "key":"Lunettes",
+                        "value":"Non"
+                    },
+                    {
+                        "key":"Motif Maillot",
+                        "value":"Uni"
+                    },
+                    {
+                        "key":"Couleur Maillot",
+                        "value":"Jaune"
+                    },
+                    {
+                        "key":"Genre",
+                        "value":"Femme"
+                    },
+                    {
+                        "key":"Ethnie",
+                        "value":"Caucasienne"
+                    }
+                ]
             },
             {
-                "nom" : "Magalie",
-                "img" : "./assets/charimg/magalie.png",
-                "attributs" : []
+                "img":"./assets/charimg/madi.png",
+                "nom":"Madi",
+                "attributs":[
+                    {
+                        "key":"Couleur Cheveux",
+                        "value":"Noir"
+                    },
+                    {
+                        "key":"Coupe de Cheveux",
+                        "value":"Frisé"
+                    },
+                    {
+                        "key":"Attache de Cheveux",
+                        "value":"Détaché"
+                    },
+                    {
+                        "key":"Couleurs Yeux",
+                        "value":"Noir"
+                    },
+                    {
+                        "key":"Couvre-Chef",
+                        "value":"Aucun"
+                    },
+                    {
+                        "key":"Lunettes",
+                        "value":"Non"
+                    },
+                    {
+                        "key":"Motif Maillot",
+                        "value":"Rayures"
+                    },
+                    {
+                        "key":"Couleur Maillot",
+                        "value":"Vert-Bleu"
+                    },
+                    {
+                        "key":"Genre",
+                        "value":"Homme"
+                    },
+                    {
+                        "key":"Ethnie",
+                        "value":"Afro"
+                    }
+                ]
             },
             {
-                "nom" : "Magalie",
-                "img" : "./assets/charimg/magalie.png",
-                "attributs" : []
+                "img":"./assets/charimg/lucile.png",
+                "nom":"Lucile",
+                "attributs":[
+                    {
+                        "key":"Couleur Cheveux",
+                        "value":"Roux"
+                    },
+                    {
+                        "key":"Coupe de Cheveux",
+                        "value":"Long"
+                    },
+                    {
+                        "key":"Attache de Cheveux",
+                        "value":"Queue de Cheval"
+                    },
+                    {
+                        "key":"Couvre-Chef",
+                        "value":"Aucun"
+                    },
+                    {
+                        "key":"Lunettes",
+                        "value":"Non"
+                    },
+                    {
+                        "key":"Motif Maillot",
+                        "value":"Rayures"
+                    },
+                    {
+                        "key":"Couleur Maillot",
+                        "value":"Bleu"
+                    },
+                    {
+                        "key":"Genre",
+                        "value":"Femme"
+                    },
+                    {
+                        "key":"Ethnie",
+                        "value":"Caucasienne"
+                    }
+                ]
             },
             {
-                "nom" : "Magalie",
-                "img" : "./assets/charimg/magalie.png",
-                "attributs" : []
+                "img":"./assets/charimg/suzie.png",
+                "nom":"Suzie",
+                "attributs":[
+                    {
+                        "key":"Couleur Cheveux",
+                        "value":"Brun"
+                    },
+                    {
+                        "key":"Coupe de Cheveux",
+                        "value":"Mi-Long"
+                    },
+                    {
+                        "key":"Attache de Cheveux",
+                        "value":"Détaché"
+                    },
+                    {
+                        "key":"Couleurs Yeux",
+                        "value":"Noir"
+                    },
+                    {
+                        "key":"Couvre-Chef",
+                        "value":"Aucun"
+                    },
+                    {
+                        "key":"Lunettes",
+                        "value":"Non"
+                    },
+                    {
+                        "key":"Motif Maillot",
+                        "value":"Uni"
+                    },
+                    {
+                        "key":"Couleur Maillot",
+                        "value":"Jaune"
+                    },
+                    {
+                        "key":"Genre",
+                        "value":"Femme"
+                    },
+                    {
+                        "key":"Ethnie",
+                        "value":"Caucasienne"
+                    }
+                ]
             },
             {
-                "nom" : "Magalie",
-                "img" : "./assets/charimg/magalie.png",
-                "attributs" : []
+                "img":"./assets/charimg/imane.png",
+                "nom":"Imane",
+                "attributs":[
+                    {
+                        "key":"Couleur Cheveux",
+                        "value":"Noir"
+                    },
+                    {
+                        "key":"Coupe de Cheveux",
+                        "value":"Frisé"
+                    },
+                    {
+                        "key":"Attache de Cheveux",
+                        "value":"Couettes-hautes"
+                    },
+                    {
+                        "key":"Couleurs Yeux",
+                        "value":"Noir"
+                    },
+                    {
+                        "key":"Couvre-Chef",
+                        "value":"Aucun"
+                    },
+                    {
+                        "key":"Lunettes",
+                        "value":"Non"
+                    },
+                    {
+                        "key":"Motif Maillot",
+                        "value":"Uni"
+                    },
+                    {
+                        "key":"Couleur Maillot",
+                        "value":"Violet"
+                    },
+                    {
+                        "key":"Genre",
+                        "value":"Femme"
+                    },
+                    {
+                        "key":"Ethnie",
+                        "value":"Afro"
+                    }
+                ]
             },
             {
-                "nom" : "Magalie",
-                "img" : "./assets/charimg/magalie.png",
-                "attributs" : []
+                "img":"./assets/charimg/melissa.png",
+                "nom":"Melissa",
+                "attributs":[
+                    {
+                        "key":"Couleur Cheveux",
+                        "value":"Noir"
+                    },
+                    {
+                        "key":"Coupe de Cheveux",
+                        "value":"Long"
+                    },
+                    {
+                        "key":"Attache de Cheveux",
+                        "value":"Nattes"
+                    },
+                    {
+                        "key":"Couvre-Chef",
+                        "value":"Bonnet"
+                    },
+                    {
+                        "key":"Couleur Couvre-Chef",
+                        "value":"Bleu"
+                    },
+                    {
+                        "key":"Lunettes",
+                        "value":"Non"
+                    },
+                    {
+                        "key":"Motif Maillot",
+                        "value":"Uni"
+                    },
+                    {
+                        "key":"Couleur Maillot",
+                        "value":"Bleu"
+                    },
+                    {
+                        "key":"Genre",
+                        "value":"Femme"
+                    },
+                    {
+                        "key":"Ethnie",
+                        "value":"Caucasienne"
+                    }
+                ]
             },
             {
-                "nom" : "Magalie",
-                "img" : "./assets/charimg/magalie.png",
-                "attributs" : []
+                "img":"./assets/charimg/hugo.png",
+                "nom":"Hugo",
+                "attributs":[
+                    {
+                        "key":"Couleur Cheveux",
+                        "value":"Blond"
+                    },
+                    {
+                        "key":"Coupe de Cheveux",
+                        "value":"Au bol"
+                    },
+                    {
+                        "key":"Attache de Cheveux",
+                        "value":"Détaché"
+                    },
+                    {
+                        "key":"Couleurs Yeux",
+                        "value":"Noir"
+                    },
+                    {
+                        "key":"Couvre-Chef",
+                        "value":"Aucun"
+                    },
+                    {
+                        "key":"Lunettes",
+                        "value":"Non"
+                    },
+                    {
+                        "key":"Motif Maillot",
+                        "value":"Rayures"
+                    },
+                    {
+                        "key":"Couleur Maillot",
+                        "value":"Rouge-Bleu"
+                    },
+                    {
+                        "key":"Genre",
+                        "value":"Homme"
+                    },
+                    {
+                        "key":"Ethnie",
+                        "value":"Caucasienne"
+                    }
+                ]
             },
             {
-                "nom" : "Magalie",
-                "img" : "./assets/charimg/magalie.png",
-                "attributs" : []
+                "img":"./assets/charimg/leo.png",
+                "nom":"Leo",
+                "attributs":[
+                    {
+                        "key":"Couleur Cheveux",
+                        "value":"Brun"
+                    },
+                    {
+                        "key":"Coupe de Cheveux",
+                        "value":"Court"
+                    },
+                    {
+                        "key":"Attache de Cheveux",
+                        "value":"Détaché"
+                    },
+                    {
+                        "key":"Couleurs Yeux",
+                        "value":"Noir"
+                    },
+                    {
+                        "key":"Couvre-Chef",
+                        "value":"Chapeau"
+                    },
+                    {
+                        "key":"Couleur Couvre-Chef",
+                        "value":"Jaune"
+                    },
+                    {
+                        "key":"Lunettes",
+                        "value":"Non"
+                    },
+                    {
+                        "key":"Motif Maillot",
+                        "value":"Uni"
+                    },
+                    {
+                        "key":"Couleur Maillot",
+                        "value":"Jaune"
+                    },
+                    {
+                        "key":"Genre",
+                        "value":"Homme"
+                    },
+                    {
+                        "key":"Ethnie",
+                        "value":"Caucasienne"
+                    }
+                ]
             },
             {
-                "nom" : "Magalie",
-                "img" : "./assets/charimg/magalie.png",
-                "attributs" : []
+                "img":"./assets/charimg/sophie.png",
+                "nom":"Sophie",
+                "attributs":[
+                    {
+                        "key":"Couleur Cheveux",
+                        "value":"Blond"
+                    },
+                    {
+                        "key":"Coupe de Cheveux",
+                        "value":"Mi-Long"
+                    },
+                    {
+                        "key":"Attache de Cheveux",
+                        "value":"Détaché"
+                    },
+                    {
+                        "key":"Couleurs Yeux",
+                        "value":"Noir"
+                    },
+                    {
+                        "key":"Couvre-Chef",
+                        "value":"Aucun"
+                    },
+                    {
+                        "key":"Lunettes",
+                        "value":"Rondes"
+                    },
+                    {
+                        "key":"Motif Maillot",
+                        "value":"Uni"
+                    },
+                    {
+                        "key":"Couleur Maillot",
+                        "value":"Vert"
+                    },
+                    {
+                        "key":"Genre",
+                        "value":"Femme"
+                    },
+                    {
+                        "key":"Ethnie",
+                        "value":"Caucasienne"
+                    }
+                ]
             },
             {
-                "nom" : "Magalie",
-                "img" : "./assets/charimg/magalie.png",
-                "attributs" : []
+                "img":"./assets/charimg/tom.png",
+                "nom":"Tom",
+                "attributs":[
+                    {
+                        "key":"Couleur Cheveux",
+                        "value":"Roux"
+                    },
+                    {
+                        "key":"Coupe de Cheveux",
+                        "value":"Court"
+                    },
+                    {
+                        "key":"Attache de Cheveux",
+                        "value":"Détaché"
+                    },
+                    {
+                        "key":"Couleurs Yeux",
+                        "value":"Noir"
+                    },
+                    {
+                        "key":"Couvre-Chef",
+                        "value":"Aucun"
+                    },
+                    {
+                        "key":"Lunettes",
+                        "value":"Non"
+                    },
+                    {
+                        "key":"Motif Maillot",
+                        "value":"Uni"
+                    },
+                    {
+                        "key":"Couleur Maillot",
+                        "value":"Violet"
+                    },
+                    {
+                        "key":"Genre",
+                        "value":"Homme"
+                    },
+                    {
+                        "key":"Ethnie",
+                        "value":"Caucasienne"
+                    }
+                ]
             },
             {
-                "nom" : "Magalie",
-                "img" : "./assets/charimg/magalie.png",
-                "attributs" : []
+                "img":"./assets/charimg/jeanne.png",
+                "nom":"Jeanne",
+                "attributs":[
+                    {
+                        "key":"Couleur Cheveux",
+                        "value":"Roux"
+                    },
+                    {
+                        "key":"Coupe de Cheveux",
+                        "value":"Long"
+                    },
+                    {
+                        "key":"Attache de Cheveux",
+                        "value":"Nattes"
+                    },
+                    {
+                        "key":"Couleurs Yeux",
+                        "value":"Noir"
+                    },
+                    {
+                        "key":"Couvre-Chef",
+                        "value":"Chapeau"
+                    },
+                    {
+                        "key":"Couleur Couvre-Chef",
+                        "value":"Jaune"
+                    },
+                    {
+                        "key":"Lunettes",
+                        "value":"Non"
+                    },
+                    {
+                        "key":"Motif Maillot",
+                        "value":"Uni"
+                    },
+                    {
+                        "key":"Couleur Maillot",
+                        "value":"Bleu"
+                    },
+                    {
+                        "key":"Genre",
+                        "value":"Femme"
+                    },
+                    {
+                        "key":"Ethnie",
+                        "value":"Caucasienne"
+                    }
+                ]
             }
         ]
     };

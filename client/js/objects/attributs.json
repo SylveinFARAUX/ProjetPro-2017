@@ -16,12 +16,20 @@
             "Noir": {
                 "long": "Le personnage a les cheveux noirs ?",
                 "court": "Cheveux noirs ?"
+            },
+            "Blanc":{
+              "long": "Le personnage a les cheveux blancs ?",
+              "court": "Cheveux blancs ?"
             }
         },
         "Coupe de Cheveux": {
             "Chauve": {
-                "long": "Le personnage est chauve ?",
-                "court": "Chauve ?"
+              "long": "Le personnage est chauve ?",
+              "court": "Chauve ?"
+            },
+            "Dégarni": {
+                "long": "Le personnage est dégarni ?",
+                "court": "Degarni ?"
             },
             "Au bol": {
                 "long": "Le personnage a une coupe au bol ?",
@@ -70,6 +78,32 @@
                 "court": "Queue de cheval ?"
             }
         },
+        "Barbes" :{
+            "Imberbe": {
+              "long": "Le personnage est imberbe ?",
+              "court": "Imberbe ?"
+            },
+            "Barbe-longue": {
+              "long": "Le personnage a une longue barbe ?",
+              "court": "Barbe longue ?"
+            },
+            "Barbe-courte": {
+              "long": "Le personnage a une barbe courte ?",
+              "court": "Barbve courte ?"
+            },
+            "Bouc": {
+              "long": "Le personnage porte un bouc ?",
+              "court": "Bouc ?"
+            },
+            "Mal-rase": {
+              "long": "Le personnage est mal rasé ?",
+              "court": "Mal rasé ?"
+            },
+            "Moustache": {
+              "long": "Le personnage porte une moustache ?",
+              "court": "Moustache ?"
+            }
+        },
         "Couleurs Yeux": {
             "Marron": {
                 "long": "Le personnage a les yeux marrons ?",
@@ -100,6 +134,14 @@
             "Bonnet": {
                 "long": "Le personnage porte un bonnet ?",
                 "court": "Bonnet ?"
+            },
+            "Kepis": {
+              "long": "Le personnage porte un képis ?",
+              "court": "Képis ?"
+            },
+            "Fez": {
+              "long": "Le personnage porte un fez ?",
+              "court": "Fez ?"
             }
         },
         "Couleur Couvre-Chef": {
@@ -114,6 +156,14 @@
             "Rose": {
                 "long": "Le personnage porte un couvre-chef rose ?",
                 "court": "Couvre-chef rose ?"
+            },
+            "Rouge": {
+              "long": "Le personnage porte un couvre-chef rouge ?",
+              "court": "Couvre-chef rouge ?"
+            },
+            "Vert": {
+              "long": "Le personnage porte un couvre-chef vert ?",
+              "court": "Couvre-chef vert ?"
             }
         },
         "Lunettes": {
@@ -152,6 +202,10 @@
             "Bleu": {
                 "long": "Le personnage porte un maillot bleu ?",
                 "court": "Maillot bleu ?"
+            },
+            "Orange": {
+              "long": "Le personnage porte un maillot orange ?",
+              "court": "Maillot orange ?"
             },
             "Jaune": {
                 "long": "Le personnage porte un maillot jaune ?",
