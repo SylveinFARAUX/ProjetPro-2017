@@ -6,6 +6,13 @@ import * as AttributesCollection from "./AttributesCollection";
 //on a besoin de garder un pointeur vers une instance pour y accèder dans
 //les handlers des événements de vis.js car ces dèrnier sont
 //appelé avec un contexte différents définies par vis.js
+/**
+ * Instance du StrategyPanel à utiliser lorsque que le contexte n'est pas celui de l'instance.
+ * Le cas échéant, les méthodes ayant un conexte différent sont documenté par une annotation this
+ * @memberof StrategyPanel
+ * @inner
+ * @type {StrategyPanel}
+ */
 let instance;
 
 /**
@@ -459,10 +466,12 @@ class StrategyPanel {
             if(attribute === null || attribute === undefined){
                 this.nodes.update({id:selectedNode.id,label:"", attribute:null});
                 this.disableNode(selectedNode.id);
+                //TODO faire remonter les noeuds fils
             }else{
                 this.nodes.update({id:selectedNode.id,label:attribute.getShortText(), attribute:attribute});
                 this.addSons(selectedNode);
                 this.enableNode(selectedNode.id);
+                //TODO faire remonter les noeuds fils
             }
         }
     }
@@ -540,7 +549,7 @@ class StrategyPanel {
                 assertions.push({
                     attributeName: attribute.getAttributeKey(),
                     valueName: attribute.getValue(),
-                    attributeInstance: attribute,
+                    i: attribute,
                     value: edge.isTrue
                 });
             }
