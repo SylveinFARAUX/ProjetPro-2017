@@ -53,21 +53,26 @@ class Character{
     /**
      *
      * @param {Array.<Assertion>} tabAttributs
+     * @param {boolean} [updateGUI=false] mettre à jour l'IHM ?
      * @returns {boolean}
      */
-    check(tabAttributs){
+    check(tabAttributs, updateGUI=false){
         if(tabAttributs.length === 0){
-            if(!this.actived)this.active();
+            if(updateGUI && !this.actived)this.active();
             return true;
         }
         for(let i = 0; i < tabAttributs.length; i++) {
             for(let j = 0; j < this.attributs.length; j++){
                 if(this.attributs[j].attributeKey === tabAttributs[i].attributeName){
                     if(!tabAttributs[i].value && this.attributs[j].value === tabAttributs[i].valueName){
-                        this.unactive(tabAttributs[i].attributeName + " = " + tabAttributs[i].valueName);
+                        if(updateGUI){
+                            this.unactive(tabAttributs[i].attributeName + " = " + tabAttributs[i].valueName);
+                        }
                         return false;
                     }else if(tabAttributs[i].value && this.attributs[j].value !== tabAttributs[i].valueName){
-                        this.unactive(tabAttributs[i].attributeName + " != " + tabAttributs[i].valueName);
+                        if(updateGUI){
+                            this.unactive(tabAttributs[i].attributeName + " != " + tabAttributs[i].valueName);
+                        }
                         return false;
                     }
                 }

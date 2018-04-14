@@ -84,11 +84,26 @@ class PopulationPanel {
         return this.activePopulation[i];
     }
 
+    /**
+     *
+     * @param {Array.<Assertion>} tabAttribute liste des critères
+     * @returns {number} le nombre de personnage répondant au critères
+     */
+    getNumberOfActivesCharacters(tabAttribute){
+        let actif = 0;
+        for(let i = 0; i < this.activePopulation.length; i++){
+            if(this.activePopulation[i].check(tabAttribute, false)){
+                actif++;
+            }
+        }
+        return actif;
+    }
+
     refresh(tabAttribute){
         console.log(tabAttribute);
         let actif = 0, elim = 0;
         for(let i = 0; i < this.activePopulation.length; i++){
-            let bool = this.activePopulation[i].check(tabAttribute);
+            let bool = this.activePopulation[i].check(tabAttribute, true);
             if(bool)
                 actif++;
             else

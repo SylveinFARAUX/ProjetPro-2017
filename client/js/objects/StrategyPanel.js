@@ -21,41 +21,6 @@ let instance;
  * @param {Event} event Un événement
  */
 
-/*
-{
-    "pointer": {
-        "DOM": {
-            "x": 508,
-            "y": 235
-        },
-        "canvas": {
-            "x": 91.5,
-            "y": 4.5
-        }
-    },
-    "event": "[original event]",
-    "nodes": [
-        3
-    ],
-    "edges": [
-        3,
-        6,
-        7
-    ],
-    "items": [
-        {
-            "edgeId": 7
-        },
-        {
-            "edgeId": 6
-        },
-        {
-            "edgeId": 3
-        }
-    ]
-}
-*/
-
 /**
  * Objet contenant les données envoyé à un handler d'un événement vis.js
  * @typedef {object} VisEventHandlerParam
@@ -76,6 +41,7 @@ let instance;
  * @property {Number} id id du noeud
  * @property {string} label label du noeud
  * @property {Number} level niveau hiérarchique du noeud
+ * @property {boolean} isLeaf indique si le noeud est une feuille (1 ou 0 personnage restant)
  * @property {Attribute|null} attribute instance d'attribut lié au noeud
  */
 
@@ -290,6 +256,40 @@ class StrategyPanel {
     }
 
     /**
+     * Donne le style du noeud en tant que feuille
+     * @param {!Number} id id du noeud noeud
+     * @param {boolean} [nobody=false] indique si personne ne répond au critère du noeud (noeud rouge)
+     */
+    leafNode(id, nobody=false){
+        if(id === undefined){
+            return;
+        }
+        // Remet la couleur du noeud par défaut
+        let bg = '#1aff00';
+        let border = '#0aff00';
+        if(nobody){
+            bg = '#ff0006';
+            border = '#340c0d';
+        }
+        this.data.nodes.update([{
+            id:id,
+            enabled: true,
+            color:{
+                background:bg,
+                border:border,
+                highlight:{
+                    background:bg,
+                    border:border
+                },
+                hover:{
+                    background:bg,
+                    border:border
+                }
+            }
+        }]);
+    }
+
+    /**
      * Désactive le noeud donné
      * @param {!Number} id le noeud à désactiver
      */
@@ -343,11 +343,14 @@ class StrategyPanel {
      * @param {!Number} id le noeud à désactiver ou activer
      */
     updateNode(id){
-      if(this.getNode(id).enabled) {
-        this.disableNode(id);
-      } else {
-          this.enableNode(id);
-      }
+        let node = this.getNode(id);
+        if(node.isLeaf){
+            this.leafNode(id);
+        }else if(this.getNode(id).enabled) {
+            this.disableNode(id);
+        } else {
+            this.enableNode(id);
+        }
     }
 
     /**
@@ -357,7 +360,7 @@ class StrategyPanel {
      * @param {!Number} level le niveau hiérarchique du noeud (le plus élevé est en bas de l'écran)
      */
     addNode(id, label, level){
-        this.data.nodes.add({id, label, level});
+        this.data.nodes.add({id, label, level, isLeaf:false});
         this.getNode(id).attribute = null;
         this.disableNode(id);
     }
@@ -453,6 +456,18 @@ class StrategyPanel {
     }
 
     /**
+     * Vérifie la présence de feuille est les modifie le cas échéant.
+     */
+    checkLeafs(){
+        this.getNodes().forEach(node => {
+           if(this.appInstance.getPopulationPanel().getNumberOfActivesCharacters(this.getCurrentAssertionsForNode(node.id)) < 2){
+                this.nodes.update({id:node.id, isLeaf:true});
+                this.updateNode(node.id);
+           }
+        });
+    }
+
+    /**
      * Définis la valeur d'un noeuds à l'attributs donné
      * @param {?Attribute} [attribute] l'attribut à affecter au noeud sélectionné ou null
      * @throws {Error} Lance une erreur si attribute n'est pas une instance de Attribute
@@ -465,13 +480,14 @@ class StrategyPanel {
         if(Array.isArray(selection) && selection.length === 1){
             let selectedNode = this.getNode(selection[0]);
             if(attribute === null || attribute === undefined){
-                this.nodes.update({id:selectedNode.id,label:"", attribute:null});
+                this.nodes.update({id:selectedNode.id, label:"", attribute:null});
                 this.disableNode(selectedNode.id);
             }else{
-                this.nodes.update({id:selectedNode.id,label:attribute.getShortText(), attribute:attribute});
+                this.nodes.update({id:selectedNode.id, label:attribute.getShortText(), attribute:attribute});
                 this.addSons(selectedNode);
                 this.enableNode(selectedNode.id);
             }
+            this.checkLeafs();
         }
     }
 
