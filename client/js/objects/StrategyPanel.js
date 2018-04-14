@@ -515,6 +515,7 @@ class StrategyPanel {
      * @typedef {Object} Assertion
      * @property {string} attributeName le nom de l'attribut
      * @property {string} valueName le nom de la valeur
+     * @property {Attribute} attributeInstance instance correspondant à l'attribut
      * @property {boolean} value true si le personnage à cette valeur pour cet attribut, false sinon.
      */
 
@@ -539,6 +540,7 @@ class StrategyPanel {
                 assertions.push({
                     attributeName: attribute.getAttributeKey(),
                     valueName: attribute.getValue(),
+                    attributeInstance: attribute,
                     value: edge.isTrue
                 });
             }

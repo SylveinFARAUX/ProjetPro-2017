@@ -50,9 +50,14 @@ class Character{
         return res;
     }
 
+    /**
+     *
+     * @param {Array.<Assertion>} tabAttributs
+     * @returns {boolean}
+     */
     check(tabAttributs){
         for(let i = 0; i < tabAttributs.length; i++) {
-            if (this.attributs.find(tabAttributs[i]) === undefined) {
+            if (!this.attributs.includes(tabAttributs[i].attributeInstance)) {
                 this.unactive(tabAttributs[i].court);
                 return false;
             }
