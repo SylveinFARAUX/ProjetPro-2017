@@ -1,21 +1,21 @@
 {
     "attributs": {
         "Couleur Cheveux": {
-            "blond": {
+            "Blond": {
                 "long": "Le personnage est blond ?",
                 "court": "Cheveux blond ?"
             },
-            "brun": {
+            "Brun": {
                 "long": "Le personnage est brun ?",
                 "court": "Cheveux brun ?"
             },
-            "roux": {
+            "Roux": {
                 "long": "Le personnage est roux ?",
                 "court": "Cheveux roux ?"
             },
-            "noir": {
-                "long": "Le personnage a les cheveux noir ?",
-                "court": "Cheveux noir ?"
+            "Noir": {
+                "long": "Le personnage a les cheveux noirs ?",
+                "court": "Cheveux noirs ?"
             }
         },
         "Coupe de Cheveux": {
@@ -29,19 +29,19 @@
             },
             "Court": {
                 "long": "Le personnage a les cheveux courts ?",
-                "court": "Cheveux court ?"
+                "court": "Cheveux courts ?"
             },
             "Long": {
                 "long": "Le personnage a les cheveux long ?",
-                "court": "Cheveux long ?"
+                "court": "Cheveux longs ?"
             },
             "Mi-Long": {
                 "long": "Le personnage a les cheveux mi-long ?",
                 "court": "Cheveux mi-long ?"
             },
             "Afro": {
-                "long": "Le personnage a la coupe affro ?",
-                "court": "Coupe affro ?"
+                "long": "Le personnage a la coupe afro ?",
+                "court": "Coupe afro ?"
             },
             "Frisé": {
                 "long": "Le personnage a les cheveux frisés ?",
@@ -69,27 +69,23 @@
                 "long": "Le personnage porte une queue de cheval ?",
                 "court": "Queue de cheval ?"
             },
-            "Frisé": {
-                "long": "Le personnage a les cheveux frisés ?",
-                "court": "Cheveux frisés ?"
-            }
         },
         "Couleurs Yeux": {
             "Marron": {
-                "long": "Le personnage a les yeux marron ?",
-                "court": "Yeux marron ?"
+                "long": "Le personnage a les yeux marrons ?",
+                "court": "Yeux marrons ?"
             },
             "Bleu": {
-                "long": "Le personnage a les yeux bleu ?",
-                "court": "Yeux bleu ?"
+                "long": "Le personnage a les yeux bleus ?",
+                "court": "Yeux bleus ?"
             },
             "Vert": {
-                "long": "Le personnage a les yeux vert ?",
-                "court": "Yeux vert ?"
+                "long": "Le personnage a les yeux verts ?",
+                "court": "Yeux verts ?"
             },
             "Noir": {
-                "long": "Le personnage a les yeux noir ?",
-                "court": "Yeux noir ?"
+                "long": "Le personnage a les yeux noirs ?",
+                "court": "Yeux noirs ?"
             }
         },
         "Couvre-Chef": {
@@ -141,15 +137,15 @@
         "Motif Maillot": {
             "Uni": {
                 "long": "Le personnage porte un maillot uni ?",
-                "court": "Mayots uni ?"
+                "court": "Maillot uni ?"
             },
             "Rayures": {
                 "long": "Le personnage porte un maillot à rayures ?",
-                "court": "Mayots à rayures ?"
+                "court": "Maillot à rayures ?"
             },
             "Poix": {
                 "long": "Le personnage porte un maillot à poix ?",
-                "court": "Mayots à poix ?"
+                "court": "Maillot à poix ?"
             }
         },
         "Couleur Maillot": {
@@ -188,7 +184,7 @@
         },
         "Genre": {
             "Non-Genré": {
-                "long": "Le personnage n'à pas de genre ?",
+                "long": "Le personnage n'a pas de genre ?",
                 "court": "Pas de genre ?"
             },
             "Homme": {
@@ -206,7 +202,7 @@
                 "court": "Ethnie caucasienne ?"
             },
             "Afro": {
-                "long": "Le personnage est d'ethnie affro-américaine ?",
+                "long": "Le personnage est d'ethnie afro-américaine ?",
                 "court": "Ethnie afro-américaine ?"
             },
             "Moyenne-Orientale": {
