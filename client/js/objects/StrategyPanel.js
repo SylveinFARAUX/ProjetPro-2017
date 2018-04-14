@@ -380,8 +380,8 @@ class StrategyPanel {
      * @this {vis.Network}
      */
     onClick(params){
-        params.event = "[original event]";
-        document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
+        /*params.event = "[original event]";
+        document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);*/
     }
 
     /**
@@ -391,9 +391,9 @@ class StrategyPanel {
      * @param {VisEventHandlerParam} params
      */
     onDoubleClick(params){
-        let clickedNode = this.getNodeAt(params.pointer.DOM);
+        /*let clickedNode = this.getNodeAt(params.pointer.DOM);
         params.event = "[original event]";
-        document.getElementById('eventSpan').innerHTML = '<h2>DoubleClick event:</h2>' + JSON.stringify(params, null, 4);
+        document.getElementById('eventSpan').innerHTML = '<h2>DoubleClick event:</h2>' + JSON.stringify(params, null, 4);*/
     }
 
     /**
@@ -403,8 +403,8 @@ class StrategyPanel {
      */
     onSelectNode(params){
         let node = this.getNodeAt(params.pointer.DOM);
-        console.log("Assertions actuelles (noeud "+node+"):");
-        console.log(JSON.stringify(instance.getCurrentAssertionsForNode(node)));
+        let peroRestant = instance.appInstance.getPopulationPanel().refresh(instance.getCurrentAssertionsForNode(node));
+        //instance.appInstance.getGestionnairePage().majInfo(profMin, profMax, profMoy,hitByAsssert);
     }
 
     /**
