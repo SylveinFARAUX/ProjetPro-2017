@@ -94,7 +94,7 @@ class PopulationPanel {
             else
                 elim++;
         }
-        PopulationPanel.majPopInfo(actif, elim);
+        this.majPopInfo(actif, elim);
         return actif;
     }
 

@@ -24,212 +24,112 @@ let vanilla =
             {
                 "nom" : "Magalie",
                 "img" : "./assets/charimg/magalie.png",
-                "attributs" : [
-                    {"key" : "cheveux", "value" : "rouquine"},
-                    {"key" : "yeux", "value" : "marrons"},
-                    {"key" : "personalité", "value" : "salope"}
-                ]
-            },
-            {
-                "nom" : "Joseph",
-                "img" : "./assets/charimg/joseph.png",
-                "attributs" : [
-                    {"key" : "cheveux", "value" : "blond"},
-                    {"key" : "yeux", "value" : "bleu"},
-                    {"key" : "personalité", "value" : "nazi"}
-                ]
+                "attributs" : []
             },
             {
                 "nom" : "Magalie",
                 "img" : "./assets/charimg/magalie.png",
-                "attributs" : [
-                    {"key" : "cheveux", "value" : "rouquine"},
-                    {"key" : "yeux", "value" : "marrons"},
-                    {"key" : "personalité", "value" : "salope"}
-                ]
-            },
-            {
-                "nom" : "Joseph",
-                "img" : "./assets/charimg/joseph.png",
-                "attributs" : [
-                    {"key" : "cheveux", "value" : "blond"},
-                    {"key" : "yeux", "value" : "bleu"},
-                    {"key" : "personalité", "value" : "nazi"}
-                ]
+                "attributs" : []
             },
             {
                 "nom" : "Magalie",
                 "img" : "./assets/charimg/magalie.png",
-                "attributs" : [
-                    {"key" : "cheveux", "value" : "rouquine"},
-                    {"key" : "yeux", "value" : "marrons"},
-                    {"key" : "personalité", "value" : "salope"}
-                ]
-            },
-            {
-                "nom" : "Joseph",
-                "img" : "./assets/charimg/joseph.png",
-                "attributs" : [
-                    {"key" : "cheveux", "value" : "blond"},
-                    {"key" : "yeux", "value" : "bleu"},
-                    {"key" : "personalité", "value" : "nazi"}
-                ]
+                "attributs" : []
             },
             {
                 "nom" : "Magalie",
                 "img" : "./assets/charimg/magalie.png",
-                "attributs" : [
-                    {"key" : "cheveux", "value" : "rouquine"},
-                    {"key" : "yeux", "value" : "marrons"},
-                    {"key" : "personalité", "value" : "salope"}
-                ]
-            },
-            {
-                "nom" : "Joseph",
-                "img" : "./assets/charimg/joseph.png",
-                "attributs" : [
-                    {"key" : "cheveux", "value" : "blond"},
-                    {"key" : "yeux", "value" : "bleu"},
-                    {"key" : "personalité", "value" : "nazi"}
-                ]
+                "attributs" : []
             },
             {
                 "nom" : "Magalie",
                 "img" : "./assets/charimg/magalie.png",
-                "attributs" : [
-                    {"key" : "cheveux", "value" : "rouquine"},
-                    {"key" : "yeux", "value" : "marrons"},
-                    {"key" : "personalité", "value" : "salope"}
-                ]
-            },
-            {
-                "nom" : "Joseph",
-                "img" : "./assets/charimg/joseph.png",
-                "attributs" : [
-                    {"key" : "cheveux", "value" : "blond"},
-                    {"key" : "yeux", "value" : "bleu"},
-                    {"key" : "personalité", "value" : "nazi"}
-                ]
+                "attributs" : []
             },
             {
                 "nom" : "Magalie",
                 "img" : "./assets/charimg/magalie.png",
-                "attributs" : [
-                    {"key" : "cheveux", "value" : "rouquine"},
-                    {"key" : "yeux", "value" : "marrons"},
-                    {"key" : "personalité", "value" : "salope"}
-                ]
-            },
-            {
-                "nom" : "Joseph",
-                "img" : "./assets/charimg/joseph.png",
-                "attributs" : [
-                    {"key" : "cheveux", "value" : "blond"},
-                    {"key" : "yeux", "value" : "bleu"},
-                    {"key" : "personalité", "value" : "nazi"}
-                ]
+                "attributs" : []
             },
             {
                 "nom" : "Magalie",
                 "img" : "./assets/charimg/magalie.png",
-                "attributs" : [
-                    {"key" : "cheveux", "value" : "rouquine"},
-                    {"key" : "yeux", "value" : "marrons"},
-                    {"key" : "personalité", "value" : "salope"}
-                ]
-            },
-            {
-                "nom" : "Joseph",
-                "img" : "./assets/charimg/joseph.png",
-                "attributs" : [
-                    {"key" : "cheveux", "value" : "blond"},
-                    {"key" : "yeux", "value" : "bleu"},
-                    {"key" : "personalité", "value" : "nazi"}
-                ]
+                "attributs" : []
             },
             {
                 "nom" : "Magalie",
                 "img" : "./assets/charimg/magalie.png",
-                "attributs" : [
-                    {"key" : "cheveux", "value" : "rouquine"},
-                    {"key" : "yeux", "value" : "marrons"},
-                    {"key" : "personalité", "value" : "salope"}
-                ]
-            },
-            {
-                "nom" : "Joseph",
-                "img" : "./assets/charimg/joseph.png",
-                "attributs" : [
-                    {"key" : "cheveux", "value" : "blond"},
-                    {"key" : "yeux", "value" : "bleu"},
-                    {"key" : "personalité", "value" : "nazi"}
-                ]
+                "attributs" : []
             },
             {
                 "nom" : "Magalie",
                 "img" : "./assets/charimg/magalie.png",
-                "attributs" : [
-                    {"key" : "cheveux", "value" : "rouquine"},
-                    {"key" : "yeux", "value" : "marrons"},
-                    {"key" : "personalité", "value" : "salope"}
-                ]
-            },
-            {
-                "nom" : "Joseph",
-                "img" : "./assets/charimg/joseph.png",
-                "attributs" : [
-                    {"key" : "cheveux", "value" : "blond"},
-                    {"key" : "yeux", "value" : "bleu"},
-                    {"key" : "personalité", "value" : "nazi"}
-                ]
+                "attributs" : []
             },
             {
                 "nom" : "Magalie",
                 "img" : "./assets/charimg/magalie.png",
-                "attributs" : [
-                    {"key" : "cheveux", "value" : "rouquine"},
-                    {"key" : "yeux", "value" : "marrons"},
-                    {"key" : "personalité", "value" : "salope"}
-                ]
-            },
-            {
-                "nom" : "Joseph",
-                "img" : "./assets/charimg/joseph.png",
-                "attributs" : [
-                    {"key" : "cheveux", "value" : "blond"},
-                    {"key" : "yeux", "value" : "bleu"},
-                    {"key" : "personalité", "value" : "nazi"}
-                ]
+                "attributs" : []
             },
             {
                 "nom" : "Magalie",
                 "img" : "./assets/charimg/magalie.png",
-                "attributs" : [
-                    {"key" : "cheveux", "value" : "rouquine"},
-                    {"key" : "yeux", "value" : "marrons"},
-                    {"key" : "personalité", "value" : "salope"}
-                ]
+                "attributs" : []
             },
             {
-                "nom" : "Joseph",
-                "img" : "./assets/charimg/joseph.png",
-                "attributs" : [
-                    {"key" : "cheveux", "value" : "blond"},
-                    {"key" : "yeux", "value" : "bleu"},
-                    {"key" : "personalité", "value" : "nazi"},
-                    {"key" : "personalité", "value" : "nazi"},
-                    {"key" : "personalité", "value" : "nazi"},
-                    {"key" : "personalité", "value" : "nazi"},
-                    {"key" : "personalité", "value" : "nazi"},
-                    {"key" : "personalité", "value" : "nazi"},
-                    {"key" : "personalité", "value" : "nazi"},
-                    {"key" : "personalité", "value" : "nazi"},
-                    {"key" : "personalité", "value" : "nazi"},
-                    {"key" : "personalité", "value" : "nazi"},
-                    {"key" : "personalité", "value" : "nazi"},
-                    {"key" : "personalité", "value" : "nazi"},
-                    {"key" : "personalité", "value" : "nazi"}
-                ]
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : []
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : []
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : []
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : []
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : []
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : []
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : []
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : []
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : []
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : []
+            },
+            {
+                "nom" : "Magalie",
+                "img" : "./assets/charimg/magalie.png",
+                "attributs" : []
             }
         ]
     };
