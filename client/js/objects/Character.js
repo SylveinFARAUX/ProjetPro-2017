@@ -56,12 +56,24 @@ class Character{
      * @returns {boolean}
      */
     check(tabAttributs){
+        if(tabAttributs.length === 0){
+            if(!this.actived)this.active();
+            return true;
+        }
         for(let i = 0; i < tabAttributs.length; i++) {
-            if (!this.attributs.includes(tabAttributs[i].attributeInstance)) {
-                this.unactive(tabAttributs[i].court);
-                return false;
+            for(let j = 0; j < this.attributs.length; j++){
+                if(this.attributs[j].attributeKey === tabAttributs[i].attributeName){
+                    if(!tabAttributs[i].value && this.attributs[j].value === tabAttributs[i].valueName){
+                        this.unactive(tabAttributs[i].attributeName + " = " + tabAttributs[i].valueName);
+                        return false;
+                    }else if(tabAttributs[i].value && this.attributs[j].value !== tabAttributs[i].valueName){
+                        this.unactive(tabAttributs[i].attributeName + " != " + tabAttributs[i].valueName);
+                        return false;
+                    }
+                }
             }
         }
+        if(!this.actived)this.active();
         return true;
     }
 

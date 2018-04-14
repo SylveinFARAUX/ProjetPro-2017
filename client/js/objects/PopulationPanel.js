@@ -85,6 +85,7 @@ class PopulationPanel {
     }
 
     refresh(tabAttribute){
+        console.log(tabAttribute);
         let actif = 0, elim = 0;
         for(let i = 0; i < this.activePopulation.length; i++){
             let bool = this.activePopulation[i].check(tabAttribute);
@@ -168,7 +169,7 @@ class PopulationPanel {
         return  col;
     }
 
-    static majPopInfo(actif, elim){
+    majPopInfo(actif, elim){
         document.getElementById("nbActif").innerHTML = actif;
         document.getElementById("nbElim").innerHTML = elim;
     }

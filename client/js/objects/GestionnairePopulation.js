@@ -7,18 +7,18 @@ let vanilla =
                 "nom" : "Magalie",
                 "img" : "./assets/charimg/magalie.png",
                 "attributs" : [
-                    {"key" : "cheveux", "value" : "chauve"},
-                    {"key" : "yeux", "value" : "marron"},
-                    {"key" : "personalité", "value" : "salope"}
+                    {"key" : "Couleur Cheveux", "value" : "Blond"},
+                    {"key" : "Coupe de Cheveux", "value" : "Chauve"},
+                    {"key" : "Attache de Cheveux", "value" : "Détaché"}
                 ]
             },
             {
                 "nom" : "Joseph",
                 "img" : "./assets/charimg/joseph.png",
                 "attributs" : [
-                    {"key" : "cheveux", "value" : "blond"},
-                    {"key" : "yeux", "value" : "bleu"},
-                    {"key" : "personalité", "value" : "nazi"}
+                    {"key" : "Couleur Cheveux", "value" : "Brun"},
+                    {"key" : "Coupe de Cheveux", "value" : "Court"},
+                    {"key" : "Attache de Cheveux", "value" : "Nattes"}
                 ]
             },
             {
