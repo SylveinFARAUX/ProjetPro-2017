@@ -113,6 +113,7 @@ class PopulationPanel {
             char = this.population[i];
             row.appendChild(this.addChar(char));
         }
+        this.majPopInfo(this.population.length, 0);
     }
 
 
