@@ -477,13 +477,11 @@ class StrategyPanel {
      * @param {!Number} [node] identidiant du noeud créé
      */
     updateStats(node) {
-        //let persosRestants = instance.appInstance.getPopulationPanel().refresh(this.getCurrentAssertionsForNode(node));
-
         let profMax = this.maxDepth();
         let profMin = this.minDepth();
         let profMoy = this.moyDepth(profMin, profMax);
 
-        instance.appInstance.getGestionnairePage().majInfo(profMin, profMax, profMoy, 0);
+        instance.appInstance.getGestionnairePage().majInfo(profMin, profMax, profMoy);
     }
 
     /**

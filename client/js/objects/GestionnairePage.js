@@ -82,12 +82,11 @@ class GestionnairePage {
         }
     }
 
-    majInfo(profMin, profMax, profMoy, hitByAsssert){
+    majInfo(profMin, profMax, profMoy){
         this.showInfo('info_stratégie');
         document.getElementById('infoProfMin').innerHTML = profMin;
         document.getElementById('infoProfMax').innerHTML = profMax;
         document.getElementById('infoProfMoy').innerHTML = profMoy;
-        document.getElementById('infoHitByAsset').innerHTML = hitByAsssert;
     }
 
 }

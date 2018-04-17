@@ -151,8 +151,12 @@ h1, h2, h3, h4, h5{
     height: 100%;
 }
 
-.appRight{
-    height: 50%;
+.appRightPop{
+    height: 80%;
+}
+
+.appRightInfo{
+    height: 20%;
 }
 
 #informations, #informations pre{
