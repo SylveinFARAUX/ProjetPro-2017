@@ -413,6 +413,8 @@ class StrategyPanel {
      * @param {VisEventHandlerParam} params
      */
     onSelectNode(params){
+        let node = this.getNodeAt(params.pointer.DOM);
+        let persoRestant = instance.appInstance.getPopulationPanel().refresh(instance.getCurrentAssertionsForNode(node));
     }
 
     /**
