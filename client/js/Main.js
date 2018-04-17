@@ -173,7 +173,13 @@ $(function(){
                     title: "Supposition", cmd:"assert", children: [],
                     disabled : (event, ui) =>{
                         if(appt instanceof Application){
-                            return appt.getStrategyPanel().getNodeAt(rightClickX, rightClickY) === undefined;
+                            let id = appt.getStrategyPanel().getNodeAt(rightClickX, rightClickY);
+                            if(id  === undefined){
+                                return true;
+                            }else{
+                                let node = appt.getStrategyPanel().getNode(id);
+                                return node === undefined || node.isLeaf;
+                            }
                         }else{
                             return true;
                         }
@@ -190,7 +196,7 @@ $(function(){
                             }else{
                                 let node = appt.getStrategyPanel().getNode(id);
                                 let attr = node.attribute;
-                                return attr === undefined || attr === null;
+                                return attr === undefined || attr === null || node.isLeaf;
                             }
                         }else{
                             return true;
