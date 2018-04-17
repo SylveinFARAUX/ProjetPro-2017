@@ -341,11 +341,12 @@ class StrategyPanel {
     /**
      * Désactive ou active le noeud donné en paramètre et supprime les fils si désactivés
      * @param {!Number} id le noeud à désactiver ou activer
+     * @param {?Number} charactersNumber le nombre de personnages restants
      */
-    updateNode(id){
+    updateNode(id, charactersNumber){
         let node = this.getNode(id);
         if(node.isLeaf){
-            this.leafNode(id);
+            this.leafNode(id, charactersNumber === 0);
         }else if(this.getNode(id).enabled) {
             this.disableNode(id);
         } else {
@@ -519,10 +520,11 @@ class StrategyPanel {
      */
     checkLeafs(){
         this.getNodes().forEach(node => {
-           if(this.appInstance.getPopulationPanel().getNumberOfActivesCharacters(this.getCurrentAssertionsForNode(node.id)) < 2){
+            let lastCharactersNumber = this.appInstance.getPopulationPanel().getNumberOfActivesCharacters(this.getCurrentAssertionsForNode(node.id));
+            if(lastCharactersNumber < 2){
                 this.nodes.update({id:node.id, isLeaf:true});
-                this.updateNode(node.id);
-           }
+                this.updateNode(node.id, lastCharactersNumber);
+            }
         });
     }
 
