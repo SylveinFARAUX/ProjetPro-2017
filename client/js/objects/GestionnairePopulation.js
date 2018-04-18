@@ -1144,7 +1144,7 @@ class GestionnairePopulation {
 
     clearMenuPop(){
         let li = document.getElementsByClassName("clientPop");
-        while(li.length != 0) {
+        while(li.length !== 0) {
             document.getElementById("sousmenuPop").removeChild(li[0]);
         }
     }
@@ -1152,7 +1152,7 @@ class GestionnairePopulation {
     loadMenuPop(){
         let obj = this.appInstance.getPopulationPanel();
         for(let i = 0; i < this.clientPops.length; i++){
-            this.appInstance.getBanniere().addMenuItem("sousmenuPop", function(){ obj.loadPopulation("ClientPop", i); }, "Ma Population " + i, "clientPop")
+            this.appInstance.getBanniere().addMenuItem("sousmenuPop", function(){ obj.loadPopulation("ClientPop", i); }, "Ma Population " + i, "clientPop");
         }
     }
 
@@ -1198,7 +1198,7 @@ class GestionnairePopulation {
 
     majCompteur(){
         let cpt = (24 - this.creaPop.length);
-        if(cpt == 0)
+        if(cpt === 0)
             document.getElementById("pop_creator_save").style.display = "inherit";
         else
             document.getElementById("pop_creator_save").style.display = "none";

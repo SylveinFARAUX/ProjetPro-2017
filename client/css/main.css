@@ -152,11 +152,11 @@ h1, h2, h3, h4, h5{
 }
 
 .appRightPop{
-    height: 80%;
+    height: 65%;
 }
 
 .appRightInfo{
-    height: 20%;
+    height: 35%;
 }
 
 #informations, #informations pre{
@@ -166,4 +166,8 @@ h1, h2, h3, h4, h5{
 
 #informations span{
     display : none;
+}
+
+.info_ {
+    padding : 10px;
 }

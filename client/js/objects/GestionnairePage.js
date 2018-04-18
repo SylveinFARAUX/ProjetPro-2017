@@ -50,8 +50,28 @@ class GestionnairePage {
         if(this.activeInfo !== undefined)document.getElementById(this.activeInfo).style.display = "none";
         this.activeInfo = infoDivId;
         infoDiv.style.display = "inherit";
+        this.setInfoTitle(infoDivId);
         if(this.activeInfo !== "app")
             this.showPage("app");
+    }
+
+    setInfoTitle(infoDivId){
+        let txt = "";
+        switch(infoDivId){
+            case "info_creator" :
+                txt = "Créateurs";
+                break;
+            case "info_regle" :
+                txt = "Règles";
+                break;
+            case "info_stratégie" :
+                txt = "Stratégie";
+                break;
+            case "info_tuto" :
+                txt = "Tuto";
+                break;
+        }
+        document.getElementById("infoDivTitle2").innerHTML = txt;
     }
 
     showLoader(loadId){

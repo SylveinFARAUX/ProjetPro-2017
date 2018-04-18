@@ -24,6 +24,7 @@ class PopulationPanel {
         this.loadPopulation("Vannilla");
         //chargement du panel population par défaut pour le creapop
         this.loadPopCreator();
+        this.loadMenuPopDefaut();
     }
 
     loadPopulation(idPop, idPopClient = 0){
@@ -73,6 +74,7 @@ class PopulationPanel {
         for(let i = 0; i < chars.length; i++){
             this.population[i] = new Character(chars[i], i + "" + d.getTime(), this.attributs);
         }
+        this.refresh();
     }
 
     /**
@@ -187,6 +189,11 @@ class PopulationPanel {
     majPopInfo(actif, elim){
         document.getElementById("nbActif").innerHTML = actif;
         document.getElementById("nbElim").innerHTML = elim;
+    }
+
+    loadMenuPopDefaut(){
+        let obj = this;
+        this.appInstance.getBanniere().addMenuItem("sousmenuPop", function(){ obj.loadPopulation("Vannilla"); }, "Vanilla ", "defaultPop");
     }
 }
 

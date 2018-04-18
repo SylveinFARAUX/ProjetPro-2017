@@ -32,7 +32,6 @@ class Character{
     }
 
     unactive(reason){
-        if(!this.actived)return;
         document.getElementById("charimg" + this.id).style.filter = "grayscale(100%)";
         document.getElementById("charfigure" + this.id).style.borderColor = "#A61011";
         document.getElementById("charstatus" + this.id).innerHTML = "Eliminé : " + reason;
@@ -43,7 +42,7 @@ class Character{
         let res = "";
         for(let i = 0; i < this.attributs.length; i++){
             if(this.attributs[i] === undefined)
-                res += "<span class = 'attr_id'></span>Attribut Inconnu<span class = 'attr_value'></span></br>"
+                res += "<span class = 'attr_id'></span>Attribut Inconnu<span class = 'attr_value'></span></br>";
             else
                 res += "<span class = 'attr_id'>" + this.attributs[i].attributeKey + "</span> : <span class = 'attr_value'>" + this.attributs[i].value + "</span></br>";
         }
@@ -57,28 +56,33 @@ class Character{
      * @returns {boolean}
      */
     check(tabAttributs, updateGUI=false){
-        if(tabAttributs.length === 0){
-            if(updateGUI && !this.actived)this.active();
+        let found;
+        if(tabAttributs === undefined || tabAttributs.length === 0){
+            if(updateGUI)this.active();
             return true;
         }
         for(let i = 0; i < tabAttributs.length; i++) {
-            for(let j = 0; j < this.attributs.length; j++){
-                if(this.attributs[j].attributeKey === tabAttributs[i].attributeName){
-                    if(!tabAttributs[i].value && this.attributs[j].value === tabAttributs[i].valueName){
-                        if(updateGUI){
-                            this.unactive(tabAttributs[i].attributeName + " = " + tabAttributs[i].valueName);
-                        }
-                        return false;
-                    }else if(tabAttributs[i].value && this.attributs[j].value !== tabAttributs[i].valueName){
-                        if(updateGUI){
-                            this.unactive(tabAttributs[i].attributeName + " != " + tabAttributs[i].valueName);
-                        }
-                        return false;
-                    }
+            found = this.attributs.find(
+                function (element) {
+                    return element.attributeKey === tabAttributs[i].attributeName;
+                }
+            );
+            if (found !== undefined) {
+                if(!tabAttributs[i].value && found.value === tabAttributs[i].valueName) {
+                    if (updateGUI) this.unactive(tabAttributs[i].attributeName + " = " + tabAttributs[i].valueName);
+                    return false;
+                }else if (tabAttributs[i].value && found.value !== tabAttributs[i].valueName) {
+                    if (updateGUI) this.unactive(tabAttributs[i].attributeName + " PAS " + tabAttributs[i].valueName);
+                    return false;
+                }
+            }else {//cas où le personnage n'as pas de valeure définit pour cet attribut => par défaut : faux
+                if(tabAttributs[i].value){
+                    if (updateGUI) this.unactive(" PAS DE " + tabAttributs[i].attributeName);
+                    return false;
                 }
             }
         }
-        if(!this.actived)this.active();
+        this.active();
         return true;
     }
 
